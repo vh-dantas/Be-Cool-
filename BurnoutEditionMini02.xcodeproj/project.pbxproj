@@ -20,6 +20,10 @@
 		F15BE5052ABCD950005A1C39 /* NewGoalModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE5042ABCD950005A1C39 /* NewGoalModalViewController.swift */; };
 		F15BE5072ABCD965005A1C39 /* NewSubgoalsModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE5062ABCD965005A1C39 /* NewSubgoalsModalViewController.swift */; };
 		F15BE5092ABCD985005A1C39 /* NewWellnessSubgoalsModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE5082ABCD985005A1C39 /* NewWellnessSubgoalsModalViewController.swift */; };
+		F15BE50B2ABCDB99005A1C39 /* AchievementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE50A2ABCDB99005A1C39 /* AchievementsView.swift */; };
+		F15BE50D2ABCDBDE005A1C39 /* ReflectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE50C2ABCDBDE005A1C39 /* ReflectionView.swift */; };
+		F15BE50F2ABCDE40005A1C39 /* AchievementsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE50E2ABCDE40005A1C39 /* AchievementsViewController.swift */; };
+		F15BE5122ABCDEB1005A1C39 /* ReflectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE5112ABCDEB1005A1C39 /* ReflectionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +42,10 @@
 		F15BE5042ABCD950005A1C39 /* NewGoalModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGoalModalViewController.swift; sourceTree = "<group>"; };
 		F15BE5062ABCD965005A1C39 /* NewSubgoalsModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSubgoalsModalViewController.swift; sourceTree = "<group>"; };
 		F15BE5082ABCD985005A1C39 /* NewWellnessSubgoalsModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWellnessSubgoalsModalViewController.swift; sourceTree = "<group>"; };
+		F15BE50A2ABCDB99005A1C39 /* AchievementsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementsView.swift; sourceTree = "<group>"; };
+		F15BE50C2ABCDBDE005A1C39 /* ReflectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectionView.swift; sourceTree = "<group>"; };
+		F15BE50E2ABCDE40005A1C39 /* AchievementsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementsViewController.swift; sourceTree = "<group>"; };
+		F15BE5112ABCDEB1005A1C39 /* ReflectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,9 +101,9 @@
 			isa = PBXGroup;
 			children = (
 				F15BE4F92ABCC97D005A1C39 /* GoalsViewController.swift */,
-				F15BE5042ABCD950005A1C39 /* NewGoalModalViewController.swift */,
-				F15BE5062ABCD965005A1C39 /* NewSubgoalsModalViewController.swift */,
-				F15BE5082ABCD985005A1C39 /* NewWellnessSubgoalsModalViewController.swift */,
+				F15BE50E2ABCDE40005A1C39 /* AchievementsViewController.swift */,
+				F15BE5112ABCDEB1005A1C39 /* ReflectionViewController.swift */,
+				F15BE5102ABCDE4F005A1C39 /* ModalViewControllers */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -104,6 +112,8 @@
 			isa = PBXGroup;
 			children = (
 				F15BE4FB2ABCC9B6005A1C39 /* GoalsView.swift */,
+				F15BE50A2ABCDB99005A1C39 /* AchievementsView.swift */,
+				F15BE50C2ABCDBDE005A1C39 /* ReflectionView.swift */,
 				F15BE5032ABCD8F4005A1C39 /* NewGoalModal */,
 			);
 			path = Views;
@@ -126,6 +136,16 @@
 				F15BE5012ABCD8E9005A1C39 /* NewWellnessSubgoalsModalView.swift */,
 			);
 			path = NewGoalModal;
+			sourceTree = "<group>";
+		};
+		F15BE5102ABCDE4F005A1C39 /* ModalViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				F15BE5042ABCD950005A1C39 /* NewGoalModalViewController.swift */,
+				F15BE5062ABCD965005A1C39 /* NewSubgoalsModalViewController.swift */,
+				F15BE5082ABCD985005A1C39 /* NewWellnessSubgoalsModalViewController.swift */,
+			);
+			path = ModalViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,14 +220,18 @@
 			files = (
 				F15BE5092ABCD985005A1C39 /* NewWellnessSubgoalsModalViewController.swift in Sources */,
 				F1359EEF2ABB6F92004536E6 /* BurnoutEditionMini02.xcdatamodeld in Sources */,
+				F15BE50D2ABCDBDE005A1C39 /* ReflectionView.swift in Sources */,
 				F15BE4FC2ABCC9B6005A1C39 /* GoalsView.swift in Sources */,
 				F15BE4FA2ABCC97D005A1C39 /* GoalsViewController.swift in Sources */,
+				F15BE5122ABCDEB1005A1C39 /* ReflectionViewController.swift in Sources */,
+				F15BE50B2ABCDB99005A1C39 /* AchievementsView.swift in Sources */,
 				F1359EE52ABB6F92004536E6 /* AppDelegate.swift in Sources */,
 				F15BE5052ABCD950005A1C39 /* NewGoalModalViewController.swift in Sources */,
 				F15BE5022ABCD8E9005A1C39 /* NewWellnessSubgoalsModalView.swift in Sources */,
 				F15BE4FE2ABCD789005A1C39 /* NewGoalModalView.swift in Sources */,
 				F1359EE72ABB6F92004536E6 /* SceneDelegate.swift in Sources */,
 				F15BE5002ABCD89C005A1C39 /* NewSubgoalsModalView.swift in Sources */,
+				F15BE50F2ABCDE40005A1C39 /* AchievementsViewController.swift in Sources */,
 				F15BE5072ABCD965005A1C39 /* NewSubgoalsModalViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

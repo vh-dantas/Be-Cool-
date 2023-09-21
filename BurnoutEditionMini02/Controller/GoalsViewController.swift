@@ -9,9 +9,14 @@ import UIKit
 
 class GoalsViewController: UIViewController {
     
+    let goalsView = GoalsView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        // Instância da View
+        view.addSubview(goalsView)
+        goalsView.setup()
     }
 
 }

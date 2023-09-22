@@ -18,10 +18,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
+        // Instância da Tab Bar Controller
+        let tabBarController = UITabBarController()
+        
+        // Instâncias das View Controllers para a Tab Bar
+        let goalsVC = GoalsViewController()
+        let achievementsVC = AchievementsViewController()
+        let reflectionVC = ReflectionViewController()
+        
+        // Atribuição das ViewController à Tab Bar
+        tabBarController.viewControllers = [goalsVC, achievementsVC, reflectionVC]
+        
+        // Configuração dos Tab Bar Itens
+        goalsVC.tabBarItem = UITabBarItem(title: "goals".localized, image: UIImage(systemName: "target"), selectedImage: nil)
+        achievementsVC.tabBarItem = UITabBarItem(title: "achievements".localized, image: UIImage(systemName: "trophy"), selectedImage: nil)
+        reflectionVC.tabBarItem = UITabBarItem(title: "reflections".localized, image: UIImage(systemName: "figure.mind.and.body"), selectedImage: nil)
+        
         // Configuração da janela, atribuindo à rootView (Necessário ao retirar o arquivo .storyboard)
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = GoalsViewController()
+        window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
     }
 

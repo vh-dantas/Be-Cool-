@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C562C5672ABCDE8E00A3311C /* GoalsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562C5662ABCDE8E00A3311C /* GoalsModel.swift */; };
+		C562C5692ABCE1EE00A3311C /* SubGoalsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562C5682ABCE1EE00A3311C /* SubGoalsModel.swift */; };
 		F1359EE52ABB6F92004536E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1359EE42ABB6F92004536E6 /* AppDelegate.swift */; };
 		F1359EE72ABB6F92004536E6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1359EE62ABB6F92004536E6 /* SceneDelegate.swift */; };
 		F1359EEF2ABB6F92004536E6 /* BurnoutEditionMini02.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F1359EED2ABB6F92004536E6 /* BurnoutEditionMini02.xcdatamodeld */; };
@@ -23,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C562C5662ABCDE8E00A3311C /* GoalsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsModel.swift; sourceTree = "<group>"; };
+		C562C5682ABCE1EE00A3311C /* SubGoalsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubGoalsModel.swift; sourceTree = "<group>"; };
 		F1359EE12ABB6F92004536E6 /* BurnoutEditionMini02.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BurnoutEditionMini02.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1359EE42ABB6F92004536E6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1359EE62ABB6F92004536E6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -51,6 +55,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C562C5652ABCDE5B00A3311C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C562C5662ABCDE8E00A3311C /* GoalsModel.swift */,
+				C562C5682ABCE1EE00A3311C /* SubGoalsModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		F1359ED82ABB6F92004536E6 = {
 			isa = PBXGroup;
 			children = (
@@ -73,20 +86,13 @@
 				F15BE4F82ABCC8C6005A1C39 /* App */,
 				F15BE4F72ABCC8AF005A1C39 /* Views */,
 				F15BE4F52ABCC892005A1C39 /* Controller */,
-				F15BE4F22ABCC86B005A1C39 /* Model */,
+				C562C5652ABCDE5B00A3311C /* Model */,
 				F1359EF02ABB6F93004536E6 /* Assets.xcassets */,
 				F1359EF22ABB6F93004536E6 /* LaunchScreen.storyboard */,
 				F1359EF52ABB6F93004536E6 /* Info.plist */,
 				F1359EED2ABB6F92004536E6 /* BurnoutEditionMini02.xcdatamodeld */,
 			);
 			path = BurnoutEditionMini02;
-			sourceTree = "<group>";
-		};
-		F15BE4F22ABCC86B005A1C39 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		F15BE4F52ABCC892005A1C39 /* Controller */ = {
@@ -208,7 +214,9 @@
 				F15BE4FE2ABCD789005A1C39 /* NewGoalModalView.swift in Sources */,
 				F1359EE72ABB6F92004536E6 /* SceneDelegate.swift in Sources */,
 				F15BE5002ABCD89C005A1C39 /* NewSubgoalsModalView.swift in Sources */,
+				C562C5672ABCDE8E00A3311C /* GoalsModel.swift in Sources */,
 				F15BE5072ABCD965005A1C39 /* NewSubgoalsModalViewController.swift in Sources */,
+				C562C5692ABCE1EE00A3311C /* SubGoalsModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

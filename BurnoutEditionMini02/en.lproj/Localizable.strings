@@ -1,0 +1,16 @@
+/* 
+  Localizable.strings
+  BurnoutEditionMini02
+
+  Created by Thayna Rodrigues on 21/09/23.
+  
+*/
+
+
+// Nomes das views - Tab bar
+"goals" = "Goals";
+"achievements" = "Achievements";
+"reflections" = "Reflections";
+
+
+// NÃO ESQUECER JAMAIS DO ; NO FINAL DAS STRINGS 🙏

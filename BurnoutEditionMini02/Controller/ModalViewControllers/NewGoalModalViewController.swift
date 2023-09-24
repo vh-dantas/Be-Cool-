@@ -7,26 +7,42 @@
 
 import UIKit
 
-class NewGoalModalViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    var tasks = [String]()
-    var tableView: UITableView!
-    var taskTextField: UITextField!
-    var addButton: UIButton!
+class NewGoalModalViewController: UIViewController {
+    
+    // Cria um UILabel
+    let label = UILabel()
+    // Cria um UITextField
+    let textField = UITextField()
+    // Cria o botao de adicionar a meta
+    var addButton = UIButton()
+    
+    var goals = [Goal]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Configurar a UITableView programaticamente
-        tableView = UITableView(frame: view.bounds, style: .plain)
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "TaskCell")
-        view.addSubview(tableView)
+        // Configura propriedades do UILabel
+        label.text = "Adicione aqui sua goal"
+        label.frame = CGRect(x: 50, y: 50, width: 200, height: 30) // Modifiquei o valor de y para evitar sobreposição
         
-        // Configurar o campo de texto para adicionar tarefas
-        taskTextField = UITextField(frame: CGRect(x: 20, y: view.bounds.height - 100, width: view.bounds.width - 120, height: 40))
-        taskTextField.placeholder = "Digite uma nova tarefa"
-        view.addSubview(taskTextField)
+        // Configura propriedades do UITextField
+        textField.placeholder = "Digite algo aqui"
+        textField.borderStyle = .roundedRect
+        
+        // Coloca a cor de fundo da modal (ele seta como transparente por padrão)
+        view.backgroundColor = .white
+        
+        // Adicione a view da tela
+        view.addSubview(label)
+        view.addSubview(textField)
+        
+        // Configure as restrições (autolayout) para o campo de texto
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            textField.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 16), // Mudei o topo do textField para abaixo do label
+            textField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            textField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+        ])
         
         // Configurar o botão para adicionar tarefas
         addButton = UIButton(type: .system)
@@ -34,24 +50,19 @@ class NewGoalModalViewController: UIViewController, UITableViewDataSource, UITab
         addButton.setTitle("Adicionar", for: .normal)
         addButton.addTarget(self, action: #selector(addTask), for: .touchUpInside)
         view.addSubview(addButton)
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tasks.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath)
-        cell.textLabel?.text = tasks[indexPath.row]
-        return cell
+        
     }
     
     @objc func addTask() {
-        if let taskText = taskTextField.text, !taskText.isEmpty {
-            tasks.append(taskText)
-            taskTextField.text = ""
-            tableView.reloadData()
+        if let taskText = textField.text, !taskText.isEmpty {
+            let goal = Goal(id: UUID(), title: taskText)
+            goals.append(goal)
+            textField.text = ""
+            //tableView.reloadData()
         }
     }
 }
+
+
+
 

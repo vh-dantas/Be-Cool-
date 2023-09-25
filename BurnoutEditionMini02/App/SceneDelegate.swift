@@ -21,10 +21,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Instância da Tab Bar Controller
         let tabBarController = UITabBarController()
         
+        // Instância e configuração de NavController da Reflection
+        let navConReflection = UINavigationController(rootViewController: ReflectionViewController())
+        
         // Instâncias das View Controllers para a Tab Bar
         let goalsVC = GoalsViewController()
         let achievementsVC = AchievementsViewController()
-        let reflectionVC = ReflectionViewController()
+        let reflectionVC = navConReflection
         
         // Atribuição das ViewController à Tab Bar
         tabBarController.viewControllers = [goalsVC, achievementsVC, reflectionVC]

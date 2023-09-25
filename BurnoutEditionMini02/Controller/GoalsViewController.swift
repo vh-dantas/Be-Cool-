@@ -35,14 +35,10 @@ class GoalsViewController: UIViewController {
     }
     
     @objc func buttonTapped() {
-        // Crie uma instância da view controller modal
-        let newGoalModalViewController = NewGoalModalViewController() // Substitua com o nome da sua classe ModalViewController
         
-        // Defina a apresentação modal
-        newGoalModalViewController.modalPresentationStyle = .formSheet // ou .formSheet, dependendo da aparência desejada
-        
-        // Apresente a modal
-        self.present(newGoalModalViewController, animated: true, completion: nil)
+        // Crie uma instância da new goal view controller modal que consegue ter navegação (NavigationController que embrulha um ViewController)
+        let newGoalModalViewController = NewGoalModalViewController()
+        presentModal(viewController: newGoalModalViewController)
     }
 }
         

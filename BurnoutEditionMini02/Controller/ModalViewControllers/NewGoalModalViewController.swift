@@ -14,43 +14,52 @@ class NewGoalModalViewController: UIViewController {
     // Cria um UITextField
     let textField = UITextField()
     // Cria o botao de adicionar a meta
-    var addButton = UIButton()
+    let addButton = UIButton(type: .system)
     
+    let stackView = UIStackView()
+    //instancia da model Goal
     var goals = [Goal]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Coloca a cor de fundo da modal (ele seta como transparente por padrão)
+        view.backgroundColor = .white
+        
         // Configura propriedades do UILabel
         label.text = "Adicione aqui sua goal"
-        label.frame = CGRect(x: 50, y: 50, width: 200, height: 30) // Modifiquei o valor de y para evitar sobreposição
         
         // Configura propriedades do UITextField
         textField.placeholder = "Digite algo aqui"
         textField.borderStyle = .roundedRect
         
-        // Coloca a cor de fundo da modal (ele seta como transparente por padrão)
-        view.backgroundColor = .white
-        
-        // Adicione a view da tela
-        view.addSubview(label)
-        view.addSubview(textField)
-        
-        // Configure as restrições (autolayout) para o campo de texto
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            textField.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 16), // Mudei o topo do textField para abaixo do label
-            textField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            textField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
-        ])
-        
-        // Configurar o botão para adicionar tarefas
-        addButton = UIButton(type: .system)
-        addButton.frame = CGRect(x: view.bounds.width - 80, y: view.bounds.height - 100, width: 60, height: 40)
+        //Configura propriedades do UIButton
         addButton.setTitle("Adicionar", for: .normal)
         addButton.addTarget(self, action: #selector(addTask), for: .touchUpInside)
-        view.addSubview(addButton)
         
+        //Configura propriedades da StackView
+        stackView.axis = .vertical //axis = eixo
+        stackView.spacing = 16
+        stackView.translatesAutoresizingMaskIntoConstraints = false //para usar as constraints
+        
+        //Sempre que for criar constraints tem que adicionar antes a subview
+        view.addSubview(stackView)
+        
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
+            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+        ])
+        
+        //adiciona como filhas da stack view
+        stackView.addArrangedSubview(label)
+        stackView.addArrangedSubview(textField)
+        stackView.addArrangedSubview(addButton)
+        
+        NSLayoutConstraint.activate([
+            textField.heightAnchor.constraint(equalToConstant: 52),
+            addButton.heightAnchor.constraint(equalToConstant: 52)
+        ])
     }
     
     @objc func addTask() {
@@ -58,11 +67,12 @@ class NewGoalModalViewController: UIViewController {
             let goal = Goal(id: UUID(), title: taskText)
             goals.append(goal)
             textField.text = ""
-            //tableView.reloadData()
+            
+            // cria a navegacao de push entre as modais
+            let newSubGoalModalViewController = NewSubgoalsModalViewController()
+            navigationController?.pushViewController(newSubGoalModalViewController, animated: true)
         }
     }
 }
-
-
 
 

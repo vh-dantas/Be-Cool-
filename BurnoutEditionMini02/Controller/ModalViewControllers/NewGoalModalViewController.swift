@@ -69,7 +69,7 @@ class NewGoalModalViewController: UIViewController {
             textField.text = ""
             
             // cria a navegacao de push entre as modais
-            let newSubGoalModalViewController = NewSubgoalsModalViewController()
+            let newSubGoalModalViewController = NewSubgoalsModalViewController(goals: goals)
             navigationController?.pushViewController(newSubGoalModalViewController, animated: true)
         }
     }

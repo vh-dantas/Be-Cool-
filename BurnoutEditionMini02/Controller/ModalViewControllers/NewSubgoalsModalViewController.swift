@@ -8,7 +8,18 @@
 import UIKit
 
 class NewSubgoalsModalViewController: UIViewController {
-
+    
+    // Dependency Injection (injeção de dependências)
+    let goals: [Goal]
+    
+    init(goals: [Goal]) {
+        self.goals = goals
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white

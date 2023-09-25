@@ -80,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				2F9CDC8F2ABD153B00C10425 /* LocalizedStringExtension.swift */,
+				C562C56E2AC10B3A00A3311C /* UIViewController+PresentModal.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -132,7 +133,6 @@
 				F15BE4F92ABCC97D005A1C39 /* GoalsViewController.swift */,
 				F15BE50E2ABCDE40005A1C39 /* AchievementsViewController.swift */,
 				F15BE5112ABCDEB1005A1C39 /* ReflectionViewController.swift */,
-				C562C56E2AC10B3A00A3311C /* UIViewController+PresentModal.swift */,
 				F15BE5102ABCDE4F005A1C39 /* ModalViewControllers */,
 			);
 			path = Controller;

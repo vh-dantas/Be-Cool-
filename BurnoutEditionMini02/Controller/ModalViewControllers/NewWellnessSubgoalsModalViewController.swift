@@ -11,8 +11,8 @@ class NewWellnessSubgoalsModalViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        // Coloca a cor de fundo da modal (ele seta como transparente por padrão)
+        view.backgroundColor = .white
     }
     
 

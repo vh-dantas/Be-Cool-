@@ -20,6 +20,8 @@ class NewGoalModalViewController: UIViewController {
     //instancia da model Goal
     var goals = [Goal]()
     
+    weak var delegate: NewGoalModalDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -63,8 +65,9 @@ class NewGoalModalViewController: UIViewController {
     }
     
     @objc func addTask() {
-        if let taskText = textField.text, !taskText.isEmpty {
-            let goal = Goal(id: UUID(), title: taskText)
+        if let goalText = textField.text, !goalText.isEmpty {
+            delegate?.addedGoal(goalText)
+            let goal = Goal(id: UUID(), title: goalText)
             goals.append(goal)
             textField.text = ""
             
@@ -76,3 +79,6 @@ class NewGoalModalViewController: UIViewController {
 }
 
 
+protocol NewGoalModalDelegate: AnyObject {
+    func addedGoal(_ goal: String)
+}

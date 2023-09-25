@@ -25,9 +25,10 @@
 		F15BE5072ABCD965005A1C39 /* NewSubgoalsModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE5062ABCD965005A1C39 /* NewSubgoalsModalViewController.swift */; };
 		F15BE5092ABCD985005A1C39 /* NewWellnessSubgoalsModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE5082ABCD985005A1C39 /* NewWellnessSubgoalsModalViewController.swift */; };
 		F15BE50B2ABCDB99005A1C39 /* AchievementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE50A2ABCDB99005A1C39 /* AchievementsView.swift */; };
-		F15BE50D2ABCDBDE005A1C39 /* ReflectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE50C2ABCDBDE005A1C39 /* ReflectionView.swift */; };
 		F15BE50F2ABCDE40005A1C39 /* AchievementsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE50E2ABCDE40005A1C39 /* AchievementsViewController.swift */; };
 		F15BE5122ABCDEB1005A1C39 /* ReflectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE5112ABCDEB1005A1C39 /* ReflectionViewController.swift */; };
+		F15BE5292AC203CD005A1C39 /* BreathAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE5282AC203CD005A1C39 /* BreathAnimationViewController.swift */; };
+		F15BE52B2AC21BB2005A1C39 /* CreatingNewReflectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE52A2AC21BB2005A1C39 /* CreatingNewReflectionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,9 +53,10 @@
 		F15BE5062ABCD965005A1C39 /* NewSubgoalsModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSubgoalsModalViewController.swift; sourceTree = "<group>"; };
 		F15BE5082ABCD985005A1C39 /* NewWellnessSubgoalsModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWellnessSubgoalsModalViewController.swift; sourceTree = "<group>"; };
 		F15BE50A2ABCDB99005A1C39 /* AchievementsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementsView.swift; sourceTree = "<group>"; };
-		F15BE50C2ABCDBDE005A1C39 /* ReflectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectionView.swift; sourceTree = "<group>"; };
 		F15BE50E2ABCDE40005A1C39 /* AchievementsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementsViewController.swift; sourceTree = "<group>"; };
 		F15BE5112ABCDEB1005A1C39 /* ReflectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectionViewController.swift; sourceTree = "<group>"; };
+		F15BE5282AC203CD005A1C39 /* BreathAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathAnimationViewController.swift; sourceTree = "<group>"; };
+		F15BE52A2AC21BB2005A1C39 /* CreatingNewReflectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatingNewReflectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +135,8 @@
 				F15BE50E2ABCDE40005A1C39 /* AchievementsViewController.swift */,
 				F15BE5112ABCDEB1005A1C39 /* ReflectionViewController.swift */,
 				C562C56E2AC10B3A00A3311C /* UIViewController+PresentModal.swift */,
+				F15BE5282AC203CD005A1C39 /* BreathAnimationViewController.swift */,
+				F15BE52A2AC21BB2005A1C39 /* CreatingNewReflectionViewController.swift */,
 				F15BE5102ABCDE4F005A1C39 /* ModalViewControllers */,
 			);
 			path = Controller;
@@ -142,7 +146,6 @@
 			isa = PBXGroup;
 			children = (
 				F15BE50A2ABCDB99005A1C39 /* AchievementsView.swift */,
-				F15BE50C2ABCDBDE005A1C39 /* ReflectionView.swift */,
 				F15BE5032ABCD8F4005A1C39 /* NewGoalModal */,
 			);
 			path = Views;
@@ -250,8 +253,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F15BE5092ABCD985005A1C39 /* NewWellnessSubgoalsModalViewController.swift in Sources */,
+				F15BE5292AC203CD005A1C39 /* BreathAnimationViewController.swift in Sources */,
 				F1359EEF2ABB6F92004536E6 /* BurnoutEditionMini02.xcdatamodeld in Sources */,
-				F15BE50D2ABCDBDE005A1C39 /* ReflectionView.swift in Sources */,
 				2F9CDC902ABD153B00C10425 /* LocalizedStringExtension.swift in Sources */,
 				C562C56D2ABE297E00A3311C /* SubGoalModel.swift in Sources */,
 				F15BE4FA2ABCC97D005A1C39 /* GoalsViewController.swift in Sources */,
@@ -267,6 +270,7 @@
 				F15BE5002ABCD89C005A1C39 /* NewSubgoalsModalView.swift in Sources */,
 				F15BE50F2ABCDE40005A1C39 /* AchievementsViewController.swift in Sources */,
 				F15BE5072ABCD965005A1C39 /* NewSubgoalsModalViewController.swift in Sources */,
+				F15BE52B2AC21BB2005A1C39 /* CreatingNewReflectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

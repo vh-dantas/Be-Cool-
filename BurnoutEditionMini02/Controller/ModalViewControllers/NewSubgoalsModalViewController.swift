@@ -14,6 +14,8 @@ class NewSubgoalsModalViewController: UIViewController {
     
     init(goals: [Goal]) {
         self.goals = goals
+        // Sempre chamar este super.init
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {

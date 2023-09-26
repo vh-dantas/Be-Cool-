@@ -12,7 +12,7 @@
 		2FC6D6452AC3096A00CAD167 /* SettingsModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC6D6442AC3096A00CAD167 /* SettingsModalViewController.swift */; };
 		C562C56B2ABE290E00A3311C /* GoalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562C56A2ABE290E00A3311C /* GoalModel.swift */; };
 		C562C56D2ABE297E00A3311C /* SubGoalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562C56C2ABE297E00A3311C /* SubGoalModel.swift */; };
-		C562C56F2AC10B3A00A3311C /* UIViewController+PresentModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562C56E2AC10B3A00A3311C /* UIViewController+PresentModal.swift */; };
+		C5DF0B982AC3725D0012C1F4 /* UIViewController+PresentModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DF0B972AC3725D0012C1F4 /* UIViewController+PresentModal.swift */; };
 		F1359EE52ABB6F92004536E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1359EE42ABB6F92004536E6 /* AppDelegate.swift */; };
 		F1359EE72ABB6F92004536E6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1359EE62ABB6F92004536E6 /* SceneDelegate.swift */; };
 		F1359EEF2ABB6F92004536E6 /* BurnoutEditionMini02.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F1359EED2ABB6F92004536E6 /* BurnoutEditionMini02.xcdatamodeld */; };
@@ -39,7 +39,7 @@
 		2FC6D6442AC3096A00CAD167 /* SettingsModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModalViewController.swift; sourceTree = "<group>"; };
 		C562C56A2ABE290E00A3311C /* GoalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalModel.swift; sourceTree = "<group>"; };
 		C562C56C2ABE297E00A3311C /* SubGoalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubGoalModel.swift; sourceTree = "<group>"; };
-		C562C56E2AC10B3A00A3311C /* UIViewController+PresentModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PresentModal.swift"; sourceTree = "<group>"; };
+		C5DF0B972AC3725D0012C1F4 /* UIViewController+PresentModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PresentModal.swift"; sourceTree = "<group>"; };
 		F1359EE12ABB6F92004536E6 /* BurnoutEditionMini02.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BurnoutEditionMini02.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1359EE42ABB6F92004536E6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1359EE62ABB6F92004536E6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -84,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				2F9CDC8F2ABD153B00C10425 /* LocalizedStringExtension.swift */,
+				C5DF0B972AC3725D0012C1F4 /* UIViewController+PresentModal.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -137,7 +138,6 @@
 				F15BE4F92ABCC97D005A1C39 /* GoalsViewController.swift */,
 				F15BE50E2ABCDE40005A1C39 /* AchievementsViewController.swift */,
 				F15BE5112ABCDEB1005A1C39 /* ReflectionViewController.swift */,
-				C562C56E2AC10B3A00A3311C /* UIViewController+PresentModal.swift */,
 				F15BE5282AC203CD005A1C39 /* BreathAnimationViewController.swift */,
 				F15BE52A2AC21BB2005A1C39 /* CreatingNewReflectionViewController.swift */,
 				F15BE5102ABCDE4F005A1C39 /* ModalViewControllers */,
@@ -255,6 +255,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5DF0B982AC3725D0012C1F4 /* UIViewController+PresentModal.swift in Sources */,
 				F15BE52D2AC227ED005A1C39 /* ReflectionModel.swift in Sources */,
 				F15BE5092ABCD985005A1C39 /* NewWellnessSubgoalsModalViewController.swift in Sources */,
 				F15BE5292AC203CD005A1C39 /* BreathAnimationViewController.swift in Sources */,
@@ -268,7 +269,6 @@
 				F15BE5022ABCD8E9005A1C39 /* NewWellnessSubgoalsModalView.swift in Sources */,
 				F15BE4FE2ABCD789005A1C39 /* NewGoalModalView.swift in Sources */,
 				C562C56B2ABE290E00A3311C /* GoalModel.swift in Sources */,
-				C562C56F2AC10B3A00A3311C /* UIViewController+PresentModal.swift in Sources */,
 				F1359EE72ABB6F92004536E6 /* SceneDelegate.swift in Sources */,
 				F15BE5002ABCD89C005A1C39 /* NewSubgoalsModalView.swift in Sources */,
 				2FC6D6452AC3096A00CAD167 /* SettingsModalViewController.swift in Sources */,

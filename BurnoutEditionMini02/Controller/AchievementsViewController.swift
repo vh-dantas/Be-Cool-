@@ -9,15 +9,11 @@ import UIKit
 
 class AchievementsViewController: UIViewController {
 
-    let achievementsView = AchievementsView()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Instância da view
-        view.addSubview(achievementsView)
-        achievementsView.setup()
+        self.title = "Achievements"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        view.backgroundColor = .white // Define a cor de fundo da view como branco
     }
-    
-
 }

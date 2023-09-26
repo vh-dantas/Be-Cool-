@@ -29,6 +29,7 @@
 		F15BE5122ABCDEB1005A1C39 /* ReflectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE5112ABCDEB1005A1C39 /* ReflectionViewController.swift */; };
 		F15BE5292AC203CD005A1C39 /* BreathAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE5282AC203CD005A1C39 /* BreathAnimationViewController.swift */; };
 		F15BE52B2AC21BB2005A1C39 /* CreatingNewReflectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE52A2AC21BB2005A1C39 /* CreatingNewReflectionViewController.swift */; };
+		F15BE52D2AC227ED005A1C39 /* ReflectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE52C2AC227ED005A1C39 /* ReflectionModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +58,7 @@
 		F15BE5112ABCDEB1005A1C39 /* ReflectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectionViewController.swift; sourceTree = "<group>"; };
 		F15BE5282AC203CD005A1C39 /* BreathAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathAnimationViewController.swift; sourceTree = "<group>"; };
 		F15BE52A2AC21BB2005A1C39 /* CreatingNewReflectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatingNewReflectionViewController.swift; sourceTree = "<group>"; };
+		F15BE52C2AC227ED005A1C39 /* ReflectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectionModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 			children = (
 				C562C56A2ABE290E00A3311C /* GoalModel.swift */,
 				C562C56C2ABE297E00A3311C /* SubGoalModel.swift */,
+				F15BE52C2AC227ED005A1C39 /* ReflectionModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F15BE52D2AC227ED005A1C39 /* ReflectionModel.swift in Sources */,
 				F15BE5092ABCD985005A1C39 /* NewWellnessSubgoalsModalViewController.swift in Sources */,
 				F15BE5292AC203CD005A1C39 /* BreathAnimationViewController.swift in Sources */,
 				F1359EEF2ABB6F92004536E6 /* BurnoutEditionMini02.xcdatamodeld in Sources */,

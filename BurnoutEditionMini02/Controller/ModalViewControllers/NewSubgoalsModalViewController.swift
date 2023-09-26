@@ -106,7 +106,7 @@ class NewSubgoalsModalViewController: UIViewController {
     @objc func addSubTask() {
         if let subGoalText = textField.text, !subGoalText.isEmpty {
             delegate?.addedSubGoal(subGoalText)
-            let subgoal = SubGoalStatic(id: UUID(), title: subGoalText, time: Date(), type: .work)
+            let subgoal = SubGoalStatic(id: UUID(), title: subGoalText, level: Int(), type: .work)
             subgoals.append(subgoal)
             textField.text = ""
             

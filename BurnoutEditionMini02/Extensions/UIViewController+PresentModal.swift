@@ -1,9 +1,11 @@
 //
-//  UINavigationController+PresentModal.swift
+//  UIViewController+PresentModal.swift
 //  BurnoutEditionMini02
 //
-//  Created by Mirelle Sine on 24/09/23.
+//  Created by Mirelle Sine on 26/09/23.
 //
+
+import Foundation
 
 import UIKit
 

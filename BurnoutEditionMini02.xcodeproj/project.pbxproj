@@ -12,6 +12,7 @@
 		2FC6D6452AC3096A00CAD167 /* SettingsModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC6D6442AC3096A00CAD167 /* SettingsModalViewController.swift */; };
 		BA7E71652AC35A8D0036028B /* Goal+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7E71632AC35A8D0036028B /* Goal+CoreDataClass.swift */; };
 		BA7E71662AC35A8D0036028B /* Goal+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7E71642AC35A8D0036028B /* Goal+CoreDataProperties.swift */; };
+		BA7E71692AC3609D0036028B /* DAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7E71682AC3609D0036028B /* DAO.swift */; };
 		C562C56B2ABE290E00A3311C /* GoalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562C56A2ABE290E00A3311C /* GoalModel.swift */; };
 		C562C56D2ABE297E00A3311C /* SubGoalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562C56C2ABE297E00A3311C /* SubGoalModel.swift */; };
 		C562C56F2AC10B3A00A3311C /* UIViewController+PresentModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562C56E2AC10B3A00A3311C /* UIViewController+PresentModal.swift */; };
@@ -41,6 +42,7 @@
 		2FC6D6442AC3096A00CAD167 /* SettingsModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModalViewController.swift; sourceTree = "<group>"; };
 		BA7E71632AC35A8D0036028B /* Goal+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataClass.swift"; sourceTree = "<group>"; };
 		BA7E71642AC35A8D0036028B /* Goal+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		BA7E71682AC3609D0036028B /* DAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DAO.swift; sourceTree = "<group>"; };
 		C562C56A2ABE290E00A3311C /* GoalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalModel.swift; sourceTree = "<group>"; };
 		C562C56C2ABE297E00A3311C /* SubGoalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubGoalModel.swift; sourceTree = "<group>"; };
 		C562C56E2AC10B3A00A3311C /* UIViewController+PresentModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PresentModal.swift"; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 				C562C56A2ABE290E00A3311C /* GoalModel.swift */,
 				C562C56C2ABE297E00A3311C /* SubGoalModel.swift */,
 				F15BE52C2AC227ED005A1C39 /* ReflectionModel.swift */,
+				BA7E71682AC3609D0036028B /* DAO.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 			files = (
 				F15BE52D2AC227ED005A1C39 /* ReflectionModel.swift in Sources */,
 				F15BE5092ABCD985005A1C39 /* NewWellnessSubgoalsModalViewController.swift in Sources */,
+				BA7E71692AC3609D0036028B /* DAO.swift in Sources */,
 				BA7E71662AC35A8D0036028B /* Goal+CoreDataProperties.swift in Sources */,
 				F15BE5292AC203CD005A1C39 /* BreathAnimationViewController.swift in Sources */,
 				F1359EEF2ABB6F92004536E6 /* BurnoutEditionMini02.xcdatamodeld in Sources */,

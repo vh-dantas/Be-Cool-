@@ -21,10 +21,10 @@ class NewSubgoalsModalViewController: UIViewController {
     let stackView = UIStackView()
     
     // Dependency Injection (injeção de dependências)
-    let goals: [Goal]
+    let goals: [GoalStatic]
     
     //instancia da model subgoal
-    var subgoals = [SubGoal]()
+    var subgoals = [SubGoalStatic]()
     // Cria table view
     
     weak var delegate: NewSubGoalModalDelegate?
@@ -32,7 +32,7 @@ class NewSubgoalsModalViewController: UIViewController {
     var tableView: UITableView!
     
     
-    init(goals: [Goal]) {
+    init(goals: [GoalStatic]) {
         self.goals = goals
         // Sempre chamar este super.init
         super.init(nibName: nil, bundle: nil)
@@ -106,7 +106,7 @@ class NewSubgoalsModalViewController: UIViewController {
     @objc func addSubTask() {
         if let subGoalText = textField.text, !subGoalText.isEmpty {
             delegate?.addedSubGoal(subGoalText)
-            let subgoal = SubGoal(id: UUID(), title: subGoalText, time: Date(), type: .work)
+            let subgoal = SubGoalStatic(id: UUID(), title: subGoalText, time: Date(), type: .work)
             subgoals.append(subgoal)
             textField.text = ""
             

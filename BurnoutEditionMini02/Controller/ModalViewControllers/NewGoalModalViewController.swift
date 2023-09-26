@@ -18,7 +18,7 @@ class NewGoalModalViewController: UIViewController {
     
     let stackView = UIStackView()
     //instancia da model Goal
-    var goals = [Goal]()
+    var goals = [GoalStatic]()
     
     weak var delegate: NewGoalModalDelegate?
     
@@ -67,7 +67,7 @@ class NewGoalModalViewController: UIViewController {
     @objc func addTask() {
         if let goalText = textField.text, !goalText.isEmpty {
             delegate?.addedGoal(goalText)
-            let goal = Goal(id: UUID(), title: goalText)
+            let goal = GoalStatic(id: UUID(), title: goalText)
             goals.append(goal)
             textField.text = ""
             

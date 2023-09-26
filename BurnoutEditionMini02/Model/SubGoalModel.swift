@@ -12,7 +12,7 @@ enum SubGoalType {
     case personal
 }
 
-class SubGoal {
+class SubGoalStatic {
     var id: UUID
     var title: String
     var time: Date

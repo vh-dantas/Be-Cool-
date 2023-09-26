@@ -10,69 +10,68 @@ import UIKit
 // Implementa o protocolo NewGoalModalDelegate
 class GoalsViewController: UIViewController, NewGoalModalDelegate {
     
-    // Criando uma stack view para mostrar os itens adicionados na modal
-    let goalsStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical // Define a orientação da stack view como vertical
-        stackView.alignment = .leading // Alinha os itens à esquerda
-        stackView.distribution = .equalSpacing // Distribui os itens igualmente
-        stackView.spacing = 8 // Define o espaçamento
-        return stackView
-    }()
-    
-    // Cria uma scroll view
     let scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        return scrollView
-    }()
+            let scrollView = UIScrollView()
+            return scrollView
+        }()
+        
+        let goalsStackView: UIStackView = {
+            let stackView = UIStackView()
+            stackView.axis = .vertical // Define a orientação da stack view como vertical
+            stackView.alignment = .leading // Alinha os itens à esquerda
+            stackView.distribution = .equalSpacing // Distribui os itens igualmente
+            stackView.spacing = 8 // Define o espaçamento
+            return stackView
+        }()
     
     // Função chamada quando a view é carregada
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.title = "goals".localized
+        navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = .white // Define a cor de fundo da view como branco
         
-        // Adiciona o scroll view à view e configura as constraints
         view.addSubview(scrollView)
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
+                scrollView.addSubview(goalsStackView)
+                
+                scrollView.translatesAutoresizingMaskIntoConstraints = false
+                goalsStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([
-            scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor), // Centraliza horizontalmente
-            scrollView.centerYAnchor.constraint(equalTo: view.centerYAnchor), // Centraliza verticalmente
-            scrollView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9), // Define a largura como 90% da largura da view
-            scrollView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.1) // Define a altura como 10% da altura da view
-        ])
+                NSLayoutConstraint.activate([
+                    scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+                    scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                    scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                    scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                    
+                    goalsStackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+                    goalsStackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+                    goalsStackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+                    goalsStackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+                    goalsStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -32)
+                ])
         
-        // Adiciona a goalsStackView ao scroll view e configura as constraints
-        scrollView.addSubview(goalsStackView)
-        goalsStackView.translatesAutoresizingMaskIntoConstraints = false
+        // Cria um botão na navigation
+        let openModalBtn = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(createNewGoal))
+        navigationItem.rightBarButtonItem = openModalBtn
         
-        NSLayoutConstraint.activate([
-            goalsStackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            goalsStackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            goalsStackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            goalsStackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            goalsStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -32)
-        ])
-        
-        // MARK: Cria um botão para abrir a modal
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "plus"), for: .normal)
-        button.frame = CGRect(x: 100, y: 100, width: 200, height: 40)
-        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-        view.addSubview(button)
+        let openSettingsButton = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(openSettings))
+        navigationItem.leftBarButtonItem = openSettingsButton
     }
     
-    @objc func buttonTapped() {
-        // Crie uma instância da new goal view controller modal que consegue ter navegação (NavigationController que embrulha um ViewController)
+    @objc func createNewGoal() {
         let newGoalModalViewController = NewGoalModalViewController()
         newGoalModalViewController.delegate = self // Define o delegate
         presentModal(viewController: newGoalModalViewController) // Apresenta o modal
     }
     
-    // Função chamada quando uma nova meta é adicionada
+    @objc func openSettings() {
+        let settingsModalViewController = SettingsModalViewController()
+        presentModal(viewController: settingsModalViewController)
+    }
+    
     func addedGoal(_ goal: String) {
-        // Cria uma stack view (item da lista)
+        navigationItem.title = goal
         let goalCheckItem = UIStackView()
         goalCheckItem.axis = .horizontal // Define a orientação da stack view como horizontal
         goalCheckItem.spacing = 8 // Define o espaçamento entre os itens

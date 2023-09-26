@@ -25,13 +25,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let navConReflection = UINavigationController(rootViewController: ReflectionViewController())
         
         // Instâncias das View Controllers para a Tab Bar
-        let goalsVC = GoalsViewController()
-        let achievementsVC = AchievementsViewController()
+        let goalsVC = UINavigationController(rootViewController: GoalsViewController())
+        let achievementsVC = UINavigationController(rootViewController: AchievementsViewController())
         let reflectionVC = navConReflection
         
         // Atribuição das ViewController à Tab Bar
         tabBarController.viewControllers = [goalsVC, achievementsVC, reflectionVC]
-        
+
         // Configuração dos Tab Bar Itens
         goalsVC.tabBarItem = UITabBarItem(title: "goals".localized, image: UIImage(systemName: "target"), selectedImage: nil)
         achievementsVC.tabBarItem = UITabBarItem(title: "achievements".localized, image: UIImage(systemName: "trophy"), selectedImage: nil)

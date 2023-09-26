@@ -11,20 +11,20 @@ import UIKit
 class GoalsViewController: UIViewController, NewGoalModalDelegate {
     
     let scrollView: UIScrollView = {
-            let scrollView = UIScrollView()
-            return scrollView
-        }()
-        
-        let goalsStackView: UIStackView = {
-            let stackView = UIStackView()
-            stackView.axis = .vertical // Define a orientação da stack view como vertical
-            stackView.alignment = .leading // Alinha os itens à esquerda
-            stackView.distribution = .equalSpacing // Distribui os itens igualmente
-            stackView.spacing = 8 // Define o espaçamento
-            return stackView
-        }()
+        let scrollView = UIScrollView()
+        return scrollView
+    }()
     
-    // Função chamada quando a view é carregada
+    let goalsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical // Define a orientação da stack view como vertical
+        stackView.alignment = .leading // Alinha os itens à esquerda
+        stackView.distribution = .equalSpacing // Distribui os itens igualmente
+        stackView.spacing = 8 // Define o espaçamento
+        return stackView
+    }()
+    
+    // MARK: -- Carrega a view
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,25 +33,25 @@ class GoalsViewController: UIViewController, NewGoalModalDelegate {
         view.backgroundColor = .white // Define a cor de fundo da view como branco
         
         view.addSubview(scrollView)
-                scrollView.addSubview(goalsStackView)
-                
-                scrollView.translatesAutoresizingMaskIntoConstraints = false
-                goalsStackView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(goalsStackView)
         
-                NSLayoutConstraint.activate([
-                    scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-                    scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                    scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                    scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                    
-                    goalsStackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-                    goalsStackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-                    goalsStackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-                    goalsStackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-                    goalsStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -32)
-                ])
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        goalsStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        // Cria um botão na navigation
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            goalsStackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            goalsStackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            goalsStackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            goalsStackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            goalsStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -32)
+        ])
+        
+        // MARK: -- Botões de navegação
         let openModalBtn = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(createNewGoal))
         navigationItem.rightBarButtonItem = openModalBtn
         

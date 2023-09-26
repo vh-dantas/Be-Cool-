@@ -12,7 +12,7 @@ class AchievementsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Achievements"
+        navigationItem.title = "achievements".localized
         navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = .white // Define a cor de fundo da view como branco
     }

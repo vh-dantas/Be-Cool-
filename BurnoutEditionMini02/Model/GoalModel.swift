@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Goal {
+class GoalStatic {
     var id: UUID
     var title: String
     var isCompleted: Bool

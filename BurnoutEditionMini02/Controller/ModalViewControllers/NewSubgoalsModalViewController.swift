@@ -10,9 +10,9 @@ import UIKit
 class NewSubgoalsModalViewController: UIViewController {
     
     // Dependency Injection (injeção de dependências)
-    let goals: [Goal]
+    let goals: [GoalStatic]
     
-    init(goals: [Goal]) {
+    init(goals: [GoalStatic]) {
         self.goals = goals
         // Sempre chamar este super.init
         super.init(nibName: nil, bundle: nil)

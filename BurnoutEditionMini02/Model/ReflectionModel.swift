@@ -7,16 +7,22 @@
 
 import Foundation
 
-class ReflectionModel {
+class ReflectionModel: CustomStringConvertible {
     var id: UUID
-    var title: String
     var reflection: String
+    var text: String
     var mood: String
+    var date: String
     
-    init(id: UUID, title: String, reflection: String, mood: String) {
+    init(id: UUID, reflection: String, text: String, mood: String, date: String) {
         self.id = id
-        self.title = title
         self.reflection = reflection
+        self.text = text
         self.mood = mood
+        self.date = date
+    }
+    
+    var description: String {
+        return "ID: \(id)\nReflection: \(reflection)\nText: \(text)\nMood: \(mood)\nDate: \(date)"
     }
 }

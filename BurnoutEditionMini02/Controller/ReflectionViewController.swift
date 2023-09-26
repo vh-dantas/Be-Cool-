@@ -12,6 +12,8 @@ class ReflectionViewController: UIViewController {
     // Instância do botão de criar nova reflexão
     let newRefBt = UIButton()
     
+    var reflections: [ReflectionModel] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,6 +31,7 @@ class ReflectionViewController: UIViewController {
         newRefBt.backgroundColor = .lightGray
         newRefBt.layer.cornerRadius = 15
         
+        // MARK: TO-DO - Usar Auto-Layout ao invés do frame
         newRefBt.frame = CGRect(x: view.frame.width/2 - 100, y: view.frame.height/2 - 23, width: 200, height: 46)
         
         // Navegação do botão

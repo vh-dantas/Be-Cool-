@@ -7,23 +7,58 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F9CDC8B2ABD0D5700C10425 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2F9CDC8D2ABD0D5700C10425 /* Localizable.strings */; };
+		2F9CDC902ABD153B00C10425 /* LocalizedStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9CDC8F2ABD153B00C10425 /* LocalizedStringExtension.swift */; };
+		2FC6D6452AC3096A00CAD167 /* SettingsModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC6D6442AC3096A00CAD167 /* SettingsModalViewController.swift */; };
+		C562C56B2ABE290E00A3311C /* GoalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562C56A2ABE290E00A3311C /* GoalModel.swift */; };
+		C562C56D2ABE297E00A3311C /* SubGoalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562C56C2ABE297E00A3311C /* SubGoalModel.swift */; };
+		C5DF0B982AC3725D0012C1F4 /* UIViewController+PresentModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DF0B972AC3725D0012C1F4 /* UIViewController+PresentModal.swift */; };
 		F1359EE52ABB6F92004536E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1359EE42ABB6F92004536E6 /* AppDelegate.swift */; };
 		F1359EE72ABB6F92004536E6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1359EE62ABB6F92004536E6 /* SceneDelegate.swift */; };
-		F1359EE92ABB6F92004536E6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1359EE82ABB6F92004536E6 /* ViewController.swift */; };
 		F1359EEF2ABB6F92004536E6 /* BurnoutEditionMini02.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F1359EED2ABB6F92004536E6 /* BurnoutEditionMini02.xcdatamodeld */; };
 		F1359EF12ABB6F93004536E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1359EF02ABB6F93004536E6 /* Assets.xcassets */; };
 		F1359EF42ABB6F93004536E6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1359EF22ABB6F93004536E6 /* LaunchScreen.storyboard */; };
+		F15BE4FA2ABCC97D005A1C39 /* GoalsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE4F92ABCC97D005A1C39 /* GoalsViewController.swift */; };
+		F15BE4FE2ABCD789005A1C39 /* NewGoalModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE4FD2ABCD789005A1C39 /* NewGoalModalView.swift */; };
+		F15BE5002ABCD89C005A1C39 /* NewSubgoalsModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE4FF2ABCD89C005A1C39 /* NewSubgoalsModalView.swift */; };
+		F15BE5022ABCD8E9005A1C39 /* NewWellnessSubgoalsModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE5012ABCD8E9005A1C39 /* NewWellnessSubgoalsModalView.swift */; };
+		F15BE5052ABCD950005A1C39 /* NewGoalModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE5042ABCD950005A1C39 /* NewGoalModalViewController.swift */; };
+		F15BE5072ABCD965005A1C39 /* NewSubgoalsModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE5062ABCD965005A1C39 /* NewSubgoalsModalViewController.swift */; };
+		F15BE5092ABCD985005A1C39 /* NewWellnessSubgoalsModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE5082ABCD985005A1C39 /* NewWellnessSubgoalsModalViewController.swift */; };
+		F15BE50F2ABCDE40005A1C39 /* AchievementsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE50E2ABCDE40005A1C39 /* AchievementsViewController.swift */; };
+		F15BE5122ABCDEB1005A1C39 /* ReflectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE5112ABCDEB1005A1C39 /* ReflectionViewController.swift */; };
+		F15BE5292AC203CD005A1C39 /* BreathAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE5282AC203CD005A1C39 /* BreathAnimationViewController.swift */; };
+		F15BE52B2AC21BB2005A1C39 /* CreatingNewReflectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE52A2AC21BB2005A1C39 /* CreatingNewReflectionViewController.swift */; };
+		F15BE52D2AC227ED005A1C39 /* ReflectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE52C2AC227ED005A1C39 /* ReflectionModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2F9CDC8C2ABD0D5700C10425 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		2F9CDC8E2ABD0DC800C10425 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		2F9CDC8F2ABD153B00C10425 /* LocalizedStringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedStringExtension.swift; sourceTree = "<group>"; };
+		2FC6D6442AC3096A00CAD167 /* SettingsModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModalViewController.swift; sourceTree = "<group>"; };
+		C562C56A2ABE290E00A3311C /* GoalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalModel.swift; sourceTree = "<group>"; };
+		C562C56C2ABE297E00A3311C /* SubGoalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubGoalModel.swift; sourceTree = "<group>"; };
+		C5DF0B972AC3725D0012C1F4 /* UIViewController+PresentModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PresentModal.swift"; sourceTree = "<group>"; };
 		F1359EE12ABB6F92004536E6 /* BurnoutEditionMini02.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BurnoutEditionMini02.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1359EE42ABB6F92004536E6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1359EE62ABB6F92004536E6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		F1359EE82ABB6F92004536E6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F1359EEE2ABB6F92004536E6 /* BurnoutEditionMini02.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BurnoutEditionMini02.xcdatamodel; sourceTree = "<group>"; };
 		F1359EF02ABB6F93004536E6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F1359EF32ABB6F93004536E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F1359EF52ABB6F93004536E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F15BE4F92ABCC97D005A1C39 /* GoalsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsViewController.swift; sourceTree = "<group>"; };
+		F15BE4FD2ABCD789005A1C39 /* NewGoalModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGoalModalView.swift; sourceTree = "<group>"; };
+		F15BE4FF2ABCD89C005A1C39 /* NewSubgoalsModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSubgoalsModalView.swift; sourceTree = "<group>"; };
+		F15BE5012ABCD8E9005A1C39 /* NewWellnessSubgoalsModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWellnessSubgoalsModalView.swift; sourceTree = "<group>"; };
+		F15BE5042ABCD950005A1C39 /* NewGoalModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGoalModalViewController.swift; sourceTree = "<group>"; };
+		F15BE5062ABCD965005A1C39 /* NewSubgoalsModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSubgoalsModalViewController.swift; sourceTree = "<group>"; };
+		F15BE5082ABCD985005A1C39 /* NewWellnessSubgoalsModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWellnessSubgoalsModalViewController.swift; sourceTree = "<group>"; };
+		F15BE50E2ABCDE40005A1C39 /* AchievementsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementsViewController.swift; sourceTree = "<group>"; };
+		F15BE5112ABCDEB1005A1C39 /* ReflectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectionViewController.swift; sourceTree = "<group>"; };
+		F15BE5282AC203CD005A1C39 /* BreathAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathAnimationViewController.swift; sourceTree = "<group>"; };
+		F15BE52A2AC21BB2005A1C39 /* CreatingNewReflectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatingNewReflectionViewController.swift; sourceTree = "<group>"; };
+		F15BE52C2AC227ED005A1C39 /* ReflectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectionModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +72,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2FFE58CD2AC1385500ECA413 /* Localizations */ = {
+			isa = PBXGroup;
+			children = (
+				2F9CDC8D2ABD0D5700C10425 /* Localizable.strings */,
+			);
+			path = Localizations;
+			sourceTree = "<group>";
+		};
+		2FFE58CE2AC1386000ECA413 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2F9CDC8F2ABD153B00C10425 /* LocalizedStringExtension.swift */,
+				C5DF0B972AC3725D0012C1F4 /* UIViewController+PresentModal.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		F1359ED82ABB6F92004536E6 = {
 			isa = PBXGroup;
 			children = (
@@ -56,15 +108,79 @@
 		F1359EE32ABB6F92004536E6 /* BurnoutEditionMini02 */ = {
 			isa = PBXGroup;
 			children = (
-				F1359EE42ABB6F92004536E6 /* AppDelegate.swift */,
-				F1359EE62ABB6F92004536E6 /* SceneDelegate.swift */,
-				F1359EE82ABB6F92004536E6 /* ViewController.swift */,
+				F15BE4F82ABCC8C6005A1C39 /* App */,
+				F15BE4F72ABCC8AF005A1C39 /* Views */,
+				F15BE4F52ABCC892005A1C39 /* Controller */,
+				F15BE4F22ABCC86B005A1C39 /* Model */,
 				F1359EF02ABB6F93004536E6 /* Assets.xcassets */,
 				F1359EF22ABB6F93004536E6 /* LaunchScreen.storyboard */,
 				F1359EF52ABB6F93004536E6 /* Info.plist */,
 				F1359EED2ABB6F92004536E6 /* BurnoutEditionMini02.xcdatamodeld */,
+				2FFE58CE2AC1386000ECA413 /* Extensions */,
+				2FFE58CD2AC1385500ECA413 /* Localizations */,
 			);
 			path = BurnoutEditionMini02;
+			sourceTree = "<group>";
+		};
+		F15BE4F22ABCC86B005A1C39 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C562C56A2ABE290E00A3311C /* GoalModel.swift */,
+				C562C56C2ABE297E00A3311C /* SubGoalModel.swift */,
+				F15BE52C2AC227ED005A1C39 /* ReflectionModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F15BE4F52ABCC892005A1C39 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F15BE4F92ABCC97D005A1C39 /* GoalsViewController.swift */,
+				F15BE50E2ABCDE40005A1C39 /* AchievementsViewController.swift */,
+				F15BE5112ABCDEB1005A1C39 /* ReflectionViewController.swift */,
+				F15BE5282AC203CD005A1C39 /* BreathAnimationViewController.swift */,
+				F15BE52A2AC21BB2005A1C39 /* CreatingNewReflectionViewController.swift */,
+				F15BE5102ABCDE4F005A1C39 /* ModalViewControllers */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		F15BE4F72ABCC8AF005A1C39 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F15BE5032ABCD8F4005A1C39 /* NewGoalModal */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F15BE4F82ABCC8C6005A1C39 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				F1359EE42ABB6F92004536E6 /* AppDelegate.swift */,
+				F1359EE62ABB6F92004536E6 /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		F15BE5032ABCD8F4005A1C39 /* NewGoalModal */ = {
+			isa = PBXGroup;
+			children = (
+				F15BE4FD2ABCD789005A1C39 /* NewGoalModalView.swift */,
+				F15BE4FF2ABCD89C005A1C39 /* NewSubgoalsModalView.swift */,
+				F15BE5012ABCD8E9005A1C39 /* NewWellnessSubgoalsModalView.swift */,
+			);
+			path = NewGoalModal;
+			sourceTree = "<group>";
+		};
+		F15BE5102ABCDE4F005A1C39 /* ModalViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				F15BE5042ABCD950005A1C39 /* NewGoalModalViewController.swift */,
+				F15BE5062ABCD965005A1C39 /* NewSubgoalsModalViewController.swift */,
+				F15BE5082ABCD985005A1C39 /* NewWellnessSubgoalsModalViewController.swift */,
+				2FC6D6442AC3096A00CAD167 /* SettingsModalViewController.swift */,
+			);
+			path = ModalViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -109,6 +225,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"pt-BR",
 			);
 			mainGroup = F1359ED82ABB6F92004536E6;
 			productRefGroup = F1359EE22ABB6F92004536E6 /* Products */;
@@ -126,6 +243,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F1359EF42ABB6F93004536E6 /* LaunchScreen.storyboard in Resources */,
+				2F9CDC8B2ABD0D5700C10425 /* Localizable.strings in Resources */,
 				F1359EF12ABB6F93004536E6 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -137,16 +255,41 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F1359EE92ABB6F92004536E6 /* ViewController.swift in Sources */,
+				C5DF0B982AC3725D0012C1F4 /* UIViewController+PresentModal.swift in Sources */,
+				F15BE52D2AC227ED005A1C39 /* ReflectionModel.swift in Sources */,
+				F15BE5092ABCD985005A1C39 /* NewWellnessSubgoalsModalViewController.swift in Sources */,
+				F15BE5292AC203CD005A1C39 /* BreathAnimationViewController.swift in Sources */,
 				F1359EEF2ABB6F92004536E6 /* BurnoutEditionMini02.xcdatamodeld in Sources */,
+				2F9CDC902ABD153B00C10425 /* LocalizedStringExtension.swift in Sources */,
+				C562C56D2ABE297E00A3311C /* SubGoalModel.swift in Sources */,
+				F15BE4FA2ABCC97D005A1C39 /* GoalsViewController.swift in Sources */,
+				F15BE5122ABCDEB1005A1C39 /* ReflectionViewController.swift in Sources */,
 				F1359EE52ABB6F92004536E6 /* AppDelegate.swift in Sources */,
+				F15BE5052ABCD950005A1C39 /* NewGoalModalViewController.swift in Sources */,
+				F15BE5022ABCD8E9005A1C39 /* NewWellnessSubgoalsModalView.swift in Sources */,
+				F15BE4FE2ABCD789005A1C39 /* NewGoalModalView.swift in Sources */,
+				C562C56B2ABE290E00A3311C /* GoalModel.swift in Sources */,
 				F1359EE72ABB6F92004536E6 /* SceneDelegate.swift in Sources */,
+				F15BE5002ABCD89C005A1C39 /* NewSubgoalsModalView.swift in Sources */,
+				2FC6D6452AC3096A00CAD167 /* SettingsModalViewController.swift in Sources */,
+				F15BE50F2ABCDE40005A1C39 /* AchievementsViewController.swift in Sources */,
+				F15BE5072ABCD965005A1C39 /* NewSubgoalsModalViewController.swift in Sources */,
+				F15BE52B2AC21BB2005A1C39 /* CreatingNewReflectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		2F9CDC8D2ABD0D5700C10425 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2F9CDC8C2ABD0D5700C10425 /* en */,
+				2F9CDC8E2ABD0DC800C10425 /* pt-BR */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		F1359EF22ABB6F93004536E6 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -162,6 +305,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -222,6 +366,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";

@@ -38,7 +38,7 @@ class BreathAnimationViewController: UIViewController, CAAnimationDelegate {
         let animation = CABasicAnimation(keyPath: "transform.scale")
         animation.fromValue = 1
         animation.toValue = 4
-        animation.duration = 3
+        animation.duration = 0.5
         animation.autoreverses = true
         animation.delegate = self
         animLayer.add(animation, forKey: nil)

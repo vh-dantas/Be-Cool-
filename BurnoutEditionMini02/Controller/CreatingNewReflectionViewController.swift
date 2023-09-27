@@ -43,6 +43,9 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
     
     // Mensagem gerada pelo app para promover a reflexão
     var randomMessage: String = ""
+    
+    // Botão para PencilKit
+    var drawButton = UIButton()
         
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
@@ -60,7 +63,31 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
         setupMoodTracker()
         setupSaveButton()
         setupCancelBt()
+        setupDrawButton()
         
+    }
+    
+    // MARK: - Botão para desenhar
+    private func setupDrawButton() {
+        drawButton.setImage(UIImage(systemName: "pencil"), for: .normal)
+        drawButton.backgroundColor = .lightGray
+        drawButton.layer.cornerRadius = 5
+        
+        view.addSubview(drawButton)
+        
+        drawButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            drawButton.heightAnchor.constraint(equalToConstant: 30),
+            drawButton.widthAnchor.constraint(equalToConstant: 30),
+            drawButton.leadingAnchor.constraint(equalTo: textField.leadingAnchor),
+            drawButton.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 5)
+        ])
+        
+        drawButton.addTarget(self, action: #selector(goToCanvas), for: .touchUpInside)
+    }
+    
+    @objc func goToCanvas() {
+        navigationController?.pushViewController(ReflectionCanvasViewController(), animated: true)
     }
     
     // MARK: - Botão de cancelar
@@ -107,14 +134,14 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
     
     @objc func saveButtonTapped() {
         
-        guard let textRef = textField.text, !textRef.isEmpty else {
-            // Exibir mensagem de erro: Campo de Reflection vazio
-            return
-        }
+        let getDrawing = ReflectionCanvasViewController()
+        
+        guard let textRef = textField.text else { return }
         
         let id = getID()
         let reflection = randomMessage
         let text = textRef
+        let drawing = getDrawing.finalDrawing
         let mood = selectedMood ?? ""
         let date = Date()
         
@@ -122,7 +149,7 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let formattedDate = dateFormatter.string(from: date)
         
-        let newReflection = ReflectionModel(id: id, reflection: reflection, text: text, mood: mood, date: formattedDate)
+        let newReflection = ReflectionModel(id: id, reflection: reflection, text: text, draw: drawing, mood: mood, date: formattedDate)
         
         reflectionModels.append(newReflection)
         
@@ -191,7 +218,7 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
         NSLayoutConstraint.activate([
             thirdLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             thirdLabel.widthAnchor.constraint(equalToConstant: view.frame.width - 40),
-            thirdLabel.topAnchor.constraint(equalTo: secondLabel.bottomAnchor, constant: 325)
+            thirdLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -160)
         ])
         
         randomMessageLabel.translatesAutoresizingMaskIntoConstraints = false

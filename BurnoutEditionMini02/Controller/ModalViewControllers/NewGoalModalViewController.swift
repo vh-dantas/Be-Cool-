@@ -10,16 +10,22 @@ import UIKit
 class NewGoalModalViewController: UIViewController {
     
     // Cria um UILabel
-    let label = UILabel()
-    // Cria um UITextField
-    let textField = UITextField()
-    // Cria o botao de adicionar a meta
-    let addButton = UIButton(type: .system)
+    let firstLabel = UILabel()
+    let secondLabel = UILabel()
     
+    //Cria o textfield
+    let bottomLineTextField = CustomLineTextField()
+    
+    // Cria o botao de adicionar a meta
+    let addButton = UIButton(type: .custom)
+    
+    // Cria uma stack view
     let stackView = UIStackView()
+    
     //instancia da model Goal
     var goals = [GoalStatic]()
     
+    //delegate
     weak var delegate: NewGoalModalDelegate?
     
     override func viewDidLoad() {
@@ -29,15 +35,31 @@ class NewGoalModalViewController: UIViewController {
         view.backgroundColor = .white
         
         // Configura propriedades do UILabel
-        label.text = "Adicione aqui sua goal"
+        firstLabel.text = "Definindo seu objetivo profissional"
+        firstLabel.font = UIFont.systemFont(ofSize: 28, weight: .bold)
+        firstLabel.lineBreakMode = .byWordWrapping
+        firstLabel.sizeToFit()
+        firstLabel.numberOfLines = 0
         
-        // Configura propriedades do UITextField
-        textField.placeholder = "Digite algo aqui"
-        textField.borderStyle = .roundedRect
+        secondLabel.text = "Comece com uma meta clara e de curto prazo!"
+        secondLabel.font = UIFont.systemFont(ofSize: 15, weight: .light)
+        secondLabel.lineBreakMode = .byWordWrapping
+        secondLabel.sizeToFit()
+        secondLabel.numberOfLines = 0
+        
+        //configura propriedades do textfield
+        bottomLineTextField.placeholder = "Digite alguma coisa"
+        bottomLineTextField.textAlignment = .left
+        bottomLineTextField.maxLength = 50  //numero maximo de caracteres
+        //bottomLineTextField.frame = CGRect(x: 50, y: 100, width: 200, height: 30)
+        bottomLineTextField.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: .editingChanged) // o que acontece quando digita
+
         
         //Configura propriedades do UIButton
-        addButton.setTitle("Adicionar", for: .normal)
-        addButton.addTarget(self, action: #selector(addTask), for: .touchUpInside)
+        if let image = UIImage(named: "button") {
+        addButton.setImage(image, for: .normal)
+        }
+        addButton.addTarget(self, action: #selector(addTask), for: .touchUpInside) // o que acontece quando clica no botao
         
         //Configura propriedades da StackView
         stackView.axis = .vertical //axis = eixo
@@ -48,36 +70,92 @@ class NewGoalModalViewController: UIViewController {
         view.addSubview(stackView)
         
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
+            stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 60),
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])
         
         //adiciona como filhas da stack view
-        stackView.addArrangedSubview(label)
-        stackView.addArrangedSubview(textField)
+        stackView.addArrangedSubview(firstLabel)
+        stackView.addArrangedSubview(secondLabel)
+        stackView.addArrangedSubview(bottomLineTextField)
         stackView.addArrangedSubview(addButton)
         
         NSLayoutConstraint.activate([
-            textField.heightAnchor.constraint(equalToConstant: 52),
-            addButton.heightAnchor.constraint(equalToConstant: 52)
+            addButton.heightAnchor.constraint(equalToConstant: 1000),
+            //addButton.
         ])
     }
     
     @objc func addTask() {
-        if let goalText = textField.text, !goalText.isEmpty {
+        if let goalText = bottomLineTextField.text, !goalText.isEmpty {
             delegate?.addedGoal(goalText)
             let goal = GoalStatic(id: UUID(), title: goalText)
             goals.append(goal)
-            textField.text = ""
+            bottomLineTextField.text = ""
             
             // cria a navegacao de push entre as modais
             let newSubGoalModalViewController = NewSubgoalsModalViewController(goals: goals)
             navigationController?.pushViewController(newSubGoalModalViewController, animated: true)
+            
+            
+        }
+    }
+    
+    @objc func textFieldDidChange( textField: UITextField) {
+        if let customLineTextField = textField as? CustomLineTextField {
+            customLineTextField.contador()
         }
     }
 }
 
+class CustomLineTextField: UITextField {
+    
+    //divider
+    private let bottomLine = UIView()
+    //contador de characteres
+    private let characterCountLabel = UILabel()
+    
+    //tamanho maxima da label
+    var maxLength: Int?
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupUI()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setupUI()
+    }
+    
+    private func setupUI() {
+        
+        bottomLine.backgroundColor = .secondaryLabel
+        addSubview(bottomLine)
+        
+        characterCountLabel.textAlignment = .left
+        characterCountLabel.textColor = .gray
+        characterCountLabel.font = UIFont.systemFont(ofSize: 17)
+        addSubview(characterCountLabel)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        bottomLine.frame = CGRect(x: 0, y: frame.height - 1, width: frame.width, height: 1)
+        
+        let countLabelWidth: CGFloat = 40
+        let countLabelHeight: CGFloat = 20
+        characterCountLabel.frame = CGRect(x: frame.width - countLabelWidth, y: frame.height, width: countLabelWidth, height: countLabelHeight)
+    }
+    
+    func contador() {
+        guard let maxLength = maxLength else { return }
+        let currentCount = text?.count ?? 0
+        characterCountLabel.text = "\(currentCount)/\(maxLength)"
+    }
+}
 
 protocol NewGoalModalDelegate: AnyObject {
     func addedGoal(_ goal: String)

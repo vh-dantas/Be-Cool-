@@ -12,7 +12,8 @@ class NewSubgoalsModalViewController: UIViewController {
     
     
     // Cria um UILabel
-    let label = UILabel()
+    let firstLabel = UILabel()
+    let secondLabel = UILabel()
     // Cria um UITextField
     let textField = UITextField()
     // Cria o botao de adicionar a meta
@@ -49,7 +50,18 @@ class NewSubgoalsModalViewController: UIViewController {
         view.backgroundColor = .white
         
         // Configura propriedades do UILabel
-        label.text = "Adicione aqui sua subgoal"
+        firstLabel.text = "Dividindo para conquistar"
+        firstLabel.font = UIFont.systemFont(ofSize: 28, weight: .bold)
+        firstLabel.lineBreakMode = .byWordWrapping
+        firstLabel.sizeToFit()
+        firstLabel.numberOfLines = 0
+        
+        secondLabel.text = "Divida sua meta em tarefas menores"
+        secondLabel.font = UIFont.systemFont(ofSize: 15, weight: .light)
+        secondLabel.lineBreakMode = .byWordWrapping
+        secondLabel.sizeToFit()
+        secondLabel.numberOfLines = 0
+
         
         // Configura propriedades do UITextField
         textField.placeholder = "Digite algo aqui"
@@ -64,18 +76,7 @@ class NewSubgoalsModalViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-                
-        // Add constraints here
-//                tableView.translatesAutoresizingMaskIntoConstraints = false
-//                NSLayoutConstraint.activate([
-//                    tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-//                    tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-//                    tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-//                    tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
-//                ])
-            
-        
-        
+
         //Configura propriedades da StackView
         stackView.axis = .vertical //axis = eixo
         stackView.spacing = 16
@@ -91,7 +92,8 @@ class NewSubgoalsModalViewController: UIViewController {
         ])
         
         //adiciona como filhas da stack view
-        stackView.addArrangedSubview(label)
+        stackView.addArrangedSubview(firstLabel)
+        stackView.addArrangedSubview(secondLabel)
         stackView.addArrangedSubview(textField)
         stackView.addArrangedSubview(addButton)
         stackView.addArrangedSubview(tableView)

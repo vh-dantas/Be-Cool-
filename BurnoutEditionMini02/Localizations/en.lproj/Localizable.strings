@@ -12,5 +12,10 @@
 "achievements" = "Achievements";
 "reflections" = "Reflections";
 
+// Settings View
+"settings" = "Settings";
+"water" = "Drink Water";
+"stretch" = "Stretch";
+"walk-around" = "Go for a walk";
 
 // NÃO ESQUECER JAMAIS DO ; NO FINAL DAS STRINGS 🙏

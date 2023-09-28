@@ -9,6 +9,9 @@ import UIKit
 
 class NewGoalModalViewController: UIViewController {
     
+    //Criar a home para iniciar o delegate
+    let homeGoal: GoalsViewController
+    
     // Cria um UILabel
     let firstLabel = UILabel()
     let secondLabel = UILabel()
@@ -23,10 +26,20 @@ class NewGoalModalViewController: UIViewController {
     let stackView = UIStackView()
     
     //instancia da model Goal
-    var goals = [GoalStatic]()
+    var goals = [Goal]()
+    //var goals = [GoalStatic]()
     
     //delegate
     weak var delegate: NewGoalModalDelegate?
+    
+    init(homeGoal: GoalsViewController) {
+        self.homeGoal = homeGoal
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,18 +98,24 @@ class NewGoalModalViewController: UIViewController {
             addButton.heightAnchor.constraint(equalToConstant: 1000),
             //addButton.
         ])
+        // Populando a array Goal
+        fetchGoal()
     }
     
     @objc func addTask() {
         if let goalText = bottomLineTextField.text, !goalText.isEmpty {
-            delegate?.addedGoal(goalText)
-            let goal = GoalStatic(id: UUID(), title: goalText)
-            goals.append(goal)
+            // Cria um Goal e faz o fetch no banco
+            DataAcessObject.shared.createGoal(title: goalText)
+            fetchGoal()
+            //let goal = GoalStatic(id: UUID(), title: goalText)
+            //goals.append(goal)
             bottomLineTextField.text = ""
             
             // cria a navegacao de push entre as modais
             let newSubGoalModalViewController = NewSubgoalsModalViewController(goals: goals)
             navigationController?.pushViewController(newSubGoalModalViewController, animated: true)
+            newSubGoalModalViewController.delegate = homeGoal
+            delegate?.addedGoal(goalText)
             
             
         }
@@ -159,4 +178,12 @@ class CustomLineTextField: UITextField {
 
 protocol NewGoalModalDelegate: AnyObject {
     func addedGoal(_ goal: String)
+}
+
+
+extension  NewGoalModalViewController {
+    // Função para buscar as Goals salvas no banco e popular a array
+    func fetchGoal() {
+        self.goals = DataAcessObject.shared.fetchGoal()
+    }
 }

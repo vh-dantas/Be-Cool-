@@ -22,11 +22,13 @@ class NewSubgoalsModalViewController: UIViewController {
     let stackView = UIStackView()
     
     // Dependency Injection (injeção de dependências)
-    let goals: [GoalStatic]
+    let goals: [Goal]
+    
+   // private let newGoal: Goal
 
     
     //instancia da model subgoal
-    var subgoals = [SubGoalStatic]()
+    var subgoals = [SubGoal]()
     // Cria table view
     
     weak var delegate: NewSubGoalModalDelegate?
@@ -35,8 +37,9 @@ class NewSubgoalsModalViewController: UIViewController {
     
     
 
-    init(goals: [GoalStatic]) {
+    init(goals: [Goal]) {
         self.goals = goals
+        
         // Sempre chamar este super.init
         super.init(nibName: nil, bundle: nil)
     }
@@ -105,24 +108,33 @@ class NewSubgoalsModalViewController: UIViewController {
             addButton.heightAnchor.constraint(equalToConstant: 52),
             tableView.heightAnchor.constraint(equalToConstant: 200)
         ])
+        
+        fetchSubGoalsArray()
     }
     ///função que adiciona subgoal
     @objc func addSubTask() {
         if let subGoalText = textField.text, !subGoalText.isEmpty {
             delegate?.addedSubGoal(subGoalText)
-            let subgoal = SubGoalStatic(id: UUID(), title: subGoalText, level: Int(), type: .work)
-            subgoals.append(subgoal)
-            textField.text = ""
-            
-            tableView.reloadData()
-            
-            // cria a navegacao de push entre as modais
-//            let NewWellnessSubgoalsModalViewController = NewWellnessSubgoalsModalViewController()
-//            navigationController?.pushViewController(NewWellnessSubgoalsModalViewController, animated: true)
-            
-            
+            // Verificando de a primeira Goal (a ultima goal criada) é nil
+            if let newGoal = DataAcessObject.shared.fetchGoal().first {
+                DataAcessObject.shared.createSubGoal(title: subGoalText, type: "", goal: newGoal)
+                //let subgoal = SubGoalStatic(id: UUID(), title: subGoalText, level: Int(), type: .work)
+               // subgoals.append(subgoal)
+                fetchSubGoalsArray()
+                textField.text = ""
+                
+                tableView.reloadData()
+                self.setNeedsStatusBarAppearanceUpdate()
+                delegate?.addedSubGoal(subGoalText)
+                // cria a navegacao de push entre as modais
+                //            let NewWellnessSubgoalsModalViewController = NewWellnessSubgoalsModalViewController()
+                //            navigationController?.pushViewController(NewWellnessSubgoalsModalViewController, animated: true)
+                
+            }
         }
     }
+    
+    
 }
 
 // Extend o view controller pra entrar em conformidade com a UITableViewDelegate e UITableViewDataSource
@@ -149,3 +161,13 @@ protocol NewSubGoalModalDelegate: AnyObject {
 }
 
 
+extension NewSubgoalsModalViewController {
+    func fetchSubGoalsArray() {
+        if let goal = DataAcessObject.shared.fetchGoal().first {
+            self.subgoals = DataAcessObject.shared.fetchSubGoals(goal: goal)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
+}

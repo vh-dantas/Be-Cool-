@@ -32,10 +32,15 @@ class DataAcessObject {
     
     
     // Funçao de buscar Meta - Goal
-    func fetcxhGoal() -> [Goal] {
+    func fetchGoal() -> [Goal] {
         do {
+            // Criando a requisição no banco
+            let request = NSFetchRequest<Goal>(entityName: "Goal")
+            // Criando a ordenação dos dados, serão ordeanos pela data de criação de forma decrescente
+            let sort = NSSortDescriptor(key: "createdDate", ascending: false)
+            request.sortDescriptors = [sort]
             // Busca no banco todos os Goals salvos
-            let items = try context.fetch(Goal.fetchRequest())
+            let items = try context.fetch(request)
             return items
         } catch {
             print("Erro em buscar as Goals - retornando uma array vazia")
@@ -51,6 +56,7 @@ class DataAcessObject {
         newGoal.id = UUID()
         newGoal.title = title
         newGoal.isCompleted = false  // isCompleted começa falso pois não começa completa
+        newGoal.createdDate = Date()
         // Salvando os dados
         saveContext()
     }

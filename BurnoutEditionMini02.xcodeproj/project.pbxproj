@@ -34,6 +34,8 @@
 		F15BE52B2AC21BB2005A1C39 /* CreatingNewReflectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE52A2AC21BB2005A1C39 /* CreatingNewReflectionViewController.swift */; };
 		F15BE52D2AC227ED005A1C39 /* ReflectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE52C2AC227ED005A1C39 /* ReflectionModel.swift */; };
 		F1D15BC72AC45E2E00528743 /* ReflectionCanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D15BC62AC45E2E00528743 /* ReflectionCanvasViewController.swift */; };
+		F1D15BCA2AC4ECF800528743 /* CreatingNewReflection2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D15BC92AC4ECF800528743 /* CreatingNewReflection2ViewController.swift */; };
+		F1D15BCC2AC51A2B00528743 /* CreatingNewReflection3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D15BCB2AC51A2B00528743 /* CreatingNewReflection3ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +70,8 @@
 		F15BE52A2AC21BB2005A1C39 /* CreatingNewReflectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatingNewReflectionViewController.swift; sourceTree = "<group>"; };
 		F15BE52C2AC227ED005A1C39 /* ReflectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectionModel.swift; sourceTree = "<group>"; };
 		F1D15BC62AC45E2E00528743 /* ReflectionCanvasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectionCanvasViewController.swift; sourceTree = "<group>"; };
+		F1D15BC92AC4ECF800528743 /* CreatingNewReflection2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatingNewReflection2ViewController.swift; sourceTree = "<group>"; };
+		F1D15BCB2AC51A2B00528743 /* CreatingNewReflection3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatingNewReflection3ViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,10 +162,7 @@
 			children = (
 				F15BE4F92ABCC97D005A1C39 /* GoalsViewController.swift */,
 				F15BE50E2ABCDE40005A1C39 /* AchievementsViewController.swift */,
-				F15BE5112ABCDEB1005A1C39 /* ReflectionViewController.swift */,
-				F15BE5282AC203CD005A1C39 /* BreathAnimationViewController.swift */,
-				F15BE52A2AC21BB2005A1C39 /* CreatingNewReflectionViewController.swift */,
-				F1D15BC62AC45E2E00528743 /* ReflectionCanvasViewController.swift */,
+				F1D15BC82AC4EC7600528743 /* Reflection */,
 				F15BE5102ABCDE4F005A1C39 /* ModalViewControllers */,
 			);
 			path = Controller;
@@ -203,6 +204,19 @@
 				2FC6D6442AC3096A00CAD167 /* SettingsModalViewController.swift */,
 			);
 			path = ModalViewControllers;
+			sourceTree = "<group>";
+		};
+		F1D15BC82AC4EC7600528743 /* Reflection */ = {
+			isa = PBXGroup;
+			children = (
+				F15BE5112ABCDEB1005A1C39 /* ReflectionViewController.swift */,
+				F15BE5282AC203CD005A1C39 /* BreathAnimationViewController.swift */,
+				F15BE52A2AC21BB2005A1C39 /* CreatingNewReflectionViewController.swift */,
+				F1D15BC92AC4ECF800528743 /* CreatingNewReflection2ViewController.swift */,
+				F1D15BCB2AC51A2B00528743 /* CreatingNewReflection3ViewController.swift */,
+				F1D15BC62AC45E2E00528743 /* ReflectionCanvasViewController.swift */,
+			);
+			path = Reflection;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -277,6 +291,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1D15BCA2AC4ECF800528743 /* CreatingNewReflection2ViewController.swift in Sources */,
 				C5DF0B982AC3725D0012C1F4 /* UIViewController+PresentModal.swift in Sources */,
 				F15BE52D2AC227ED005A1C39 /* ReflectionModel.swift in Sources */,
 				F15BE5092ABCD985005A1C39 /* NewWellnessSubgoalsModalViewController.swift in Sources */,
@@ -294,6 +309,7 @@
 				F15BE5022ABCD8E9005A1C39 /* NewWellnessSubgoalsModalView.swift in Sources */,
 				F15BE4FE2ABCD789005A1C39 /* NewGoalModalView.swift in Sources */,
 				C562C56B2ABE290E00A3311C /* GoalModel.swift in Sources */,
+				F1D15BCC2AC51A2B00528743 /* CreatingNewReflection3ViewController.swift in Sources */,
 				F1359EE72ABB6F92004536E6 /* SceneDelegate.swift in Sources */,
 				F15BE5002ABCD89C005A1C39 /* NewSubgoalsModalView.swift in Sources */,
 				2FC6D6452AC3096A00CAD167 /* SettingsModalViewController.swift in Sources */,

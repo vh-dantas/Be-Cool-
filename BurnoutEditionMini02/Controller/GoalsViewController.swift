@@ -84,12 +84,16 @@ class GoalsViewController: UIViewController, NewGoalModalDelegate, NewSubGoalMod
     
     
     @objc func createNewGoal() {
-        let newGoalModalViewController = NewGoalModalViewController(homeGoal: self)
-        newGoalModalViewController.delegate = self // Define o delegate
-        presentModal(viewController: newGoalModalViewController) // Apresenta o modal
+        // Certifique-se de criar sua nova view desejada
+        let nextScreen = NewGoalModalViewController(homeGoal: self)
         
+        nextScreen.delegate = self // Define o delegate
         
-        
+        //navegação de telas
+        if let navigationController = self.navigationController {
+            nextScreen.hidesBottomBarWhenPushed = true
+            navigationController.pushViewController(nextScreen, animated: true)
+        }
     }
     
     @objc func openSettings() {

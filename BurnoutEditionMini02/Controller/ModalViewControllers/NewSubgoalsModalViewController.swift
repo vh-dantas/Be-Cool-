@@ -8,35 +8,31 @@
 import UIKit
 
 class NewSubgoalsModalViewController: UIViewController {
-    
-    
-    
+
     // Cria um UILabel
     let firstLabel = UILabel()
     let secondLabel = UILabel()
+    
     // Cria um UITextField
     let textField = UITextField()
+    
     // Cria o botao de adicionar a meta
     let addButton = UIButton(type: .system)
+    
     //Cria stack view
     let stackView = UIStackView()
     
     // Dependency Injection (injeção de dependências)
     let goals: [Goal]
-    
-   // private let newGoal: Goal
 
-    
     //instancia da model subgoal
     var subgoals = [SubGoal]()
-    // Cria table view
     
     weak var delegate: NewSubGoalModalDelegate?
     
+    // Cria table view
     var tableView: UITableView!
     
-    
-
     init(goals: [Goal]) {
         self.goals = goals
         
@@ -80,7 +76,8 @@ class NewSubgoalsModalViewController: UIViewController {
         tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(AddSubGoalCell.self, forCellReuseIdentifier: "addSubGoalCell")
+        //tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
 
         //Configura propriedades da StackView
         stackView.axis = .vertical //axis = eixo
@@ -118,42 +115,49 @@ class NewSubgoalsModalViewController: UIViewController {
             // Verificando de a primeira Goal (a ultima goal criada) é nil
             if let newGoal = DataAcessObject.shared.fetchGoal().first {
                 DataAcessObject.shared.createSubGoal(title: subGoalText, type: "", goal: newGoal)
-                //let subgoal = SubGoalStatic(id: UUID(), title: subGoalText, level: Int(), type: .work)
-               // subgoals.append(subgoal)
                 fetchSubGoalsArray()
                 textField.text = ""
                 
                 tableView.reloadData()
                 self.setNeedsStatusBarAppearanceUpdate()
                 delegate?.addedSubGoal(subGoalText)
-                // cria a navegacao de push entre as modais
-                //            let NewWellnessSubgoalsModalViewController = NewWellnessSubgoalsModalViewController()
-                //            navigationController?.pushViewController(NewWellnessSubgoalsModalViewController, animated: true)
-                
             }
         }
     }
-    
-    
 }
 
 // Extend o view controller pra entrar em conformidade com a UITableViewDelegate e UITableViewDataSource
 extension NewSubgoalsModalViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return subgoals.count
+        return subgoals.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
-        let subgoal = subgoals[indexPath.row]
-        
-        cell.textLabel?.text = subgoal.title
-        
-        return cell
+        //quando tiver na primeira posição de quantidade de subgoasl
+        if indexPath.row == 0 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "addSubGoalCell", for: indexPath) as? AddSubGoalCell else {
+                return UITableViewCell()  //vai retornar vazio se não conseguir
+            }
+            cell.label.text = "Checklist de tarefas"
+            let buttonSize: CGFloat = 25
+            
+            cell.button.backgroundColor = .systemBlue
+            cell.button.tintColor = .white
+            cell.button.setImage(UIImage(systemName: "plus"), for: .normal)
+            cell.button.layer.cornerRadius = buttonSize / 2
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+            
+            let subgoal = subgoals[indexPath.row]
+            
+            cell.textLabel?.text = subgoal.title
+            
+            return cell
+        }
     }
-
 }
 
 protocol NewSubGoalModalDelegate: AnyObject {

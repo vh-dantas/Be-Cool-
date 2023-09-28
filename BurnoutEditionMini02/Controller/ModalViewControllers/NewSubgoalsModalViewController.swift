@@ -23,6 +23,7 @@ class NewSubgoalsModalViewController: UIViewController {
     
     // Dependency Injection (injeção de dependências)
     let goals: [GoalStatic]
+
     
     //instancia da model subgoal
     var subgoals = [SubGoalStatic]()
@@ -33,6 +34,7 @@ class NewSubgoalsModalViewController: UIViewController {
     var tableView: UITableView!
     
     
+
     init(goals: [GoalStatic]) {
         self.goals = goals
         // Sempre chamar este super.init

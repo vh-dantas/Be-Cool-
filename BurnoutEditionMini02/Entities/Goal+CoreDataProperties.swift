@@ -19,6 +19,7 @@ extension Goal {
     @NSManaged public var isCompleted: Bool
     @NSManaged public var title: String?
     @NSManaged public var id: UUID?
+    @NSManaged public var createdDate: Date?
     @NSManaged public var subGoals: NSSet?
     
     public var subGoalsArray: [SubGoal] {

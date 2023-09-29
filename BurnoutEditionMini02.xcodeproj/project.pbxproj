@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F5FD3A62AC751330012DA88 /* NotificationsSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5FD3A52AC751330012DA88 /* NotificationsSettings.swift */; };
+		2F5FD3A82AC7518C0012DA88 /* SubgoalLevelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5FD3A72AC7518C0012DA88 /* SubgoalLevelViewController.swift */; };
 		2F9CDC8B2ABD0D5700C10425 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2F9CDC8D2ABD0D5700C10425 /* Localizable.strings */; };
 		2F9CDC902ABD153B00C10425 /* LocalizedStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9CDC8F2ABD153B00C10425 /* LocalizedStringExtension.swift */; };
 		2FC6D6452AC3096A00CAD167 /* SettingsModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC6D6442AC3096A00CAD167 /* SettingsModalViewController.swift */; };
@@ -42,6 +44,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2F5FD3A52AC751330012DA88 /* NotificationsSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsSettings.swift; sourceTree = "<group>"; };
+		2F5FD3A72AC7518C0012DA88 /* SubgoalLevelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubgoalLevelViewController.swift; sourceTree = "<group>"; };
 		2F9CDC8C2ABD0D5700C10425 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2F9CDC8E2ABD0DC800C10425 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		2F9CDC8F2ABD153B00C10425 /* LocalizedStringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedStringExtension.swift; sourceTree = "<group>"; };
@@ -198,6 +202,7 @@
 			children = (
 				F1359EE42ABB6F92004536E6 /* AppDelegate.swift */,
 				F1359EE62ABB6F92004536E6 /* SceneDelegate.swift */,
+				2F5FD3A52AC751330012DA88 /* NotificationsSettings.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -217,6 +222,7 @@
 			children = (
 				F15BE5042ABCD950005A1C39 /* NewGoalModalViewController.swift */,
 				F15BE5062ABCD965005A1C39 /* NewSubgoalsModalViewController.swift */,
+				2F5FD3A72AC7518C0012DA88 /* SubgoalLevelViewController.swift */,
 				F15BE5082ABCD985005A1C39 /* NewWellnessSubgoalsModalViewController.swift */,
 				2FC6D6442AC3096A00CAD167 /* SettingsModalViewController.swift */,
 			);
@@ -323,6 +329,7 @@
 				BA7E71652AC35A8D0036028B /* Goal+CoreDataClass.swift in Sources */,
 				C5DF0BA32AC614EA0012C1F4 /* AddSubGoalCell.swift in Sources */,
 				F1359EE52ABB6F92004536E6 /* AppDelegate.swift in Sources */,
+				2F5FD3A62AC751330012DA88 /* NotificationsSettings.swift in Sources */,
 				C5DF0BA12AC6147A0012C1F4 /* CustomLineTextField.swift in Sources */,
 				F15BE5052ABCD950005A1C39 /* NewGoalModalViewController.swift in Sources */,
 				F15BE5022ABCD8E9005A1C39 /* NewWellnessSubgoalsModalView.swift in Sources */,
@@ -331,6 +338,7 @@
 				C562C56B2ABE290E00A3311C /* GoalModel.swift in Sources */,
 				F1D15BCC2AC51A2B00528743 /* CreatingNewReflection3ViewController.swift in Sources */,
 				F1359EE72ABB6F92004536E6 /* SceneDelegate.swift in Sources */,
+				2F5FD3A82AC7518C0012DA88 /* SubgoalLevelViewController.swift in Sources */,
 				F15BE5002ABCD89C005A1C39 /* NewSubgoalsModalView.swift in Sources */,
 				2FC6D6452AC3096A00CAD167 /* SettingsModalViewController.swift in Sources */,
 				F15BE50F2ABCDE40005A1C39 /* AchievementsViewController.swift in Sources */,

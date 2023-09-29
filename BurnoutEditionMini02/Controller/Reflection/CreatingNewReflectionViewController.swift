@@ -14,99 +14,87 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
     var textField: UITextField = UITextField()
     
     // Labels
-    let firstLabel = UILabel()
-    let thirdLabel = UILabel()
-    
-    // Divider
-    let divider = UIView()
-    
-    // Botão de salvar
-    let saveReflectionBt = UIButton(type: .system)
-    
-    // Array de reflections
-    var reflectionModels: [ReflectionModel] = []
+    let label1 = UILabel()
+    let label2 = UILabel()
     
     // Mensagem gerada pelo app para promover a reflexão
-    var randomMessage: String = ""
+    var randomRefQst: String = ""
     
     // Botão para PencilKit
     var drawButton = UIButton()
     
-    // MARK: - TESTE
-    let nextScreen = UIButton()
+    // Botão para próxima tela
+    let nextScreenBt = UIButton()
+    
+    // BarButtonItens
+    var backButton: UIBarButtonItem?
+    var cancelButton: UIBarButtonItem?
         
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
-        navigationItem.rightBarButtonItem?.image = UIImage(systemName: "xmark")
-        
         view.backgroundColor = .white
         
-//        setupLabels()
-//        setupTextFields()
-//        setupCancelBt()
-//        setupDrawButton()
-        testeFunc()
+        // BarButtonItens
+        backButton = UIBarButtonItem(title: "", image: UIImage(systemName: "chevron.left"), target: self, action: #selector(backButtonFunc))
+        cancelButton = UIBarButtonItem(title: "", image: UIImage(systemName: "xmark"), target: self, action: #selector(cancelButtonFunc))
+        
+        // Funções setup
+        setupLabels()
+        setupTextFields()
+        setupDrawButton()
+        setupNextScreenBt()
+        
+        // Constraints
+        constraints()
         
     }
     
-    // MARK: - BOTÃO TESTE
-    private func testeFunc() {
-        nextScreen.setTitle("TESTE", for: .normal)
-        nextScreen.backgroundColor = .lightGray
-        nextScreen.layer.cornerRadius = 5
+    // MARK: - Selector dos BarButtonItem
+    @objc func backButtonFunc() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func cancelButtonFunc() {
+        navigationController?.popToRootViewController(animated: true)
+    }
+    
+    // MARK: - NextScreen Button
+    private func setupNextScreenBt() {
+        // Configurações do botão
+        nextScreenBt.setImage(UIImage(systemName: "chevron.right"), for: .normal)
+        nextScreenBt.tintColor = UIColor.white
+        nextScreenBt.configuration?.buttonSize = .large
         
-        view.addSubview(nextScreen)
+        nextScreenBt.backgroundColor = .systemBlue
+        nextScreenBt.layer.cornerRadius = 27.5
         
-        nextScreen.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            nextScreen.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100),
-            nextScreen.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -100),
-            nextScreen.heightAnchor.constraint(equalToConstant: 80),
-            nextScreen.widthAnchor.constraint(equalToConstant: 80)
-        ])
+        view.addSubview(nextScreenBt)
         
-        nextScreen.addTarget(self, action: #selector(goToNextScreen), for: .touchUpInside)
-        
+        nextScreenBt.addTarget(self, action: #selector(goToNextScreen), for: .touchUpInside)
     }
     
     @objc func goToNextScreen() {
-        navigationController?.pushViewController(CreatingNewReflection2ViewController(), animated: true)
+        let nextScreen = CreatingNewReflection2ViewController(randomRefQst: randomRefQst, randomRefAns: textField.text ?? "")
+        
+        navigationController?.pushViewController(nextScreen, animated: true)
     }
     
     // MARK: - Botão para desenhar
     private func setupDrawButton() {
+        // Configurações do botão de desenho
         drawButton.setImage(UIImage(systemName: "pencil"), for: .normal)
         drawButton.backgroundColor = .lightGray
         drawButton.layer.cornerRadius = 5
         
         view.addSubview(drawButton)
-        
-        drawButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            drawButton.heightAnchor.constraint(equalToConstant: 30),
-            drawButton.widthAnchor.constraint(equalToConstant: 30),
-            drawButton.leadingAnchor.constraint(equalTo: textField.leadingAnchor),
-            drawButton.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 5)
-        ])
-        
         drawButton.addTarget(self, action: #selector(goToCanvas), for: .touchUpInside)
     }
     
     @objc func goToCanvas() {
         navigationController?.pushViewController(ReflectionCanvasViewController(), animated: true)
-    }
-    
-    // MARK: - Botão de cancelar
-    private func setupCancelBt() {
-        let cancelBt = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelReflection))
-        navigationItem.rightBarButtonItem = cancelBt
-    }
-    
-    @objc private func cancelReflection() {
-        navigationController?.popToRootViewController(animated: true)
     }
     
     // MARK: - Gerar mensagem random
@@ -116,69 +104,29 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
                                  "How good are you at the thing you were doing?",
                                  "How do you feel after accomplishing your goal?"]
         
-        randomMessage = message[Int.random(in: 0...message.count - 1)]
+        randomRefQst = message[Int.random(in: 0...message.count - 1)]
         
-        return randomMessage
+        return randomRefQst
     }
     
-    // MARK: - ID
-    private func getID() -> UUID{
-        let id = UUID()
-        return id
-    }
+   
     
-    // MARK: - Labels and Divider
+    // MARK: - Labels
     private func setupLabels() {
         
-        // Label da mensagem gerada e configurações
-        let randomMessageLabel = UILabel()
-        randomMessageLabel.text = generateMessage()
-        randomMessageLabel.font = UIFont.systemFont(ofSize: 24, weight: .bold)
-        randomMessageLabel.numberOfLines = 3
-        
         // Demais labels fixas e configurações
-        firstLabel.text = "Now take a break and reflect about the following question:"
-        firstLabel.numberOfLines = 2
-        firstLabel.font.withSize(6)
-        firstLabel.textColor = .gray
+        label1.text = "Now take a break and reflect about the following question:"
+        label1.numberOfLines = 2
+        label1.font.withSize(6)
+        label1.textColor = .gray
         
-        thirdLabel.text = "How are you feeling after this reflection?"
-        thirdLabel.font.withSize(6)
-        thirdLabel.textColor = .gray
-        
-        // Cor do Divider
-        divider.backgroundColor = .lightGray
+        label2.text = generateMessage()
+        label2.font = UIFont.systemFont(ofSize: 22, weight: .bold)
+        label2.numberOfLines = 3
         
         // Adicionando à view
-        view.addSubview(firstLabel)
-        view.addSubview(thirdLabel)
-        
-        view.addSubview(randomMessageLabel)
-        
-        view.addSubview(divider)
-        
-        // Constraints
-        firstLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            firstLabel.topAnchor.constraint(equalTo: divider.bottomAnchor, constant: 15),
-            firstLabel.widthAnchor.constraint(equalToConstant: view.frame.width - 40),
-            firstLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-        ])
-        
-        randomMessageLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            randomMessageLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            randomMessageLabel.widthAnchor.constraint(equalToConstant: view.frame.width - 40),
-            randomMessageLabel.topAnchor.constraint(equalTo: firstLabel.bottomAnchor, constant: 15)
-        ])
-        
-        divider.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            divider.widthAnchor.constraint(equalToConstant: view.frame.width),
-            divider.heightAnchor.constraint(equalToConstant: 1),
-            divider.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5)
-        ])
-        
+        view.addSubview(label1)
+        view.addSubview(label2)
     }
     
     
@@ -196,13 +144,50 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
         textField.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(textField)
+    }
+    
+    // MARK: - Labels
+    private func constraints() {
+        // Label 1
+        label1.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            label1.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            label1.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label1.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 18)
+        ])
         
-        // Constraints
+        // Label 2
+        label2.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            label2.topAnchor.constraint(equalTo: label1.bottomAnchor),
+            label2.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label2.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 18)
+        ])
+        
+        // TextField
         NSLayoutConstraint.activate([
             textField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            //textField.topAnchor.constraint(equalTo: secondLabel.bottomAnchor, constant: 15),
+            textField.topAnchor.constraint(equalTo: label2.bottomAnchor, constant: 15),
             textField.widthAnchor.constraint(equalToConstant: screenWidth-40),
             textField.heightAnchor.constraint(equalToConstant: screenHeight/3)
+        ])
+        
+        // Botão para desenhar
+        drawButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            drawButton.heightAnchor.constraint(equalToConstant: 30),
+            drawButton.widthAnchor.constraint(equalToConstant: 30),
+            drawButton.leadingAnchor.constraint(equalTo: textField.leadingAnchor),
+            drawButton.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 5)
+        ])
+        
+        // NextScreen Button
+        nextScreenBt.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            nextScreenBt.widthAnchor.constraint(equalToConstant: 55),
+            nextScreenBt.heightAnchor.constraint(equalToConstant: 55),
+            nextScreenBt.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -45),
+            nextScreenBt.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -35)
         ])
         
     }

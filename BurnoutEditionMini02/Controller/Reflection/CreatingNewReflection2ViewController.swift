@@ -9,10 +9,10 @@ import UIKit
 
 class CreatingNewReflection2ViewController: UIViewController {
     
-    // MARK: - IR DIRETO APÓS ESCOLHER MOOD?
-    // MARK: - PODER TROCAR DE MOOD
-    
     // MARK: - Variáveis
+    // Instâncias das VC
+    let ref1 = CreatingNewReflectionViewController()
+    
     // Labels
     let label = UILabel()
     let label2 = UILabel()
@@ -48,6 +48,23 @@ class CreatingNewReflection2ViewController: UIViewController {
     // Botão para a próxima página
     let nextScreenBt = UIButton()
     
+    // Variáveis da VC anterior
+    var randomRefQst: String
+    var randomRefAns: String
+    
+    // MARK: Initializer
+    init(randomRefQst: String, randomRefAns: String) {
+        
+        self.randomRefQst = randomRefQst
+        self.randomRefAns = randomRefAns
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,13 +81,12 @@ class CreatingNewReflection2ViewController: UIViewController {
         // Funções setup
         setupLabels()
         setupMoodTracker()
-        //setupNextScreenBt()
+        setupNextScreenBt()
         
         // Constraints
         constraints()
     
     }
-    
     // MARK: - Selector dos BarButtonItem
     @objc func backButtonFunc() {
         navigationController?.popViewController(animated: true)
@@ -96,7 +112,10 @@ class CreatingNewReflection2ViewController: UIViewController {
     }
     
     @objc func goToScreen3() {
-        navigationController?.pushViewController(CreatingNewReflection3ViewController(), animated: true)
+        
+        let nextScreen = CreatingNewReflection3ViewController(selectedMood: selectedMood, randomRefQst: randomRefQst, randomRefAns: randomRefAns)
+        
+        navigationController?.pushViewController(nextScreen, animated: true)
     }
     
     // MARK: - Labels
@@ -261,24 +280,10 @@ class CreatingNewReflection2ViewController: UIViewController {
         if hasSelectedMood {
             
         } else {
-            let alertController = UIAlertController(title: "😃", message: happyTxt.text, preferredStyle: .alert)
+            selectedMood = "😃"
+            hasSelectedMood = true
             
-            let no = UIAlertAction(title: "No", style: .default) { _ in
-                alertController.dismiss(animated: true)
-            }
-            
-            let yes = UIAlertAction(title: "Yes", style: .default) { [self] _ in
-                selectedMood = "😃"
-                hasSelectedMood = true
-                navigationController?.pushViewController(CreatingNewReflection3ViewController(), animated: true)
-                print(selectedMood)
-                print(happyTxt.text)
-            }
-            
-            alertController.addAction(no)
-            alertController.addAction(yes)
-            
-            present(alertController, animated: true, completion: nil)
+            happyMood.backgroundColor = .systemBlue
         }
     }
     
@@ -287,24 +292,10 @@ class CreatingNewReflection2ViewController: UIViewController {
         if hasSelectedMood {
             
         } else {
-            let alertController = UIAlertController(title: "😐", message: normalTxt.text, preferredStyle: .alert)
+            selectedMood = "😐"
+            hasSelectedMood = true
             
-            let no = UIAlertAction(title: "No", style: .default) { _ in
-                alertController.dismiss(animated: true)
-            }
-            
-            let yes = UIAlertAction(title: "Yes", style: .default) { [self] _ in
-                selectedMood = "😐"
-                hasSelectedMood = true
-                navigationController?.pushViewController(CreatingNewReflection3ViewController(), animated: true)
-                print(selectedMood)
-                print(normalTxt.text)
-            }
-            
-            alertController.addAction(no)
-            alertController.addAction(yes)
-            
-            present(alertController, animated: true, completion: nil)
+            normalMood.backgroundColor = .systemBlue
         }
     }
     
@@ -313,24 +304,10 @@ class CreatingNewReflection2ViewController: UIViewController {
         if hasSelectedMood {
             
         } else {
-            let alertController = UIAlertController(title: "😔", message: sadTxt.text, preferredStyle: .alert)
+            selectedMood = "😔"
+            hasSelectedMood = true
             
-            let no = UIAlertAction(title: "No", style: .default) { _ in
-                alertController.dismiss(animated: true)
-            }
-            
-            let yes = UIAlertAction(title: "Yes", style: .default) { [self] _ in
-                selectedMood = "😔"
-                hasSelectedMood = true
-                navigationController?.pushViewController(CreatingNewReflection3ViewController(), animated: true)
-                print(selectedMood)
-                print(sadTxt.text)
-            }
-            
-            alertController.addAction(no)
-            alertController.addAction(yes)
-            
-            present(alertController, animated: true, completion: nil)
+            sadMood.backgroundColor = .systemBlue
         }
     }
     
@@ -339,24 +316,10 @@ class CreatingNewReflection2ViewController: UIViewController {
         if hasSelectedMood {
             
         } else {
-            let alertController = UIAlertController(title: "😤", message: stressedTxt.text, preferredStyle: .alert)
+            selectedMood = "😤"
+            hasSelectedMood = true
             
-            let no = UIAlertAction(title: "No", style: .default) { _ in
-                alertController.dismiss(animated: true)
-            }
-            
-            let yes = UIAlertAction(title: "Yes", style: .default) { [self] _ in
-                selectedMood = "😤"
-                hasSelectedMood = true
-                navigationController?.pushViewController(CreatingNewReflection3ViewController(), animated: true)
-                print(selectedMood)
-                print(stressedTxt.text)
-            }
-            
-            alertController.addAction(no)
-            alertController.addAction(yes)
-            
-            present(alertController, animated: true, completion: nil)
+            stressedMood.backgroundColor = .systemBlue
         }
     }
     
@@ -365,24 +328,10 @@ class CreatingNewReflection2ViewController: UIViewController {
         if hasSelectedMood {
             
         } else {
-            let alertController = UIAlertController(title: "🤩", message: excitedTxt.text, preferredStyle: .alert)
+            selectedMood = "🤩"
+            hasSelectedMood = true
             
-            let no = UIAlertAction(title: "No", style: .default) { _ in
-                alertController.dismiss(animated: true)
-            }
-            
-            let yes = UIAlertAction(title: "Yes", style: .default) { [self] _ in
-                selectedMood = "🤩"
-                hasSelectedMood = true
-                navigationController?.pushViewController(CreatingNewReflection3ViewController(), animated: true)
-                print(selectedMood)
-                print(excitedTxt.text)
-            }
-            
-            alertController.addAction(no)
-            alertController.addAction(yes)
-            
-            present(alertController, animated: true, completion: nil)
+            excitedMood.backgroundColor = .systemBlue
         }
     }
     
@@ -391,24 +340,10 @@ class CreatingNewReflection2ViewController: UIViewController {
         if hasSelectedMood {
             
         } else {
-            let alertController = UIAlertController(title: "😌", message: tranquilTxt.text, preferredStyle: .alert)
+            selectedMood = "😌"
+            hasSelectedMood = true
             
-            let no = UIAlertAction(title: "No", style: .default) { _ in
-                alertController.dismiss(animated: true)
-            }
-            
-            let yes = UIAlertAction(title: "Yes", style: .default) { [self] _ in
-                selectedMood = "😌"
-                hasSelectedMood = true
-                navigationController?.pushViewController(CreatingNewReflection3ViewController(), animated: true)
-                print(selectedMood)
-                print(tranquilTxt.text)
-            }
-            
-            alertController.addAction(no)
-            alertController.addAction(yes)
-            
-            present(alertController, animated: true, completion: nil)
+            tranquilMood.backgroundColor = .systemBlue
         }
     }
     
@@ -466,13 +401,13 @@ class CreatingNewReflection2ViewController: UIViewController {
         ])
         
         // Botão NextScreen
-//        nextScreenBt.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            nextScreenBt.widthAnchor.constraint(equalToConstant: 55),
-//            nextScreenBt.heightAnchor.constraint(equalToConstant: 55),
-//            nextScreenBt.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -45),
-//            nextScreenBt.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -35)
-//        ])
+        nextScreenBt.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            nextScreenBt.widthAnchor.constraint(equalToConstant: 55),
+            nextScreenBt.heightAnchor.constraint(equalToConstant: 55),
+            nextScreenBt.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -45),
+            nextScreenBt.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -35)
+        ])
         
     }
     

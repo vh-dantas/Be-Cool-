@@ -8,35 +8,35 @@
 import UIKit
 
 class NewSubgoalsModalViewController: UIViewController {
-    
-    
-    
+
     // Cria um UILabel
     let firstLabel = UILabel()
     let secondLabel = UILabel()
+    
     // Cria um UITextField
     let textField = UITextField()
+    
     // Cria o botao de adicionar a meta
     let addButton = UIButton(type: .system)
+    let BigButton = UIButton(type: .custom)
+    
     //Cria stack view
     let stackView = UIStackView()
     
     // Dependency Injection (injeção de dependências)
-    let goals: [GoalStatic]
+    let goals: [Goal]
 
-    
     //instancia da model subgoal
-    var subgoals = [SubGoalStatic]()
-    // Cria table view
+    var subgoals = [SubGoal]()
     
     weak var delegate: NewSubGoalModalDelegate?
     
+    // Cria table view
     var tableView: UITableView!
     
-    
-
-    init(goals: [GoalStatic]) {
+    init(goals: [Goal]) {
         self.goals = goals
+        
         // Sempre chamar este super.init
         super.init(nibName: nil, bundle: nil)
     }
@@ -77,7 +77,9 @@ class NewSubgoalsModalViewController: UIViewController {
         tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(AddSubGoalCell.self, forCellReuseIdentifier: "addSubGoalCell")
+        tableView.register(SubGoalCellText.self, forCellReuseIdentifier: "subGoalCellText")
+        
 
         //Configura propriedades da StackView
         stackView.axis = .vertical //axis = eixo
@@ -105,43 +107,98 @@ class NewSubgoalsModalViewController: UIViewController {
             addButton.heightAnchor.constraint(equalToConstant: 52),
             tableView.heightAnchor.constraint(equalToConstant: 200)
         ])
+        
+        //cria um conteiner para adicionar o botao dentro
+        let addButtonContainer = UIView()
+        addButtonContainer.isUserInteractionEnabled = true // deixa clicável
+        addButtonContainer.translatesAutoresizingMaskIntoConstraints = false  //deixa setar as constraints
+        view.addSubview(addButtonContainer)
+        
+        //customizando o botao de ir pra próxima tela
+        let buttonSize: CGFloat = 50
+        addButton.backgroundColor = .systemBlue
+        addButton.tintColor = .white
+        addButton.setImage(UIImage(systemName: "chevron.right"), for: .normal)
+        addButton.layer.cornerRadius = buttonSize / 2
+        addButton.translatesAutoresizingMaskIntoConstraints = false
+        addButton.addTarget(self, action: #selector(nextView), for: .touchUpInside)  //ação de quando clica no botão
+        addButtonContainer.addSubview(addButton)
+        //constraints do botao
+        NSLayoutConstraint.activate([
+            addButtonContainer.heightAnchor.constraint(equalToConstant: buttonSize + 16),
+            addButtonContainer.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            addButtonContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            addButtonContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            addButton.widthAnchor.constraint(equalToConstant: buttonSize),
+            addButton.heightAnchor.constraint(equalToConstant: buttonSize),
+            addButton.bottomAnchor.constraint(equalTo: addButtonContainer.bottomAnchor, constant: -16),
+            addButton.trailingAnchor.constraint(equalTo: addButtonContainer.trailingAnchor, constant: -16)
+        ])
+        
+        //adiciona acessório ao keyboard
+        //bottomLineTextField.inputAccessoryView = addButtonContainer
+        
+        fetchSubGoalsArray()
     }
     ///função que adiciona subgoal
     @objc func addSubTask() {
         if let subGoalText = textField.text, !subGoalText.isEmpty {
             delegate?.addedSubGoal(subGoalText)
-            let subgoal = SubGoalStatic(id: UUID(), title: subGoalText, level: Int(), type: .work)
-            subgoals.append(subgoal)
-            textField.text = ""
-            
-            tableView.reloadData()
-            
-            // cria a navegacao de push entre as modais
-//            let NewWellnessSubgoalsModalViewController = NewWellnessSubgoalsModalViewController()
-//            navigationController?.pushViewController(NewWellnessSubgoalsModalViewController, animated: true)
-            
-            
+            // Verificando de a primeira Goal (a ultima goal criada) é nil
+            if let newGoal = DataAcessObject.shared.fetchGoal().first {
+                DataAcessObject.shared.createSubGoal(title: subGoalText, type: "", goal: newGoal)
+                fetchSubGoalsArray()
+                textField.text = ""
+                
+                tableView.reloadData()
+                self.setNeedsStatusBarAppearanceUpdate()
+                delegate?.addedSubGoal(subGoalText)
+            }
         }
     }
+    
+    @objc func nextView() {
+        // cria a navegacao de push entre as telas
+        let newWellnessSubgoalsModalViewController = NewWellnessSubgoalsModalViewController()
+        navigationController?.pushViewController(newWellnessSubgoalsModalViewController, animated: true)
+        //newSubGoalModalViewController.delegate = homeGoal
+        //delegate?.addedGoal(goalText)
+    }
+    
 }
 
 // Extend o view controller pra entrar em conformidade com a UITableViewDelegate e UITableViewDataSource
 extension NewSubgoalsModalViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return subgoals.count
+        return subgoals.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
-        let subgoal = subgoals[indexPath.row]
-        
-        cell.textLabel?.text = subgoal.title
-        
-        return cell
+        //quando tiver na primeira posição de quantidade de subgoasl
+        if indexPath.row == 0 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "addSubGoalCell", for: indexPath) as? AddSubGoalCell else {
+                return UITableViewCell()  //vai retornar vazio se não conseguir
+            }
+            cell.label.text = "Checklist de tarefas"
+            let buttonSize: CGFloat = 25
+            
+            cell.button.backgroundColor = .systemBlue
+            cell.button.tintColor = .white
+            cell.button.setImage(UIImage(systemName: "plus"), for: .normal)
+            cell.button.layer.cornerRadius = buttonSize / 2
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+            
+            let subgoal = subgoals[indexPath.row]
+            
+            cell.textLabel?.text = subgoal.title
+            
+            return cell
+        }
     }
-
 }
 
 protocol NewSubGoalModalDelegate: AnyObject {
@@ -149,3 +206,13 @@ protocol NewSubGoalModalDelegate: AnyObject {
 }
 
 
+extension NewSubgoalsModalViewController {
+    func fetchSubGoalsArray() {
+        if let goal = DataAcessObject.shared.fetchGoal().first {
+            self.subgoals = DataAcessObject.shared.fetchSubGoals(goal: goal)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
+}

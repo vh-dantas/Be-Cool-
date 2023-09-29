@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import CoreData
 
 // Implementa o protocolo NewGoalModalDelegate
-class GoalsViewController: UIViewController, NewGoalModalDelegate {
+class GoalsViewController: UIViewController, NewGoalModalDelegate, NewSubGoalModalDelegate {
     
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -24,11 +25,28 @@ class GoalsViewController: UIViewController, NewGoalModalDelegate {
         return stackView
     }()
     
+    // Table View
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.dataSource = self
+        // tirar as linhas de separacao
+        tableView.separatorStyle = .none
+        // ajusta a ditencia entre as celulas
+        // tableView.separatorInset = .init(top: 80, left: 100, bottom: 40, right: 50)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
+    
+    //CoreData and TableView
+    private var subItems:[SubGoal] = []
+    
     // MARK: -- Carrega a view
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "goals".localized
+      //  navigationItem.title = "goals".localized
+        // O Titulo é a ultima meta adicionada - a meta atual
+        navigationItem.title = DataAcessObject.shared.fetchGoal().first?.title
         navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = .white // Define a cor de fundo da view como branco
         
@@ -50,7 +68,12 @@ class GoalsViewController: UIViewController, NewGoalModalDelegate {
             goalsStackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             goalsStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -32)
         ])
-        
+     
+        constraintsTableView()
+        // Recarregar a array e o titulo
+       // addedGoal("Vazia")
+        addedSubGoal("Vazia")
+        fetchSubGoalsArray()
         // MARK: -- Botões de navegação
         let openModalBtn = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(createNewGoal))
         navigationItem.rightBarButtonItem = openModalBtn
@@ -59,10 +82,18 @@ class GoalsViewController: UIViewController, NewGoalModalDelegate {
         navigationItem.leftBarButtonItem = openSettingsButton
     }
     
+    
     @objc func createNewGoal() {
-        let newGoalModalViewController = NewGoalModalViewController()
-        newGoalModalViewController.delegate = self // Define o delegate
-        presentModal(viewController: newGoalModalViewController) // Apresenta o modal
+        // Certifique-se de criar sua nova view desejada
+        let nextScreen = NewGoalModalViewController(homeGoal: self)
+        
+        nextScreen.delegate = self // Define o delegate
+        
+        //navegação de telas
+        if let navigationController = self.navigationController {
+            nextScreen.hidesBottomBarWhenPushed = true
+            navigationController.pushViewController(nextScreen, animated: true)
+        }
     }
     
     @objc func openSettings() {
@@ -71,25 +102,46 @@ class GoalsViewController: UIViewController, NewGoalModalDelegate {
     }
     
     func addedGoal(_ goal: String) {
-        navigationItem.title = goal
-        let goalCheckItem = UIStackView()
-        goalCheckItem.axis = .horizontal // Define a orientação da stack view como horizontal
-        goalCheckItem.spacing = 8 // Define o espaçamento entre os itens
-        
-        // Cria o checkmark clicável
-        let checkmarkButton = UIButton(type: .system)
-        checkmarkButton.setImage(UIImage(systemName: "circle"), for: .normal)
-        checkmarkButton.addTarget(self, action: #selector(circleButtonTapped(_:)), for: .touchUpInside)
-        
-        // Cria o label que é o nome da meta
-        let goalName = UILabel()
-        goalName.text = goal
-        
-        // Adiciona os dois na stack view goalCheckItem
-        goalCheckItem.addArrangedSubview(checkmarkButton)
-        goalCheckItem.addArrangedSubview(goalName)
-        
-        self.goalsStackView.addArrangedSubview(goalCheckItem)
+        subItems = []
+        DispatchQueue.main.async {
+            self.title = DataAcessObject.shared.fetchGoal().first?.title
+            self.tableView.reloadData()
+        }
+
+ 
+//        DispatchQueue.main.async {
+//            self.navigationItem.title = DataAcessObject.shared.fetchGoal().first?.title
+//        }
+//       // navigationItem.title = DataAcessObject.shared.fetchGoal().first?.title
+//        if let atualGoal = DataAcessObject.shared.fetchGoal().first {
+//            let subGoals = DataAcessObject.shared.fetchSubGoals(goal: atualGoal)
+//            for subGoal in subGoals {
+//                let goalCheckItem = UIStackView()
+//                goalCheckItem.axis = .horizontal // Define a orientação da stack view como horizontal
+//                goalCheckItem.spacing = 8 // Define o espaçamento entre os itens
+//
+//                // Cria o checkmark clicável
+//                let checkmarkButton = UIButton(type: .system)
+//                checkmarkButton.setImage(UIImage(systemName: "circle"), for: .normal)
+//                checkmarkButton.addTarget(self, action: #selector(circleButtonTapped(_:)), for: .touchUpInside)
+//
+//                // Cria o label que é o nome da meta
+//                let goalName = UILabel()
+//                goalName.text = subGoal.title
+//
+//                // Adiciona os dois na stack view goalCheckItem
+//                goalCheckItem.addArrangedSubview(checkmarkButton)
+//                goalCheckItem.addArrangedSubview(goalName)
+//                self.goalsStackView.addArrangedSubview(goalCheckItem)
+//
+//
+//            }
+//        }
+    }
+    
+    
+    func addedSubGoal(_ subgoal: String) {
+        fetchSubGoalsArray()
     }
     
     @objc func circleButtonTapped(_ tappedButton: UIButton) {
@@ -102,3 +154,59 @@ class GoalsViewController: UIViewController, NewGoalModalDelegate {
         }
     }
 }
+
+extension GoalsViewController {
+    // Função para buscar todas as goals
+    func fetchSubGoalsArray() {
+        if let goal = DataAcessObject.shared.fetchGoal().first {
+            self.subItems = DataAcessObject.shared.fetchSubGoals(goal: goal)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+    
+}
+// MARK: Table View
+extension GoalsViewController: UITableViewDataSource{
+    
+    
+    // Retorna o número de sections da list
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    // retorna o numero de elementos presentes em cada section
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return subItems.count
+    }
+    
+    // Retorna as celulas que preenchem as rows
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // cria a celula da UITableView
+        let cell = UITableViewCell(style: .default, reuseIdentifier: "UITableViewCell")
+        // Pega os elementos presentes na array e passa cada uma para uma row
+        cell.textLabel?.text = subItems[indexPath.row].title //"Celula \(indexPath.item)"
+        return cell
+    }
+    
+    // Coloca um title para cada section
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        return goalSelected?.title ?? "Meta"
+//        
+//    }
+    
+    private func constraintsTableView(){
+        view.addSubview(tableView)
+        
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+    }
+}
+
+

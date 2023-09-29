@@ -9,6 +9,9 @@ import UIKit
 
 class NewGoalModalViewController: UIViewController {
     
+    //Criar a home para iniciar o delegate
+    let homeGoal: GoalsViewController
+    
     // Cria um UILabel
     let firstLabel = UILabel()
     let secondLabel = UILabel()
@@ -23,10 +26,19 @@ class NewGoalModalViewController: UIViewController {
     let stackView = UIStackView()
     
     //instancia da model Goal
-    var goals = [GoalStatic]()
+    var goals = [Goal]()
     
     //delegate
     weak var delegate: NewGoalModalDelegate?
+    
+    init(homeGoal: GoalsViewController) {
+        self.homeGoal = homeGoal
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,15 +63,7 @@ class NewGoalModalViewController: UIViewController {
         bottomLineTextField.placeholder = "Digite alguma coisa"
         bottomLineTextField.textAlignment = .left
         bottomLineTextField.maxLength = 50  //numero maximo de caracteres
-        //bottomLineTextField.frame = CGRect(x: 50, y: 100, width: 200, height: 30)
         bottomLineTextField.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: .editingChanged) // o que acontece quando digita
-
-        
-        //Configura propriedades do UIButton
-        if let image = UIImage(named: "button") {
-        addButton.setImage(image, for: .normal)
-        }
-        addButton.addTarget(self, action: #selector(addTask), for: .touchUpInside) // o que acontece quando clica no botao
         
         //Configura propriedades da StackView
         stackView.axis = .vertical //axis = eixo
@@ -79,84 +83,74 @@ class NewGoalModalViewController: UIViewController {
         stackView.addArrangedSubview(firstLabel)
         stackView.addArrangedSubview(secondLabel)
         stackView.addArrangedSubview(bottomLineTextField)
-        stackView.addArrangedSubview(addButton)
         
+        //cria um conteiner para adicionar o botao dentro
+        let addButtonContainer = UIView()
+        addButtonContainer.isUserInteractionEnabled = true // deixa clicável
+        addButtonContainer.translatesAutoresizingMaskIntoConstraints = false  //deixa setar as constraints
+        view.addSubview(addButtonContainer)
+        
+        //customizando o botao de ir pra próxima tela
+        let buttonSize: CGFloat = 50
+        addButton.backgroundColor = .systemBlue
+        addButton.tintColor = .white
+        addButton.setImage(UIImage(systemName: "chevron.right"), for: .normal)
+        addButton.layer.cornerRadius = buttonSize / 2
+        addButton.translatesAutoresizingMaskIntoConstraints = false
+        addButton.addTarget(self, action: #selector(addTask), for: .touchUpInside)  //ação de quando clica no botão
+        addButtonContainer.addSubview(addButton)
+        //constraints do botao
         NSLayoutConstraint.activate([
-            addButton.heightAnchor.constraint(equalToConstant: 1000),
-            //addButton.
+            addButtonContainer.heightAnchor.constraint(equalToConstant: buttonSize + 16),
+            addButtonContainer.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            addButtonContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            addButtonContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            addButton.widthAnchor.constraint(equalToConstant: buttonSize),
+            addButton.heightAnchor.constraint(equalToConstant: buttonSize),
+            addButton.bottomAnchor.constraint(equalTo: addButtonContainer.bottomAnchor, constant: -16),
+            addButton.trailingAnchor.constraint(equalTo: addButtonContainer.trailingAnchor, constant: -16)
         ])
+        
+        //adiciona acessório ao keyboard
+        bottomLineTextField.inputAccessoryView = addButtonContainer
+        
+        // Populando a array Goal
+        fetchGoal()
     }
     
     @objc func addTask() {
         if let goalText = bottomLineTextField.text, !goalText.isEmpty {
-            delegate?.addedGoal(goalText)
-            let goal = GoalStatic(id: UUID(), title: goalText)
-            goals.append(goal)
-            bottomLineTextField.text = ""
+            // Cria um Goal e faz o fetch no banco
+            DataAcessObject.shared.createGoal(title: goalText)
+            fetchGoal()
+            //let goal = GoalStatic(id: UUID(), title: goalText)
+            //goals.append(goal)
+            bottomLineTextField.reset()
             
-            // cria a navegacao de push entre as modais
+            // cria a navegacao de push entre as telas
             let newSubGoalModalViewController = NewSubgoalsModalViewController(goals: goals)
             navigationController?.pushViewController(newSubGoalModalViewController, animated: true)
-            
-            
+            newSubGoalModalViewController.delegate = homeGoal
+            delegate?.addedGoal(goalText)
         }
     }
     
+    //atualiza o textField
     @objc func textFieldDidChange( textField: UITextField) {
         if let customLineTextField = textField as? CustomLineTextField {
-            customLineTextField.contador()
+            customLineTextField.count()
         }
-    }
-}
-
-class CustomLineTextField: UITextField {
-    
-    //divider
-    private let bottomLine = UIView()
-    //contador de characteres
-    private let characterCountLabel = UILabel()
-    
-    //tamanho maxima da label
-    var maxLength: Int?
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupUI()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setupUI()
-    }
-    
-    private func setupUI() {
-        
-        bottomLine.backgroundColor = .secondaryLabel
-        addSubview(bottomLine)
-        
-        characterCountLabel.textAlignment = .left
-        characterCountLabel.textColor = .gray
-        characterCountLabel.font = UIFont.systemFont(ofSize: 17)
-        addSubview(characterCountLabel)
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        bottomLine.frame = CGRect(x: 0, y: frame.height - 1, width: frame.width, height: 1)
-        
-        let countLabelWidth: CGFloat = 40
-        let countLabelHeight: CGFloat = 20
-        characterCountLabel.frame = CGRect(x: frame.width - countLabelWidth, y: frame.height, width: countLabelWidth, height: countLabelHeight)
-    }
-    
-    func contador() {
-        guard let maxLength = maxLength else { return }
-        let currentCount = text?.count ?? 0
-        characterCountLabel.text = "\(currentCount)/\(maxLength)"
     }
 }
 
 protocol NewGoalModalDelegate: AnyObject {
     func addedGoal(_ goal: String)
+}
+
+
+extension  NewGoalModalViewController {
+    // Função para buscar as Goals salvas no banco e popular a array
+    func fetchGoal() {
+        self.goals = DataAcessObject.shared.fetchGoal()
+    }
 }

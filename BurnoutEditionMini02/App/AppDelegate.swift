@@ -7,19 +7,44 @@
 
 import UIKit
 import CoreData
+import UserNotifications
+
 
 let screenWidth = UIScreen.main.bounds.width
 let screenHeight = UIScreen.main.bounds.height
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        return true
-    }
+            // Pedir permissão para notificações
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
+                if granted {
+                    print("Notifications allowed")
+                } else {
+                    print("Notifications not allowed")
+                }
+            }
+
+            // Adiciona o Delegate do Notification Center
+            UNUserNotificationCenter.current().delegate = self
+
+            return true
+        }
+
+        // Notificações quando o app está aberto
+        func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+            // Como a notificação vai aparecer
+            completionHandler([.banner, .sound, .badge])
+        }
+
+        // Notificações quando o app está fechado ou no background
+        func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+            // Como o usuário pode interagir com as notificações
+            completionHandler()
+        }
 
     // MARK: UISceneSession Lifecycle
 

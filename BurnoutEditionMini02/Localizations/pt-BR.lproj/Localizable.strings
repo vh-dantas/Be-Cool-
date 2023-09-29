@@ -18,4 +18,9 @@
 "stretch" = "Alongamento";
 "walk-around" = "Caminhar";
 
+// Custom Slider
+"easy" = "Fácil";
+"medium" = "Médio";
+"hard" = "Difícil";
+
 // NÃO ESQUECER JAMAIS DO ; NO FINAL DAS STRINGS 🙏

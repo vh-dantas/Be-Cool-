@@ -18,6 +18,7 @@
 		C5DF0B982AC3725D0012C1F4 /* UIViewController+PresentModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DF0B972AC3725D0012C1F4 /* UIViewController+PresentModal.swift */; };
 		C5DF0BA12AC6147A0012C1F4 /* CustomLineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DF0BA02AC6147A0012C1F4 /* CustomLineTextField.swift */; };
 		C5DF0BA32AC614EA0012C1F4 /* AddSubGoalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DF0BA22AC614EA0012C1F4 /* AddSubGoalCell.swift */; };
+		C5DF0BA52AC70F160012C1F4 /* SubGoalCellText.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DF0BA42AC70F160012C1F4 /* SubGoalCellText.swift */; };
 		F1359EE52ABB6F92004536E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1359EE42ABB6F92004536E6 /* AppDelegate.swift */; };
 		F1359EE72ABB6F92004536E6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1359EE62ABB6F92004536E6 /* SceneDelegate.swift */; };
 		F1359EEF2ABB6F92004536E6 /* BurnoutEditionMini02.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F1359EED2ABB6F92004536E6 /* BurnoutEditionMini02.xcdatamodeld */; };
@@ -54,6 +55,7 @@
 		C5DF0B972AC3725D0012C1F4 /* UIViewController+PresentModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PresentModal.swift"; sourceTree = "<group>"; };
 		C5DF0BA02AC6147A0012C1F4 /* CustomLineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLineTextField.swift; sourceTree = "<group>"; };
 		C5DF0BA22AC614EA0012C1F4 /* AddSubGoalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSubGoalCell.swift; sourceTree = "<group>"; };
+		C5DF0BA42AC70F160012C1F4 /* SubGoalCellText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubGoalCellText.swift; sourceTree = "<group>"; };
 		F1359EE12ABB6F92004536E6 /* BurnoutEditionMini02.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BurnoutEditionMini02.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1359EE42ABB6F92004536E6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1359EE62ABB6F92004536E6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 			children = (
 				C5DF0BA02AC6147A0012C1F4 /* CustomLineTextField.swift */,
 				C5DF0BA22AC614EA0012C1F4 /* AddSubGoalCell.swift */,
+				C5DF0BA42AC70F160012C1F4 /* SubGoalCellText.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 				C5DF0BA12AC6147A0012C1F4 /* CustomLineTextField.swift in Sources */,
 				F15BE5052ABCD950005A1C39 /* NewGoalModalViewController.swift in Sources */,
 				F15BE5022ABCD8E9005A1C39 /* NewWellnessSubgoalsModalView.swift in Sources */,
+				C5DF0BA52AC70F160012C1F4 /* SubGoalCellText.swift in Sources */,
 				F15BE4FE2ABCD789005A1C39 /* NewGoalModalView.swift in Sources */,
 				C562C56B2ABE290E00A3311C /* GoalModel.swift in Sources */,
 				F1D15BCC2AC51A2B00528743 /* CreatingNewReflection3ViewController.swift in Sources */,

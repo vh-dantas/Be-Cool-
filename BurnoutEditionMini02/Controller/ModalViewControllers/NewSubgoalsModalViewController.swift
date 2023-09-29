@@ -18,6 +18,7 @@ class NewSubgoalsModalViewController: UIViewController {
     
     // Cria o botao de adicionar a meta
     let addButton = UIButton(type: .system)
+    let BigButton = UIButton(type: .custom)
     
     //Cria stack view
     let stackView = UIStackView()
@@ -77,7 +78,8 @@ class NewSubgoalsModalViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(AddSubGoalCell.self, forCellReuseIdentifier: "addSubGoalCell")
-        //tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(SubGoalCellText.self, forCellReuseIdentifier: "subGoalCellText")
+        
 
         //Configura propriedades da StackView
         stackView.axis = .vertical //axis = eixo
@@ -106,6 +108,36 @@ class NewSubgoalsModalViewController: UIViewController {
             tableView.heightAnchor.constraint(equalToConstant: 200)
         ])
         
+        //cria um conteiner para adicionar o botao dentro
+        let addButtonContainer = UIView()
+        addButtonContainer.isUserInteractionEnabled = true // deixa clicável
+        addButtonContainer.translatesAutoresizingMaskIntoConstraints = false  //deixa setar as constraints
+        view.addSubview(addButtonContainer)
+        
+        //customizando o botao de ir pra próxima tela
+        let buttonSize: CGFloat = 50
+        addButton.backgroundColor = .systemBlue
+        addButton.tintColor = .white
+        addButton.setImage(UIImage(systemName: "chevron.right"), for: .normal)
+        addButton.layer.cornerRadius = buttonSize / 2
+        addButton.translatesAutoresizingMaskIntoConstraints = false
+        addButton.addTarget(self, action: #selector(nextView), for: .touchUpInside)  //ação de quando clica no botão
+        addButtonContainer.addSubview(addButton)
+        //constraints do botao
+        NSLayoutConstraint.activate([
+            addButtonContainer.heightAnchor.constraint(equalToConstant: buttonSize + 16),
+            addButtonContainer.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            addButtonContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            addButtonContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            addButton.widthAnchor.constraint(equalToConstant: buttonSize),
+            addButton.heightAnchor.constraint(equalToConstant: buttonSize),
+            addButton.bottomAnchor.constraint(equalTo: addButtonContainer.bottomAnchor, constant: -16),
+            addButton.trailingAnchor.constraint(equalTo: addButtonContainer.trailingAnchor, constant: -16)
+        ])
+        
+        //adiciona acessório ao keyboard
+        //bottomLineTextField.inputAccessoryView = addButtonContainer
+        
         fetchSubGoalsArray()
     }
     ///função que adiciona subgoal
@@ -124,6 +156,15 @@ class NewSubgoalsModalViewController: UIViewController {
             }
         }
     }
+    
+    @objc func nextView() {
+        // cria a navegacao de push entre as telas
+        let newWellnessSubgoalsModalViewController = NewWellnessSubgoalsModalViewController()
+        navigationController?.pushViewController(newWellnessSubgoalsModalViewController, animated: true)
+        //newSubGoalModalViewController.delegate = homeGoal
+        //delegate?.addedGoal(goalText)
+    }
+    
 }
 
 // Extend o view controller pra entrar em conformidade com a UITableViewDelegate e UITableViewDataSource

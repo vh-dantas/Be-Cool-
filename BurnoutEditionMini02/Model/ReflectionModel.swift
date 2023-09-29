@@ -9,22 +9,26 @@ import UIKit
 
 class ReflectionModel: CustomStringConvertible {
     var id: UUID
-    var reflection: String
-    var text: String?
+    var name: String
+    var relatedGoal: GoalStatic?
+    var randomRefQst: String
+    var randomRefAns: String?
     var draw: UIImage?
     var mood: String
     var date: String
     
-    init(id: UUID, reflection: String, text: String?, draw: UIImage?, mood: String, date: String) {
+    init(id: UUID, name: String, relatedGoal: GoalStatic?, randomRefQst: String, randomRefAns: String?, draw: UIImage?, mood: String, date: String) {
         self.id = id
-        self.reflection = reflection
-        self.text = text
+        self.name = name
+        self.relatedGoal = relatedGoal
+        self.randomRefQst = randomRefQst
+        self.randomRefAns = randomRefAns
         self.draw = draw
         self.mood = mood
         self.date = date
     }
     
     var description: String {
-        return "ID: \(id)\nReflection: \(reflection)\nText: \(text ?? "")\nMood: \(mood)\nDate: \(date)"
+        return "ID: \(id)\nName: \(name)\nRelated Goal: \(String(describing: relatedGoal?.title ?? nil))\nRandom Reflection Question: \(randomRefQst)\nRandom Reflection Answer: \(randomRefAns ?? "")\nMood: \(mood)\nDate: \(date)"
     }
 }

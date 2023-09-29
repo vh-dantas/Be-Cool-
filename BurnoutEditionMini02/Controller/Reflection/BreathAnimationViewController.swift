@@ -95,7 +95,7 @@ class BreathAnimationViewController: UIViewController, CAAnimationDelegate {
         
         if animationProgress <= 20 {
             labelText.text = "Inhale"
-        } else if animationProgress <=  40 {
+        } else if animationProgress <= 40 {
             labelText.text = "Hold"
         } else {
             labelText.text = "Exhale"

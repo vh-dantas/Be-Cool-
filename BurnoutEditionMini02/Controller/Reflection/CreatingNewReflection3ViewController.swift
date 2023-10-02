@@ -33,6 +33,7 @@ class CreatingNewReflection3ViewController: UIViewController, UITextFieldDelegat
     var randomRefQst: String
     var randomRefAns: String?
     
+    
     // MARK: - Initializer
     init(selectedMood: String, randomRefQst: String, randomRefAns: String?) {
         

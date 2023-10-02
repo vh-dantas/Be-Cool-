@@ -12,7 +12,17 @@
 "achievements" = "Conquistas";
 "reflections" = "Reflexões";
 
-// Settings View
+// Settings
+"settings" = "Configurações";
+"notifications" = "Notificações";
+"preferences" = "Preferências";
+"onboarding" = "Onboarding";
+"acknowledgements" = "Agradecimentos";
+"privacy" = "Política de Privacidade";
+"contact" = "Fale Conosco";
+"version" = "Versão";
+
+// Notificações
 "settings" = "Preferências";
 "water" = "Beber água";
 "stretch" = "Alongamento";

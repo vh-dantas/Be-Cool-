@@ -42,6 +42,8 @@ class ReflectionDetailViewController: UIViewController {
         
     }
     
+ 
+    
     // Função para configurar a data da reflection
     func configDateLabel() {
         dateLabel.translatesAutoresizingMaskIntoConstraints = false // Important for Auto Layout
@@ -82,7 +84,7 @@ class ReflectionDetailViewController: UIViewController {
         tagMood.translatesAutoresizingMaskIntoConstraints = false
         
         // Configurando a StackView
-        tagStackView.axis = .vertical
+        //tagStackView.axis = .vertical
         tagStackView.spacing = 16
         tagStackView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -92,8 +94,8 @@ class ReflectionDetailViewController: UIViewController {
        
         NSLayoutConstraint.activate([
             tagStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
-            tagStackView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 21),
-            tagStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -12)
+            tagStackView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 21)
+          //  tagStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -12)
         ])
     }
     
@@ -137,6 +139,9 @@ class RectangleLabelView: UIView {
         addSubview(label)
          // Colocando o texto na label
          label.text = text
+         
+         NotificationCenter.default.addObserver(self, selector: #selector(handleContentSizeCategoryChange), name: UIContentSizeCategory.didChangeNotification, object: nil)
+         
         //Setando as contates das constraints para dar o espacamento entr o texto e o rectangle
         NSLayoutConstraint.activate([
             label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
@@ -144,11 +149,50 @@ class RectangleLabelView: UIView {
             label.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)
         ])
-        // Rounded Rectangle
-        layer.cornerRadius = 20
-    }
+         // Chamando a funcao para setar o corner radius
+         updateCornerRadius()
+         
+     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
+    deinit {
+        // Remover a observação da notificação ao liberar a memória
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    
+    // Função para atualizar o corner da tag quando ela for trocada no sistema - vai ser usada na notification
+    @objc private func handleContentSizeCategoryChange(){
+        updateCornerRadius()
+        layoutIfNeeded()
+    }
+    
+    // Rounded Rectangle de acordo com o tamanho da fonte no sistema
+     func updateCornerRadius(){
+        let fontSize = label.font.pointSize
+        var maxCornerRadius: CGFloat = 20 // Valor máximo para cornerRadius
+        let minCornerRadius: CGFloat = 5 // Valor mínimo para cornerRadius
+        
+        // Verificando caso a fonte seja muito grande
+        if fontSize >= 33 {
+            maxCornerRadius = 33
+        }  else if fontSize >= 30 && fontSize < 33 {
+            maxCornerRadius = 30
+        } else if fontSize >= 25 && fontSize < 30 {
+            maxCornerRadius = 22
+        }
+         
+        // varificando caso a fonte seja menos do que o padrao
+         if fontSize < 12  && fontSize > 6{
+             maxCornerRadius = 16
+         } else if fontSize <= 6 {
+             maxCornerRadius = 12
+         }
+ 
+        // Definir o cornerRadius com base no tamanho da fonte, mas limite-o dentro dos valores máximo e mínimo
+        layer.cornerRadius = max(min(fontSize / 2, minCornerRadius), maxCornerRadius)
+    }
+    
 }

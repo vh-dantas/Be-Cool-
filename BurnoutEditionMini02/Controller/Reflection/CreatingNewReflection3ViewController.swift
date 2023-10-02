@@ -160,14 +160,14 @@ class CreatingNewReflection3ViewController: UIViewController, UITextFieldDelegat
         // Label 1
         label.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 18)
         ])
         
         // Label 2
         label2.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            label2.topAnchor.constraint(equalTo: label.bottomAnchor),
+            label2.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 5),
             label2.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 18)
         ])
         

@@ -41,6 +41,9 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
         backButton = UIBarButtonItem(title: "", image: UIImage(systemName: "chevron.left"), target: self, action: #selector(backButtonFunc))
         cancelButton = UIBarButtonItem(title: "", image: UIImage(systemName: "xmark"), target: self, action: #selector(cancelButtonFunc))
         
+        navigationItem.leftBarButtonItem = backButton
+        navigationItem.rightBarButtonItem = cancelButton
+        
         // Funções setup
         setupLabels()
         setupTextFields()
@@ -115,7 +118,7 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
     private func setupLabels() {
         
         // Demais labels fixas e configurações
-        label1.text = "Now take a break and reflect about the following question:"
+        label1.text = "Reflect about the following question:"
         label1.numberOfLines = 2
         label1.font.withSize(6)
         label1.textColor = .gray
@@ -151,7 +154,7 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
         // Label 1
         label1.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            label1.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            label1.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             label1.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             label1.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 18)
         ])
@@ -159,7 +162,7 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
         // Label 2
         label2.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            label2.topAnchor.constraint(equalTo: label1.bottomAnchor),
+            label2.topAnchor.constraint(equalTo: label1.bottomAnchor, constant: 5),
             label2.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             label2.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 18)
         ])
@@ -169,7 +172,7 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
             textField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             textField.topAnchor.constraint(equalTo: label2.bottomAnchor, constant: 15),
             textField.widthAnchor.constraint(equalToConstant: screenWidth-40),
-            textField.heightAnchor.constraint(equalToConstant: screenHeight/3)
+            textField.heightAnchor.constraint(equalToConstant: screenHeight/2.5)
         ])
         
         // Botão para desenhar
@@ -178,7 +181,7 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
             drawButton.heightAnchor.constraint(equalToConstant: 30),
             drawButton.widthAnchor.constraint(equalToConstant: 30),
             drawButton.leadingAnchor.constraint(equalTo: textField.leadingAnchor),
-            drawButton.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 5)
+            drawButton.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 16)
         ])
         
         // NextScreen Button

@@ -352,7 +352,7 @@ class CreatingNewReflection2ViewController: UIViewController {
         // Label 1
         label.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 18)
         ])
@@ -360,7 +360,7 @@ class CreatingNewReflection2ViewController: UIViewController {
         // Label 2
         label2.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            label2.topAnchor.constraint(equalTo: label.bottomAnchor),
+            label2.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 5),
             label2.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             label2.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 18)
         ])
@@ -368,7 +368,7 @@ class CreatingNewReflection2ViewController: UIViewController {
         // MoodTracker
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            mainStackView.topAnchor.constraint(equalTo: label2.bottomAnchor, constant: 50),
+            mainStackView.topAnchor.constraint(equalTo: label2.bottomAnchor, constant: view.frame.height / 10),
             mainStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         

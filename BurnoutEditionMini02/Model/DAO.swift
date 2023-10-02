@@ -84,6 +84,13 @@ class DataAcessObject {
         saveContext()
     }
     
+    // Atualizando uma Sub meta - SubGoal
+    func updateSubGoal(_ subGoal: SubGoal, title: String){
+        subGoal.title = title
+        // Salvando os dados
+        saveContext()
+    }
+    
     // Excluindo uma Meta - Goal
     func deleteGoal(goal: Goal){
         context.delete(goal)

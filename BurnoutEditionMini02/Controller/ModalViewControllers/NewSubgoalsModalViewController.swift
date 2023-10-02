@@ -127,8 +127,8 @@ class NewSubgoalsModalViewController: UIViewController, AddSubGoalButtonDelegate
     
     @objc func nextView() {
         // cria a navegacao de push entre as telas
-        let newWellnessSubgoalsModalViewController = NewWellnessSubgoalsModalViewController()
-        navigationController?.pushViewController(newWellnessSubgoalsModalViewController, animated: true)
+        let newSubgoalLevelViewController = NewSubgoalLevelViewController()
+        navigationController?.pushViewController(newSubgoalLevelViewController, animated: true)
         //newSubGoalModalViewController.delegate = homeGoal
         //delegate?.addedGoal(goalText)
     }

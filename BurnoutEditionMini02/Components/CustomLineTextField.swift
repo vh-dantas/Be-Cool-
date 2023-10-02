@@ -31,7 +31,7 @@ class CustomLineTextField: UITextField {
     
     private func setupUI() {
         
-        bottomLine.backgroundColor = .secondaryLabel
+        bottomLine.backgroundColor = .separator
         addSubview(bottomLine)
         
         characterCountLabel.textAlignment = .left

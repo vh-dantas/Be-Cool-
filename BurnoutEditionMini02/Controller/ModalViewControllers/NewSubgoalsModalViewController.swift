@@ -43,8 +43,6 @@ class NewSubgoalsModalViewController: UIViewController, AddSubGoalButtonDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.navigationBar.prefersLargeTitles = false
-
         // Coloca a cor de fundo da modal (ele seta como transparente por padrão)
         view.backgroundColor = .white
                         

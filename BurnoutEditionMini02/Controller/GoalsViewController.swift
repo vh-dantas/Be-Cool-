@@ -47,7 +47,6 @@ class GoalsViewController: UIViewController, NewGoalModalDelegate, NewSubGoalMod
       //  navigationItem.title = "goals".localized
         // O Titulo é a ultima meta adicionada - a meta atual
         navigationItem.title = DataAcessObject.shared.fetchGoal().first?.title
-        navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = .white // Define a cor de fundo da view como branco
         
         view.addSubview(scrollView)

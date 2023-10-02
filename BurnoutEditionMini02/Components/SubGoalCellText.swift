@@ -10,7 +10,7 @@ import UIKit
 //celula da NewSubGoalModalViewController que tem o textField
 class SubGoalCellText: UITableViewCell, UITextFieldDelegate {
     let textField = UITextField()
-    var subGoal: SubGoal?
+    var subGoal: SubGoalStatic?
     
     weak var delegate: SubGoalCellTextDelegate?
         
@@ -35,22 +35,28 @@ class SubGoalCellText: UITableViewCell, UITextFieldDelegate {
             textField.rightAnchor.constraint(equalTo: contentView.rightAnchor),
             textField.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
         ])
+        textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        delegate?.subGoalTextReturnTouched()
-        return true
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
+
+    // Método chamado quando o texto do campo de texto é alterado
+    @objc func textFieldDidChange(_ textField: UITextField) {
         guard let text = textField.text, let subGoal else {
             return
         }
-        delegate?.subGoalTextDidEndEditing(subGoal, text: text)
+        delegate?.subGoalTextDidChangeText(subGoal, text: text)
+    }
+    
+    //botao de return do teclado
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard let subGoal else {
+            return true
+        }
+        delegate?.subGoalTextReturnTouched(subGoal)
+        return true
     }
 }
 
 protocol SubGoalCellTextDelegate: AnyObject {
-    func subGoalTextReturnTouched()
-    func subGoalTextDidEndEditing(_ subGoal: SubGoal, text: String)
+    func subGoalTextReturnTouched(_ subGoal: SubGoalStatic)
+    func subGoalTextDidChangeText(_ subGoal: SubGoalStatic, text: String)
 }

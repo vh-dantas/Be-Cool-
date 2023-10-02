@@ -50,7 +50,7 @@ class DataAcessObject {
     
     
     // Criando uma nova Meta - Goal
-    func createGoal(title: String) {
+    func createGoal(title: String) -> Goal {
         // Criando uma instancia de Goal
         let newGoal = Goal(context: context)
         newGoal.id = UUID()
@@ -59,6 +59,7 @@ class DataAcessObject {
         newGoal.createdDate = Date()
         // Salvando os dados
         saveContext()
+        return newGoal
     }
     
     // Busca pelas Sub metas - subgoals

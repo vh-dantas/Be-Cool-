@@ -26,7 +26,7 @@ class NewGoalModalViewController: UIViewController {
     let stackView = UIStackView()
     
     //instancia da model Goal
-    var goals = [Goal]()
+    var goal = GoalStatic(id: UUID(), title: "")
     
     //delegate
     weak var delegate: NewGoalModalDelegate?
@@ -34,6 +34,7 @@ class NewGoalModalViewController: UIViewController {
     init(homeGoal: GoalsViewController) {
         self.homeGoal = homeGoal
         super.init(nibName: nil, bundle: nil)
+        CreateGoalVCStore.shared.newGoalModalViewController = self
     }
     
     required init?(coder: NSCoder) {
@@ -113,22 +114,15 @@ class NewGoalModalViewController: UIViewController {
         
         //adiciona acessório ao keyboard
         bottomLineTextField.inputAccessoryView = addButtonContainer
-        
-        // Populando a array Goal
-        fetchGoal()
     }
     
     @objc func addTask() {
         if let goalText = bottomLineTextField.text, !goalText.isEmpty {
-            // Cria um Goal e faz o fetch no banco
-            DataAcessObject.shared.createGoal(title: goalText)
-            fetchGoal()
-            //let goal = GoalStatic(id: UUID(), title: goalText)
-            //goals.append(goal)
+            goal.title = goalText
             bottomLineTextField.reset()
             
             // cria a navegacao de push entre as telas
-            let newSubGoalModalViewController = NewSubgoalsModalViewController(goals: goals)
+            let newSubGoalModalViewController = NewSubgoalsModalViewController()
             navigationController?.pushViewController(newSubGoalModalViewController, animated: true)
             newSubGoalModalViewController.delegate = homeGoal
             delegate?.addedGoal(goalText)
@@ -145,12 +139,4 @@ class NewGoalModalViewController: UIViewController {
 
 protocol NewGoalModalDelegate: AnyObject {
     func addedGoal(_ goal: String)
-}
-
-
-extension  NewGoalModalViewController {
-    // Função para buscar as Goals salvas no banco e popular a array
-    func fetchGoal() {
-        self.goals = DataAcessObject.shared.fetchGoal()
-    }
 }

@@ -8,6 +8,7 @@
 import UIKit
 
 class NewSubgoalsModalViewController: UIViewController, AddSubGoalButtonDelegate, SubGoalCellTextDelegate {
+    
     // Cria um UILabel
     let firstLabel = UILabel()
     let secondLabel = UILabel()
@@ -18,22 +19,21 @@ class NewSubgoalsModalViewController: UIViewController, AddSubGoalButtonDelegate
     //Cria stack view
     let stackView = UIStackView()
     
-    // Dependency Injection (injeção de dependências)
-    let goals: [Goal]
-
+    var addSubGoalCell: AddSubGoalCell?
+    
     //instancia da model subgoal
-    var subgoals = [SubGoal]()
+    var subGoals = [SubGoalStatic]()
+
     
     weak var delegate: NewSubGoalModalDelegate?
     
     // Cria table view
     var tableView: UITableView!
     
-    init(goals: [Goal]) {
-        self.goals = goals
-        
+    init() {
         // Sempre chamar este super.init
         super.init(nibName: nil, bundle: nil)
+        CreateGoalVCStore.shared.newSubGoalModalViewController = self
     }
     
     required init?(coder: NSCoder) {
@@ -45,7 +45,7 @@ class NewSubgoalsModalViewController: UIViewController, AddSubGoalButtonDelegate
         
         // Coloca a cor de fundo da modal (ele seta como transparente por padrão)
         view.backgroundColor = .white
-                        
+        
         // Configura propriedades do UILabel
         firstLabel.text = "Dividindo para conquistar"
         firstLabel.font = UIFont.systemFont(ofSize: 28, weight: .bold)
@@ -58,14 +58,14 @@ class NewSubgoalsModalViewController: UIViewController, AddSubGoalButtonDelegate
         secondLabel.lineBreakMode = .byWordWrapping
         secondLabel.sizeToFit()
         secondLabel.numberOfLines = 0
-
+        
         // Inicializa a table view
         tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(AddSubGoalCell.self, forCellReuseIdentifier: "addSubGoalCell")
         tableView.register(SubGoalCellText.self, forCellReuseIdentifier: "subGoalCellText")
-
+        
         //Configura propriedades da StackView
         stackView.axis = .vertical //axis = eixo
         stackView.spacing = 16
@@ -84,8 +84,6 @@ class NewSubgoalsModalViewController: UIViewController, AddSubGoalButtonDelegate
         //adiciona como filhas da stack view
         stackView.addArrangedSubview(firstLabel)
         stackView.addArrangedSubview(secondLabel)
-        
-        
         stackView.addArrangedSubview(tableView)
         
         //cria um conteiner para adicionar o botao dentro
@@ -103,6 +101,7 @@ class NewSubgoalsModalViewController: UIViewController, AddSubGoalButtonDelegate
         bigButton.translatesAutoresizingMaskIntoConstraints = false
         bigButton.addTarget(self, action: #selector(nextView), for: .touchUpInside)  //ação de quando clica no botão
         addButtonContainer.addSubview(bigButton)
+        
         //constraints do botao
         NSLayoutConstraint.activate([
             addButtonContainer.heightAnchor.constraint(equalToConstant: buttonSize + 16),
@@ -117,68 +116,81 @@ class NewSubgoalsModalViewController: UIViewController, AddSubGoalButtonDelegate
         
         //adiciona acessório ao keyboard
         //bottomLineTextField.inputAccessoryView = addButtonContainer
-        
-        fetchSubGoalsArray()
-        
-        
     }
     
     @objc func nextView() {
         // cria a navegacao de push entre as telas
         let newSubgoalLevelViewController = NewSubgoalLevelViewController()
         navigationController?.pushViewController(newSubgoalLevelViewController, animated: true)
-        //newSubGoalModalViewController.delegate = homeGoal
-        //delegate?.addedGoal(goalText)
     }
     
-    //função que adiciona subgoal
+    //função que adiciona subgoal ao array static
     func addSubGoalButtonTouched() {
-        
-            // Verificando de a primeira Goal (a ultima goal criada) é nil
-        if let newGoal = DataAcessObject.shared.fetchGoal().first {
-                       DataAcessObject.shared.createSubGoal(title: "", type: "", goal: newGoal)
-                       fetchSubGoalsArray()
-                
-        
-                tableView.reloadData()
-                self.setNeedsStatusBarAppearanceUpdate()
-                //delegate?.addedSubGoal(subGoalText)
-            }
-        }
-    
-    
-    func subGoalTextReturnTouched() {
-        addSubGoalButtonTouched()
+        subGoals.append(SubGoalStatic(id: UUID(), title: "", level: .easy, type: .work))
+        tableView.reloadData()
+        self.setNeedsStatusBarAppearanceUpdate()
+        toggleAddSubGoalButton()
     }
     
-    func subGoalTextDidEndEditing(_ subGoal: SubGoal, text: String) {
-        DataAcessObject.shared.updateSubGoal(subGoal, title: text)
-        fetchSubGoalsArray()
-        tableView.reloadData()
+    //adiciona a subgoal no return do teclado
+    func subGoalTextReturnTouched(_ subGoal: SubGoalStatic) {
+        if subGoal.title == "" {
+            if let index = subGoals.firstIndex(where: { $0 === subGoal }) {
+                subGoals.remove(at: index)
+            }
+            tableView.reloadData()
+        }else{
+            addSubGoalButtonTouched()
+        }
+    }
+    
+    //deixar o botao de add submeta opaco
+    func toggleAddSubGoalButton() {
+        if !subGoals.isEmpty {
+            addSubGoalCell?.button.isEnabled = subGoals[subGoals.count - 1].title != ""
+            addSubGoalCell?.layoutSubviews()
+        }
+    }
+    
+    //atualiza o nome do subgoal em caso de editar
+    func subGoalTextDidChangeText(_ subGoal: SubGoalStatic, text: String) {
+        subGoal.title = text
+        toggleAddSubGoalButton()
     }
 }
 
 
-
-
-// Extend o view controller pra entrar em conformidade com a UITableViewDelegate e UITableViewDataSource
 extension NewSubgoalsModalViewController: UITableViewDelegate, UITableViewDataSource {
     
-    
+    //tem que ser +1 pq é o row da table view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return subgoals.count + 1
+        return subGoals.count + 1
     }
+    
+    //faz com que os rows editaveis sejam apenas os indexPath.row > 0
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return indexPath.row > 0
+    }
+    
+    //função que apaga submeta da tableview
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+            if editingStyle == .delete {
+                // tem que ser -1 pq é do array de subgoals
+                subGoals.remove(at: indexPath.row - 1)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+        }
     
     //exibe elementos da table view
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        //quando tiver na primeira posição de quantidade de subgoasl
-        
+        //quando tiver na primeira posição de quantidade de subgoals
         if indexPath.row == 0 {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "addSubGoalCell", for: indexPath) as? AddSubGoalCell else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "addSubGoalCell", for: indexPath) as? AddSubGoalCell
+            addSubGoalCell = cell
+            guard let cell else {
                 return UITableViewCell()  //vai retornar vazio se não conseguir
             }
-            
             cell.delegate = self
             cell.label.text = "Checklist de tarefas"
             return cell
@@ -187,7 +199,7 @@ extension NewSubgoalsModalViewController: UITableViewDelegate, UITableViewDataSo
                 return UITableViewCell()
             }
             
-            let subGoal = subgoals[indexPath.row - 1]
+            let subGoal = subGoals[indexPath.row - 1]
             cell.textField.text = subGoal.title
             cell.subGoal = subGoal
             cell.delegate = self
@@ -199,16 +211,4 @@ extension NewSubgoalsModalViewController: UITableViewDelegate, UITableViewDataSo
 
 protocol NewSubGoalModalDelegate: AnyObject {
     func addedSubGoal(_ subgoal: String)
-}
-
-
-extension NewSubgoalsModalViewController {
-    func fetchSubGoalsArray() {
-        if let goal = DataAcessObject.shared.fetchGoal().first {
-            self.subgoals = DataAcessObject.shared.fetchSubGoals(goal: goal)
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
-    }
 }

@@ -49,7 +49,7 @@ class CustomLineTextField: UITextField {
         
         bottomLine.frame = CGRect(x: 0, y: ySpacing, width: frame.width, height: 1)
         
-        let countLabelWidth: CGFloat = 40
+        let countLabelWidth: CGFloat = 60
         let countLabelHeight: CGFloat = 20
         characterCountLabel.frame = CGRect(x: 0, y: ySpacing, width: countLabelWidth, height: countLabelHeight)
     }

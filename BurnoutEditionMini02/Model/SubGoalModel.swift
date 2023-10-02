@@ -7,19 +7,24 @@
 
 import Foundation
 
-enum SubGoalType {
+enum SubGoalType: String {
     case work
     case personal
+}
+enum Difficulty {
+    case easy
+    case medium
+    case hard
 }
 
 class SubGoalStatic {
     var id: UUID
     var title: String
-    var level: Int
+    var level: Difficulty
     var isCompleted: Bool
     var type: SubGoalType
     
-    init(id: UUID, title: String, level: Int, isCompleted: Bool = false, type: SubGoalType) {
+    init(id: UUID, title: String, level: Difficulty, isCompleted: Bool = false, type: SubGoalType) {
         self.id = id
         self.title = title
         self.level = level

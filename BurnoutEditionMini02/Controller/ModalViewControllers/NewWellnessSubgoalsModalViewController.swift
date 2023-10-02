@@ -63,4 +63,14 @@ class NewWellnessSubgoalsModalViewController: UIViewController {
                 ])
         }
     }
+    
+    func createGoal() {
+        guard let goal = CreateGoalVCStore.shared.newGoalModalViewController?.goal, let subGoals = CreateGoalVCStore.shared.newSubGoalModalViewController?.subGoals else {
+            return
+        }
+        let newGoal = DataAcessObject.shared.createGoal(title: goal.title)
+        subGoals.forEach { subGoal in
+            DataAcessObject.shared.createSubGoal(title: subGoal.title, type: subGoal.type.rawValue, goal: newGoal)
+        }
+    }
 }

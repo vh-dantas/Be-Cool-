@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F0A5C962ACB4BF0003BA21C /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0A5C952ACB4BF0003BA21C /* NotificationsViewController.swift */; };
+		2F0A5C982ACB4BFF003BA21C /* AcknowledgementsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0A5C972ACB4BFF003BA21C /* AcknowledgementsViewController.swift */; };
+		2F0A5C9A2ACB4C0E003BA21C /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0A5C992ACB4C0E003BA21C /* PrivacyViewController.swift */; };
+		2F0A5C9C2ACB5745003BA21C /* ContactUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0A5C9B2ACB5745003BA21C /* ContactUsViewController.swift */; };
 		2F5FD3A62AC751330012DA88 /* NotificationsSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5FD3A52AC751330012DA88 /* NotificationsSettings.swift */; };
 		2F5FD3A82AC7518C0012DA88 /* SubgoalLevelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5FD3A72AC7518C0012DA88 /* SubgoalLevelViewController.swift */; };
 		2F9CDC8B2ABD0D5700C10425 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2F9CDC8D2ABD0D5700C10425 /* Localizable.strings */; };
@@ -45,6 +49,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2F0A5C952ACB4BF0003BA21C /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
+		2F0A5C972ACB4BFF003BA21C /* AcknowledgementsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcknowledgementsViewController.swift; sourceTree = "<group>"; };
+		2F0A5C992ACB4C0E003BA21C /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
+		2F0A5C9B2ACB5745003BA21C /* ContactUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactUsViewController.swift; sourceTree = "<group>"; };
 		2F5FD3A52AC751330012DA88 /* NotificationsSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsSettings.swift; sourceTree = "<group>"; };
 		2F5FD3A72AC7518C0012DA88 /* SubgoalLevelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubgoalLevelViewController.swift; sourceTree = "<group>"; };
 		2F9CDC8C2ABD0D5700C10425 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -97,6 +105,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2F0A5C942ACB4BD9003BA21C /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				2FC6D6442AC3096A00CAD167 /* SettingsModalViewController.swift */,
+				2F0A5C9B2ACB5745003BA21C /* ContactUsViewController.swift */,
+				2F0A5C952ACB4BF0003BA21C /* NotificationsViewController.swift */,
+				2F0A5C992ACB4C0E003BA21C /* PrivacyViewController.swift */,
+				2F0A5C972ACB4BFF003BA21C /* AcknowledgementsViewController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		2FFE58CD2AC1385500ECA413 /* Localizations */ = {
 			isa = PBXGroup;
 			children = (
@@ -186,6 +206,7 @@
 				C5DF0BA62ACB03800012C1F4 /* CreateGoalVCStore.swift */,
 				F15BE4F92ABCC97D005A1C39 /* GoalsViewController.swift */,
 				F15BE50E2ABCDE40005A1C39 /* AchievementsViewController.swift */,
+				2F0A5C942ACB4BD9003BA21C /* Settings */,
 				F1D15BC82AC4EC7600528743 /* Reflection */,
 				F15BE5102ABCDE4F005A1C39 /* ModalViewControllers */,
 			);
@@ -227,7 +248,6 @@
 				F15BE5062ABCD965005A1C39 /* NewSubgoalsModalViewController.swift */,
 				2F5FD3A72AC7518C0012DA88 /* SubgoalLevelViewController.swift */,
 				F15BE5082ABCD985005A1C39 /* NewWellnessSubgoalsModalViewController.swift */,
-				2FC6D6442AC3096A00CAD167 /* SettingsModalViewController.swift */,
 			);
 			path = ModalViewControllers;
 			sourceTree = "<group>";
@@ -319,6 +339,7 @@
 			files = (
 				F1D15BCA2AC4ECF800528743 /* CreatingNewReflection2ViewController.swift in Sources */,
 				C5DF0B982AC3725D0012C1F4 /* UIViewController+PresentModal.swift in Sources */,
+				2F0A5C9C2ACB5745003BA21C /* ContactUsViewController.swift in Sources */,
 				F15BE52D2AC227ED005A1C39 /* ReflectionModel.swift in Sources */,
 				F15BE5092ABCD985005A1C39 /* NewWellnessSubgoalsModalViewController.swift in Sources */,
 				BA7E71692AC3609D0036028B /* DAO.swift in Sources */,
@@ -344,11 +365,14 @@
 				F1359EE72ABB6F92004536E6 /* SceneDelegate.swift in Sources */,
 				2F5FD3A82AC7518C0012DA88 /* SubgoalLevelViewController.swift in Sources */,
 				F15BE5002ABCD89C005A1C39 /* NewSubgoalsModalView.swift in Sources */,
+				2F0A5C982ACB4BFF003BA21C /* AcknowledgementsViewController.swift in Sources */,
 				2FC6D6452AC3096A00CAD167 /* SettingsModalViewController.swift in Sources */,
 				F15BE50F2ABCDE40005A1C39 /* AchievementsViewController.swift in Sources */,
 				F1D15BC72AC45E2E00528743 /* ReflectionCanvasViewController.swift in Sources */,
 				F15BE5072ABCD965005A1C39 /* NewSubgoalsModalViewController.swift in Sources */,
+				2F0A5C9A2ACB4C0E003BA21C /* PrivacyViewController.swift in Sources */,
 				F15BE52B2AC21BB2005A1C39 /* CreatingNewReflectionViewController.swift in Sources */,
+				2F0A5C962ACB4BF0003BA21C /* NotificationsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

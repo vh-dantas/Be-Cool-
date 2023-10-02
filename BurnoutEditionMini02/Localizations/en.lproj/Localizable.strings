@@ -12,8 +12,17 @@
 "achievements" = "Achievements";
 "reflections" = "Reflections";
 
-// Settings View
+// Settings
 "settings" = "Settings";
+"notifications" = "Notifications";
+"preferences" = "Preferences";
+"onboarding" = "Onboarding";
+"acknowledgements" = "Acknowledgements";
+"privacy" = "Privacy Policy";
+"contact" = "Contact Us";
+"version" = "Version";
+
+// Notificações
 "water" = "Drink Water";
 "stretch" = "Stretch";
 "walk-around" = "Go for a walk";

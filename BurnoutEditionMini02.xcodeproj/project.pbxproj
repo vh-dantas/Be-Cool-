@@ -160,7 +160,6 @@
 				F1359EF02ABB6F93004536E6 /* Assets.xcassets */,
 				F1359EF22ABB6F93004536E6 /* LaunchScreen.storyboard */,
 				F1359EF52ABB6F93004536E6 /* Info.plist */,
-				F1359EED2ABB6F92004536E6 /* BurnoutEditionMini02.xcdatamodeld */,
 				2FFE58CE2AC1386000ECA413 /* Extensions */,
 				2FFE58CD2AC1385500ECA413 /* Localizations */,
 			);
@@ -174,6 +173,7 @@
 				C562C56C2ABE297E00A3311C /* SubGoalModel.swift */,
 				F15BE52C2AC227ED005A1C39 /* ReflectionModel.swift */,
 				BA7E71682AC3609D0036028B /* DAO.swift */,
+				F1359EED2ABB6F92004536E6 /* BurnoutEditionMini02.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";

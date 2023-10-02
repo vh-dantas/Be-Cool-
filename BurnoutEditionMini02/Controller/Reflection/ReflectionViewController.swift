@@ -123,6 +123,10 @@ class ReflectionViewController: UIViewController {
             refTitle.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
             refBt.addSubview(refTitle)
             
+//            let dateFormatter = DateFormatter()
+//            dateFormatter.dateFormat = "dd-MM"
+//            let formattedDate = dateFormatter.string(from: reflection.date ?? Date())
+//            
             // Configuração da data
             refDate.text = reflection.date.uppercased()
             refDate.font = UIFont.systemFont(ofSize: 12, weight: .regular)

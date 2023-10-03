@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewGoalModalViewController: ViewController {
+class NewGoalModalViewController: ViewController, UITextFieldDelegate {
     
     //Criar a home para iniciar o delegate
     let homeGoal: GoalsViewController
@@ -105,6 +105,9 @@ class NewGoalModalViewController: ViewController {
         
         //adiciona acessório ao keyboard
         stickViewToKeyboard(bottomConstraint: addButtonBottomConstraint)
+        
+        //implemetando delegate do textField
+        bottomLineTextField.delegate = self
     }
     
     
@@ -132,6 +135,20 @@ class NewGoalModalViewController: ViewController {
         if let customLineTextField = textField as? CustomLineTextField {
             customLineTextField.count()
         }
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // Verifique o comprimento atual do texto no campo
+        let currentText = textField.text ?? ""
+        let newText = (currentText as NSString).replacingCharacters(in: range, with: string)
+        
+        // Verifique se a nova string excede o limite máximo
+        if newText.count > (bottomLineTextField.maxLength ?? 30) {
+            return false // Não permita a adição de mais caracteres
+        }
+
+        // Se a nova string não exceder o limite, permita a alteração
+        return true
     }
 }
 

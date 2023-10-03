@@ -12,7 +12,7 @@ class SettingsModalViewController: UIViewController, UITableViewDelegate, UITabl
     let tableView1 = UITableView()
     let tableView2 = UITableView()
     let settingsItems1 = ["notifications".localized, "preferences".localized, "onboarding".localized]
-    let settingsItems2 = ["acknowledgements".localized, "privacy".localized, "contact".localized]
+    let settingsItems2 = ["about".localized, "privacy".localized, "contact".localized]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,7 +101,8 @@ class SettingsModalViewController: UIViewController, UITableViewDelegate, UITabl
                 self.navigationController?.pushViewController(notificationsVC, animated: true)
             case 1:
                 print("hi")
-                //let onboardingVC = OnboardingViewController()
+                //TODO: adicionar onboarding
+                // let onboardingVC = OnboardingViewController()
                 //self.navigationController?.pushViewController(onboardingVC, animated: true)
             case 2:
                 print("hii")

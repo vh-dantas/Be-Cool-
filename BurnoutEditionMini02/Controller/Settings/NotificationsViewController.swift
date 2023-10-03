@@ -33,7 +33,7 @@ class NotificationsViewController: UIViewController {
     // MARK: -- SETUP VISUAL DA VIEW
     func setupViewStyle() {
         view.backgroundColor = .white
-        navigationItem.title = "settings".localized
+        navigationItem.title = "notifications".localized
     }
     
     

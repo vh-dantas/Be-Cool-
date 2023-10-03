@@ -15,6 +15,7 @@ import Foundation
 
 import UIKit
 
+//View controller principal com métodos adicionais do botão azul de ir pra próxima tela
 class ViewController: UIViewController {
     private var originalKeyboardAccessoryViewBottomConstraintValue: CGFloat?
     private var keyboardAccessoryViewBottomConstraint: NSLayoutConstraint?

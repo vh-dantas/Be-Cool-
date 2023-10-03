@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SettingsModalViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let tableView1 = UITableView()
     let tableView2 = UITableView()

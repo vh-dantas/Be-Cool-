@@ -15,7 +15,7 @@
 		2F5FD3A82AC7518C0012DA88 /* SubgoalLevelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5FD3A72AC7518C0012DA88 /* SubgoalLevelViewController.swift */; };
 		2F9CDC8B2ABD0D5700C10425 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2F9CDC8D2ABD0D5700C10425 /* Localizable.strings */; };
 		2F9CDC902ABD153B00C10425 /* LocalizedStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9CDC8F2ABD153B00C10425 /* LocalizedStringExtension.swift */; };
-		2FC6D6452AC3096A00CAD167 /* SettingsModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC6D6442AC3096A00CAD167 /* SettingsModalViewController.swift */; };
+		2FC6D6452AC3096A00CAD167 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC6D6442AC3096A00CAD167 /* SettingsViewController.swift */; };
 		BA7E71652AC35A8D0036028B /* Goal+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7E71632AC35A8D0036028B /* Goal+CoreDataClass.swift */; };
 		BA7E71662AC35A8D0036028B /* Goal+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7E71642AC35A8D0036028B /* Goal+CoreDataProperties.swift */; };
 		BA7E71692AC3609D0036028B /* DAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7E71682AC3609D0036028B /* DAO.swift */; };
@@ -59,7 +59,7 @@
 		2F9CDC8C2ABD0D5700C10425 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2F9CDC8E2ABD0DC800C10425 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		2F9CDC8F2ABD153B00C10425 /* LocalizedStringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedStringExtension.swift; sourceTree = "<group>"; };
-		2FC6D6442AC3096A00CAD167 /* SettingsModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModalViewController.swift; sourceTree = "<group>"; };
+		2FC6D6442AC3096A00CAD167 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		BA7E71632AC35A8D0036028B /* Goal+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataClass.swift"; sourceTree = "<group>"; };
 		BA7E71642AC35A8D0036028B /* Goal+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		BA7E71682AC3609D0036028B /* DAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DAO.swift; sourceTree = "<group>"; };
@@ -110,7 +110,7 @@
 		2F0A5C942ACB4BD9003BA21C /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				2FC6D6442AC3096A00CAD167 /* SettingsModalViewController.swift */,
+				2FC6D6442AC3096A00CAD167 /* SettingsViewController.swift */,
 				2F0A5C9B2ACB5745003BA21C /* ContactUsViewController.swift */,
 				2F0A5C952ACB4BF0003BA21C /* NotificationsViewController.swift */,
 				2F0A5C992ACB4C0E003BA21C /* PrivacyViewController.swift */,
@@ -370,7 +370,7 @@
 				2F5FD3A82AC7518C0012DA88 /* SubgoalLevelViewController.swift in Sources */,
 				F15BE5002ABCD89C005A1C39 /* NewSubgoalsModalView.swift in Sources */,
 				2F0A5C982ACB4BFF003BA21C /* AcknowledgementsViewController.swift in Sources */,
-				2FC6D6452AC3096A00CAD167 /* SettingsModalViewController.swift in Sources */,
+				2FC6D6452AC3096A00CAD167 /* SettingsViewController.swift in Sources */,
 				F15BE50F2ABCDE40005A1C39 /* AchievementsViewController.swift in Sources */,
 				F1D15BC72AC45E2E00528743 /* ReflectionCanvasViewController.swift in Sources */,
 				F15BE5072ABCD965005A1C39 /* NewSubgoalsModalViewController.swift in Sources */,

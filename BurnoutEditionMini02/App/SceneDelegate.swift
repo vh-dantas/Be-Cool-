@@ -29,15 +29,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let goalsVC = navHome
         let achievementsVC = UINavigationController(rootViewController: AchievementsViewController())
         let reflectionVC = navConReflection
+        let settingsVC = UINavigationController(rootViewController: SettingsViewController())
         
         
         // Atribuição das ViewController à Tab Bar
-        tabBarController.viewControllers = [goalsVC, achievementsVC, reflectionVC]
+        tabBarController.viewControllers = [goalsVC, achievementsVC, reflectionVC, settingsVC]
 
         // Configuração dos Tab Bar Itens
         goalsVC.tabBarItem = UITabBarItem(title: "goals".localized, image: UIImage(systemName: "target"), selectedImage: nil)
         achievementsVC.tabBarItem = UITabBarItem(title: "achievements".localized, image: UIImage(systemName: "trophy"), selectedImage: nil)
         reflectionVC.tabBarItem = UITabBarItem(title: "reflections".localized, image: UIImage(systemName: "figure.mind.and.body"), selectedImage: nil)
+        settingsVC.tabBarItem = UITabBarItem(title: "settings".localized, image: UIImage(systemName: "gearshape"), selectedImage: nil)
         
         // Configuração da janela, atribuindo à rootView (Necessário ao retirar o arquivo .storyboard)
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)

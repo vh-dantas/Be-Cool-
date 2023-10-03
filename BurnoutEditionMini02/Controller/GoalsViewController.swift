@@ -10,7 +10,6 @@ import CoreData
 
 // Implementa o protocolo NewGoalModalDelegate
 class GoalsViewController: UIViewController, NewGoalModalDelegate, NewSubGoalModalDelegate {
-    
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         return scrollView

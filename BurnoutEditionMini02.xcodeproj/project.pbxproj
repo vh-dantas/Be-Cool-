@@ -21,6 +21,7 @@
 		BA7E71692AC3609D0036028B /* DAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7E71682AC3609D0036028B /* DAO.swift */; };
 		C562C56B2ABE290E00A3311C /* GoalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562C56A2ABE290E00A3311C /* GoalModel.swift */; };
 		C562C56D2ABE297E00A3311C /* SubGoalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562C56C2ABE297E00A3311C /* SubGoalModel.swift */; };
+		C5AFA7962ACCAC4D000BFE0C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AFA7952ACCAC4D000BFE0C /* ViewController.swift */; };
 		C5DF0B982AC3725D0012C1F4 /* UIViewController+PresentModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DF0B972AC3725D0012C1F4 /* UIViewController+PresentModal.swift */; };
 		C5DF0BA12AC6147A0012C1F4 /* CustomLineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DF0BA02AC6147A0012C1F4 /* CustomLineTextField.swift */; };
 		C5DF0BA32AC614EA0012C1F4 /* AddSubGoalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DF0BA22AC614EA0012C1F4 /* AddSubGoalCell.swift */; };
@@ -65,6 +66,7 @@
 		BA7E71AC2AC52F500036028B /* BurnoutEditionMini02.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BurnoutEditionMini02.entitlements; sourceTree = "<group>"; };
 		C562C56A2ABE290E00A3311C /* GoalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalModel.swift; sourceTree = "<group>"; };
 		C562C56C2ABE297E00A3311C /* SubGoalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubGoalModel.swift; sourceTree = "<group>"; };
+		C5AFA7952ACCAC4D000BFE0C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C5DF0B972AC3725D0012C1F4 /* UIViewController+PresentModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PresentModal.swift"; sourceTree = "<group>"; };
 		C5DF0BA02AC6147A0012C1F4 /* CustomLineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLineTextField.swift; sourceTree = "<group>"; };
 		C5DF0BA22AC614EA0012C1F4 /* AddSubGoalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSubGoalCell.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 				C5DF0BA62ACB03800012C1F4 /* CreateGoalVCStore.swift */,
 				F15BE4F92ABCC97D005A1C39 /* GoalsViewController.swift */,
 				F15BE50E2ABCDE40005A1C39 /* AchievementsViewController.swift */,
+				C5AFA7952ACCAC4D000BFE0C /* ViewController.swift */,
 				2F0A5C942ACB4BD9003BA21C /* Settings */,
 				F1D15BC82AC4EC7600528743 /* Reflection */,
 				F15BE5102ABCDE4F005A1C39 /* ModalViewControllers */,
@@ -355,6 +358,7 @@
 				F1359EE52ABB6F92004536E6 /* AppDelegate.swift in Sources */,
 				C5DF0BA72ACB03800012C1F4 /* CreateGoalVCStore.swift in Sources */,
 				2F5FD3A62AC751330012DA88 /* NotificationsSettings.swift in Sources */,
+				C5AFA7962ACCAC4D000BFE0C /* ViewController.swift in Sources */,
 				C5DF0BA12AC6147A0012C1F4 /* CustomLineTextField.swift in Sources */,
 				F15BE5052ABCD950005A1C39 /* NewGoalModalViewController.swift in Sources */,
 				F15BE5022ABCD8E9005A1C39 /* NewWellnessSubgoalsModalView.swift in Sources */,

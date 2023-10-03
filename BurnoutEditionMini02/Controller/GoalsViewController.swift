@@ -10,7 +10,6 @@ import CoreData
 
 // Implementa o protocolo NewGoalModalDelegate
 class GoalsViewController: UIViewController, NewGoalModalDelegate, NewSubGoalModalDelegate {
-    
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         return scrollView
@@ -76,9 +75,6 @@ class GoalsViewController: UIViewController, NewGoalModalDelegate, NewSubGoalMod
         // MARK: -- Botões de navegação
         let openModalBtn = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(createNewGoal))
         navigationItem.rightBarButtonItem = openModalBtn
-        
-        let openSettingsButton = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(openSettings))
-        navigationItem.leftBarButtonItem = openSettingsButton
     }
     
     
@@ -93,11 +89,6 @@ class GoalsViewController: UIViewController, NewGoalModalDelegate, NewSubGoalMod
             nextScreen.hidesBottomBarWhenPushed = true
             navigationController.pushViewController(nextScreen, animated: true)
         }
-    }
-    
-    @objc func openSettings() {
-        let settingsModalViewController = SettingsModalViewController()
-        presentModal(viewController: settingsModalViewController)
     }
     
     func addedGoal(_ goal: String) {

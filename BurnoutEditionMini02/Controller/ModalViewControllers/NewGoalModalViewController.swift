@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewGoalModalViewController: UIViewController {
+class NewGoalModalViewController: ViewController, UITextFieldDelegate {
     
     //Criar a home para iniciar o delegate
     let homeGoal: GoalsViewController
@@ -63,7 +63,7 @@ class NewGoalModalViewController: UIViewController {
         //configura propriedades do textfield
         bottomLineTextField.placeholder = "Digite alguma coisa"
         bottomLineTextField.textAlignment = .left
-        bottomLineTextField.maxLength = 50  //numero maximo de caracteres
+        bottomLineTextField.maxLength = 30  //numero maximo de caracteres
         bottomLineTextField.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: .editingChanged) // o que acontece quando digita
         
         //Configura propriedades da StackView
@@ -85,12 +85,6 @@ class NewGoalModalViewController: UIViewController {
         stackView.addArrangedSubview(secondLabel)
         stackView.addArrangedSubview(bottomLineTextField)
         
-        //cria um conteiner para adicionar o botao dentro
-        let addButtonContainer = UIView()
-        addButtonContainer.isUserInteractionEnabled = true // deixa clicável
-        addButtonContainer.translatesAutoresizingMaskIntoConstraints = false  //deixa setar as constraints
-        view.addSubview(addButtonContainer)
-        
         //customizando o botao de ir pra próxima tela
         let buttonSize: CGFloat = 50
         addButton.backgroundColor = .systemBlue
@@ -99,21 +93,28 @@ class NewGoalModalViewController: UIViewController {
         addButton.layer.cornerRadius = buttonSize / 2
         addButton.translatesAutoresizingMaskIntoConstraints = false
         addButton.addTarget(self, action: #selector(addTask), for: .touchUpInside)  //ação de quando clica no botão
-        addButtonContainer.addSubview(addButton)
+        view.addSubview(addButton)
         //constraints do botao
+        let addButtonBottomConstraint = addButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16)
         NSLayoutConstraint.activate([
-            addButtonContainer.heightAnchor.constraint(equalToConstant: buttonSize + 16),
-            addButtonContainer.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            addButtonContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            addButtonContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             addButton.widthAnchor.constraint(equalToConstant: buttonSize),
             addButton.heightAnchor.constraint(equalToConstant: buttonSize),
-            addButton.bottomAnchor.constraint(equalTo: addButtonContainer.bottomAnchor, constant: -16),
-            addButton.trailingAnchor.constraint(equalTo: addButtonContainer.trailingAnchor, constant: -16)
+            addButtonBottomConstraint,
+            addButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])
         
         //adiciona acessório ao keyboard
-        bottomLineTextField.inputAccessoryView = addButtonContainer
+        stickViewToKeyboard(bottomConstraint: addButtonBottomConstraint)
+        
+        //implemetando delegate do textField
+        bottomLineTextField.delegate = self
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        bottomLineTextField.resignFirstResponder()
     }
     
     @objc func addTask() {
@@ -134,6 +135,20 @@ class NewGoalModalViewController: UIViewController {
         if let customLineTextField = textField as? CustomLineTextField {
             customLineTextField.count()
         }
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // Verifique o comprimento atual do texto no campo
+        let currentText = textField.text ?? ""
+        let newText = (currentText as NSString).replacingCharacters(in: range, with: string)
+        
+        // Verifique se a nova string excede o limite máximo
+        if newText.count > (bottomLineTextField.maxLength ?? 30) {
+            return false // Não permita a adição de mais caracteres
+        }
+
+        // Se a nova string não exceder o limite, permita a alteração
+        return true
     }
 }
 

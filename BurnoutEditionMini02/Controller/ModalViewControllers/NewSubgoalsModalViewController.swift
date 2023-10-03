@@ -128,7 +128,6 @@ class NewSubgoalsModalViewController: UIViewController, AddSubGoalButtonDelegate
     func addSubGoalButtonTouched() {
         subGoals.append(SubGoalStatic(id: UUID(), title: "", level: .easy, type: .work))
         tableView.reloadData()
-        self.setNeedsStatusBarAppearanceUpdate()
         toggleAddSubGoalButton()
     }
     

@@ -15,12 +15,13 @@
 		2F5FD3A82AC7518C0012DA88 /* SubgoalLevelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5FD3A72AC7518C0012DA88 /* SubgoalLevelViewController.swift */; };
 		2F9CDC8B2ABD0D5700C10425 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2F9CDC8D2ABD0D5700C10425 /* Localizable.strings */; };
 		2F9CDC902ABD153B00C10425 /* LocalizedStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9CDC8F2ABD153B00C10425 /* LocalizedStringExtension.swift */; };
-		2FC6D6452AC3096A00CAD167 /* SettingsModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC6D6442AC3096A00CAD167 /* SettingsModalViewController.swift */; };
+		2FC6D6452AC3096A00CAD167 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC6D6442AC3096A00CAD167 /* SettingsViewController.swift */; };
 		BA7E71652AC35A8D0036028B /* Goal+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7E71632AC35A8D0036028B /* Goal+CoreDataClass.swift */; };
 		BA7E71662AC35A8D0036028B /* Goal+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7E71642AC35A8D0036028B /* Goal+CoreDataProperties.swift */; };
 		BA7E71692AC3609D0036028B /* DAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7E71682AC3609D0036028B /* DAO.swift */; };
 		C562C56B2ABE290E00A3311C /* GoalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562C56A2ABE290E00A3311C /* GoalModel.swift */; };
 		C562C56D2ABE297E00A3311C /* SubGoalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562C56C2ABE297E00A3311C /* SubGoalModel.swift */; };
+		C5AFA7962ACCAC4D000BFE0C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AFA7952ACCAC4D000BFE0C /* ViewController.swift */; };
 		C5DF0B982AC3725D0012C1F4 /* UIViewController+PresentModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DF0B972AC3725D0012C1F4 /* UIViewController+PresentModal.swift */; };
 		C5DF0BA12AC6147A0012C1F4 /* CustomLineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DF0BA02AC6147A0012C1F4 /* CustomLineTextField.swift */; };
 		C5DF0BA32AC614EA0012C1F4 /* AddSubGoalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DF0BA22AC614EA0012C1F4 /* AddSubGoalCell.swift */; };
@@ -60,13 +61,14 @@
 		2F9CDC8C2ABD0D5700C10425 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2F9CDC8E2ABD0DC800C10425 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		2F9CDC8F2ABD153B00C10425 /* LocalizedStringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedStringExtension.swift; sourceTree = "<group>"; };
-		2FC6D6442AC3096A00CAD167 /* SettingsModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModalViewController.swift; sourceTree = "<group>"; };
+		2FC6D6442AC3096A00CAD167 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		BA7E71632AC35A8D0036028B /* Goal+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataClass.swift"; sourceTree = "<group>"; };
 		BA7E71642AC35A8D0036028B /* Goal+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		BA7E71682AC3609D0036028B /* DAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DAO.swift; sourceTree = "<group>"; };
 		BA7E71AC2AC52F500036028B /* BurnoutEditionMini02.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BurnoutEditionMini02.entitlements; sourceTree = "<group>"; };
 		C562C56A2ABE290E00A3311C /* GoalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalModel.swift; sourceTree = "<group>"; };
 		C562C56C2ABE297E00A3311C /* SubGoalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubGoalModel.swift; sourceTree = "<group>"; };
+		C5AFA7952ACCAC4D000BFE0C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C5DF0B972AC3725D0012C1F4 /* UIViewController+PresentModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PresentModal.swift"; sourceTree = "<group>"; };
 		C5DF0BA02AC6147A0012C1F4 /* CustomLineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLineTextField.swift; sourceTree = "<group>"; };
 		C5DF0BA22AC614EA0012C1F4 /* AddSubGoalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSubGoalCell.swift; sourceTree = "<group>"; };
@@ -112,7 +114,7 @@
 		2F0A5C942ACB4BD9003BA21C /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				2FC6D6442AC3096A00CAD167 /* SettingsModalViewController.swift */,
+				2FC6D6442AC3096A00CAD167 /* SettingsViewController.swift */,
 				2F0A5C9B2ACB5745003BA21C /* ContactUsViewController.swift */,
 				2F0A5C952ACB4BF0003BA21C /* NotificationsViewController.swift */,
 				2F0A5C992ACB4C0E003BA21C /* PrivacyViewController.swift */,
@@ -210,6 +212,7 @@
 				C5DF0BA62ACB03800012C1F4 /* CreateGoalVCStore.swift */,
 				F15BE4F92ABCC97D005A1C39 /* GoalsViewController.swift */,
 				F15BE50E2ABCDE40005A1C39 /* AchievementsViewController.swift */,
+				C5AFA7952ACCAC4D000BFE0C /* ViewController.swift */,
 				2F0A5C942ACB4BD9003BA21C /* Settings */,
 				F1D15BC82AC4EC7600528743 /* Reflection */,
 				F15BE5102ABCDE4F005A1C39 /* ModalViewControllers */,
@@ -363,6 +366,7 @@
 				F1359EE52ABB6F92004536E6 /* AppDelegate.swift in Sources */,
 				C5DF0BA72ACB03800012C1F4 /* CreateGoalVCStore.swift in Sources */,
 				2F5FD3A62AC751330012DA88 /* NotificationsSettings.swift in Sources */,
+				C5AFA7962ACCAC4D000BFE0C /* ViewController.swift in Sources */,
 				C5DF0BA12AC6147A0012C1F4 /* CustomLineTextField.swift in Sources */,
 				F15BE5052ABCD950005A1C39 /* NewGoalModalViewController.swift in Sources */,
 				F15BE5022ABCD8E9005A1C39 /* NewWellnessSubgoalsModalView.swift in Sources */,
@@ -374,7 +378,7 @@
 				2F5FD3A82AC7518C0012DA88 /* SubgoalLevelViewController.swift in Sources */,
 				F15BE5002ABCD89C005A1C39 /* NewSubgoalsModalView.swift in Sources */,
 				2F0A5C982ACB4BFF003BA21C /* AcknowledgementsViewController.swift in Sources */,
-				2FC6D6452AC3096A00CAD167 /* SettingsModalViewController.swift in Sources */,
+				2FC6D6452AC3096A00CAD167 /* SettingsViewController.swift in Sources */,
 				F15BE50F2ABCDE40005A1C39 /* AchievementsViewController.swift in Sources */,
 				F1D15BC72AC45E2E00528743 /* ReflectionCanvasViewController.swift in Sources */,
 				F15BE5072ABCD965005A1C39 /* NewSubgoalsModalViewController.swift in Sources */,

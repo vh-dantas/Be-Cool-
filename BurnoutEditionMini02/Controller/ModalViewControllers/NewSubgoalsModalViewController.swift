@@ -121,6 +121,7 @@ class NewSubgoalsModalViewController: UIViewController, AddSubGoalButtonDelegate
     @objc func nextView() {
         // cria a navegacao de push entre as telas
         let newSubgoalLevelViewController = NewSubgoalLevelViewController()
+        CreateGoalVCStore.shared.subGoals = subGoals
         navigationController?.pushViewController(newSubgoalLevelViewController, animated: true)
     }
     
@@ -192,6 +193,7 @@ extension NewSubgoalsModalViewController: UITableViewDelegate, UITableViewDataSo
             }
             cell.delegate = self
             cell.label.text = "Checklist de tarefas"
+            cell.selectionStyle = .none
             return cell
         } else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "subGoalCellText", for: indexPath) as? SubGoalCellText else {
@@ -202,6 +204,7 @@ extension NewSubgoalsModalViewController: UITableViewDelegate, UITableViewDataSo
             cell.textField.text = subGoal.title
             cell.subGoal = subGoal
             cell.delegate = self
+            cell.selectionStyle = .none // remove a seleção cinza da célula
             return cell
         }
     }

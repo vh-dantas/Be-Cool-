@@ -8,7 +8,7 @@
 import UIKit
 
 class NewSubgoalLevelViewController: UIViewController {
-    var sliderValues: [Int: (Float, String)] = [:]
+    var sliderLevels: [Int: String] = [:]
     
     init() {
         // Sempre chamar este super.init
@@ -91,7 +91,8 @@ class NewSubgoalLevelViewController: UIViewController {
                 slider.tag = index
                 slider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
                 // define o nível "facil" como valor default pro slider
-                sliderValues[index] = (60, "easy")
+                sliderLevels[index] = ("easy")
+                Calculator.shared.savedValues[index] = 60
 
                 // Constraints pra label
                 NSLayoutConstraint.activate([
@@ -151,6 +152,7 @@ class NewSubgoalLevelViewController: UIViewController {
         sender.value = roundedValue // Arredonda os valores do slider
         sender.customizeThumb()
         
+        let index = sender.tag
         var savedValue: Float
         var savedLevel: String
         
@@ -165,8 +167,9 @@ class NewSubgoalLevelViewController: UIViewController {
             savedLevel = "hard"
         }
         
-        let index = sender.tag
-        sliderValues[index] = (savedValue, savedLevel)
+        
+        CreateGoalVCStore.shared.subgoalLevelViewController?.sliderLevels[index] = savedLevel
+        Calculator.shared.savedValues[index] = savedValue
     }
     
     @objc func nextView() {
@@ -236,5 +239,27 @@ class CustomSlider: UISlider {
         var rect = super.trackRect(forBounds: bounds)
         rect.size.height = 35
         return rect
+    }
+}
+
+// MARK: Calcula o valor necessário de bem-estar
+class Calculator {
+    static let shared = Calculator()
+    var savedValues: [Int: Float] = [:]
+    let balance: Float = 0.3
+
+    func calculateResult() -> (Int, Int) {
+        var sum: Float = 0
+        for value in savedValues.values {
+            sum += value
+        }
+        print("total de horas de trabalho em minutos: \(sum)")
+        let resultMinutes = (sum * balance)
+        let roundedResultMinutes = round(resultMinutes)
+        print("total de horas de bem-estar em minutos: \(resultMinutes)")
+        let hours = Int(roundedResultMinutes) / 60
+        let minutes = Int(roundedResultMinutes) % 60
+        print("horas de bem-estar recomendadas: \(hours) hora(s) e \(minutes) minutos")
+        return (hours, minutes)
     }
 }

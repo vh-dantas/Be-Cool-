@@ -25,16 +25,12 @@ class NewWellnessSubgoalsModalViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Só testando os valores da view anterior
-        let sliderValues = CreateGoalVCStore.shared.subgoalLevelViewController?.sliderValues ?? [:]
-        let subGoals = CreateGoalVCStore.shared.newSubGoalModalViewController?.subGoals ?? []
-        
-        for index in subGoals.indices {
-            if let value = sliderValues[index] {
-                let (savedValue, savedLevel) = value
-                
-                if index < subGoals.count {
-                    let subGoal = subGoals[index]
-                    print("Index: \(index), Task: \(subGoal.title), Saved Value: \(savedValue), Saved Leve: \(savedLevel)")
+        if let sliderLevels = CreateGoalVCStore.shared.subgoalLevelViewController?.sliderLevels {
+            let subGoals = CreateGoalVCStore.shared.newSubGoalModalViewController?.subGoals ?? []
+            
+            for (index, subGoal) in subGoals.enumerated() {
+                if let level = sliderLevels[index] {
+                    print("Index: \(index), Task: \(subGoal.title), Saved Level: \(level)")
                 }
             }
         }
@@ -89,6 +85,11 @@ class NewWellnessSubgoalsModalViewController: UIViewController {
             stackView.spacing = 5
             stackView.translatesAutoresizingMaskIntoConstraints = false
 
+            // pega o valor da classe calculadora
+            let (hours, minutes) = Calculator.shared.calculateResult()
+            // transforma o resultado em uma string e separa cada dígito com um .map
+            let timeDigits = String(format: "%02d%02d", hours, minutes).map { String($0) }
+            
             for index in 0..<4 {
                 // Cria um retângulo com as dimensões e posição certas
                 let rectangle = UIView()
@@ -102,7 +103,8 @@ class NewWellnessSubgoalsModalViewController: UIViewController {
 
                 // Cria a label do cartão
                 let timeDigit = UILabel()
-                timeDigit.text = "\(index + 1)" // TODO: DEFINIR A LÓGICA DAS LABELS AQUI
+                // Adiciona os dígitos no cartão, um por vez
+                timeDigit.text = timeDigits[index]
                 timeDigit.textAlignment = .center
                 timeDigit.font = UIFont.systemFont(ofSize: 40)
                 timeDigit.translatesAutoresizingMaskIntoConstraints = false

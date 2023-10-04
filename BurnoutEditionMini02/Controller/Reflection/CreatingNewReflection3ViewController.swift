@@ -107,10 +107,12 @@ class CreatingNewReflection3ViewController: UIViewController, UITextFieldDelegat
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let formattedDate = dateFormatter.string(from: date)
         
-        let newReflection = ReflectionModel(id: id, name: refName ?? "", relatedGoal: nil, randomRefQst: randomRefQst, randomRefAns: randomRefAns, draw: drawing, mood: mood, date: formattedDate)
+//        let newReflection = ReflectionModel(id: id, name: refName ?? "", relatedGoal: nil, randomRefQst: randomRefQst, randomRefAns: randomRefAns, draw: drawing, mood: mood, date: formattedDate)
         
-        reflectionModels.append(newReflection)
-        print(newReflection.description)
+        DataAcessObject.shared.createReflection(refName: refName ?? "", mood: mood, randomRefQST: randomRefQst, randomRefANS: randomRefAns ?? "")
+        
+//        reflectionModels.append(newReflection)
+//        print(newReflection.description)
         
         navigationController?.popToRootViewController(animated: true)
     }

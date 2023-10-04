@@ -11,16 +11,46 @@
 "goals" = "Goals";
 "achievements" = "Achievements";
 "reflections" = "Reflections";
-
-// Settings View
 "settings" = "Settings";
+
+// Settings
+"notifications" = "Notifications";
+"preferences" = "Preferences";
+"onboarding" = "Onboarding";
+"about" = "About Us";
+"privacy" = "Privacy Policy";
+"contact" = "Contact Us";
+"version" = "Version";
+
+// Notificações
 "water" = "Drink Water";
 "stretch" = "Stretch";
 "walk-around" = "Go for a walk";
 
-// Custom Slider
+
+// Subgoal Level
 "easy" = "Easy";
 "medium" = "Medium";
 "hard" = "Hard";
+"subgoal-level-title" = "Measuring the Challenge:";
+"subgoal-level-text" = "Analyze how challenging each task will be. That will help you adjust your expectations.";
+
+// Wellness Subgoal
+"wellness-subgoal-title" = "Prioritize your well-being:";
+"wellness-subgoal-text" = "Setup your wellness goals to have a balanced life. We suggest you focus on doing things for your well-being for this amount of time:";
+"save-goals-btn" = "Save My Goal";
+
+// Privacy Policy
+"PrivacyTitle1" = "Privacy Policy for [APP]";
+"PrivacyText1" = "Thank you for choosing [APP]. This Privacy Policy describes how we collect, use, and share information when you use our app. Your privacy is important to us, and we are committed to protecting your personal data. By using [APP], you agree to the privacy practices outlined in this policy.";
+
+"PrivacyTitle2" = "Data Collection & Storage";
+"PrivacyText2" = "We do not collect, store, or monitor any user's personal information. [App Name] does not request, access, or use any personal data, identifying information, or other sensitive information. [App Name] utilizes Apple's iCloud to enable data synchronization between the user's iPhone and iPad devices. The synchronized information solely pertains to the internal operation of the app and does not include personally identifiable data. We do not use cookies or other tracking technologies to collect information about app usage. We do not share personal information with third parties, as we do not collect such information. We are committed to safeguarding your data.";
+
+"PrivacyTitle3" = "Changes to this Privacy Policy";
+"PrivacyText3" = "We may update this Privacy Policy from time to time to reflect changes in our privacy practices. The latest version of the policy will always be available within the app. We recommend that you periodically review this policy to stay informed about how we are protecting your privacy.";
+
+"PrivacyTitle4" = "Contact";
+"PrivacyText4" = "If you have any questions or concerns regarding privacy, please contact us at [Contact Email Address].";
 
 // NÃO ESQUECER JAMAIS DO ; NO FINAL DAS STRINGS 🙏

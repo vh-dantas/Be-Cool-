@@ -11,16 +11,47 @@
 "goals" = "Metas";
 "achievements" = "Conquistas";
 "reflections" = "Reflexões";
+"settings" = "Configurações";
 
-// Settings View
-"settings" = "Preferências";
+// Settings
+"notifications" = "Notificações";
+"preferences" = "Preferências";
+"onboarding" = "Onboarding";
+"about" = "Sobre o App";
+"privacy" = "Política de Privacidade";
+"contact" = "Fale Conosco";
+"version" = "Versão";
+
+// Notificações
 "water" = "Beber água";
 "stretch" = "Alongamento";
 "walk-around" = "Caminhar";
 
-// Custom Slider
+
+// Subgoal Level
 "easy" = "Fácil";
 "medium" = "Médio";
 "hard" = "Difícil";
+"subgoal-level-title" = "Medindo o Desafio:";
+"subgoal-level-text" = "Avalie a dificuldade de cada tarefa para ajustar expectativas.";
+
+// Wellness Subgoal
+"wellness-subgoal-title" = "Priorize seu bem-estar:";
+"wellness-subgoal-text" = "Defina metas de bem-estar para equilibrar sua vida. Sugerimos que você reserve:";
+"save-goals-btn" = "Salvar Meta";
+
+
+// Privacy Policy
+"PrivacyTitle1" = "Política de Privacidade de [APP]";
+"PrivacyText1" = "Agradecemos por escolher o [APP]. Esta Política de Privacidade descreve como coletamos, usamos e compartilhamos informações quando você utiliza nosso aplicativo. Sua privacidade é importante para nós, e estamos comprometidos em proteger seus dados pessoais. Ao usar o [Nome do Aplicativo], você concorda com as práticas de privacidade descritas nesta política.";
+
+"PrivacyTitle2" = "Coleta e Amazenamento de Dados";
+"PrivacyText2" = "Não coletamos, armazenamos ou monitoramos qualquer informação pessoal do usuário. O [APP] não solicita, acessa ou utiliza quaisquer dados pessoais, informações de identificação ou outras informações sensíveis. O [APP] utiliza o iCloud da Apple para permitir a sincronização de dados entre dispositivos iPhone e iPad do usuário. As informações sincronizadas são exclusivamente relacionadas ao funcionamento interno do aplicativo e não incluem dados pessoais identificáveis. Não utilizamos cookies ou outras tecnologias de rastreamento para coletar informações sobre o uso do aplicativo. Não compartilhamos informações pessoais com terceiros, uma vez que não coletamos essas informações. Estamos empenhados em proteger seus dados.";
+
+"PrivacyTitle3" = "Alterações nesta Política de Privacidade";
+"PrivacyText3" = "Podemos atualizar esta Política de Privacidade de tempos em tempos para refletir mudanças em nossas práticas de privacidade. A versão mais recente da política estará sempre disponível no aplicativo. Recomendamos que você revise periodicamente esta política para se manter informado sobre como estamos protegendo sua privacidade.";
+
+"PrivacyTitle4" = "Contato";
+"PrivacyText4" = "Se tiver alguma dúvida ou preocupação relacionada à privacidade, entre em contato conosco em [Endereço de E-mail de Contato].";
 
 // NÃO ESQUECER JAMAIS DO ; NO FINAL DAS STRINGS 🙏

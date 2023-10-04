@@ -1,14 +1,14 @@
 //
-//  SettingsModalViewController.swift
+//  NotificationsViewController.swift
 //  BurnoutEditionMini02
 //
-//  Created by Thayna Rodrigues on 26/09/23.
+//  Created by Thayna Rodrigues on 02/10/23.
 //
 
 import UIKit
 import UserNotifications
 
-class SettingsModalViewController: UIViewController {
+class NotificationsViewController: UIViewController {
     
     var notificationsAllowed = false
 
@@ -33,7 +33,7 @@ class SettingsModalViewController: UIViewController {
     // MARK: -- SETUP VISUAL DA VIEW
     func setupViewStyle() {
         view.backgroundColor = .white
-        navigationItem.title = "settings".localized
+        navigationItem.title = "notifications".localized
     }
     
     
@@ -156,7 +156,8 @@ class SettingsModalViewController: UIViewController {
             includeWeekendsSwitch.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -25)
         ])
     }
-    
+
+
     
     // MARK: -- SETUP DA TABLEVIEW DE ATIVIDADES
     func setupActivities() {
@@ -206,7 +207,7 @@ class SettingsModalViewController: UIViewController {
 
 
 // Extensão da view controller pra conformar com os protocolos UITableViewDelegate e UITableViewDataSource
-extension SettingsModalViewController: UITableViewDelegate, UITableViewDataSource {
+extension NotificationsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return options.count

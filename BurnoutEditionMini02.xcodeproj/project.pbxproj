@@ -246,8 +246,8 @@
 			children = (
 				F15BE5042ABCD950005A1C39 /* NewGoalModalViewController.swift */,
 				F15BE5062ABCD965005A1C39 /* NewSubgoalsModalViewController.swift */,
-				2F5FD3A72AC7518C0012DA88 /* SubgoalLevelViewController.swift */,
 				F15BE5082ABCD985005A1C39 /* NewWellnessSubgoalsModalViewController.swift */,
+				2F5FD3A72AC7518C0012DA88 /* SubgoalLevelViewController.swift */,
 			);
 			path = ModalViewControllers;
 			sourceTree = "<group>";

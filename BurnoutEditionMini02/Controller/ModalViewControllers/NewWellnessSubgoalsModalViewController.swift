@@ -14,6 +14,21 @@ class NewWellnessSubgoalsModalViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Só testando os valores da view anterior
+        let sliderValues = CreateGoalVCStore.shared.sliderValues
+        let subGoals = CreateGoalVCStore.shared.subGoals ?? []
+        
+        for index in subGoals.indices {
+            if let value = sliderValues[index] {
+                let (savedValue, savedLevel) = value
+                
+                if index < subGoals.count {
+                    let subGoal = subGoals[index]
+                    print("Index: \(index), Task: \(subGoal.title), Saved Value: \(savedValue), Saved Leve: \(savedLevel)")
+                }
+            }
+        }
+        
         // Coloca a cor de fundo da modal (ele seta como transparente por padrão)
         view.backgroundColor = .white
         setupLabels()
@@ -26,13 +41,13 @@ class NewWellnessSubgoalsModalViewController: UIViewController {
             firstLabel.translatesAutoresizingMaskIntoConstraints = false
             secondLabel.translatesAutoresizingMaskIntoConstraints = false
 
-            firstLabel.text = "Priorize seu bem-estar"
+            firstLabel.text = "wellness-subgoal-title".localized
             firstLabel.font = UIFont.systemFont(ofSize: 28, weight: .bold)
             firstLabel.lineBreakMode = .byWordWrapping
             firstLabel.sizeToFit()
             firstLabel.numberOfLines = 0
             
-            secondLabel.text = "Defina metas de bem-estar para equilibrar sua vida. Sugerimos que você reserve:"
+            secondLabel.text = "wellness-subgoal-text".localized
             secondLabel.font = UIFont.systemFont(ofSize: 15, weight: .light)
             secondLabel.lineBreakMode = .byWordWrapping
             secondLabel.sizeToFit()
@@ -116,7 +131,7 @@ class NewWellnessSubgoalsModalViewController: UIViewController {
         
         func setupSaveButton() {
             let saveButton = UIButton(type: .system)
-            saveButton.setTitle("Save my goals", for: .normal)
+            saveButton.setTitle("save-goals-btn".localized, for: .normal)
             saveButton.titleLabel?.font = UIFont.systemFont(ofSize: 17)
             saveButton.backgroundColor = UIColor.systemBlue
             saveButton.setTitleColor(UIColor.white, for: .normal)

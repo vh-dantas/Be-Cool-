@@ -86,16 +86,14 @@ class AchievementsViewController: UIViewController {
         setUpCntainerViews()
         setUPJorneyLabel()
         setUpAchievementImage()
-        setUpImageCell()
-        setUpImageCellLabel()
+       // setUpImageCell()
+       // setUpImageCellLabel()
         setUpCollectionView()
         // Configurações adicionais que nao cabem dentro da clousure da View
       // recebe o tamanho da view * o tamanho da imagem e divide para arredondar
-     
-       
-        
+
     }
-  
+    // MARK: ViewWillTRa sition
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         // Atualize o cornerRadius com base na orientação do dispositivo
@@ -123,16 +121,20 @@ class AchievementsViewController: UIViewController {
                 if let cell = achievCollectionView.cellForItem(at: indexPath) as? AchievementCell {
                     cell.imageCellLabel.layer.cornerRadius = (view.frame.height * 0.1) / 1.41
                     cell.imageCellLabel.layer.masksToBounds = true
+                    NSLayoutConstraint.activate([
+                        cell.imageCell.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.1),
+                        cell.imageCell.widthAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.1)
+                    ])
                 }
             }
         }
  
     }
     
-    // Convfigurando todos os Container Views - ela preenche metade da view
+    // Convfigurando todos os Container Views - ela preenche metade da view MARK: COntainerView
     func setUpCntainerViews(){
         view.addSubview(topContainerView)
-        topContainerView.backgroundColor = .gray
+        topContainerView.backgroundColor = .systemBackground
         topContainerView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             topContainerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -151,24 +153,68 @@ class AchievementsViewController: UIViewController {
         ])
     }
     
-    
+    // MARK: COllectionView
     func setUpCollectionView() {
-         achievCollectionView = UICollectionView(frame: view.bounds, collectionViewLayout: <#T##UICollectionViewLayout#>)
-        
+        achievCollectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createFlowLayout())
+        view.addSubview(achievCollectionView)
         achievCollectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         achievCollectionView.backgroundColor = .systemBackground
         achievCollectionView.translatesAutoresizingMaskIntoConstraints = false
         achievCollectionView.register(AchievementCell.self, forCellWithReuseIdentifier: AchievementCell.reuseIdentifier)
         achievCollectionView.dataSource = self
-        view.addSubview(achievCollectionView)
         
+        NSLayoutConstraint.activate([
+            achievCollectionView.topAnchor.constraint(equalTo: topContainerView.bottomAnchor),
+            achievCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            achievCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            achievCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
+        ])
+        
+        for achievment in 0..<(achievementArray.count){
+            let indexPath = IndexPath(item: achievment, section: 0)
+            // acessando o item diretamente através do método cellForItem(at:)
+            if let cell = achievCollectionView.cellForItem(at: indexPath) as? AchievementCell {
+                cell.imageCellLabel.layer.cornerRadius = (view.frame.height * 0.1) / 2
+                cell.imageCellLabel.layer.masksToBounds = true
+                NSLayoutConstraint.activate([
+                    cell.imageCell.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.1),
+                    cell.imageCell.widthAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.1)
+                ])
+            }
+            
+        }
         
     }
+    //
+//    func createCollectionViewLayout() -> UICollectionViewLayout{
+//
+//    }
     
-    func createCollectionViewLayout() -> UICollectionViewLayout{
+    func createFlowLayout() -> UICollectionViewFlowLayout {
+        let flowLayout = UICollectionViewFlowLayout()
         
+        // Defina o tamanho mínimo dos itens (largura e altura)
+        let minItemWidth: CGFloat = (view.frame.height * 0.10)// Largura mínima desejada para cada item
+        let minItemHeight: CGFloat = (view.frame.height * 0.10) // Altura mínima desejada para cada item
+        
+        // Calcula o número de colunas com base na largura da tela
+        let screenWidth = UIScreen.main.bounds.width
+        let numberOfColumns = Int(screenWidth / minItemWidth)
+        
+        // Calcula o tamanho real dos itens com base no número de colunas
+        let itemWidth = screenWidth / CGFloat(numberOfColumns)
+        let itemHeight = minItemHeight // Mantém a altura fixa
+        
+        flowLayout.itemSize = CGSize(width: itemWidth, height: itemHeight)
+        
+        // Define o espaçamento entre os itens e as seções conforme necessário
+        flowLayout.minimumInteritemSpacing = 5
+        flowLayout.minimumLineSpacing = 20
+        //flowLayout.sectionInset = UIEdgeInsets(top: 30, left: 0, bottom: 30, right: 0)
+        
+        return flowLayout
     }
-    
+   
     // Configurando a imagem Superior - ela fic ano meio ta topContainer View
     func setUpAchievementImage(){
         topContainerView.addSubview(achievIamge)
@@ -203,16 +249,25 @@ class AchievementsViewController: UIViewController {
 }
 
 extension AchievementsViewController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+           return 1
+       }
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        achievementArray.count
+      //  achievementArray.count
+        return 90
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // Criado a celula e garantoidno que ela seja do tipo AchievementCell
         guard let cell = achievCollectionView.dequeueReusableCell(withReuseIdentifier: AchievementCell.reuseIdentifier, for: indexPath) as? AchievementCell else { fatalError("Cannot Convert cell") }
-        cell.imageCellLabel.text = achievementArray[indexPath.item].title
-        cell.imageCell.layer.cornerRadius = (view.frame.height * 0.1) / 2
-        
+        cell.imageCellLabel.text = "Paralelepipedo Paralelepipedo"//achievementArray[indexPath.item].title
+       // cell.imageCell.layer.cornerRadius = (view.frame.height * 0.1) / 2
+        cell.layer.borderColor = UIColor.black.cgColor
+       
+        cell.layer.borderWidth = 1
+        // Configurando a imagem da Celula
+
         return cell
     }
 }
@@ -244,7 +299,8 @@ class AchievementCell: UICollectionViewCell {
        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontForContentSizeCategory = true
-        label.font = UIFont.preferredFont(forTextStyle: .caption2)
+         label.font = UIFont.preferredFont(forTextStyle: .footnote)
+    
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         // Para ele ficar no centro em relacao ao circulo da foto
@@ -258,6 +314,34 @@ class AchievementCell: UICollectionViewCell {
         contentView.addSubview(imageCell)
         contentView.addSubview(imageCellLabel)
         
+        NSLayoutConstraint.activate([
+            imageCell.topAnchor.constraint(equalTo: contentView.topAnchor),
+            imageCell.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            imageCell.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.75),
+            imageCell.widthAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.75)
+
+        ])
+
+        NSLayoutConstraint.activate([
+            imageCellLabel.topAnchor.constraint(equalTo: imageCell.bottomAnchor, constant: 3),
+            imageCellLabel.centerXAnchor.constraint(equalTo: imageCell.centerXAnchor),
+            imageCellLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor)
+        ])
+        
+        //imageCell.layer.cornerRadius = contentView.frame.height / 2
+        imageCell.layer.cornerRadius = min(contentView.frame.width * 0.75, contentView.frame.height * 0.75) / 2.0
+        imageCell.layer.masksToBounds = true
+//        if UIDevice.current.orientation.isLandscape {
+//            print("Landscape")
+//            let cornerRadius = (contentView.frame.height ) / 2
+//            imageCell.layer.cornerRadius = cornerRadius
+//
+//        } else {
+//            print("Portrait")
+//            let cornerRadius = (contentView.frame.height) / 2
+//            imageCell.layer.cornerRadius = cornerRadius
+//        }
+        
     }
     
     required init?(coder: NSCoder) {
@@ -268,7 +352,9 @@ class AchievementCell: UICollectionViewCell {
 }
 
 
-// MARK: Table View
+// MARK: - uygvu
+
+
 
 
 //class SubGoalViewController: UIViewController {

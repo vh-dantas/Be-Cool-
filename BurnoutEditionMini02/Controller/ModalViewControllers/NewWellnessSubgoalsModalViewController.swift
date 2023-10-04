@@ -138,7 +138,7 @@ class NewWellnessSubgoalsModalViewController: UIViewController {
 
         
         func setupWellnessList() {
-            // TODO: Adicionar a lista de submetas
+            // TODO: Adicionar a table view que lista as submetas de wellness aqui
         }
         
         func setupSaveButton() {
@@ -149,11 +149,9 @@ class NewWellnessSubgoalsModalViewController: UIViewController {
             saveButton.setTitleColor(UIColor.white, for: .normal)
             saveButton.layer.cornerRadius = 25
             saveButton.translatesAutoresizingMaskIntoConstraints = false
-
-            // Adjust the button's size to fit the text and add padding
             saveButton.titleLabel?.sizeToFit()
             let titleWidth = saveButton.titleLabel?.frame.width ?? 0
-            let buttonWidth = titleWidth + 40 // Add 20 points of padding on both sides
+            let buttonWidth = titleWidth + 40
             NSLayoutConstraint.activate([
                 saveButton.widthAnchor.constraint(equalToConstant: buttonWidth),
                 saveButton.heightAnchor.constraint(equalToConstant: 50)

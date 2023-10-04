@@ -9,8 +9,11 @@ import UIKit
 
 class AchievementsViewController: UIViewController {
 
+    // View Container
+    private let topContainerView = UIView()
+    
     //UILAbel abaixo do title
-    let jorneyLabel: UILabel = {
+    private let jorneyLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Relembre Sua Jornada e Celebre Suas Conquistas!"
@@ -18,10 +21,47 @@ class AchievementsViewController: UIViewController {
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
-        
         return label
     }()
     
+    // Imagem do meio da tela de conquistas
+   private let achievIamge: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "WinnerGuin")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
+    // Componentes para listar toda as conquistas
+    private let achievementCell = UIView()
+    
+    private let imageCell: UIImageView = {
+       let imageView = UIImageView()
+        imageView.image = UIImage(named: "FunnyGuin")
+        imageView.clipsToBounds = true
+        imageView.layer.borderWidth = 1
+        imageView.layer.masksToBounds = false
+        imageView.layer.borderColor = UIColor.black.cgColor
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 50 //imageView.frame.width / 2
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFill
+        return imageView
+    }()
+    
+    private let imageCellLabel: UILabel = {
+       let label = UILabel()
+        label.text = "Paralelepipedo Paralelepipedo"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontForContentSizeCategory = true
+        label.font = UIFont.preferredFont(forTextStyle: .caption2)
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    // Imagem da conquista
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "achievements".localized
@@ -29,16 +69,65 @@ class AchievementsViewController: UIViewController {
         view.backgroundColor = .systemBackground
         
         // Funções de SetUp
+        setUpCntainerViews()
         setUPJorneyLabel()
+        setUpAchievementImage()
+        setUpImageCell()
+        setUpImageCellLabel()
+
     }
   
+    // Convfigurando todos os Container Views - ela preenche metade da view
+    func setUpCntainerViews(){
+        view.addSubview(topContainerView)
+        topContainerView.backgroundColor = .gray
+        topContainerView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            topContainerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            topContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            topContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            topContainerView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.5)
+            
+        ])
+    }
+    
     // Configurando a Jorney Label MARK: JorneyLabel
     func setUPJorneyLabel(){
-        view.addSubview(jorneyLabel)
+        topContainerView.addSubview(jorneyLabel)
         NSLayoutConstraint.activate([
-            jorneyLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -5),
+            jorneyLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             jorneyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+    }
+    
+    // Configurando a imagem Superior - ela fic ano meio ta topContainer View
+    func setUpAchievementImage(){
+        topContainerView.addSubview(achievIamge)
+        NSLayoutConstraint.activate([
+            achievIamge.centerYAnchor.constraint(equalTo: topContainerView.centerYAnchor),
+            achievIamge.centerXAnchor.constraint(equalTo: topContainerView.centerXAnchor),
+            achievIamge.heightAnchor.constraint(equalTo: topContainerView.heightAnchor, multiplier: 0.5),
+            achievIamge.widthAnchor.constraint(equalTo: topContainerView.widthAnchor, multiplier: 0.5)
+        ])
+    }
+    // Configurando a imagem da celula da UICollectionView que lista as consquistas
+    func setUpImageCell(){
+        view.addSubview(imageCell)
+        NSLayoutConstraint.activate([
+            imageCell.topAnchor.constraint(equalTo: topContainerView.bottomAnchor, constant: 10),
+            imageCell.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            imageCell.heightAnchor.constraint(equalToConstant: 100),
+            imageCell.widthAnchor.constraint(equalToConstant: 100)
             
+        ])
+    }
+    
+    func setUpImageCellLabel() {
+        view.addSubview(imageCellLabel)
+        NSLayoutConstraint.activate([
+            imageCellLabel.topAnchor.constraint(equalTo: imageCell.bottomAnchor, constant: 3),
+            imageCellLabel.centerXAnchor.constraint(equalTo: imageCell.centerXAnchor, constant: 10),
+            imageCellLabel.widthAnchor.constraint(equalTo: imageCell.widthAnchor)
         ])
     }
 

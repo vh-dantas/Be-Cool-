@@ -25,13 +25,13 @@ class NewSubgoalLevelViewController: UIViewController {
             firstLabel.translatesAutoresizingMaskIntoConstraints = false
             secondLabel.translatesAutoresizingMaskIntoConstraints = false
             
-            firstLabel.text = "Medindo o Desafio:"
+            firstLabel.text = "subgoal-level-title".localized
             firstLabel.font = UIFont.systemFont(ofSize: 28, weight: .bold)
             firstLabel.lineBreakMode = .byWordWrapping
             firstLabel.sizeToFit()
             firstLabel.numberOfLines = 0
             
-            secondLabel.text = "Avalie a dificuldade de cada tarefa para ajustar expectativas:"
+            secondLabel.text = "subgoal-level-text".localized
             secondLabel.font = UIFont.systemFont(ofSize: 15, weight: .light)
             secondLabel.lineBreakMode = .byWordWrapping
             secondLabel.sizeToFit()
@@ -56,41 +56,51 @@ class NewSubgoalLevelViewController: UIViewController {
         
         // MARK: -- SLIDER
         func setupSlider() {
-            let slider = CustomSlider()
-            let taskLabel = UILabel()
+            let subGoals = CreateGoalVCStore.shared.subGoals ?? []
+            var lastView: UIView = secondLabel
 
-            // Cria o label da tarefa
-            taskLabel.translatesAutoresizingMaskIntoConstraints = false
-            taskLabel.text = "Tarefa 1"
-            taskLabel.font = UIFont.systemFont(ofSize: 17, weight: .bold)
-            taskLabel.lineBreakMode = .byWordWrapping
-            taskLabel.sizeToFit()
-            taskLabel.numberOfLines = 0
+            for (index, subGoal) in subGoals.enumerated() {
+                let slider = CustomSlider()
+                let taskLabel = UILabel()
 
-            self.view.addSubview(taskLabel)
-            self.view.addSubview(slider)
+                // cria a label com o nome da task
+                taskLabel.translatesAutoresizingMaskIntoConstraints = false
+                taskLabel.text = subGoal.title
+                taskLabel.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+                taskLabel.lineBreakMode = .byWordWrapping
+                taskLabel.sizeToFit()
+                taskLabel.numberOfLines = 0
 
-            // Configura o slider de dificuldade
-            slider.minimumValue = 0
-            slider.maximumValue = 100
-            slider.addTarget(self, action: #selector(sliderValueChanged), for: .valueChanged)
+                self.view.addSubview(taskLabel)
+                self.view.addSubview(slider)
 
-            // Constraints pra label
-            NSLayoutConstraint.activate([
-                taskLabel.topAnchor.constraint(equalTo: secondLabel.bottomAnchor, constant: 50),
-                taskLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-                taskLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
-            ])
+                // define o valor dos sliders e chama a função sliderValueChanged
+                slider.minimumValue = 0
+                slider.maximumValue = 100
+                slider.tag = index
+                slider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
+                // define o nível "facil" como valor default pro slider
+                CreateGoalVCStore.shared.sliderValues[index] = (60, "easy")
 
-            // Constraints pro slider
-            slider.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                slider.topAnchor.constraint(equalTo: taskLabel.bottomAnchor),
-                slider.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-                slider.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16)
-            ])
+                // Constraints pra label
+                NSLayoutConstraint.activate([
+                    taskLabel.topAnchor.constraint(equalTo: lastView.bottomAnchor, constant: 45),
+                    taskLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+                    taskLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+                ])
 
+                // Constraints pro slider
+                slider.translatesAutoresizingMaskIntoConstraints = false
+                NSLayoutConstraint.activate([
+                    slider.topAnchor.constraint(equalTo: taskLabel.bottomAnchor, constant: -5),
+                    slider.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+                    slider.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16)
+                ])
+
+                lastView = slider
+            }
         }
+
         
         func setupNextButton() {
             //cria um conteiner para adicionar o botao dentro
@@ -126,16 +136,32 @@ class NewSubgoalLevelViewController: UIViewController {
     @objc func sliderValueChanged(_ sender: CustomSlider) {
         let step: Float = 50 // Snap
         let roundedValue = round(sender.value / step) * step // Param no ponto de snap mais próximo
+        
         sender.value = roundedValue // Arredonda os valores do slider
         sender.customizeThumb()
+        
+        var savedValue: Float
+        var savedLevel: String
+        
+        if sender.value >= 0 && sender.value < 50 {
+            savedValue = 60
+            savedLevel = "easy"
+        } else if sender.value >= 50 && sender.value < 100 {
+            savedValue = 150
+            savedLevel = "medium"
+        } else { // sender.value = 100
+            savedValue = 180
+            savedLevel = "hard"
+        }
+        
+        let index = sender.tag
+        CreateGoalVCStore.shared.sliderValues[index] = (savedValue, savedLevel)
     }
     
     @objc func nextView() {
         // cria a navegacao de push entre as telas
         let newWellnessSubgoalsModalViewController = NewWellnessSubgoalsModalViewController()
         navigationController?.pushViewController(newWellnessSubgoalsModalViewController, animated: true)
-        //newSubGoalModalViewController.delegate = homeGoal
-        //delegate?.addedGoal(goalText)
     }
 }
 
@@ -157,7 +183,7 @@ class CustomSlider: UISlider {
     // Customiza a bolinha do slider:
     func customizeThumb() {
         let thumbLayer = CALayer()
-        thumbLayer.bounds = CGRect(x: 0, y: 0, width: 100, height: 30) // ajuste do tamanho da thumb
+        thumbLayer.bounds = CGRect(x: 0, y: 0, width: 130, height: 35) // ajuste do tamanho da thumb
         thumbLayer.cornerRadius = thumbLayer.bounds.height / 2 // cria o formato de cápsula
         thumbLayer.backgroundColor = UIColor.lightGray.cgColor // cor da cápsula
         
@@ -197,7 +223,7 @@ class CustomSlider: UISlider {
     // Customiza o trilho do slider
     override func trackRect(forBounds bounds: CGRect) -> CGRect {
         var rect = super.trackRect(forBounds: bounds)
-        rect.size.height = 30
+        rect.size.height = 35
         return rect
     }
 }

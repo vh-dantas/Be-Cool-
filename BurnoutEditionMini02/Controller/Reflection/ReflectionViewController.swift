@@ -95,12 +95,23 @@ class ReflectionViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
+    // Ação ao clicar na cell
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if indexPath.section == 0 {
+            navigationController?.pushViewController(BreathAnimationViewController(), animated: true)
+        } else {
+            
+        }
+        
+    }
+    
     // MARK: - Search bar
     func setupSearchBar() {
         // Configuracões da Search Bar
         searchBar.placeholder = "Search"
         searchBar.enablesReturnKeyAutomatically = true
-        searchBar.searchBarStyle = .prominent
+        searchBar.searchBarStyle = .minimal
         
         view.addSubview(searchBar)
     }
@@ -133,7 +144,7 @@ extension ReflectionViewController {
         let id = UUID()
         let id2 = UUID()
         let testeGoal = GoalStatic(id: id, title: "título teste")
-        let teste = ReflectionModel(id: id2, name: "Minha reflection", relatedGoal: testeGoal, randomRefQst: "fodase??", randomRefAns: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam pellentesque erat vel sem cursus auctor. Nulla tincidunt eu libero sit amet bibendum. Fusce at sapien", draw: nil, mood: "😃", date: "29 SET")
+        let teste = ReflectionModel(id: id2, name: "My reflection", relatedGoal: testeGoal, randomRefQst: "fodase??", randomRefAns: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam pellentesque erat vel sem cursus auctor. Nulla tincidunt eu libero sit amet bibendum. Fusce at sapien", draw: nil, mood: "😃", date: "29 SET")
         
         return [teste, teste, teste, teste, teste]
     }

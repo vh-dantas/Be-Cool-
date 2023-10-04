@@ -62,6 +62,35 @@ class DataAcessObject {
         return newGoal
     }
     
+    func createReflection(refName: String, mood: String, randomRefQST: String, randomRefANS: String) {
+        let newReflection = ReflectionEntity(context: context)
+        newReflection.id = UUID()
+        newReflection.date = Date()
+        newReflection.mood = mood
+        newReflection.randomRefAns = randomRefANS
+        newReflection.randomRefQst = randomRefQST
+        newReflection.refName = refName
+        saveContext()
+    }
+    
+    // Funçao de buscar Meta - ReflectionEntity
+    func fetchReflection() -> [ReflectionEntity] {
+        do {
+            // Criando a requisição no banco
+            let request = NSFetchRequest<ReflectionEntity>(entityName: "ReflectionEntity")
+            // Criando a ordenação dos dados, serão ordeanos pela data de criação de forma decrescente
+            let sort = NSSortDescriptor(key: "date", ascending: false)
+            request.sortDescriptors = [sort]
+            // Busca no banco todos os Reflection salvos
+            let items = try context.fetch(request)
+            return items
+        } catch {
+            print("Erro em buscar as Goals - retornando uma array vazia")
+            return []
+        }
+    }
+    
+    
     // Busca pelas Sub metas - subgoals
     func fetchSubGoals(goal: Goal) -> [SubGoal]{
         if let goalSubGoals = goal.subGoals?.allObjects as? [SubGoal] {

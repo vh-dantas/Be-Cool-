@@ -8,7 +8,7 @@
 import UIKit
 
 class NewSubgoalLevelViewController: UIViewController {
-    var sliderValues: [Int: (Float, String)] = [:]
+    var sliderLevels: [Int: String] = [:]
     
     init() {
         // Sempre chamar este super.init
@@ -91,7 +91,8 @@ class NewSubgoalLevelViewController: UIViewController {
                 slider.tag = index
                 slider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
                 // define o nível "facil" como valor default pro slider
-                sliderValues[index] = (60, "easy")
+                sliderLevels[index] = ("easy")
+                Calculator.shared.savedValues[index] = 60 // define como 60 o valor default pra calculadora
 
                 // Constraints pra label
                 NSLayoutConstraint.activate([
@@ -151,6 +152,7 @@ class NewSubgoalLevelViewController: UIViewController {
         sender.value = roundedValue // Arredonda os valores do slider
         sender.customizeThumb()
         
+        let index = sender.tag
         var savedValue: Float
         var savedLevel: String
         
@@ -165,8 +167,9 @@ class NewSubgoalLevelViewController: UIViewController {
             savedLevel = "hard"
         }
         
-        let index = sender.tag
-        sliderValues[index] = (savedValue, savedLevel)
+        
+        CreateGoalVCStore.shared.subgoalLevelViewController?.sliderLevels[index] = savedLevel
+        Calculator.shared.savedValues[index] = savedValue
     }
     
     @objc func nextView() {
@@ -238,3 +241,4 @@ class CustomSlider: UISlider {
         return rect
     }
 }
+

@@ -8,6 +8,7 @@
 import UIKit
 
 class NewSubgoalLevelViewController: UIViewController {
+    var sliderValues: [Int: (Float, String)] = [:]
     
     override func viewDidLoad() {
         let firstLabel = UILabel()
@@ -56,7 +57,7 @@ class NewSubgoalLevelViewController: UIViewController {
         
         // MARK: -- SLIDER
         func setupSlider() {
-            let subGoals = CreateGoalVCStore.shared.subGoals ?? []
+            let subGoals = CreateGoalVCStore.shared.newSubGoalModalViewController?.subGoals ?? []
             var lastView: UIView = secondLabel
 
             for (index, subGoal) in subGoals.enumerated() {
@@ -80,7 +81,7 @@ class NewSubgoalLevelViewController: UIViewController {
                 slider.tag = index
                 slider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
                 // define o nível "facil" como valor default pro slider
-                CreateGoalVCStore.shared.sliderValues[index] = (60, "easy")
+                sliderValues[index] = (60, "easy")
 
                 // Constraints pra label
                 NSLayoutConstraint.activate([
@@ -155,7 +156,7 @@ class NewSubgoalLevelViewController: UIViewController {
         }
         
         let index = sender.tag
-        CreateGoalVCStore.shared.sliderValues[index] = (savedValue, savedLevel)
+        sliderValues[index] = (savedValue, savedLevel)
     }
     
     @objc func nextView() {

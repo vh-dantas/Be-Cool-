@@ -119,11 +119,19 @@ class NewSubgoalsModalViewController: UIViewController, AddSubGoalButtonDelegate
     }
     
     @objc func nextView() {
-        // cria a navegacao de push entre as telas
+        // Cria a navegação de push entre as telas
         let newSubgoalLevelViewController = NewSubgoalLevelViewController()
-        CreateGoalVCStore.shared.subGoals = subGoals
         navigationController?.pushViewController(newSubgoalLevelViewController, animated: true)
+        
+        subGoals.enumerated().forEach { index, subGoal in
+            if subGoal.title.isEmpty == true {
+                subGoals.remove(at: index)
+            }
+        }
+        tableView.reloadData()
     }
+
+
     
     //função que adiciona subgoal ao array static
     func addSubGoalButtonTouched() {

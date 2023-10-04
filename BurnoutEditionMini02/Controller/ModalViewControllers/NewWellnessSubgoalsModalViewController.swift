@@ -15,8 +15,8 @@ class NewWellnessSubgoalsModalViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Só testando os valores da view anterior
-        let sliderValues = CreateGoalVCStore.shared.sliderValues
-        let subGoals = CreateGoalVCStore.shared.subGoals ?? []
+        let sliderValues = CreateGoalVCStore.shared.subgoalLevelViewController?.sliderValues ?? [:]
+        let subGoals = CreateGoalVCStore.shared.newSubGoalModalViewController?.subGoals ?? []
         
         for index in subGoals.indices {
             if let value = sliderValues[index] {

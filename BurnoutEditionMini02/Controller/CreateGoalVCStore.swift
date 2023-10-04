@@ -15,7 +15,4 @@ final class CreateGoalVCStore {
     weak var newSubGoalModalViewController: NewSubgoalsModalViewController?
     weak var subgoalLevelViewController: NewSubgoalLevelViewController?
     weak var newWellnessSubgoalsModalViewController: NewWellnessSubgoalsModalViewController?
-    
-    var subGoals: [SubGoalStatic]?
-    var sliderValues: [Int: (Float, String)] = [:]
 }

@@ -61,6 +61,16 @@ class AchievementsViewController: UIViewController {
         return label
     }()
     
+//    // Variável que coleta o tamanho da view
+//    private  let viewToConstrain = UIView()
+//    private  var heightValue: CGFloat {
+//        get {
+//            if let hightConstraint = viewToConstrain.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5) {
+//                let parentHeight =
+//            }
+//        }
+//    }
+    
     // Imagem da conquista
     override func viewDidLoad() {
         super.viewDidLoad()

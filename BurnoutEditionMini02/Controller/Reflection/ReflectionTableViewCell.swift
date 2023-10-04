@@ -82,10 +82,16 @@ class ReflectionTableViewCell: UITableViewCell {
         refShape.addSubview(refText)
     }
     
-    func set(reflection: ReflectionModel) {
+    func set(reflection: ReflectionEntity) {
+        
+        let date = reflection.date ?? Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM"
+        let formattedDate = dateFormatter.string(from: date)
+        
         refMood.text = reflection.mood
-        refTitle.text = reflection.name
-        refDate.text = reflection.date
+        refTitle.text = reflection.refName
+        refDate.text = formattedDate
         refText.text = reflection.randomRefAns
     }
     

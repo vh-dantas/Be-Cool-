@@ -13,7 +13,7 @@ class ReflectionViewController: UIViewController, UITableViewDelegate, UITableVi
     let searchBar = UISearchBar()
     
     // TableView
-    var reflections: [ReflectionModel] = []
+    var reflections: [ReflectionEntity] = []
     let tableView = UITableView()
     
     // MARK: - ViewDidLoad
@@ -33,6 +33,12 @@ class ReflectionViewController: UIViewController, UITableViewDelegate, UITableVi
         
         // Constraints
         constraints()
+    }
+    
+    // MARK: - ViewWillAppear
+    override func viewWillAppear(_ animated: Bool) {
+        reflections = fetchData()
+        tableView.reloadData()
     }
     
     // MARK: - TableView
@@ -95,12 +101,25 @@ class ReflectionViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
+    // Ação ao clicar na cell
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if indexPath.section == 0 {
+            let nextScreen = BreathAnimationViewController()
+            nextScreen.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(nextScreen, animated: true)
+        } else {
+            
+        }
+        
+    }
+    
     // MARK: - Search bar
     func setupSearchBar() {
         // Configuracões da Search Bar
         searchBar.placeholder = "Search"
         searchBar.enablesReturnKeyAutomatically = true
-        searchBar.searchBarStyle = .prominent
+        searchBar.searchBarStyle = .minimal
         
         view.addSubview(searchBar)
     }
@@ -126,15 +145,10 @@ class ReflectionViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 }
 
-// MARK: - DUMMY DATA TESTE (SEÇÃO 2 DA TABLEVIEW ESTÁ PUXANDO OS DADOS DAQUI)
+// MARK: - Fetching data
 extension ReflectionViewController {
     
-    func fetchData() -> [ReflectionModel] {
-        let id = UUID()
-        let id2 = UUID()
-        let testeGoal = GoalStatic(id: id, title: "título teste")
-        let teste = ReflectionModel(id: id2, name: "Minha reflection", relatedGoal: testeGoal, randomRefQst: "fodase??", randomRefAns: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam pellentesque erat vel sem cursus auctor. Nulla tincidunt eu libero sit amet bibendum. Fusce at sapien", draw: nil, mood: "😃", date: "29 SET")
-        
-        return [teste, teste, teste, teste, teste]
+    func fetchData() -> [ReflectionEntity] {
+        return DataAcessObject.shared.fetchReflection()
     }
 }

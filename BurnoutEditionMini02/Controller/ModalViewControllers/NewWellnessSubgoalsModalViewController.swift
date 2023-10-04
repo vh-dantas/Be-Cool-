@@ -12,6 +12,16 @@ class NewWellnessSubgoalsModalViewController: UIViewController {
     let firstLabel = UILabel()
     let secondLabel = UILabel()
     
+    init() {
+        // Sempre chamar este super.init
+        super.init(nibName: nil, bundle: nil)
+        CreateGoalVCStore.shared.newWellnessSubgoalsModalViewController = self
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Só testando os valores da view anterior

@@ -10,6 +10,16 @@ import UIKit
 class NewSubgoalLevelViewController: UIViewController {
     var sliderValues: [Int: (Float, String)] = [:]
     
+    init() {
+        // Sempre chamar este super.init
+        super.init(nibName: nil, bundle: nil)
+        CreateGoalVCStore.shared.subgoalLevelViewController = self
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         let firstLabel = UILabel()
         let secondLabel = UILabel()

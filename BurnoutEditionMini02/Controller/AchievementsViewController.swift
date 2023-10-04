@@ -36,15 +36,15 @@ class AchievementsViewController: UIViewController {
     // Componentes para listar toda as conquistas
     private let achievementCell = UIView()
     
+    
     private let imageCell: UIImageView = {
        let imageView = UIImageView()
         imageView.image = UIImage(named: "FunnyGuin")
         imageView.clipsToBounds = true
-        imageView.layer.borderWidth = 1
+        imageView.layer.borderWidth = 3
         imageView.layer.masksToBounds = false
         imageView.layer.borderColor = UIColor.black.cgColor
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 50 //imageView.frame.width / 2
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         return imageView
@@ -58,35 +58,77 @@ class AchievementsViewController: UIViewController {
         label.font = UIFont.preferredFont(forTextStyle: .caption2)
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
+        // Para ele ficar no centro em relacao ao circulo da foto
+        label.textAlignment = .center
         return label
     }()
     
-//    // Variável que coleta o tamanho da view
-//    private  let viewToConstrain = UIView()
-//    private  var heightValue: CGFloat {
-//        get {
-//            if let hightConstraint = viewToConstrain.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5) {
-//                let parentHeight =
-//            }
-//        }
-//    }
+    //  CollectionView
+    private var achievCollectionView: UICollectionView! = nil
     
-    // Imagem da conquista
+    // Variável que coleta o tamanho da view
+    private  let viewToConstrain = UIView()
+    
+    // Dados para preencher a view
+    private var achievementArray: [Goal] = []
+    
+
+    
+    // MARK: ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "achievements".localized
         navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = .systemBackground
-        
+        // Codigo relacionado as variáveis populadas
+        achievementArray = DataAcessObject.shared.fetchGoal()
         // Funções de SetUp
         setUpCntainerViews()
         setUPJorneyLabel()
         setUpAchievementImage()
         setUpImageCell()
         setUpImageCellLabel()
-
+        setUpCollectionView()
+        // Configurações adicionais que nao cabem dentro da clousure da View
+      // recebe o tamanho da view * o tamanho da imagem e divide para arredondar
+     
+       
+        
     }
   
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        // Atualize o cornerRadius com base na orientação do dispositivo
+        if UIDevice.current.orientation.isLandscape {
+            print("Landscape")
+//            let cornerRadius = (view.frame.height * 0.1) / 2.9
+//            imageCell.layer.cornerRadius = cornerRadius
+            // Criando um for loop para atualizar o corner radius de cada item na array
+            for achievment in 0..<(achievementArray.count){
+                let indexPath = IndexPath(item: achievment, section: 0)
+                // acessando o item diretamente através do método cellForItem(at:)
+                if let cell = achievCollectionView.cellForItem(at: indexPath) as? AchievementCell {
+                    cell.imageCellLabel.layer.cornerRadius = (view.frame.height * 0.1) / 2.9
+                    cell.imageCellLabel.layer.masksToBounds = true
+                }
+            }
+        } else {
+            print("Portrait")
+//            let cornerRadius = (view.frame.height * 0.1) / 1.41
+//            imageCell.layer.cornerRadius = cornerRadius
+            // Criando um for loop para atualizar o corner radius de cada item na array
+            for achievment in 0..<(achievementArray.count){
+                let indexPath = IndexPath(item: achievment, section: 0)
+                // acessando o item diretamente através do método cellForItem(at:)
+                if let cell = achievCollectionView.cellForItem(at: indexPath) as? AchievementCell {
+                    cell.imageCellLabel.layer.cornerRadius = (view.frame.height * 0.1) / 1.41
+                    cell.imageCellLabel.layer.masksToBounds = true
+                }
+            }
+        }
+ 
+    }
+    
     // Convfigurando todos os Container Views - ela preenche metade da view
     func setUpCntainerViews(){
         view.addSubview(topContainerView)
@@ -97,7 +139,6 @@ class AchievementsViewController: UIViewController {
             topContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             topContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             topContainerView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.5)
-            
         ])
     }
     
@@ -108,6 +149,24 @@ class AchievementsViewController: UIViewController {
             jorneyLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             jorneyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
+    }
+    
+    
+    func setUpCollectionView() {
+         achievCollectionView = UICollectionView(frame: view.bounds, collectionViewLayout: <#T##UICollectionViewLayout#>)
+        
+        achievCollectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        achievCollectionView.backgroundColor = .systemBackground
+        achievCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        achievCollectionView.register(AchievementCell.self, forCellWithReuseIdentifier: AchievementCell.reuseIdentifier)
+        achievCollectionView.dataSource = self
+        view.addSubview(achievCollectionView)
+        
+        
+    }
+    
+    func createCollectionViewLayout() -> UICollectionViewLayout{
+        
     }
     
     // Configurando a imagem Superior - ela fic ano meio ta topContainer View
@@ -126,8 +185,8 @@ class AchievementsViewController: UIViewController {
         NSLayoutConstraint.activate([
             imageCell.topAnchor.constraint(equalTo: topContainerView.bottomAnchor, constant: 10),
             imageCell.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            imageCell.heightAnchor.constraint(equalToConstant: 100),
-            imageCell.widthAnchor.constraint(equalToConstant: 100)
+            imageCell.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.1),
+            imageCell.widthAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.1)
             
         ])
     }
@@ -136,11 +195,76 @@ class AchievementsViewController: UIViewController {
         view.addSubview(imageCellLabel)
         NSLayoutConstraint.activate([
             imageCellLabel.topAnchor.constraint(equalTo: imageCell.bottomAnchor, constant: 3),
-            imageCellLabel.centerXAnchor.constraint(equalTo: imageCell.centerXAnchor, constant: 10),
+            imageCellLabel.centerXAnchor.constraint(equalTo: imageCell.centerXAnchor),
             imageCellLabel.widthAnchor.constraint(equalTo: imageCell.widthAnchor)
         ])
     }
 
+}
+
+extension AchievementsViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        achievementArray.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        // Criado a celula e garantoidno que ela seja do tipo AchievementCell
+        guard let cell = achievCollectionView.dequeueReusableCell(withReuseIdentifier: AchievementCell.reuseIdentifier, for: indexPath) as? AchievementCell else { fatalError("Cannot Convert cell") }
+        cell.imageCellLabel.text = achievementArray[indexPath.item].title
+        cell.imageCell.layer.cornerRadius = (view.frame.height * 0.1) / 2
+        
+        return cell
+    }
+}
+
+
+
+// MARK: Achievement Cell
+     
+
+class AchievementCell: UICollectionViewCell {
+    
+    // Criando o identificador do register
+    static let reuseIdentifier = "achievCell-reuse-identifier"
+    
+     let imageCell: UIImageView = {
+       let imageView = UIImageView()
+        imageView.image = UIImage(named: "FunnyGuin")
+        imageView.clipsToBounds = true
+        imageView.layer.borderWidth = 3
+        imageView.layer.masksToBounds = false
+        imageView.layer.borderColor = UIColor.black.cgColor
+        imageView.clipsToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFill
+        return imageView
+    }()
+    
+     let imageCellLabel: UILabel = {
+       let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontForContentSizeCategory = true
+        label.font = UIFont.preferredFont(forTextStyle: .caption2)
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 0
+        // Para ele ficar no centro em relacao ao circulo da foto
+        label.textAlignment = .center
+        return label
+    }()
+    
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        contentView.addSubview(imageCell)
+        contentView.addSubview(imageCellLabel)
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
 }
 
 

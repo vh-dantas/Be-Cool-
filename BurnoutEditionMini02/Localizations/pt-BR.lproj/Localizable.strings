@@ -11,13 +11,14 @@
 "goals" = "Metas";
 "achievements" = "Conquistas";
 "reflections" = "Reflexões";
+"settings" = "Configurações";
+"application" = "App";
 
 // Settings
-"settings" = "Configurações";
 "notifications" = "Notificações";
 "preferences" = "Preferências";
 "onboarding" = "Onboarding";
-"about" = "Equipe e Agradecimentos";
+"about" = "Sobre o App";
 "privacy" = "Política de Privacidade";
 "contact" = "Fale Conosco";
 "version" = "Versão";
@@ -27,10 +28,22 @@
 "stretch" = "Alongamento";
 "walk-around" = "Caminhar";
 
-// Custom Slider
+// About Us
+"team" = "Equipe";
+"experts" = "Especialistas consultados";
+"mentors" = "Mentores";
+
+// Subgoal Level
 "easy" = "Fácil";
 "medium" = "Médio";
 "hard" = "Difícil";
+"subgoal-level-title" = "Medindo o Desafio:";
+"subgoal-level-text" = "Avalie a dificuldade de cada tarefa para ajustar expectativas.";
+
+// Wellness Subgoal
+"wellness-subgoal-title" = "Priorize seu bem-estar:";
+"wellness-subgoal-text" = "Defina metas de bem-estar para equilibrar sua vida. Sugerimos que você reserve:";
+"save-goals-btn" = "Salvar Meta";
 
 
 // Privacy Policy

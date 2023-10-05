@@ -7,10 +7,13 @@
 
 import UIKit
 
+// Lembrar de inicializar esses valores quando inicializar uma VC
 final class CreateGoalVCStore {
     static let shared = CreateGoalVCStore()
     
     //garante que quando a view sair de cena ela não vai ficar em memória
     weak var newGoalModalViewController: NewGoalModalViewController?
     weak var newSubGoalModalViewController: NewSubgoalsModalViewController?
+    weak var subgoalLevelViewController: NewSubgoalLevelViewController?
+    weak var newWellnessSubgoalsModalViewController: NewWellnessSubgoalsModalViewController?
 }

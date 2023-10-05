@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SettingsModalViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let tableView1 = UITableView()
     let tableView2 = UITableView()
@@ -18,11 +18,18 @@ class SettingsModalViewController: UIViewController, UITableViewDelegate, UITabl
         super.viewDidLoad()
         self.view.backgroundColor = .systemGray6
         
-        let titleLabel = UILabel()
-        titleLabel.text = "settings".localized
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .bold)
-        self.view.addSubview(titleLabel)
+        let label1 = UILabel()
+        label1.text = "settings".localized
+        label1.translatesAutoresizingMaskIntoConstraints = false
+        label1.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        self.view.addSubview(label1)
+        
+        let label2 = UILabel()
+        label2.text = "application".localized
+        label2.translatesAutoresizingMaskIntoConstraints = false
+        label2.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        self.view.addSubview(label2)
+        
         
         let cellHeight: CGFloat = 44
         let totalRowsHeight1 = cellHeight * CGFloat(settingsItems1.count)
@@ -31,7 +38,7 @@ class SettingsModalViewController: UIViewController, UITableViewDelegate, UITabl
         setupTableView(tableView: tableView1, items: settingsItems1, yPosition: 60, totalRowsHeight: totalRowsHeight1)
         setupTableView(tableView: tableView2, items: settingsItems2, yPosition: 60 + totalRowsHeight1 + 20, totalRowsHeight: totalRowsHeight2)
         
-
+        
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         
         let versionLabel = UILabel()
@@ -42,21 +49,24 @@ class SettingsModalViewController: UIViewController, UITableViewDelegate, UITabl
         self.view.addSubview(versionLabel)
         
         NSLayoutConstraint.activate([
-            titleLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            titleLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            label1.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
+            label1.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             
-            tableView1.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30),
+            tableView1.topAnchor.constraint(equalTo: label1.bottomAnchor, constant: 10), // Changed from titleLabel to label1
             tableView1.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10),
             tableView1.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10),
             tableView1.heightAnchor.constraint(equalToConstant: totalRowsHeight1),
             
-            tableView2.topAnchor.constraint(equalTo: tableView1.bottomAnchor, constant: 20),
+            label2.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
+            label2.topAnchor.constraint(equalTo: tableView1.bottomAnchor, constant: 30),
+            
+            tableView2.topAnchor.constraint(equalTo: label2.bottomAnchor, constant: 10), // Changed from tableView1 to label2
             tableView2.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10),
             tableView2.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10),
             tableView2.heightAnchor.constraint(equalToConstant: totalRowsHeight2),
             
             versionLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            versionLabel.topAnchor.constraint(equalTo: tableView2.bottomAnchor, constant: 50)
+            versionLabel.topAnchor.constraint(equalTo: tableView2.bottomAnchor, constant: 40)
         ])
     }
     
@@ -100,12 +110,14 @@ class SettingsModalViewController: UIViewController, UITableViewDelegate, UITabl
                 let notificationsVC = NotificationsViewController()
                 self.navigationController?.pushViewController(notificationsVC, animated: true)
             case 1:
-                print("hi")
+                print("PREFERENCES")
+                let preferencesVC = PreferencesViewController()
+                self.navigationController?.pushViewController(preferencesVC, animated: true)
+            case 2:
+                print("ONBOARDING")
                 //TODO: adicionar onboarding
                 // let onboardingVC = OnboardingViewController()
                 //self.navigationController?.pushViewController(onboardingVC, animated: true)
-            case 2:
-                print("hii")
             default:
                 break
             }
@@ -119,8 +131,10 @@ class SettingsModalViewController: UIViewController, UITableViewDelegate, UITabl
                 let privacyVC = PrivacyViewController()
                 self.navigationController?.pushViewController(privacyVC, animated: true)
             case 2:
-                let contactUsVC = ContactUsViewController()
-                self.navigationController?.pushViewController(contactUsVC, animated:true)
+                print("CONTACT US")
+                //TODO: adicionar contact us
+                //let contactUsVC = ContactUsViewController()
+                //self.navigationController?.pushViewController(contactUsVC, animated:true)
             default:
                 break
             }

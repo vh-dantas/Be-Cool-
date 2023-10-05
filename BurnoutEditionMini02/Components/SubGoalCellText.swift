@@ -24,16 +24,17 @@ class SubGoalCellText: UITableViewCell, UITextFieldDelegate {
     }
     
     func setUp() {
+        
         textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false //sempre para usar os constraints
         contentView.addSubview(textField)
         
         separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         NSLayoutConstraint.activate([
-            textField.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            textField.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            textField.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            textField.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            textField.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 11),
+            textField.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
+            textField.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -11),
+            textField.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
         ])
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }

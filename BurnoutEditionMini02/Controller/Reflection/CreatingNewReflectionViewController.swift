@@ -37,11 +37,11 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
         
         view.backgroundColor = .white
         
-        // BarButtonItens
-        backButton = UIBarButtonItem(title: "", image: UIImage(systemName: "chevron.left"), target: self, action: #selector(backButtonFunc))
+        // BarButtonItem
         cancelButton = UIBarButtonItem(title: "", image: UIImage(systemName: "xmark"), target: self, action: #selector(cancelButtonFunc))
         
-        navigationItem.leftBarButtonItem = backButton
+        // Esconde o botão "back"
+        self.navigationItem.hidesBackButton = true
         navigationItem.rightBarButtonItem = cancelButton
         
         // Funções setup
@@ -56,9 +56,6 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
     }
     
     // MARK: - Selector dos BarButtonItem
-    @objc func backButtonFunc() {
-        navigationController?.popViewController(animated: true)
-    }
     
     @objc func cancelButtonFunc() {
         navigationController?.popToRootViewController(animated: true)
@@ -89,7 +86,7 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
     private func setupDrawButton() {
         // Configurações do botão de desenho
         drawButton.setImage(UIImage(systemName: "pencil"), for: .normal)
-        drawButton.backgroundColor = .lightGray
+        drawButton.backgroundColor = .systemGray4
         drawButton.layer.cornerRadius = 5
         
         view.addSubview(drawButton)

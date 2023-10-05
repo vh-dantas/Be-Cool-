@@ -109,7 +109,8 @@ class ReflectionViewController: UIViewController, UITableViewDelegate, UITableVi
             nextScreen.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(nextScreen, animated: true)
         } else {
-            
+            let nextScreen = ReflectionDetailViewController(reflection: reflections[indexPath.row])
+            navigationController?.pushViewController(nextScreen, animated: true)
         }
         
     }

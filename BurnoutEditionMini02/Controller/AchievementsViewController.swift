@@ -209,7 +209,7 @@ class AchievementsViewController: UIViewController {
         
         // Define o espaçamento entre os itens e as seções conforme necessário
         flowLayout.minimumInteritemSpacing = 5
-        flowLayout.minimumLineSpacing = 20
+        flowLayout.minimumLineSpacing = 30
         //flowLayout.sectionInset = UIEdgeInsets(top: 30, left: 0, bottom: 30, right: 0)
         
         return flowLayout
@@ -262,10 +262,7 @@ extension AchievementsViewController: UICollectionViewDataSource {
         // Criado a celula e garantoidno que ela seja do tipo AchievementCell
         guard let cell = achievCollectionView.dequeueReusableCell(withReuseIdentifier: AchievementCell.reuseIdentifier, for: indexPath) as? AchievementCell else { fatalError("Cannot Convert cell") }
         cell.imageCellLabel.text = "Paralelepipedo Paralelepipedo"//achievementArray[indexPath.item].title
-       // cell.imageCell.layer.cornerRadius = (view.frame.height * 0.1) / 2
-        cell.layer.borderColor = UIColor.black.cgColor
-       
-        cell.layer.borderWidth = 1
+        
         // Configurando a imagem da Celula
 
         return cell

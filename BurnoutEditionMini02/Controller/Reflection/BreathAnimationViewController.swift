@@ -154,7 +154,7 @@ class BreathAnimationViewController: UIViewController, CAAnimationDelegate {
         fadingAnimation.delegate  = self
         
         // Grupo de animação
-        animationGroup                       = CAAnimationGroup()
+        animationGroup                        = CAAnimationGroup()
         animationGroup?.animations            = [inhaleAnimation, fadingAnimation, holdBreathAnimation, exhaleAnimation]
         animationGroup?.duration              = inhaleAnimation.duration + holdBreathAnimation.duration + exhaleAnimation.duration
         animationGroup?.isRemovedOnCompletion = false

@@ -22,26 +22,45 @@ class ReflectionDetailViewController: UIViewController {
     // Criando as tags
     let tagMood = RectangleLabelView(frame: CGRect(x: 0, y: 0, width: 100, height: 300))
     let tagGoal = RectangleLabelView(frame: CGRect(x: 0, y: 0, width: 100, height: 30))
-    // Array que armazena os nomes das tags
-    let tags = ["Paralelepipedo Paralelepipedo", "Tag aasdawd2"]
-    // MARK: Função ViewDidLoad
+    
+    // Tags
+    var tags: [String] = []
+    
+    // Reflection passada pela view anterior
+    var reflection: ReflectionEntity
+    
+    // MARK: - Inicializadores
+    init(reflection: ReflectionEntity) {
+        self.reflection = reflection
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Função ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        
         //Setando o titulo
-        navigationItem.title = "Refletion 1"
+        navigationItem.title = reflection.refName
         navigationController?.navigationBar.prefersLargeTitles = true
+        
         // Configurando a ScrollView
         setUpScrollView()
+        
         //Configurando a ContentView
         setUpContentView()
+        
         // Configurando a Label de tempo
         configDateLabel()
-        // Configurando as Tags
-       // view.addSubview(tagStackView)
-       // tagStackView.addArrangedSubview(tagGoal)
-       // tagStackView.addArrangedSubview(tagMood)
-       // configureTags()
+        
+        // Array que armazena os nomes das tags
+        tags = ["Paralelepipedo paralelepipedo", reflection.mood ?? ""]
+        
         // Configurando as Tags com CollectionVirw
         setUpCollectionView()
         // Configurando a BodyLabel
@@ -50,13 +69,14 @@ class ReflectionDetailViewController: UIViewController {
         
     }
     
+    // MARK: - ViewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         DispatchQueue.main.async {
             self.tagCollectionView.reloadData()
         }
       
     }
-    // MARK: ScrollView
+    // MARK: - ScrollView
     func setUpScrollView(){
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(scrollView)
@@ -70,7 +90,7 @@ class ReflectionDetailViewController: UIViewController {
     }
     
     
-    // MARK: ContentView
+    // MARK: - ContentView
     func setUpContentView() {
         scrollView.addSubview(contentView)
         contentView.translatesAutoresizingMaskIntoConstraints = false
@@ -84,16 +104,16 @@ class ReflectionDetailViewController: UIViewController {
         ])
     }
     
-    // MARK: CollectionView
+    // MARK: - CollectionView
     func setUpCollectionView(){
- 
-        let flowLayout = UICollectionViewFlowLayout()
-           flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-           flowLayout.scrollDirection = .horizontal
-           flowLayout.minimumInteritemSpacing = 10
-           flowLayout.minimumLineSpacing = 6
         
-       
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        flowLayout.scrollDirection = .horizontal
+        flowLayout.minimumInteritemSpacing = 10
+        flowLayout.minimumLineSpacing = 6
+        
+        
         tagCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: flowLayout)
         tagCollectionView.translatesAutoresizingMaskIntoConstraints = false
         tagCollectionView.dataSource = self
@@ -120,21 +140,26 @@ class ReflectionDetailViewController: UIViewController {
         NSLayoutConstraint.activate([
             tagCollectionView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 10),
             tagCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-           // tagCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            // tagCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
             tagCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: multiplierHeight),
             tagCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.99)
         ])
         
         
-        }
+    }
     
     
-    // Função para configurar a data da reflection MARK: DateLabel
+    // Função para configurar a data da reflection MARK: - DateLabel
     func configDateLabel() {
         dateLabel.translatesAutoresizingMaskIntoConstraints = false // Important for Auto Layout
         
         // Set label properties
-        dateLabel.text = "23 DE setembro DE 2023"
+        let date = reflection.date ?? Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "d 'de' MMMM 'de' yyyy"
+        let formatedDate = dateFormatter.string(from: date)
+        
+        dateLabel.text = formatedDate
         dateLabel.text = dateLabel.text?.uppercased()
       //  dateLabel.textAlignment = .center
         dateLabel.textColor = UIColor.gray
@@ -176,7 +201,7 @@ class ReflectionDetailViewController: UIViewController {
    //     bodyLabel.textAlignment =
         bodyLabel.adjustsFontForContentSizeCategory = true
         bodyLabel.font = UIFont.preferredFont(forTextStyle: .body)
-        bodyLabel.text = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem."
+        bodyLabel.text = reflection.randomRefAns
         bodyLabel.isEditable = false
         bodyLabel.isScrollEnabled = false
         NSLayoutConstraint.activate([

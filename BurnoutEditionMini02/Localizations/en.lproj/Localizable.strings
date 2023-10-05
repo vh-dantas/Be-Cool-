@@ -12,6 +12,7 @@
 "achievements" = "Achievements";
 "reflections" = "Reflections";
 "settings" = "Settings";
+"application" = "App";
 
 // Settings
 "notifications" = "Notifications";
@@ -27,6 +28,10 @@
 "stretch" = "Stretch";
 "walk-around" = "Go for a walk";
 
+// About Us
+"team" = "Team";
+"experts" = "Experts";
+"mentors" = "Mentors";
 
 // Subgoal Level
 "easy" = "Easy";

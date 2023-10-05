@@ -80,7 +80,8 @@ class NewReflectionTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             cellNewRefLabel.leadingAnchor.constraint(equalTo: cellNewRefShape.leadingAnchor, constant: 16),
             cellNewRefLabel.topAnchor.constraint(equalTo: cellNewRefShape.topAnchor, constant: 16),
-            cellNewRefLabel.widthAnchor.constraint(equalToConstant: vc.view.frame.width / 2)
+            cellNewRefLabel.widthAnchor.constraint(equalToConstant: vc.view.frame.width / 2),
+            // HEIGHT ANCHOR AQUI
         ])
         
         // Botão da célula

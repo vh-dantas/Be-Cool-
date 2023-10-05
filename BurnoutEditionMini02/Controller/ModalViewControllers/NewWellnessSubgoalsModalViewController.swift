@@ -12,19 +12,25 @@ class NewWellnessSubgoalsModalViewController: UIViewController {
     let firstLabel = UILabel()
     let secondLabel = UILabel()
     
+    init() {
+        // Sempre chamar este super.init
+        super.init(nibName: nil, bundle: nil)
+        CreateGoalVCStore.shared.newWellnessSubgoalsModalViewController = self
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Só testando os valores da view anterior
-        let sliderValues = CreateGoalVCStore.shared.subgoalLevelViewController?.sliderValues ?? [:]
-        let subGoals = CreateGoalVCStore.shared.newSubGoalModalViewController?.subGoals ?? []
-        
-        for index in subGoals.indices {
-            if let value = sliderValues[index] {
-                let (savedValue, savedLevel) = value
-                
-                if index < subGoals.count {
-                    let subGoal = subGoals[index]
-                    print("Index: \(index), Task: \(subGoal.title), Saved Value: \(savedValue), Saved Leve: \(savedLevel)")
+        if let sliderLevels = CreateGoalVCStore.shared.subgoalLevelViewController?.sliderLevels {
+            let subGoals = CreateGoalVCStore.shared.newSubGoalModalViewController?.subGoals ?? []
+            
+            for (index, subGoal) in subGoals.enumerated() {
+                if let level = sliderLevels[index] {
+                    print("Index: \(index), Task: \(subGoal.title), Saved Level: \(level)")
                 }
             }
         }
@@ -79,6 +85,11 @@ class NewWellnessSubgoalsModalViewController: UIViewController {
             stackView.spacing = 5
             stackView.translatesAutoresizingMaskIntoConstraints = false
 
+            // pega o valor da classe calculadora
+            let (hours, minutes) = Calculator.shared.calculateResult()
+            // transforma o resultado em uma string e separa cada dígito com um .map
+            let timeDigits = String(format: "%02d%02d", hours, minutes).map { String($0) }
+            
             for index in 0..<4 {
                 // Cria um retângulo com as dimensões e posição certas
                 let rectangle = UIView()
@@ -92,7 +103,8 @@ class NewWellnessSubgoalsModalViewController: UIViewController {
 
                 // Cria a label do cartão
                 let timeDigit = UILabel()
-                timeDigit.text = "\(index + 1)" // TODO: DEFINIR A LÓGICA DAS LABELS AQUI
+                // Adiciona os dígitos no cartão, um por vez
+                timeDigit.text = timeDigits[index]
                 timeDigit.textAlignment = .center
                 timeDigit.font = UIFont.systemFont(ofSize: 40)
                 timeDigit.translatesAutoresizingMaskIntoConstraints = false
@@ -126,7 +138,7 @@ class NewWellnessSubgoalsModalViewController: UIViewController {
 
         
         func setupWellnessList() {
-            // TODO: Adicionar a lista de submetas
+            // TODO: Adicionar a table view que lista as submetas de wellness aqui
         }
         
         func setupSaveButton() {
@@ -137,11 +149,9 @@ class NewWellnessSubgoalsModalViewController: UIViewController {
             saveButton.setTitleColor(UIColor.white, for: .normal)
             saveButton.layer.cornerRadius = 25
             saveButton.translatesAutoresizingMaskIntoConstraints = false
-
-            // Adjust the button's size to fit the text and add padding
             saveButton.titleLabel?.sizeToFit()
             let titleWidth = saveButton.titleLabel?.frame.width ?? 0
-            let buttonWidth = titleWidth + 40 // Add 20 points of padding on both sides
+            let buttonWidth = titleWidth + 40
             NSLayoutConstraint.activate([
                 saveButton.widthAnchor.constraint(equalToConstant: buttonWidth),
                 saveButton.heightAnchor.constraint(equalToConstant: 50)

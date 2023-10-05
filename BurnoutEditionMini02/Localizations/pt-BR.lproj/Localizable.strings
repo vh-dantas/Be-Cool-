@@ -12,6 +12,7 @@
 "achievements" = "Conquistas";
 "reflections" = "Reflexões";
 "settings" = "Configurações";
+"application" = "App";
 
 // Settings
 "notifications" = "Notificações";
@@ -27,6 +28,10 @@
 "stretch" = "Alongamento";
 "walk-around" = "Caminhar";
 
+// About Us
+"team" = "Equipe";
+"experts" = "Especialistas consultados";
+"mentors" = "Mentores";
 
 // Subgoal Level
 "easy" = "Fácil";

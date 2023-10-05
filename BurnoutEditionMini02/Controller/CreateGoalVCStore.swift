@@ -7,6 +7,7 @@
 
 import UIKit
 
+// Lembrar de inicializar esses valores quando inicializar uma VC
 final class CreateGoalVCStore {
     static let shared = CreateGoalVCStore()
     

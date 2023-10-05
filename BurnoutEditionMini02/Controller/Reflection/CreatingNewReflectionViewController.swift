@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PhotosUI
 
 class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate {
     
@@ -23,9 +24,11 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
     // Botão para PencilKit
     var drawButton = UIButton()
     let line = UIView()
+    let line2 = UIView()
     
     // Botão para acessar a galeria e câmera
     var pictureButton = UIButton()
+    var libraryButton = UIButton()
     var imageView = UIImageView()
     
     // Botão para próxima tela
@@ -34,7 +37,7 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
     // BarButtonItens
     var backButton: UIBarButtonItem?
     var cancelButton: UIBarButtonItem?
-        
+    
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +57,8 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
         setupTextFields()
         setupDrawButton()
         setupPicBt()
+        setupLibraryBt()
+        setupImageView()
         setupNextScreenBt()
         
         // Constraints
@@ -67,7 +72,7 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
         navigationController?.popToRootViewController(animated: true)
     }
     
-   
+    
     
     // MARK: - NextScreen Button
     private func setupNextScreenBt() {
@@ -88,6 +93,34 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
         let nextScreen = CreatingNewReflection2ViewController(randomRefQst: randomRefQst, randomRefAns: textField.text ?? "")
         
         navigationController?.pushViewController(nextScreen, animated: true)
+    }
+    
+    // MARK: - Botão para escolher foto da galeria
+    private func setupLibraryBt() {
+        // Configurações do botão
+        libraryButton.setImage(UIImage(systemName: "photo"), for: .normal)
+        libraryButton.backgroundColor = .systemGray5
+        libraryButton.layer.cornerRadius = 20
+        libraryButton.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner]
+        
+        view.addSubview(libraryButton)
+        libraryButton.addTarget(self, action: #selector(openLibrary), for: .touchUpInside)
+        
+        // Linha do meio do botão
+        line2.backgroundColor = .systemGray2
+        view.addSubview(line2)
+        
+    }
+    
+    @objc func openLibrary() {
+        
+        var configuration = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
+        configuration.filter = .images
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        
+        present(picker, animated: true)
+        
     }
     
     // MARK: - Botão para desenhar
@@ -118,7 +151,7 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
         return randomRefQst
     }
     
-   
+    
     
     // MARK: - Labels
     private func setupLabels() {
@@ -155,7 +188,14 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
         view.addSubview(textField)
     }
     
-    // MARK: - Labels
+    // MARK: - ImageView
+    private func setupImageView() {
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 20
+        imageView.clipsToBounds = true
+    }
+    
+    // MARK: - Constraints
     private func constraints() {
         // Label 1
         label1.translatesAutoresizingMaskIntoConstraints = false
@@ -208,9 +248,25 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
             pictureButton.leadingAnchor.constraint(equalTo: drawButton.trailingAnchor, constant: 1)
         ])
         
+        // Linha
+        line2.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            line2.widthAnchor.constraint(equalToConstant: 1),
+            line2.heightAnchor.constraint(equalToConstant: 40),
+            line2.centerXAnchor.constraint(equalTo: pictureButton.trailingAnchor),
+            line2.centerYAnchor.constraint(equalTo: drawButton.centerYAnchor)
+        ])
+        
+        // Botão para acessar a galeria
+        libraryButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            libraryButton.widthAnchor.constraint(equalToConstant: 40),
+            libraryButton.heightAnchor.constraint(equalToConstant: 40),
+            libraryButton.centerYAnchor.constraint(equalTo: drawButton.centerYAnchor),
+            libraryButton.leadingAnchor.constraint(equalTo: pictureButton.trailingAnchor, constant: 1)
+        ])
+        
         // ImageView
-        
-        
         imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             imageView.centerYAnchor.constraint(equalTo: drawButton.centerYAnchor),
@@ -218,6 +274,7 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
             imageView.widthAnchor.constraint(equalToConstant: 60),
             imageView.heightAnchor.constraint(equalToConstant: 60)
         ])
+        
         
         // NextScreen Button
         nextScreenBt.translatesAutoresizingMaskIntoConstraints = false
@@ -235,8 +292,6 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
         
         pictureButton.setImage(UIImage(systemName: "camera"), for: .normal)
         pictureButton.backgroundColor = .systemGray5
-        pictureButton.layer.cornerRadius = 20
-        pictureButton.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner]
         
         view.addSubview(pictureButton)
         
@@ -261,6 +316,7 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
     
 }
 
+// MARK: - Extensão para conformar com os protocolos para tirar a foto
 extension CreatingNewReflectionViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -276,4 +332,22 @@ extension CreatingNewReflectionViewController: UIImagePickerControllerDelegate, 
         imageView.image = image
     }
     
+}
+
+// MARK: - Extensão para conformar com os protocolos para tirar acessar a galeria
+extension CreatingNewReflectionViewController: PHPickerViewControllerDelegate {
+    
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        dismiss(animated: true)
+        
+        guard let selectedImageResult = results.first else { return }
+        
+        selectedImageResult.itemProvider.loadObject(ofClass: UIImage.self) { object, error in
+            if let image = object as? UIImage {
+                DispatchQueue.main.async {
+                    self.imageView.image = image
+                }
+            }
+        }
+    }
 }

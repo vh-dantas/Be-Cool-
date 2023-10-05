@@ -25,11 +25,17 @@ class AddSubGoalCell: UITableViewCell {
     }
     
     func setUp() {
+        backgroundColor = .white
+        layer.cornerRadius = 10
+        clipsToBounds = true
+        
         let buttonSize: CGFloat = 25
-        button.backgroundColor = .systemBlue
+        button.backgroundColor = UIColor(red: 0.95, green: 0.43, blue: 0.26, alpha: 1)
         button.tintColor = .white
         button.setImage(UIImage(systemName: "plus"), for: .normal)
         button.layer.cornerRadius = buttonSize / 2
+        
+        label.font = UIFont(name: "SFPro-Regular", size: 17)
         
         stackView.translatesAutoresizingMaskIntoConstraints = false //sempre para usar os constraints
         stackView.axis = .horizontal //eixo horixonal
@@ -46,10 +52,10 @@ class AddSubGoalCell: UITableViewCell {
             button.widthAnchor.constraint(equalToConstant: buttonSize),
             button.heightAnchor.constraint(equalToConstant: buttonSize),
 
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 11),
+            stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
+            stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -11),
         ])
         
         button.addTarget(self, action: #selector(handleTap), for: .touchUpInside)

@@ -22,6 +22,11 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
     
     // Botão para PencilKit
     var drawButton = UIButton()
+    let line = UIView()
+    
+    // Botão para acessar a galeria e câmera
+    var pictureButton = UIButton()
+    var imageView = UIImageView()
     
     // Botão para próxima tela
     let nextScreenBt = UIButton()
@@ -48,6 +53,7 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
         setupLabels()
         setupTextFields()
         setupDrawButton()
+        setupPicBt()
         setupNextScreenBt()
         
         // Constraints
@@ -60,6 +66,8 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
     @objc func cancelButtonFunc() {
         navigationController?.popToRootViewController(animated: true)
     }
+    
+   
     
     // MARK: - NextScreen Button
     private func setupNextScreenBt() {
@@ -86,8 +94,9 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
     private func setupDrawButton() {
         // Configurações do botão de desenho
         drawButton.setImage(UIImage(systemName: "pencil"), for: .normal)
-        drawButton.backgroundColor = .systemGray4
-        drawButton.layer.cornerRadius = 5
+        drawButton.backgroundColor = .systemGray5
+        drawButton.layer.cornerRadius = 20
+        drawButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
         
         view.addSubview(drawButton)
         drawButton.addTarget(self, action: #selector(goToCanvas), for: .touchUpInside)
@@ -175,10 +184,39 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
         // Botão para desenhar
         drawButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            drawButton.heightAnchor.constraint(equalToConstant: 30),
-            drawButton.widthAnchor.constraint(equalToConstant: 30),
+            drawButton.heightAnchor.constraint(equalToConstant: 40),
+            drawButton.widthAnchor.constraint(equalToConstant: 40),
             drawButton.leadingAnchor.constraint(equalTo: textField.leadingAnchor),
             drawButton.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 16)
+        ])
+        
+        // Linha que separa os dois botões
+        line.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            line.widthAnchor.constraint(equalToConstant: 1),
+            line.heightAnchor.constraint(equalToConstant: 40),
+            line.centerXAnchor.constraint(equalTo: drawButton.trailingAnchor),
+            line.centerYAnchor.constraint(equalTo: drawButton.centerYAnchor)
+        ])
+        
+        // Botão para tirar foto
+        pictureButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            pictureButton.widthAnchor.constraint(equalToConstant: 40),
+            pictureButton.heightAnchor.constraint(equalToConstant: 40),
+            pictureButton.centerYAnchor.constraint(equalTo: drawButton.centerYAnchor),
+            pictureButton.leadingAnchor.constraint(equalTo: drawButton.trailingAnchor, constant: 1)
+        ])
+        
+        // ImageView
+        
+        
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            imageView.centerYAnchor.constraint(equalTo: drawButton.centerYAnchor),
+            imageView.centerXAnchor.constraint(equalTo: nextScreenBt.centerXAnchor),
+            imageView.widthAnchor.constraint(equalToConstant: 60),
+            imageView.heightAnchor.constraint(equalToConstant: 60)
         ])
         
         // NextScreen Button
@@ -190,6 +228,52 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
             nextScreenBt.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -35)
         ])
         
+    }
+    
+    // MARK: - Picture Button
+    private func setupPicBt() {
+        
+        pictureButton.setImage(UIImage(systemName: "camera"), for: .normal)
+        pictureButton.backgroundColor = .systemGray5
+        pictureButton.layer.cornerRadius = 20
+        pictureButton.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner]
+        
+        view.addSubview(pictureButton)
+        
+        pictureButton.addTarget(self, action: #selector(takePicture), for: .touchUpInside)
+        
+        // Linha do meio do botão
+        line.backgroundColor = .systemGray2
+        view.addSubview(line)
+        
+        // Imagem
+        view.addSubview(imageView)
+    }
+    
+    @objc func takePicture() {
+        
+        let picker = UIImagePickerController()
+        picker.sourceType = .camera
+        picker.delegate = self
+        present(picker, animated: true)
+        
+    }
+    
+}
+
+extension CreatingNewReflectionViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        picker.dismiss(animated: true)
+        
+        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
+        
+        imageView.image = image
     }
     
 }

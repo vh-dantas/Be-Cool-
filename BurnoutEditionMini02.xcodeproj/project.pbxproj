@@ -119,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				2FC6D6442AC3096A00CAD167 /* SettingsViewController.swift */,
+				2F5FD3A52AC751330012DA88 /* NotificationsSettings.swift */,
 				2F38E75C2ACF1E4D007A42B8 /* PreferencesViewController.swift */,
 				2F0A5C952ACB4BF0003BA21C /* NotificationsViewController.swift */,
 				2F0A5C992ACB4C0E003BA21C /* PrivacyViewController.swift */,
@@ -238,7 +239,6 @@
 			children = (
 				F1359EE42ABB6F92004536E6 /* AppDelegate.swift */,
 				F1359EE62ABB6F92004536E6 /* SceneDelegate.swift */,
-				2F5FD3A52AC751330012DA88 /* NotificationsSettings.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";

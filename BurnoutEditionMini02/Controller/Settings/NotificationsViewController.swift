@@ -130,7 +130,7 @@ extension NotificationsViewController: UITableViewDelegate, UITableViewDataSourc
         
         // Toggle switch
         let toggleSwitch = UISwitch()
-        toggleSwitch.isOn = false // Toggle state
+        toggleSwitch.isOn = true // Toggle state
         toggleSwitch.tag = indexPath.row // Identifica a coluna do toggle
         toggleSwitch.addTarget(self, action: #selector(switchToggled(_:)), for: .valueChanged)
         
@@ -143,7 +143,8 @@ extension NotificationsViewController: UITableViewDelegate, UITableViewDataSourc
         // TODO: Adicionar lógica para cada toggle
         if sender.tag == 0 && sender.isOn == true {
             print("sender \(sender.tag) is on")
-            //scheduleWaterNotification()
+            let notification = NotificationsSettings()
+            notification.scheduleWaterNotification()
         } else if sender.tag == 1 && sender.isOn == true {
             print("sender \(sender.tag) is on")
             //scheduleStretchNotification()

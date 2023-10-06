@@ -14,6 +14,8 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
     let firstLabel = UILabel()
     let secondLabel = UILabel()
     
+    let timeLabel = UILabel()
+    
     // Cria célula com texto e botão de +
     var addSubGoalCell: AddSubGoalCell?
     
@@ -55,6 +57,7 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
         setupTimeCard()
         setupSaveButton()
         setUpTableView()
+        
         
         func setupLabels() {
             firstLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -203,9 +206,8 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
             DataAcessObject.shared.createSubGoal(title: subGoalWellness.title, type: subGoalWellness.type.rawValue, goal: newGoal)
         }
         
-        // Cria a navegação de push entre as telas
-        let goalsViewController = GoalsViewController()
-        navigationController?.pushViewController(goalsViewController, animated: true)
+        // Cria a navegação de pop para a home
+        navigationController?.popToRootViewController(animated: true)
     }
     
 //MARK: --meu
@@ -224,8 +226,8 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
         
         // Constraints
         NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             tableView.topAnchor.constraint(equalTo: stackView.bottomAnchor),
             tableView.bottomAnchor.constraint(equalTo: saveButton.topAnchor, constant: -40),
         ])
@@ -296,7 +298,7 @@ extension NewWellnessSubgoalsModalViewController: UITableViewDelegate, UITableVi
                 return UITableViewCell()  //vai retornar vazio se não conseguir
             }
             cell.delegate = self
-            cell.label.text = "Checklist de tarefas"
+            cell.label.text = "Atividades de Bem-Estar"
             cell.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
             
             //se for a primeira e ultima seta as corners embaixo também

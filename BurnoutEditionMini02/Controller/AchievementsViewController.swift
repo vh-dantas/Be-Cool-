@@ -399,9 +399,6 @@ extension SubGoalViewController {
         }
     }
     
-
-
-    
     func addItem(_ item: String){
         if let goal = goalSelected {
             DataAcessObject.shared.createSubGoal(title: item, type: "?", goal: goal )

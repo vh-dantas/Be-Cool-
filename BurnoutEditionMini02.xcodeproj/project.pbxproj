@@ -17,6 +17,7 @@
 		2F9CDC8B2ABD0D5700C10425 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2F9CDC8D2ABD0D5700C10425 /* Localizable.strings */; };
 		2F9CDC902ABD153B00C10425 /* LocalizedStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9CDC8F2ABD153B00C10425 /* LocalizedStringExtension.swift */; };
 		2FC6D6452AC3096A00CAD167 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC6D6442AC3096A00CAD167 /* SettingsViewController.swift */; };
+		BA2FEF082AD046D3006A472E /* AchievementDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2FEF072AD046D3006A472E /* AchievementDetailViewController.swift */; };
 		BA7E71652AC35A8D0036028B /* Goal+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7E71632AC35A8D0036028B /* Goal+CoreDataClass.swift */; };
 		BA7E71662AC35A8D0036028B /* Goal+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7E71642AC35A8D0036028B /* Goal+CoreDataProperties.swift */; };
 		BA7E71692AC3609D0036028B /* DAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7E71682AC3609D0036028B /* DAO.swift */; };
@@ -65,6 +66,7 @@
 		2F9CDC8E2ABD0DC800C10425 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		2F9CDC8F2ABD153B00C10425 /* LocalizedStringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedStringExtension.swift; sourceTree = "<group>"; };
 		2FC6D6442AC3096A00CAD167 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		BA2FEF072AD046D3006A472E /* AchievementDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementDetailViewController.swift; sourceTree = "<group>"; };
 		BA7E71632AC35A8D0036028B /* Goal+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataClass.swift"; sourceTree = "<group>"; };
 		BA7E71642AC35A8D0036028B /* Goal+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		BA7E71682AC3609D0036028B /* DAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DAO.swift; sourceTree = "<group>"; };
@@ -144,6 +146,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		BA2FEF092AD046D8006A472E /* Achievement */ = {
+			isa = PBXGroup;
+			children = (
+				F15BE50E2ABCDE40005A1C39 /* AchievementsViewController.swift */,
+				BA2FEF072AD046D3006A472E /* AchievementDetailViewController.swift */,
+			);
+			path = Achievement;
+			sourceTree = "<group>";
+		};
 		BA7E71672AC35A930036028B /* Entities */ = {
 			isa = PBXGroup;
 			children = (
@@ -216,9 +227,9 @@
 				C5DF0BA62ACB03800012C1F4 /* CreateGoalVCStore.swift */,
 				2F80C2AB2ACE1F9F0088EB9A /* WellnessTimeCalculator.swift */,
 				F15BE4F92ABCC97D005A1C39 /* GoalsViewController.swift */,
-				F15BE50E2ABCDE40005A1C39 /* AchievementsViewController.swift */,
 				C5AFA7952ACCAC4D000BFE0C /* ViewController.swift */,
 				2F0A5C942ACB4BD9003BA21C /* Settings */,
+				BA2FEF092AD046D8006A472E /* Achievement */,
 				F1D15BC82AC4EC7600528743 /* Reflection */,
 				F15BE5102ABCDE4F005A1C39 /* ModalViewControllers */,
 			);
@@ -355,6 +366,7 @@
 				F1D15BCE2ACC935800528743 /* ReflectionTableViewCell.swift in Sources */,
 				F1D15BCA2AC4ECF800528743 /* CreatingNewReflection2ViewController.swift in Sources */,
 				C5DF0B982AC3725D0012C1F4 /* UIViewController+PresentModal.swift in Sources */,
+				BA2FEF082AD046D3006A472E /* AchievementDetailViewController.swift in Sources */,
 				F1D15BD02ACCB6D300528743 /* NewReflectionTableViewCell.swift in Sources */,
 				F15BE52D2AC227ED005A1C39 /* ReflectionModel.swift in Sources */,
 				F15BE5092ABCD985005A1C39 /* NewWellnessSubgoalsModalViewController.swift in Sources */,

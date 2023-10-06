@@ -27,7 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // Instâncias das View Controllers para a Tab Bar
         let goalsVC = navHome
-        let achievementsVC = UINavigationController(rootViewController: AchievementsViewController())
+        let achievementsVC = UINavigationController(rootViewController: AchievementDetailViewController())
         let reflectionVC = navConReflection
         let settingsVC = UINavigationController(rootViewController: SettingsViewController())
         

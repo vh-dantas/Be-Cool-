@@ -13,17 +13,17 @@ class ReflectionModel: CustomStringConvertible {
     var relatedGoal: GoalStatic?
     var randomRefQst: String
     var randomRefAns: String?
-    var draw: UIImage?
+    var drawing: UIImageView?
     var mood: String
     var date: String
     
-    init(id: UUID, name: String, relatedGoal: GoalStatic?, randomRefQst: String, randomRefAns: String?, draw: UIImage?, mood: String, date: String) {
+    init(id: UUID, name: String, relatedGoal: GoalStatic?, randomRefQst: String, randomRefAns: String?, drawing: UIImageView?, mood: String, date: String) {
         self.id = id
         self.name = name
         self.relatedGoal = relatedGoal
         self.randomRefQst = randomRefQst
         self.randomRefAns = randomRefAns
-        self.draw = draw
+        self.drawing = drawing
         self.mood = mood
         self.date = date
     }

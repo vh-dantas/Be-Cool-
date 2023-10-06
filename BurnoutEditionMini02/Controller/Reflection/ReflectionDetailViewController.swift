@@ -1,15 +1,7 @@
-
-
-
-
-
-
 import UIKit
 
 class ReflectionDetailViewController: UIViewController {
     
-    // View que ira armazenar todas os componentes
-    let contentView = UIView()
     // Scroll View
     let scrollView = UIScrollView()
     // Label da data
@@ -22,6 +14,10 @@ class ReflectionDetailViewController: UIViewController {
     // Criando as tags
     let tagMood = RectangleLabelView(frame: CGRect(x: 0, y: 0, width: 100, height: 300))
     let tagGoal = RectangleLabelView(frame: CGRect(x: 0, y: 0, width: 100, height: 30))
+    
+    // Imagem e desenho
+    var imagem = UIImageView()
+    var drawing = UIImageView()
     
     // Tags
     var tags: [String] = []
@@ -52,9 +48,6 @@ class ReflectionDetailViewController: UIViewController {
         // Configurando a ScrollView
         setUpScrollView()
         
-        //Configurando a ContentView
-        setUpContentView()
-        
         // Configurando a Label de tempo
         configDateLabel()
         
@@ -67,6 +60,9 @@ class ReflectionDetailViewController: UIViewController {
         view.addSubview(bodyLabel)
         configureBodyLabel()
         
+        // Imagens e desenhos
+        setupImgs()
+        
     }
     
     // MARK: - ViewWillAppear
@@ -76,6 +72,62 @@ class ReflectionDetailViewController: UIViewController {
         }
       
     }
+    
+    // MARK: - Imagens e desenhos
+    private func setupImgs() {
+        // Convertendo Binary Data para imagem
+        if let imageData = reflection.image {
+            if let image = UIImage(data: imageData) {
+                imagem.image = image
+                
+                // Configurações da imagem
+                imagem.layer.cornerRadius = 20
+                imagem.clipsToBounds = true
+                imagem.contentMode = .scaleAspectFill
+                
+                view.addSubview(imagem)
+                
+                imagem.translatesAutoresizingMaskIntoConstraints = false
+                NSLayoutConstraint.activate([
+                    imagem.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                    imagem.topAnchor.constraint(equalTo: bodyLabel.bottomAnchor, constant: 35),
+                    imagem.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
+                    imagem.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9)
+                ])
+            }
+        }
+        
+        // Convertendo Binary Data para imagem
+        if let drawingData = reflection.drawing {
+            if let draw = UIImage(data: drawingData) {
+                drawing.image = draw
+                
+                // Configurações do desenho
+                drawing.layer.cornerRadius = 20
+                drawing.clipsToBounds = true
+                drawing.contentMode = .scaleAspectFill
+                
+                view.addSubview(drawing)
+                
+                drawing.translatesAutoresizingMaskIntoConstraints = false
+                NSLayoutConstraint.activate([
+                    drawing.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                    drawing.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
+                    drawing.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9)
+                ])
+                // Se houver imagem, o desenho ficará embaixo dele, se não, embaixo da bodyLabel
+                if imagem.image != nil {
+                    
+                    drawing.topAnchor.constraint(equalTo: imagem.bottomAnchor, constant: 20).isActive = true
+                    
+                } else {
+                    
+                    drawing.topAnchor.constraint(equalTo: bodyLabel.bottomAnchor, constant: 20).isActive = true
+                }
+            }
+        }
+    }
+    
     // MARK: - ScrollView
     func setUpScrollView(){
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -86,21 +138,6 @@ class ReflectionDetailViewController: UIViewController {
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ])
-    }
-    
-    
-    // MARK: - ContentView
-    func setUpContentView() {
-        scrollView.addSubview(contentView)
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            contentView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
-            contentView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
-            contentView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
-            contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor)
         ])
     }
     

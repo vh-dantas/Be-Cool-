@@ -92,27 +92,24 @@ class CreatingNewReflection3ViewController: UIViewController, UITextFieldDelegat
     
     @objc func saveReflection() {
         // Instâncias das VC
-        let getDrawing = ReflectionCanvasViewController()
+        //let getDrawing = ReflectionCanvasViewController()
         
         // Dados
         let id = getID()
         let refName = textField.text
         let randomRefQst = randomRefQst
         let randomRefAns = randomRefAns
-        let drawing = getDrawing.finalDrawing
+        let drawing = ReflectionCanvasViewController.finalDrawing
+        let image = CreatingNewReflectionViewController.imageView
         let mood = selectedMood
         let date = Date()
         
+        // Formatação da data
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let formattedDate = dateFormatter.string(from: date)
         
-//        let newReflection = ReflectionModel(id: id, name: refName ?? "", relatedGoal: nil, randomRefQst: randomRefQst, randomRefAns: randomRefAns, draw: drawing, mood: mood, date: formattedDate)
-        
-        DataAcessObject.shared.createReflection(refName: refName ?? "", mood: mood, randomRefQST: randomRefQst, randomRefANS: randomRefAns ?? "")
-        
-//        reflectionModels.append(newReflection)
-//        print(newReflection.description)
+        DataAcessObject.shared.createReflection(refName: refName ?? "", mood: mood, randomRefQST: randomRefQst, randomRefANS: randomRefAns ?? "", drawing: drawing, image: image)
         
         navigationController?.popToRootViewController(animated: true)
     }

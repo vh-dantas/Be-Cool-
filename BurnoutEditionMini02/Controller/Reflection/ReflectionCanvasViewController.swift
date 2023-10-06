@@ -12,7 +12,7 @@ class ReflectionCanvasViewController: UIViewController, PKCanvasViewDelegate {
 
     // MARK: - Variáveis
     let canvasView = PKCanvasView()
-    var finalDrawing: UIImage?
+    static var finalDrawing = UIImageView()
     let drawing = PKDrawing()
     let toolPicker = PKToolPicker()
     
@@ -132,7 +132,8 @@ class ReflectionCanvasViewController: UIViewController, PKCanvasViewDelegate {
     @objc private func saveDrawing() {
         
         let image = canvasView.drawing.image(from: canvasView.bounds, scale: UIScreen.main.scale)
-        finalDrawing = image
+        navigationController?.popViewController(animated: true)
+        ReflectionCanvasViewController.finalDrawing.image = image
         
     }
 

@@ -11,6 +11,7 @@
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="drawing" optional="YES" attributeType="Binary"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="image" optional="YES" attributeType="Binary"/>
         <attribute name="mood" optional="YES" attributeType="String"/>
         <attribute name="randomRefAns" optional="YES" attributeType="String"/>
         <attribute name="randomRefQst" optional="YES" attributeType="String"/>

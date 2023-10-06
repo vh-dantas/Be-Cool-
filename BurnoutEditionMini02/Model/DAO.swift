@@ -62,13 +62,23 @@ class DataAcessObject {
         return newGoal
     }
     
-    func createReflection(refName: String, mood: String, randomRefQST: String, randomRefANS: String) {
+    func createReflection(refName: String, mood: String, randomRefQST: String, randomRefANS: String, drawing: UIImageView?, image: UIImageView?) {
         let newReflection = ReflectionEntity(context: context)
         newReflection.id = UUID()
         newReflection.date = Date()
         newReflection.mood = mood
         newReflection.randomRefAns = randomRefANS
         newReflection.randomRefQst = randomRefQST
+        if let image = drawing?.image {
+            if let imageData = image.pngData() {
+                newReflection.drawing = imageData
+            }
+        }
+        if let image = image?.image {
+            if let imageData = image.pngData() {
+                newReflection.image = imageData
+            }
+        }
         newReflection.refName = refName
         saveContext()
     }

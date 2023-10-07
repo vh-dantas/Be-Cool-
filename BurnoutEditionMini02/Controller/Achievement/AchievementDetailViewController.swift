@@ -64,9 +64,22 @@ class AchievementDetailViewController: UIViewController {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
         table.isEditing = false
-        table.isScrollEnabled = false
-  
+        table.isScrollEnabled = true
+        table.layer.cornerRadius = 10
         return table
+    }()
+    // Ultima Label antes das tarefas de trabalho
+    private let lastWellNessLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Isso demonstra o quanto cuidar de si mesmo é essencial para alcançar o sucesso."
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontForContentSizeCategory = true
+        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.textColor = .black
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        label.textAlignment = .left
+        return label
     }()
     
     // MARK: ViewDidLoad
@@ -75,14 +88,18 @@ class AchievementDetailViewController: UIViewController {
         navigationItem.title = "Nome da Meta"
         navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = .systemBackground
-
-       // Funções de SetUp
+        // Adicionando todas as views
+        addToView()
+        // Funções de SetUp
         setUpDateImage()
         setUpDateLabel()
         setUpWellBeingTitleLabel()
         setUpWellBeingTextLabel()
         setupTimeCard()
         setUpWellNessTableView()
+        setUPLasLabel()
+        
+      
     }
     
     // MARK: INIT
@@ -98,10 +115,20 @@ class AchievementDetailViewController: UIViewController {
     init() {
         super.init(nibName: nil, bundle: nil)
     }
+    
+    // Função para adicionar todos na view
+   func addToView(){
+       view.addSubview(dateLabel)
+       view.addSubview(dateImage)
+       view.addSubview(stackView)
+       view.addSubview(wellBeingTitleLabel)
+       view.addSubview(wellBeingTextLabel)
+       view.addSubview(wellNessTableView)
+       view.addSubview(lastWellNessLabel)
+    }
+    
     // MARK: SetUpDateLabel
     func setUpDateLabel() {
-        // Adicionando na view
-        view.addSubview(dateLabel)
         // Formatando a data
         let date = self.goal?.createdDate ?? Date()
         let dateFormatter = DateFormatter()
@@ -121,7 +148,6 @@ class AchievementDetailViewController: UIViewController {
     }
     // MARK: SetUpDateImage
     func setUpDateImage() {
-        view.addSubview(dateImage)
         // Constraints
         NSLayoutConstraint.activate([
             dateImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant:  -6),
@@ -133,27 +159,22 @@ class AchievementDetailViewController: UIViewController {
     }
     // MARK: SetUpWellBeingTitleLabel
     func setUpWellBeingTitleLabel(){
-        view.addSubview(wellBeingTitleLabel)
         NSLayoutConstraint.activate([
             wellBeingTitleLabel.topAnchor.constraint(equalToSystemSpacingBelow: dateLabel.bottomAnchor, multiplier: 4),
             wellBeingTitleLabel.trailingAnchor.constraint(equalToSystemSpacingAfter: view.trailingAnchor, multiplier: 1),
             wellBeingTitleLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 2)
         ])
     }
-    
+    // MARK: SetUp WellBeingTextLabel
     func setUpWellBeingTextLabel(){
-        view.addSubview(wellBeingTextLabel)
-
         NSLayoutConstraint.activate([
             wellBeingTextLabel.topAnchor.constraint(equalToSystemSpacingBelow: wellBeingTitleLabel.bottomAnchor, multiplier: 2),
             wellBeingTextLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             wellBeingTextLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 2)
         ])
     }
-    
-    // Relogio de horas - Obrigado Thayná 🙏
+    // MARK: Relogio de horas - Obrigado Thayná 🙏
     func setupTimeCard() {
-
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
         stackView.spacing = 5
@@ -201,31 +222,40 @@ class AchievementDetailViewController: UIViewController {
             }
         }
         // Adicionando na View
-        self.view.addSubview(stackView)
         // Constraints
         NSLayoutConstraint.activate([
             stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            stackView.topAnchor.constraint(equalToSystemSpacingBelow: wellBeingTextLabel.bottomAnchor, multiplier: 2)
+            stackView.topAnchor.constraint(equalToSystemSpacingBelow: wellBeingTextLabel.bottomAnchor, multiplier: 3)
         ])
     }
     
     //MARK: WELLNESS TABLEVIEW
     func setUpWellNessTableView(){
-        view.addSubview(wellNessTableView)
         wellNessTableView.dataSource = self
         wellNessTableView.register(AchievementTableViewCell.self, forCellReuseIdentifier: AchievementTableViewCell.reuseIdentifier)
         NSLayoutConstraint.activate([
-            wellNessTableView.topAnchor.constraint(equalToSystemSpacingBelow: stackView.bottomAnchor, multiplier: 2),
-            wellNessTableView.bottomAnchor.constraint(equalToSystemSpacingBelow: view.bottomAnchor, multiplier: 2),
-            wellNessTableView.trailingAnchor.constraint(equalToSystemSpacingAfter: view.safeAreaLayoutGuide.trailingAnchor, multiplier: 1),
-            wellNessTableView.leadingAnchor.constraint(equalToSystemSpacingAfter: view.safeAreaLayoutGuide.leadingAnchor, multiplier: 1)
+            wellNessTableView.topAnchor.constraint(equalToSystemSpacingBelow: stackView.bottomAnchor, multiplier: 3),
+            wellNessTableView.bottomAnchor.constraint(equalTo: lastWellNessLabel.topAnchor, constant: -20),
+            wellNessTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            wellNessTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            wellNessTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2)
+        ])
+    }
+    
+    //MARK: LastLabel
+    func setUPLasLabel() {
+        NSLayoutConstraint.activate([
+            lastWellNessLabel.topAnchor.constraint(equalToSystemSpacingBelow: wellNessTableView.bottomAnchor, multiplier: 1),
+            lastWellNessLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            lastWellNessLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 2)
         ])
     }
 }
 
-extension AchievementDetailViewController: UITableViewDataSource {
+// MARK: Celula da DataSourceDelegate ----------------------------------
+extension AchievementDetailViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 10
     }
     
     // Retorna as celulas que preenchem as rows
@@ -240,8 +270,6 @@ extension AchievementDetailViewController: UITableViewDataSource {
         
         return cell
     }
-    
-    
 }
 
 
@@ -268,7 +296,7 @@ class AchievementTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.backgroundColor = UIColor(named: "GreenWell")
+        contentView.backgroundColor = UIColor(named: "BgGreenWell")
         addSubview(image) // Mova essa linha para cá
         addSubview(cellLabel)
         image.translatesAutoresizingMaskIntoConstraints = false

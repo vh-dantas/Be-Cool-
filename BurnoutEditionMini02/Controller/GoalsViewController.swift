@@ -77,6 +77,11 @@ class GoalsViewController: UIViewController, NewGoalModalDelegate, NewSubGoalMod
         navigationItem.rightBarButtonItem = openModalBtn
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchSubGoalsArray()
+        tableView.reloadData()
+    }
     
     @objc func createNewGoal() {
         // Certifique-se de criar sua nova view desejada

@@ -7,18 +7,19 @@
 
 import UIKit
 
-class NewSubgoalsModalViewController: UIViewController, AddSubGoalButtonDelegate, SubGoalCellTextDelegate {
+class NewSubgoalsModalViewController: ViewController, AddSubGoalButtonDelegate, SubGoalCellTextDelegate, BigButtonDelegate {
     
-    // Cria um UILabel
+    // Cria UILabel
     let firstLabel = UILabel()
     let secondLabel = UILabel()
     
     // Cria o botao passar para próxima tela
-    let bigButton = UIButton(type: .custom)
+    let bigButton = BigButton()
     
-    //Cria stack view
+    // Cria stack view
     let stackView = UIStackView()
     
+    // Cria célula com texto e botão de +
     var addSubGoalCell: AddSubGoalCell?
     
     //instancia da model subgoal
@@ -32,6 +33,7 @@ class NewSubgoalsModalViewController: UIViewController, AddSubGoalButtonDelegate
     init() {
         // Sempre chamar este super.init
         super.init(nibName: nil, bundle: nil)
+        //Compartilha os dados das view controllers
         CreateGoalVCStore.shared.newSubGoalModalViewController = self
     }
     
@@ -48,7 +50,7 @@ class NewSubgoalsModalViewController: UIViewController, AddSubGoalButtonDelegate
         setUpSecondLabel()
         setUpTableView()
         setUpStackView()
-        setUpButton()
+        setUpBigButton()
     }
     
     //MARK: -- SetUp Elementos da view
@@ -84,37 +86,23 @@ class NewSubgoalsModalViewController: UIViewController, AddSubGoalButtonDelegate
     }
     
     ///botao azul grande
-    func setUpButton() {
-        //cria um conteiner para adicionar o botao dentro
-        let addButtonContainer = UIView()
-        addButtonContainer.isUserInteractionEnabled = true // deixa clicável
-        addButtonContainer.translatesAutoresizingMaskIntoConstraints = false  //deixa setar as constraints
-        view.addSubview(addButtonContainer)
-        
-        //customizando o botao de ir pra próxima tela
-        let buttonSize: CGFloat = 50
-        bigButton.backgroundColor = UIColor(red: 0.95, green: 0.43, blue: 0.26, alpha: 1)
-        bigButton.tintColor = .white
-        bigButton.setImage(UIImage(systemName: "chevron.right"), for: .normal)
-        bigButton.layer.cornerRadius = buttonSize / 2
-        bigButton.translatesAutoresizingMaskIntoConstraints = false
-        bigButton.addTarget(self, action: #selector(nextView), for: .touchUpInside)  //ação de quando clica no botão
-        addButtonContainer.addSubview(bigButton)
-        
-        //constraints do botao
+    func setUpBigButton() {
+        bigButton.delegate = self
+        view.addSubview(bigButton)
+        let bottomConstraint = bigButton.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         NSLayoutConstraint.activate([
-            addButtonContainer.heightAnchor.constraint(equalToConstant: buttonSize + 16),
-            addButtonContainer.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            addButtonContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            addButtonContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            bigButton.widthAnchor.constraint(equalToConstant: buttonSize),
-            bigButton.heightAnchor.constraint(equalToConstant: buttonSize),
-            bigButton.bottomAnchor.constraint(equalTo: addButtonContainer.bottomAnchor, constant: -16),
-            bigButton.trailingAnchor.constraint(equalTo: addButtonContainer.trailingAnchor, constant: -16)
+            bottomConstraint,
+            bigButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            bigButton.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         ])
         
         //adiciona acessório ao keyboard
-        //bottomLineTextField.inputAccessoryView = addButtonContainer
+        stickViewToKeyboard(bottomConstraint: bottomConstraint)
+    }
+    
+    ///delegate de quando aperta o botão azul grande
+    func bigButtonTouched() {
+        nextView()
     }
     
     ///stackView
@@ -141,6 +129,7 @@ class NewSubgoalsModalViewController: UIViewController, AddSubGoalButtonDelegate
     }
     
     //MARK: -- Funcionalidades
+    
     @objc func nextView() {
         // Cria a navegação de push entre as telas
         let newSubgoalLevelViewController = NewSubgoalLevelViewController()
@@ -223,6 +212,8 @@ extension NewSubgoalsModalViewController: UITableViewDelegate, UITableViewDataSo
             cell.delegate = self
             cell.label.text = "Checklist de tarefas"
             cell.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+            
+            //se for a primeira e ultima seta as corners embaixo também
             if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
                 cell.layer.maskedCorners.insert(.layerMinXMaxYCorner)
                 cell.layer.maskedCorners.insert(.layerMaxXMaxYCorner)
@@ -250,6 +241,8 @@ extension NewSubgoalsModalViewController: UITableViewDelegate, UITableViewDataSo
         }
     }
 }
+
+//MARK: -- Protocolos
 
 protocol NewSubGoalModalDelegate: AnyObject {
     func addedSubGoal(_ subgoal: String)

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewSubgoalLevelViewController: UIViewController {
+class NewSubgoalLevelViewController: ViewController, BigButtonDelegate {
     var sliderLevels: [Int: String] = [:]
     
     init() {
@@ -23,14 +23,14 @@ class NewSubgoalLevelViewController: UIViewController {
     override func viewDidLoad() {
         let firstLabel = UILabel()
         let secondLabel = UILabel()
-        let addButton = UIButton(type: .system)
+        let bigButton = BigButton()
         
         super.viewDidLoad()
         // Coloca a cor de fundo da modal (ele seta como transparente por padrão)
         view.backgroundColor = .white
         setupLabels()
         setupSlider()
-        setupNextButton()
+        setUpBigButton()
         
         func setupLabels() {
             firstLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -112,36 +112,57 @@ class NewSubgoalLevelViewController: UIViewController {
                 lastView = slider
             }
         }
+        
+        func setUpBigButton() {
+            bigButton.delegate = self
+            view.addSubview(bigButton)
+            let bottomConstraint = bigButton.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            NSLayoutConstraint.activate([
+                bottomConstraint,
+                bigButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                bigButton.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+            ])
+            
+            //adiciona acessório ao keyboard
+            stickViewToKeyboard(bottomConstraint: bottomConstraint)
+        }
+        
+        
 
         
-        func setupNextButton() {
-            //cria um conteiner para adicionar o botao dentro
-            let addButtonContainer = UIView()
-            addButtonContainer.isUserInteractionEnabled = true // deixa clicável
-            addButtonContainer.translatesAutoresizingMaskIntoConstraints = false  //deixa setar as constraints
-            view.addSubview(addButtonContainer)
-            
-            //customizando o botao de ir pra próxima tela
-            let buttonSize: CGFloat = 50
-            addButton.backgroundColor = .systemBlue
-            addButton.tintColor = .white
-            addButton.setImage(UIImage(systemName: "chevron.right"), for: .normal)
-            addButton.layer.cornerRadius = buttonSize / 2
-            addButton.translatesAutoresizingMaskIntoConstraints = false
-            addButton.addTarget(self, action: #selector(nextView), for: .touchUpInside)  //ação de quando clica no botão
-            addButtonContainer.addSubview(addButton)
-            //constraints do botao
-            NSLayoutConstraint.activate([
-                addButtonContainer.heightAnchor.constraint(equalToConstant: buttonSize + 16),
-                addButtonContainer.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                addButtonContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                addButtonContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                addButton.widthAnchor.constraint(equalToConstant: buttonSize),
-                addButton.heightAnchor.constraint(equalToConstant: buttonSize),
-                addButton.bottomAnchor.constraint(equalTo: addButtonContainer.bottomAnchor, constant: -16),
-                addButton.trailingAnchor.constraint(equalTo: addButtonContainer.trailingAnchor, constant: -16)
-            ])
-        }
+//        func setupNextButton() {
+//            //cria um conteiner para adicionar o botao dentro
+//            let addButtonContainer = UIView()
+//            addButtonContainer.isUserInteractionEnabled = true // deixa clicável
+//            addButtonContainer.translatesAutoresizingMaskIntoConstraints = false  //deixa setar as constraints
+//            view.addSubview(addButtonContainer)
+//
+//            //customizando o botao de ir pra próxima tela
+//            let buttonSize: CGFloat = 50
+//            addButton.backgroundColor = .systemBlue
+//            addButton.tintColor = .white
+//            addButton.setImage(UIImage(systemName: "chevron.right"), for: .normal)
+//            addButton.layer.cornerRadius = buttonSize / 2
+//            addButton.translatesAutoresizingMaskIntoConstraints = false
+//            addButton.addTarget(self, action: #selector(nextView), for: .touchUpInside)  //ação de quando clica no botão
+//            addButtonContainer.addSubview(addButton)
+//            //constraints do botao
+//            NSLayoutConstraint.activate([
+//                addButtonContainer.heightAnchor.constraint(equalToConstant: buttonSize + 16),
+//                addButtonContainer.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+//                addButtonContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//                addButtonContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//                addButton.widthAnchor.constraint(equalToConstant: buttonSize),
+//                addButton.heightAnchor.constraint(equalToConstant: buttonSize),
+//                addButton.bottomAnchor.constraint(equalTo: addButtonContainer.bottomAnchor, constant: -16),
+//                addButton.trailingAnchor.constraint(equalTo: addButtonContainer.trailingAnchor, constant: -16)
+//            ])
+//        }
+    }
+    
+    ///delegate de quando aperta o botão azul grande
+    func bigButtonTouched() {
+        nextView()
     }
     
     // MARK: -- Função para o valor do slider

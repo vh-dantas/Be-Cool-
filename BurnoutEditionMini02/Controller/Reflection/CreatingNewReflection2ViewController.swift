@@ -49,21 +49,10 @@ class CreatingNewReflection2ViewController: UIViewController {
     let nextScreenBt = UIButton()
     
     // Variáveis da VC anterior
-    var randomRefQst: String
-    var randomRefAns: String
-    
-    // MARK: Initializer
-    init(randomRefQst: String, randomRefAns: String) {
-        
-        self.randomRefQst = randomRefQst
-        self.randomRefAns = randomRefAns
-        
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    var randomRefQst: String?
+    var randomRefAns: String?
+    var imageView: UIImageView?
+    var drawing: UIImageView?
     
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
@@ -87,6 +76,7 @@ class CreatingNewReflection2ViewController: UIViewController {
         constraints()
     
     }
+    
     // MARK: - Selector dos BarButtonItem
     @objc func backButtonFunc() {
         navigationController?.popViewController(animated: true)
@@ -113,7 +103,13 @@ class CreatingNewReflection2ViewController: UIViewController {
     
     @objc func goToScreen3() {
         
-        let nextScreen = CreatingNewReflection3ViewController(selectedMood: selectedMood, randomRefQst: randomRefQst, randomRefAns: randomRefAns)
+        let nextScreen = CreatingNewReflection3ViewController()
+        
+        nextScreen.randomRefAns = self.randomRefAns
+        nextScreen.randomRefQst = self.randomRefQst
+        nextScreen.imageView = self.imageView
+        nextScreen.finalDrawing = self.drawing
+        nextScreen.selectedMood = self.selectedMood
         
         navigationController?.pushViewController(nextScreen, animated: true)
     }

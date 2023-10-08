@@ -12,12 +12,14 @@ class ReflectionCanvasViewController: UIViewController, PKCanvasViewDelegate {
 
     // MARK: - Variáveis
     let canvasView = PKCanvasView()
-    var finalDrawing: UIImage?
+    var finalDrawing = UIImageView()
     let drawing = PKDrawing()
     let toolPicker = PKToolPicker()
     
     var canvasWidth: CGFloat = 0
     var canvasHeight: CGFloat = 0
+    
+    var delegate: ReflectionCanvasDelegate?
     
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
@@ -43,34 +45,8 @@ class ReflectionCanvasViewController: UIViewController, PKCanvasViewDelegate {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-       // canvasView.contentSize = CGSize(width: canvasWidth, height: canvasHeight)
-        
-//        updateContentSizeForDrawing()
-        
-//        let canvasScale = canvasView.bounds.width / canvasWidth
-//        canvasView.minimumZoomScale = canvasScale
-//        canvasView.maximumZoomScale = canvasScale
-//        canvasView.zoomScale = canvasScale
-        
         canvasView.contentOffset = CGPoint(x: 0, y: -canvasView.adjustedContentInset.top)
     }
-    
-    // MARK: - Update Content View
-//    private func updateContentSizeForDrawing() {
-//
-//        let drawing = canvasView.drawing
-//        let contentHeight: CGFloat
-//
-//        if !drawing.bounds.isNull {
-//            contentHeight = max(canvasView.bounds.height, (drawing.bounds.maxY + self.canvasHeight) * canvasView.zoomScale)
-//        } else {
-//            contentHeight = canvasView.bounds.height
-//        }
-//
-//        canvasView.contentSize = CGSize(width: canvasWidth * canvasView.zoomScale, height: contentHeight)
-//
-//
-//    }
     
     // MARK: - SEILA
     override var prefersHomeIndicatorAutoHidden: Bool { return true }
@@ -91,25 +67,6 @@ class ReflectionCanvasViewController: UIViewController, PKCanvasViewDelegate {
         view.addSubview(canvasView)
         
     }
-    
-    // MARK: - Função que roda ao trocar a orientação do dispositivo
-//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-//        super.viewWillTransition(to: size, with: coordinator)
-//
-//        if UIDevice.current.orientation.isPortrait {
-//            canvasHeight = view.bounds.height
-//            canvasWidth = view.bounds.width
-//            canvasView.frame.size = CGSize(width: canvasWidth, height: canvasHeight)
-//            canvasView.center = CGPoint(x: canvasWidth / 2, y: canvasHeight / 2)
-//            //canvasView.zoomScale = 5.0
-//        } else {
-//            canvasHeight = view.bounds.width
-//            canvasWidth = view.bounds.height
-//            canvasView.frame.size = CGSize(width: canvasWidth, height: canvasHeight)
-//            canvasView.center = CGPoint(x: canvasWidth / 2, y: canvasHeight / 2)
-//        }
-//
-//    }
     
     // MARK: - ToolPicker
     private func setupToolpicker() {
@@ -132,8 +89,14 @@ class ReflectionCanvasViewController: UIViewController, PKCanvasViewDelegate {
     @objc private func saveDrawing() {
         
         let image = canvasView.drawing.image(from: canvasView.bounds, scale: UIScreen.main.scale)
-        finalDrawing = image
+        finalDrawing.image = image
+        delegate?.didFinishDrawing(finalDrawing)
+        navigationController?.popViewController(animated: true)
         
     }
 
+}
+
+protocol ReflectionCanvasDelegate {
+    func didFinishDrawing(_ drawing: UIImageView)
 }

@@ -41,6 +41,13 @@
 
 
 
+// MARK: -- MODAL META ATINGIDA
+"goal-achieved-title" = "Congratulations!";
+"goal-achieved-caption" = "Wow! Your dedication was super worth it!";
+"goal-achieved-text" = "You've achieved your goal with success and balance. Check out your journey in the 'Achievements' tab.";
+
+
+
 // MARK: -- CONQUISTAS
 "achievements-title" = "Achievements";
 "achievements-text" = "Recall Your Journey and Celebrate Your Achievements!";

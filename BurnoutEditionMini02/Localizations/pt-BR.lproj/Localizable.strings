@@ -42,6 +42,13 @@
 
 
 
+// MARK: -- MODAL META ATINGIDA
+"goal-achieved-title" = "Parabéns!";
+"goal-achieved-caption" = "Uau! Sua dedicação valeu a pena, hein?";
+"goal-achieved-text" = "Você alcançou sua meta com sucesso e equilíbrio. Confira sua jornada na aba ”Conquistas”.";
+
+
+
 // MARK: -- CONQUISTAS
 "achievements-title" = "Achievements";
 "achievements-text" = "Relembre Sua Jornada e Celebre Suas Conquistas!";

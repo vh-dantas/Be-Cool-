@@ -21,12 +21,13 @@
 
 // MARK: -- CRIAR NOVA META
 // Definir Meta
-"new-goal-title" = "Setting your professional goal.";
+"new-goal-title" = "Setting your professional goal";
 "new-goal-text" = "Start with a clear and short-term goal!";
+"textfield-placeholder" = "Start typing";
 // Criar tarefas
-"subgoals-title" = "Divide to conquer.";
-"subgoals-text" = "Break down your goal into smaller tasks.";
-"subgoals-checklist" = "Task Checklist:";
+"subgoals-title" = "Divide and conquer:";
+"subgoals-text" = "Break down your goal into smaller tasks";
+"subgoals-checklist" = "Task checklist";
 // Medir Dificuldade
 "easy" = "Easy";
 "medium" = "Medium";

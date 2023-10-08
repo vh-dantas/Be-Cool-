@@ -60,7 +60,7 @@ class NewGoalModalViewController: ViewController, UITextFieldDelegate, BigButton
     ///título
     func setUpFirstLabel() {
         // Configura propriedades do UILabel
-        firstLabel.text = "Definindo seu objetivo profissional"
+        firstLabel.text = "new-goal-title".localized
         firstLabel.font = UIFont.systemFont(ofSize: 28, weight: .bold)
         firstLabel.lineBreakMode = .byWordWrapping
         firstLabel.sizeToFit()
@@ -69,7 +69,7 @@ class NewGoalModalViewController: ViewController, UITextFieldDelegate, BigButton
     
     ///subtítulo
     func setUpSecondLabel() {
-        secondLabel.text = "Comece com uma meta clara e de curto prazo!"
+        secondLabel.text = "new-goal-text".localized
         secondLabel.font = UIFont.systemFont(ofSize: 15, weight: .light)
         secondLabel.lineBreakMode = .byWordWrapping
         secondLabel.sizeToFit()
@@ -79,7 +79,7 @@ class NewGoalModalViewController: ViewController, UITextFieldDelegate, BigButton
     ///textField
     func setUpBottomLineTextField() {
         //configura propriedades do textfield
-        bottomLineTextField.placeholder = "Digite alguma coisa"
+        bottomLineTextField.placeholder = "textfield-placeholder".localized
         bottomLineTextField.textAlignment = .left
         bottomLineTextField.maxLength = 30  //numero maximo de caracteres
         bottomLineTextField.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: .editingChanged) // o que acontece quando digita

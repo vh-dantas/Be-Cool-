@@ -110,7 +110,7 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
             for index in 0..<4 {
                 // Cria um retângulo com as dimensões e posição certas
                 let rectangle = UIView()
-                rectangle.backgroundColor = UIColor.lightGray
+                rectangle.backgroundColor = UIColor(named: "TimeCardColor")
                 rectangle.layer.cornerRadius = 5
                 rectangle.translatesAutoresizingMaskIntoConstraints = false
                 NSLayoutConstraint.activate([

@@ -88,6 +88,7 @@ class NewSubgoalLevelViewController: ViewController, BigButtonDelegate {
                 // define o valor dos sliders e chama a função sliderValueChanged
                 slider.minimumValue = 0
                 slider.maximumValue = 100
+                slider.maximumTrackTintColor = UIColor(named: "SliderEasyColor")
                 slider.tag = index
                 slider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
                 // define o nível "facil" como valor default pro slider
@@ -188,19 +189,19 @@ class CustomSlider: UISlider {
         let thumbLayer = CALayer()
         thumbLayer.bounds = CGRect(x: 0, y: 0, width: 130, height: 35) // ajuste do tamanho da thumb
         thumbLayer.cornerRadius = thumbLayer.bounds.height / 2 // cria o formato de cápsula
-        thumbLayer.backgroundColor = UIColor.lightGray.cgColor // cor da cápsula
+        thumbLayer.backgroundColor = UIColor(named: "SliderThumbColor")?.cgColor // cor da cápsula
         
         // Define o visual do slider de acordo com o valor:
         let label = UILabel(frame: thumbLayer.bounds)
         if self.value < 50 {
             label.text = "easy".localized
-            self.minimumTrackTintColor = UIColor.lightGray
-        } else if self.value == 50 {
+            self.minimumTrackTintColor = UIColor(named: "SliderEasyColor")
+        } else if self.value >= 40 && self.value < 70 {
             label.text = "medium".localized
-            self.minimumTrackTintColor = UIColor.gray
+            self.minimumTrackTintColor = UIColor(named: "SliderMediumColor")
         } else {
             label.text = "hard".localized
-            self.minimumTrackTintColor = UIColor.darkGray
+            self.minimumTrackTintColor = UIColor(named: "SliderHardColor")
         }
         
         label.textAlignment = .center

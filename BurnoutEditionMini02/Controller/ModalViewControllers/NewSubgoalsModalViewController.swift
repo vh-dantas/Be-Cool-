@@ -57,7 +57,7 @@ class NewSubgoalsModalViewController: ViewController, AddSubGoalButtonDelegate, 
     ///titulo da view
     func setUpFirstLabel() {
         // Configura propriedades do UILabel
-        firstLabel.text = "Dividindo para conquistar"
+        firstLabel.text = "subgoals-title".localized
         firstLabel.font = UIFont.systemFont(ofSize: 28, weight: .bold)
         firstLabel.lineBreakMode = .byWordWrapping
         firstLabel.sizeToFit()
@@ -66,7 +66,7 @@ class NewSubgoalsModalViewController: ViewController, AddSubGoalButtonDelegate, 
     
     ///subtitulo da view
     func setUpSecondLabel() {
-        secondLabel.text = "Divida sua meta em tarefas menores"
+        secondLabel.text = "subgoals-text".localized
         secondLabel.font = UIFont.systemFont(ofSize: 15, weight: .light)
         secondLabel.lineBreakMode = .byWordWrapping
         secondLabel.sizeToFit()
@@ -210,7 +210,7 @@ extension NewSubgoalsModalViewController: UITableViewDelegate, UITableViewDataSo
                 return UITableViewCell()  //vai retornar vazio se não conseguir
             }
             cell.delegate = self
-            cell.label.text = "Checklist de tarefas"
+            cell.label.text = "subgoals-checklist".localized
             cell.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
             
             //se for a primeira e ultima seta as corners embaixo também

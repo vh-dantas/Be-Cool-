@@ -8,7 +8,7 @@
 import UIKit
 
 class CreatingNewReflection3ViewController: UIViewController, UITextFieldDelegate {
-
+    
     // MARK: - Variáveis
     // Labels
     let label = UILabel()
@@ -29,23 +29,11 @@ class CreatingNewReflection3ViewController: UIViewController, UITextFieldDelegat
     var reflectionModels: [ReflectionModel] = []
     
     // Variáveis da VC anterior
-    var selectedMood: String
-    var randomRefQst: String
+    var selectedMood: String?
+    var randomRefQst: String?
     var randomRefAns: String?
-    
-    // MARK: - Initializer
-    init(selectedMood: String, randomRefQst: String, randomRefAns: String?) {
-        
-        self.selectedMood = selectedMood
-        self.randomRefQst = randomRefQst
-        self.randomRefAns = randomRefAns
-        
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    var imageView: UIImageView?
+    var finalDrawing: UIImageView?
     
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
@@ -70,6 +58,15 @@ class CreatingNewReflection3ViewController: UIViewController, UITextFieldDelegat
         constraints()
     }
     
+    // MARK: - DELEGATE
+//    func sendData(img: UIImageView) {
+//        self.imageView = img
+//    }
+//
+//    func sendStrings(randomRefQst: String, randomRefAns: String) {
+//        random
+//    }
+    
     // MARK: - ID
     func getID() -> UUID {
         let id = UUID()
@@ -91,25 +88,15 @@ class CreatingNewReflection3ViewController: UIViewController, UITextFieldDelegat
     }
     
     @objc func saveReflection() {
-        // Instâncias das VC
-        //let getDrawing = ReflectionCanvasViewController()
-        
         // Dados
-        let id = getID()
         let refName = textField.text
         let randomRefQst = randomRefQst
         let randomRefAns = randomRefAns
-        let drawing = ReflectionCanvasViewController.finalDrawing
-        let image = CreatingNewReflectionViewController.imageView
+        let drawing = finalDrawing
+        let image = imageView
         let mood = selectedMood
-        let date = Date()
         
-        // Formatação da data
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let formattedDate = dateFormatter.string(from: date)
-        
-        DataAcessObject.shared.createReflection(refName: refName ?? "", mood: mood, randomRefQST: randomRefQst, randomRefANS: randomRefAns ?? "", drawing: drawing, image: image)
+        DataAcessObject.shared.createReflection(refName: refName ?? "", mood: mood ?? "", randomRefQST: randomRefQst ?? "", randomRefANS: randomRefAns ?? "", drawing: drawing, image: image)
         
         navigationController?.popToRootViewController(animated: true)
     }

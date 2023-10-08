@@ -8,7 +8,9 @@
 import UIKit
 import PhotosUI
 
-class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate {
+class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate, ReflectionCanvasDelegate {
+    
+    
     
     // MARK: - Variáveis
     // TextField
@@ -29,7 +31,7 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
     // Botão para acessar a galeria e câmera
     var pictureButton = UIButton()
     var libraryButton = UIButton()
-    static var imageView = UIImageView()
+    var imageView = UIImageView()
     
     // Botão para próxima tela
     let nextScreenBt = UIButton()
@@ -37,6 +39,9 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
     // BarButtonItens
     var backButton: UIBarButtonItem?
     var cancelButton: UIBarButtonItem?
+    
+    // Desenho
+    var drawing: UIImageView?
     
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
@@ -66,13 +71,16 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
         
     }
     
+    // MARK: - Delegate do desenho
+    func didFinishDrawing(_ drawing: UIImageView) {
+        self.drawing = drawing
+    }
+    
     // MARK: - Selector dos BarButtonItem
     
     @objc func cancelButtonFunc() {
         navigationController?.popToRootViewController(animated: true)
     }
-    
-    
     
     // MARK: - NextScreen Button
     private func setupNextScreenBt() {
@@ -90,7 +98,12 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
     }
     
     @objc func goToNextScreen() {
-        let nextScreen = CreatingNewReflection2ViewController(randomRefQst: randomRefQst, randomRefAns: textField.text ?? "")
+        let nextScreen = CreatingNewReflection2ViewController()
+        
+        nextScreen.randomRefAns = self.textField.text
+        nextScreen.randomRefQst = self.randomRefQst
+        nextScreen.imageView = self.imageView
+        nextScreen.drawing = self.drawing
         
         navigationController?.pushViewController(nextScreen, animated: true)
     }
@@ -136,7 +149,9 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
     }
     
     @objc func goToCanvas() {
-        navigationController?.pushViewController(ReflectionCanvasViewController(), animated: true)
+        let canvasVC = ReflectionCanvasViewController()
+        canvasVC.delegate = self
+        navigationController?.pushViewController(canvasVC, animated: true)
     }
     
     // MARK: - Gerar mensagem random
@@ -190,9 +205,9 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
     
     // MARK: - ImageView
     private func setupImageView() {
-        CreatingNewReflectionViewController.imageView.contentMode = .scaleAspectFill
-        CreatingNewReflectionViewController.imageView.layer.cornerRadius = 20
-        CreatingNewReflectionViewController.imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 20
+        imageView.clipsToBounds = true
     }
     
     // MARK: - Constraints
@@ -267,12 +282,12 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
         ])
         
         // ImageView
-        CreatingNewReflectionViewController.imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            CreatingNewReflectionViewController.imageView.centerYAnchor.constraint(equalTo: drawButton.centerYAnchor),
-            CreatingNewReflectionViewController.imageView.centerXAnchor.constraint(equalTo: nextScreenBt.centerXAnchor),
-            CreatingNewReflectionViewController.imageView.widthAnchor.constraint(equalToConstant: 60),
-            CreatingNewReflectionViewController.imageView.heightAnchor.constraint(equalToConstant: 60)
+            imageView.centerYAnchor.constraint(equalTo: drawButton.centerYAnchor),
+            imageView.centerXAnchor.constraint(equalTo: nextScreenBt.centerXAnchor),
+            imageView.widthAnchor.constraint(equalToConstant: 40),
+            imageView.heightAnchor.constraint(equalToConstant: 40)
         ])
         
         
@@ -302,7 +317,7 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
         view.addSubview(line)
         
         // Imagem
-        view.addSubview(CreatingNewReflectionViewController.imageView)
+        view.addSubview(imageView)
     }
     
     @objc func takePicture() {
@@ -329,12 +344,12 @@ extension CreatingNewReflectionViewController: UIImagePickerControllerDelegate, 
         
         guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
         
-        CreatingNewReflectionViewController.imageView.image = image
+        imageView.image = image
     }
     
 }
 
-// MARK: - Extensão para conformar com os protocolos para tirar acessar a galeria
+// MARK: - Extensão para conformar com os protocolos para acessar a galeria
 extension CreatingNewReflectionViewController: PHPickerViewControllerDelegate {
     
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
@@ -345,7 +360,7 @@ extension CreatingNewReflectionViewController: PHPickerViewControllerDelegate {
         selectedImageResult.itemProvider.loadObject(ofClass: UIImage.self) { object, error in
             if let image = object as? UIImage {
                 DispatchQueue.main.async {
-                    CreatingNewReflectionViewController.imageView.image = image
+                    self.imageView.image = image
                 }
             }
         }

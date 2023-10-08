@@ -126,38 +126,6 @@ class NewSubgoalLevelViewController: ViewController, BigButtonDelegate {
             //adiciona acessório ao keyboard
             stickViewToKeyboard(bottomConstraint: bottomConstraint)
         }
-        
-        
-
-        
-//        func setupNextButton() {
-//            //cria um conteiner para adicionar o botao dentro
-//            let addButtonContainer = UIView()
-//            addButtonContainer.isUserInteractionEnabled = true // deixa clicável
-//            addButtonContainer.translatesAutoresizingMaskIntoConstraints = false  //deixa setar as constraints
-//            view.addSubview(addButtonContainer)
-//
-//            //customizando o botao de ir pra próxima tela
-//            let buttonSize: CGFloat = 50
-//            addButton.backgroundColor = .systemBlue
-//            addButton.tintColor = .white
-//            addButton.setImage(UIImage(systemName: "chevron.right"), for: .normal)
-//            addButton.layer.cornerRadius = buttonSize / 2
-//            addButton.translatesAutoresizingMaskIntoConstraints = false
-//            addButton.addTarget(self, action: #selector(nextView), for: .touchUpInside)  //ação de quando clica no botão
-//            addButtonContainer.addSubview(addButton)
-//            //constraints do botao
-//            NSLayoutConstraint.activate([
-//                addButtonContainer.heightAnchor.constraint(equalToConstant: buttonSize + 16),
-//                addButtonContainer.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-//                addButtonContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//                addButtonContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//                addButton.widthAnchor.constraint(equalToConstant: buttonSize),
-//                addButton.heightAnchor.constraint(equalToConstant: buttonSize),
-//                addButton.bottomAnchor.constraint(equalTo: addButtonContainer.bottomAnchor, constant: -16),
-//                addButton.trailingAnchor.constraint(equalTo: addButtonContainer.trailingAnchor, constant: -16)
-//            ])
-//        }
     }
     
     ///delegate de quando aperta o botão azul grande
@@ -167,7 +135,7 @@ class NewSubgoalLevelViewController: ViewController, BigButtonDelegate {
     
     // MARK: -- Função para o valor do slider
     @objc func sliderValueChanged(_ sender: CustomSlider) {
-        let step: Float = 50 // Snap
+        let step: Float = 1 // Snap
         let roundedValue = round(sender.value / step) * step // Param no ponto de snap mais próximo
         
         sender.value = roundedValue // Arredonda os valores do slider

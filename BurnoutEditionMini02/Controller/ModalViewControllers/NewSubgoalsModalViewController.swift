@@ -45,7 +45,7 @@ class NewSubgoalsModalViewController: ViewController, AddSubGoalButtonDelegate, 
         super.viewDidLoad()
         
         // Coloca a cor de fundo da modal (ele seta como transparente por padrão)
-        view.layer.backgroundColor = UIColor(red: 0.975, green: 0.985, blue: 1, alpha: 1).cgColor
+        view.backgroundColor = UIColor(named: "BackgroundColor")
         setUpFirstLabel()
         setUpSecondLabel()
         setUpTableView()
@@ -227,6 +227,7 @@ extension NewSubgoalsModalViewController: UITableViewDelegate, UITableViewDataSo
             let subGoal = subGoals[indexPath.row - 1]
             cell.textField.text = subGoal.title
             cell.subGoal = subGoal
+            cell.type = .text // Defina o tipo como .text
             cell.delegate = self
             cell.selectionStyle = .none // remove a seleção cinza da célula
             

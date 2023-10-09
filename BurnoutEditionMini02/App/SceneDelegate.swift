@@ -36,10 +36,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         tabBarController.viewControllers = [goalsVC, achievementsVC, reflectionVC, settingsVC]
 
         // Configuração dos Tab Bar Itens
-        goalsVC.tabBarItem = UITabBarItem(title: "goals".localized, image: UIImage(systemName: "target"), selectedImage: nil)
-        achievementsVC.tabBarItem = UITabBarItem(title: "achievements".localized, image: UIImage(systemName: "trophy"), selectedImage: nil)
-        reflectionVC.tabBarItem = UITabBarItem(title: "reflections".localized, image: UIImage(systemName: "figure.mind.and.body"), selectedImage: nil)
-        settingsVC.tabBarItem = UITabBarItem(title: "settings".localized, image: UIImage(systemName: "gearshape"), selectedImage: nil)
+        goalsVC.tabBarItem = UITabBarItem(title: "goals".localized, image: UIImage(systemName: "list.bullet.circle"), selectedImage: UIImage(systemName: "list.bullet.circle.fill"))
+        achievementsVC.tabBarItem = UITabBarItem(title: "achievements".localized, image: UIImage(systemName: "medal"), selectedImage: UIImage(systemName: "medal.fill"))
+        reflectionVC.tabBarItem = UITabBarItem(title: "reflections".localized, image: UIImage(systemName: "text.bubble"), selectedImage: UIImage(systemName: "text.bubble.fill"))
+        settingsVC.tabBarItem = UITabBarItem(title: "settings".localized, image: UIImage(systemName: "gearshape"), selectedImage: UIImage(systemName: "gearshape.fill"))
         
         // Configuração da janela, atribuindo à rootView (Necessário ao retirar o arquivo .storyboard)
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)

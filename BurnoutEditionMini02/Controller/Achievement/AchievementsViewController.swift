@@ -89,8 +89,20 @@ class AchievementsViewController: UIViewController {
        // setUpImageCellLabel()
         setUpCollectionView()
         // Configurações adicionais que nao cabem dentro da clousure da View
-      // recebe o tamanho da view * o tamanho da imagem e divide para arredondar
-
+        // Configurando o tamanho da fonte para iPad
+        if view.frame.height >= 1100 {
+            jorneyLabel.font = UIFont.preferredFont(forTextStyle: .title3)
+        } else {
+            jorneyLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        }
+    }
+    
+    // MARK: ViewWillAppear
+    override func viewWillAppear(_ animated: Bool) {
+        // Confirmando que a CollectionView sempre estará atualizada
+        achievementArray = DataAcessObject.shared.fetchGoal()
+        self.achievCollectionView.reloadData()
+        
     }
     
     // Configurando todos os Container Views - ela preenche metade da view MARK: COntainerView
@@ -111,19 +123,20 @@ class AchievementsViewController: UIViewController {
         topContainerView.addSubview(jorneyLabel)
         NSLayoutConstraint.activate([
             jorneyLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            jorneyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            jorneyLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: view.safeAreaLayoutGuide.leadingAnchor, multiplier: 2.5)
         ])
     }
     
     // MARK: COllectionView
     func setUpCollectionView() {
-        achievCollectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createFlowLayout(section: 1))
+        achievCollectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createFlowLayout())
+        achievCollectionView.register(AchievementCell.self, forCellWithReuseIdentifier: AchievementCell.reuseIdentifier)
         view.addSubview(achievCollectionView)
         achievCollectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         achievCollectionView.backgroundColor = .systemBackground
         achievCollectionView.translatesAutoresizingMaskIntoConstraints = false
         achievCollectionView.dataSource = self
-        
+        achievCollectionView.delegate = self
         NSLayoutConstraint.activate([
             achievCollectionView.topAnchor.constraint(equalTo: topContainerView.bottomAnchor),
             achievCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -133,31 +146,34 @@ class AchievementsViewController: UIViewController {
     }
 
     // MARK: FloyLayot
-    func createFlowLayout(section: Int) -> UICollectionViewFlowLayout {
+    func createFlowLayout() -> UICollectionViewFlowLayout {
         let flowLayout = UICollectionViewFlowLayout()
-        if section == 0 {
-            flowLayout.itemSize = CGSize(width: view.frame.width, height: view.frame.height)
-        } else {
-            // Defina o tamanho mínimo dos itens (largura e altura)
-            let minItemWidth: CGFloat = (view.frame.height * 0.11)// Largura mínima desejada para cada item
-            let minItemHeight: CGFloat = (view.frame.height * 0.11) // Altura mínima desejada para cada item
-            
-            // Calcula o número de colunas com base na largura da tela
-            let screenWidth = UIScreen.main.bounds.width
-            let numberOfColumns = Int(screenWidth / minItemWidth)
-            
-            // Calcula o tamanho real dos itens com base no número de colunas
-            let itemWidth = screenWidth / CGFloat(numberOfColumns)
-            let itemHeight = minItemHeight // Mantém a altura fixa
-            
-            flowLayout.itemSize = CGSize(width: itemWidth, height: itemHeight)
-            
-            // Define o espaçamento entre os itens e as seções conforme necessário
-           // flowLayout.minimumInteritemSpacing = 5
-            // Padding top em cada item
-            flowLayout.minimumLineSpacing = 30
-            //flowLayout.sectionInset = UIEdgeInsets(top: 30, left: 0, bottom: 30, right: 0)
+        
+        //  flowLayout.itemSize = CGSize(width: view.frame.width, height: view.frame.height)
+        
+        // Defina o tamanho mínimo dos itens (largura e altura)
+        let minItemWidth: CGFloat = (view.frame.height * 0.11)// Largura mínima desejada para cada item
+        let minItemHeight: CGFloat = (view.frame.height * 0.11) // Altura mínima desejada para cada item
+        
+        // Calcula o número de colunas com base na largura da tela
+        let screenWidth = UIScreen.main.bounds.width
+        let numberOfColumns = Int(screenWidth / minItemWidth)
+        
+        // Calcula o tamanho real dos itens com base no número de colunas
+        let itemWidth = screenWidth / CGFloat(numberOfColumns)
+        let itemHeight = minItemHeight // Mantém a altura fixa
+        
+        flowLayout.itemSize = CGSize(width: itemWidth, height: itemHeight)
+        
+        // Define o espaçamento entre os itens e as seções conforme necessário
+        // flowLayout.minimumInteritemSpacing = 5
+        // Padding top em cada item - se for de iPad ele é maior
+        flowLayout.minimumLineSpacing = 50
+        if view.frame.height >= 1100 {
+            flowLayout.minimumLineSpacing = 50
         }
+        //flowLayout.sectionInset = UIEdgeInsets(top: 30, left: 0, bottom: 30, right: 0)
+        
         return flowLayout
     }
    
@@ -174,41 +190,38 @@ class AchievementsViewController: UIViewController {
 
 }
 
-extension AchievementsViewController: UICollectionViewDataSource {
+extension AchievementsViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-           return 2
+           return 1
        }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 0 {
-            collectionView.register(TopCell.self, forCellWithReuseIdentifier: TopCell.reuseIdentifier)
-            return 1
-        }
-        collectionView.register(AchievementCell.self, forCellWithReuseIdentifier: AchievementCell.reuseIdentifier)
-        return achievementArray.count
+        return  achievementArray.count
  
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        // Criado a celula e garantoidno que ela seja do tipo AchievementCell
-        if indexPath.section == 0 {
-            collectionView.register(TopCell.self, forCellWithReuseIdentifier: TopCell.reuseIdentifier)
-            guard let cell = achievCollectionView.dequeueReusableCell(withReuseIdentifier: TopCell.reuseIdentifier, for: indexPath) as? TopCell else { fatalError("Cannot Convert cell") }
-            // Configurando a imagem da Celula
-           
-            cell.layer.borderWidth = 2
-            return cell
-      
+        // Criando a Celula
+        guard let cell = achievCollectionView.dequeueReusableCell(withReuseIdentifier: AchievementCell.reuseIdentifier, for: indexPath) as? AchievementCell else { fatalError("Cannot Convert cell") }
+        let goal = achievementArray[indexPath.row]
+        cell.imageCellLabel.text = goal.title
+        cell.iPadSetUp(view: self)
+        // Mudando a imagem se a pessoa completou toda a conquista
+        if goal.isCompleted{
+            cell.imageCell.image = UIImage(named: "Achievement.fill")
         } else {
-            achievCollectionView.register(AchievementCell.self, forCellWithReuseIdentifier: AchievementCell.reuseIdentifier)
-            guard let cell = achievCollectionView.dequeueReusableCell(withReuseIdentifier: AchievementCell.reuseIdentifier, for: indexPath) as? AchievementCell else { fatalError("Cannot Convert cell") }
-            
-            cell.imageCellLabel.text = achievementArray[indexPath.item].title
-            cell.imageCell.image  = UIImage(named: "FunnyGuin")
-            // Configurando a imagem da Celula
-            cell.layer.borderWidth = 2
-            return cell
+            cell.imageCell.image = UIImage(named: "Achievement.Normal2")
         }
+        // Configurando a imagem da Celula
+        //cell.layer.borderWidth = 2
+        return cell
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let itemSelected = indexPath.item
+        let achievDetail = AchievementDetailViewController(goal: achievementArray[itemSelected])
+        navigationController?.pushViewController(achievDetail, animated: true)
     }
 }
 
@@ -220,15 +233,13 @@ class AchievementCell: UICollectionViewCell {
     // Criando o identificador do register
     static let reuseIdentifier = "achievCell-reuse-identifier"
     
-     let imageCell: UIImageView = {
-       let imageView = UIImageView()
-        imageView.clipsToBounds = true
-        imageView.layer.masksToBounds = false
+    let imageCell: UIImageView = {
+        let imageView = UIImageView()
+        //    imageView.image = UIImage(named: "Achievement.Normal2")
         imageView.layer.borderColor = UIColor.black.cgColor
-        imageView.clipsToBounds = true
+        //    imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
-         imageView.layer.borderWidth = 3
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
@@ -263,113 +274,103 @@ class AchievementCell: UICollectionViewCell {
             imageCellLabel.centerXAnchor.constraint(equalTo: imageCell.centerXAnchor),
             imageCellLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor)
         ])
-        // Definindo o corner radius - ele pega as medidas da tela, multipica pelo tamanho da imagem e divide pela metade para trasnformar me circulo
-        imageCell.layer.cornerRadius = min(contentView.frame.width * 0.85, contentView.frame.height * 0.85) / 2.0
-        imageCell.layer.masksToBounds = true
+       
+//        // Definindo o corner radius - ele pega as medidas da tela, multipica pelo tamanho da imagem e divide pela metade para trasnformar me circulo
+//        imageCell.layer.cornerRadius = min(contentView.frame.width * 0.85, contentView.frame.height * 0.85) / 2.0
+//        imageCell.layer.masksToBounds = true
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: Funcoes
     
-}
-
-class SpecialSectionFlowLayout: UICollectionViewFlowLayout {
-    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        return super.layoutAttributesForElements(in: rect)?.map { attributes in
-            // Faça qualquer modificação necessária em attributes
-            // Por exemplo, você pode alterar o tamanho, a posição ou outros atributos.
-            return attributes
-        }
-    }
-}
-
-extension AchievementsViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        if section == 0 {
-            collectionView.collectionViewLayout = createFlowLayout(section: 0)
-            return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) // Espaçamento personalizado
+    // Função para alterar coisas para o iPad
+    func iPadSetUp(view: AchievementsViewController){
+        // Configurando o tamanho da fonte para iPad
+        if view.view.frame.height >= 1100 {
+            imageCellLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
         } else {
-            // Use o layout padrão (FlowLayout) para as outras seções
-            collectionView.collectionViewLayout = createFlowLayout(section: 1)
-            return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) // Espaçamento padrão
+            imageCellLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
         }
+        
     }
 }
 
 
 
-class TopCell: UICollectionViewCell {
-    static let reuseIdentifier = "topCell-reuse=identifier"
-    
-    private let topContainerView = UIView()
-    
-    //UILAbel abaixo do title
-    private let jorneyLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Relembre Sua Jornada e Celebre Suas Conquistas!"
-        label.adjustsFontForContentSizeCategory = true
-        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
-        label.numberOfLines = 0
-        label.lineBreakMode = .byWordWrapping
-        return label
-    }()
-    
-    // Imagem do meio da tela de conquistas
-   private let achievIamge: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "WinnerGuin")
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setUpCntainerViews()
-        setUPJorneyLabel()
-        setUpAchievementImage()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // Configurando todos os Container Views - ela preenche metade da view MARK: COntainerView
-    func setUpCntainerViews(){
-        contentView.addSubview(topContainerView)
-        topContainerView.backgroundColor = .systemBackground
-        topContainerView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            topContainerView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
-            topContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            topContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            topContainerView.heightAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.heightAnchor, multiplier: 0.5)
-        ])
-    }
-    
-    // Configurando a Jorney Label MARK: JorneyLabel
-    func setUPJorneyLabel(){
-        topContainerView.addSubview(jorneyLabel)
-        NSLayoutConstraint.activate([
-            jorneyLabel.topAnchor.constraint(equalTo: topContainerView.safeAreaLayoutGuide.topAnchor),
-            jorneyLabel.centerXAnchor.constraint(equalTo: topContainerView.centerXAnchor)
-        ])
-    }
-    
-    // Configurando a imagem Superior - ela fic ano meio ta topContainer View
-    func setUpAchievementImage(){
-        topContainerView.addSubview(achievIamge)
-        NSLayoutConstraint.activate([
-            achievIamge.centerYAnchor.constraint(equalTo: topContainerView.centerYAnchor),
-            achievIamge.centerXAnchor.constraint(equalTo: topContainerView.centerXAnchor),
-            achievIamge.heightAnchor.constraint(equalTo: topContainerView.heightAnchor, multiplier: 0.5),
-            achievIamge.widthAnchor.constraint(equalTo: topContainerView.widthAnchor, multiplier: 0.5)
-        ])
-    }
-}
+
+//class TopCell: UICollectionViewCell {
+//    static let reuseIdentifier = "topCell-reuse=identifier"
+//
+//    private let topContainerView = UIView()
+//
+//    //UILAbel abaixo do title
+//    private let jorneyLabel: UILabel = {
+//        let label = UILabel()
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        label.text = "Relembre Sua Jornada e Celebre Suas Conquistas!"
+//        label.adjustsFontForContentSizeCategory = true
+//        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
+//        label.numberOfLines = 0
+//        label.lineBreakMode = .byWordWrapping
+//        return label
+//    }()
+//
+//    // Imagem do meio da tela de conquistas
+//   private let achievIamge: UIImageView = {
+//        let imageView = UIImageView()
+//        imageView.image = UIImage(named: "WinnerGuin")
+//        imageView.translatesAutoresizingMaskIntoConstraints = false
+//        imageView.contentMode = .scaleAspectFit
+//        return imageView
+//    }()
+//
+//    override init(frame: CGRect) {
+//        super.init(frame: frame)
+//        setUpCntainerViews()
+//        setUPJorneyLabel()
+//        setUpAchievementImage()
+//    }
+//
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
+//
+//    // Configurando todos os Container Views - ela preenche metade da view MARK: COntainerView
+//    func setUpCntainerViews(){
+//        contentView.addSubview(topContainerView)
+//        topContainerView.backgroundColor = .systemBackground
+//        topContainerView.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            topContainerView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
+//            topContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+//            topContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+//            topContainerView.heightAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.heightAnchor, multiplier: 0.5)
+//        ])
+//    }
+//
+//    // Configurando a Jorney Label MARK: JorneyLabel
+//    func setUPJorneyLabel(){
+//        topContainerView.addSubview(jorneyLabel)
+//        NSLayoutConstraint.activate([
+//            jorneyLabel.topAnchor.constraint(equalTo: topContainerView.safeAreaLayoutGuide.topAnchor),
+//            jorneyLabel.centerXAnchor.constraint(equalTo: topContainerView.centerXAnchor)
+//        ])
+//    }
+//
+//    // Configurando a imagem Superior - ela fic ano meio ta topContainer View
+//    func setUpAchievementImage(){
+//        topContainerView.addSubview(achievIamge)
+//        NSLayoutConstraint.activate([
+//            achievIamge.centerYAnchor.constraint(equalTo: topContainerView.centerYAnchor),
+//            achievIamge.centerXAnchor.constraint(equalTo: topContainerView.centerXAnchor),
+//            achievIamge.heightAnchor.constraint(equalTo: topContainerView.heightAnchor, multiplier: 0.5),
+//            achievIamge.widthAnchor.constraint(equalTo: topContainerView.widthAnchor, multiplier: 0.5)
+//        ])
+//    }
+//}
 // MARK: - FIM
 
 

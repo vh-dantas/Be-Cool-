@@ -550,6 +550,7 @@ class AchievementTableViewCell: UITableViewCell {
         let image = UIImageView()
         image.contentMode = .scaleAspectFit
         image.translatesAutoresizingMaskIntoConstraints = false
+        image.contentMode = .scaleAspectFit
         return image
     }()
     
@@ -558,6 +559,8 @@ class AchievementTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .body)
         label.adjustsFontForContentSizeCategory = true
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     
@@ -574,8 +577,9 @@ class AchievementTableViewCell: UITableViewCell {
             image.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             image.widthAnchor.constraint(equalToConstant: 27),
             image.heightAnchor.constraint(equalToConstant: 28),
-            image.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            
+//            image.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            image.topAnchor.constraint(equalTo: contentView.topAnchor),
+            image.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             // Espaço entre a imagem e o texto
             cellLabel.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 10), // Ajuste o valor conforme necessário
             

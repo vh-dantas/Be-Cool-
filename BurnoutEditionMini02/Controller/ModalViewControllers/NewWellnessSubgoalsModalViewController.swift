@@ -7,10 +7,26 @@
 
 import UIKit
 
-class NewWellnessSubgoalsModalViewController: UIViewController {
+class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButtonDelegate, SubGoalCellTextDelegate {
+    
+    let saveButton = UIButton(type: .system)
     
     let firstLabel = UILabel()
     let secondLabel = UILabel()
+    
+    //let timeLabel = UIDatePicker()
+    
+    // Cria célula com texto e botão de +
+    var addSubGoalCell: AddSubGoalCell?
+    
+    //instancia da model subgoal
+    var subGoals = [SubGoalStatic]()
+    
+    // Cria table view
+    var tableView: UITableView!
+    
+    let stackView = UIStackView()
+    
     
     init() {
         // Sempre chamar este super.init
@@ -39,9 +55,24 @@ class NewWellnessSubgoalsModalViewController: UIViewController {
         view.backgroundColor = .white
         setupLabels()
         setupTimeCard()
-        setupWellnessList()
         setupSaveButton()
+        setUpTableView()
+        //setUpTimeLabel()
         
+//        func setUpTimeLabel() {
+//            // Horário default de entrada
+//            let defaultTime = Calendar.current.date(bySettingHour: 9, minute: 0, second: 0, of: Date())
+//            timeLabel.date = defaultTime ?? Date()
+//            timeLabel.datePickerMode = .time
+//            view.addSubview(timeLabel)
+//            timeLabel.translatesAutoresizingMaskIntoConstraints = false
+//
+//            NSLayoutConstraint.activate([
+//                timeLabel.centerYAnchor.constraint(equalTo: stackView.centerYAnchor),
+//                timeLabel.leadingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: 10),
+//                timeLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10)
+//            ])
+//        }
         
         func setupLabels() {
             firstLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -79,12 +110,13 @@ class NewWellnessSubgoalsModalViewController: UIViewController {
         
         // MARK: -- TIME CARD
         func setupTimeCard() {
-            let stackView = UIStackView()
+            
+            
             stackView.axis = .horizontal
             stackView.distribution = .equalSpacing
             stackView.spacing = 5
             stackView.translatesAutoresizingMaskIntoConstraints = false
-
+            
             // pega o valor da classe calculadora
             let (hours, minutes) = Calculator.shared.calculateResult()
             // transforma o resultado em uma string e separa cada dígito com um .map
@@ -93,14 +125,14 @@ class NewWellnessSubgoalsModalViewController: UIViewController {
             for index in 0..<4 {
                 // Cria um retângulo com as dimensões e posição certas
                 let rectangle = UIView()
-                rectangle.backgroundColor = UIColor.lightGray
+                rectangle.backgroundColor = UIColor(named: "TimeCardColor")
                 rectangle.layer.cornerRadius = 5
                 rectangle.translatesAutoresizingMaskIntoConstraints = false
                 NSLayoutConstraint.activate([
                     rectangle.widthAnchor.constraint(equalToConstant: 55),
                     rectangle.heightAnchor.constraint(equalToConstant: 70)
                 ])
-
+                
                 // Cria a label do cartão
                 let timeDigit = UILabel()
                 // Adiciona os dígitos no cartão, um por vez
@@ -108,15 +140,15 @@ class NewWellnessSubgoalsModalViewController: UIViewController {
                 timeDigit.textAlignment = .center
                 timeDigit.font = UIFont.systemFont(ofSize: 40)
                 timeDigit.translatesAutoresizingMaskIntoConstraints = false
-
+                
                 rectangle.addSubview(timeDigit)
                 NSLayoutConstraint.activate([
                     timeDigit.centerXAnchor.constraint(equalTo: rectangle.centerXAnchor),
                     timeDigit.centerYAnchor.constraint(equalTo: rectangle.centerYAnchor)
                 ])
-
+                
                 stackView.addArrangedSubview(rectangle)
-
+                
                 // Adiciona o separador (:) entre o segundo e o terceiro cartão
                 if index == 1 {
                     let separator = UILabel()
@@ -126,26 +158,21 @@ class NewWellnessSubgoalsModalViewController: UIViewController {
                     stackView.addArrangedSubview(separator)
                 }
             }
-
+            
             self.view.addSubview(stackView)
-
+            
             // Constraints
             NSLayoutConstraint.activate([
                 stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                 stackView.topAnchor.constraint(equalTo: secondLabel.bottomAnchor, constant: 40),
             ])
         }
-
-        
-        func setupWellnessList() {
-            // TODO: Adicionar a table view que lista as submetas de wellness aqui
-        }
         
         func setupSaveButton() {
-            let saveButton = UIButton(type: .system)
+            saveButton.isUserInteractionEnabled = true
             saveButton.setTitle("save-goals-btn".localized, for: .normal)
             saveButton.titleLabel?.font = UIFont.systemFont(ofSize: 17)
-            saveButton.backgroundColor = UIColor.systemBlue
+            saveButton.backgroundColor = UIColor(red: 0.95, green: 0.43, blue: 0.26, alpha: 1)
             saveButton.setTitleColor(UIColor.white, for: .normal)
             saveButton.layer.cornerRadius = 25
             saveButton.translatesAutoresizingMaskIntoConstraints = false
@@ -163,16 +190,160 @@ class NewWellnessSubgoalsModalViewController: UIViewController {
                 saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                 saveButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             ])
+            
+            saveButton.addTarget(self, action: #selector(createGoal), for: .touchUpInside)
+
         }
     }
     
-    func createGoal() {
-        guard let goal = CreateGoalVCStore.shared.newGoalModalViewController?.goal, let subGoals = CreateGoalVCStore.shared.newSubGoalModalViewController?.subGoals else {
+    @objc func createGoal() {
+        // se a subgoal estiver vazia a celula eh excluída
+        subGoals.enumerated().forEach { index, subGoal in
+            if subGoal.title.isEmpty == true {
+                subGoals.remove(at: index)
+            }
+        }
+        tableView.reloadData()
+        
+        //core data
+        guard let goal = CreateGoalVCStore.shared.newGoalModalViewController?.goal, let subGoals = CreateGoalVCStore.shared.newSubGoalModalViewController?.subGoals, let sliderLevels = CreateGoalVCStore.shared.subgoalLevelViewController?.sliderLevels, let subGoalsWellness = CreateGoalVCStore.shared.newWellnessSubgoalsModalViewController?.subGoals else {
             return
         }
+        
+        //meta
         let newGoal = DataAcessObject.shared.createGoal(title: goal.title)
+        //submeta
         subGoals.forEach { subGoal in
             DataAcessObject.shared.createSubGoal(title: subGoal.title, type: subGoal.type.rawValue, goal: newGoal)
         }
+        //submeta wellness
+        subGoalsWellness.forEach { subGoalWellness in
+            DataAcessObject.shared.createSubGoal(title: subGoalWellness.title, type: subGoalWellness.type.rawValue, goal: newGoal)
+        }
+        
+        // Cria a navegação de pop para a home
+        navigationController?.popToRootViewController(animated: true)
+    }
+    
+//MARK: --meu
+    
+    func setUpTableView() {
+        // Inicializa a table view
+        tableView = UITableView(frame: .zero, style: .plain)
+        tableView.backgroundColor = .clear
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(AddSubGoalCell.self, forCellReuseIdentifier: "addSubGoalCell")
+        tableView.register(SubGoalCellText.self, forCellReuseIdentifier: "subGoalCellText")
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.view.addSubview(tableView)
+        
+        // Constraints
+        NSLayoutConstraint.activate([
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            tableView.topAnchor.constraint(equalTo: stackView.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: saveButton.topAnchor, constant: -40),
+        ])
+    }
+    
+    ///função que adiciona subgoal ao array static
+    func addSubGoalButtonTouched() {
+        subGoals.append(SubGoalStatic(id: UUID(), title: "", level: .easy, type: .personal))
+        toggleAddSubGoalButton()
+        tableView.reloadData()
+    }
+    
+    ///adiciona a subgoal no return do teclado
+    func subGoalTextReturnTouched(_ subGoal: SubGoalStatic) {
+        if subGoal.title == "" {
+            if let index = subGoals.firstIndex(where: { $0 === subGoal }) {
+                subGoals.remove(at: index)
+            }
+            tableView.reloadData()
+        }else{
+            addSubGoalButtonTouched()
+        }
+    }
+    
+    ///deixa o botao de add submeta opaco
+    func toggleAddSubGoalButton() {
+        if !subGoals.isEmpty {
+            addSubGoalCell?.button.isEnabled = subGoals[subGoals.count - 1].title != ""
+            addSubGoalCell?.layoutSubviews()
+        }
+    }
+    
+    ///atualiza o nome do subgoal em caso de editar
+    func subGoalTextDidChangeText(_ subGoal: SubGoalStatic, text: String) {
+        subGoal.title = text
+        toggleAddSubGoalButton()
     }
 }
+
+extension NewWellnessSubgoalsModalViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    //tem que ser +1 pq é o row da table view
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return subGoals.count + 1
+    }
+    
+    //faz com que os rows editaveis sejam apenas os indexPath.row > 0
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return indexPath.row > 0
+    }
+    
+    //função que apaga submeta da tableview
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // tem que ser -1 pq é do array de subgoals
+            subGoals.remove(at: indexPath.row - 1)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+    
+    //exibe elementos da table view
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //quando tiver na primeira posição de quantidade de subgoals
+        if indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "addSubGoalCell", for: indexPath) as? AddSubGoalCell
+            addSubGoalCell = cell
+            guard let cell else {
+                return UITableViewCell()  //vai retornar vazio se não conseguir
+            }
+            cell.delegate = self
+            cell.label.text = "Atividades de Bem-Estar"
+            cell.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+            
+            //se for a primeira e ultima seta as corners embaixo também
+            if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
+                cell.layer.maskedCorners.insert(.layerMinXMaxYCorner)
+                cell.layer.maskedCorners.insert(.layerMaxXMaxYCorner)
+            }
+            return cell
+        } else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "subGoalCellText", for: indexPath) as? SubGoalCellText else {
+                return UITableViewCell()
+            }
+            
+            let subGoal = subGoals[indexPath.row - 1]
+            cell.textField.text = subGoal.title
+            cell.subGoal = subGoal
+            cell.delegate = self
+            cell.type = .date
+            cell.selectionStyle = .none // remove a seleção cinza da célula
+     
+            //corners arrendodadas
+            cell.layer.maskedCorners = []
+            if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
+                cell.backgroundColor = .white
+                cell.layer.cornerRadius = 10
+                cell.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+                cell.clipsToBounds = true
+            }
+            return cell
+        }
+    }
+}
+

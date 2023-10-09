@@ -6,15 +6,92 @@
   
 */
 
+// MARK: -- HOME
+// Níveis da balança:
+"level-1" = "Dedicate time to your well-being too.";
+"level-2" = "Keep striving for balance.";
+"level-3" = "Congratulations! You are in balance.";
+"level-4" = "Balance your focus and keep shining.";
+"level-5" = "Remember your goals and turn procrastination into action!";
+"level-neutral" = "Set a goal to balance your journey.";
+// Screen with no current goals:
+"empty-goal" = "You don't have any goals created!";
 
-// Nomes das views - Tab bar
+
+
+// MARK: -- CRIAR NOVA META
+// Definir Meta
+"new-goal-title" = "Setting your professional goal";
+"new-goal-text" = "Start with a clear and short-term goal!";
+"textfield-placeholder" = "Start typing";
+// Criar tarefas
+"subgoals-title" = "Divide and conquer:";
+"subgoals-text" = "Break down your goal into smaller tasks";
+"subgoals-checklist" = "Task checklist";
+// Medir Dificuldade
+"easy" = "Easy";
+"medium" = "Medium";
+"hard" = "Hard";
+"subgoal-level-title" = "Measuring the Challenge:";
+"subgoal-level-text" = "Analyze how challenging each task will be. That will help you adjust your expectations.";
+// Criar atividades de bem-estar
+"wellness-subgoal-title" = "Prioritize your well-being:";
+"wellness-subgoal-text" = "Set up your wellness goals to have a balanced life. We suggest you focus on doing things for your well-being for this amount of time:";
+"save-goals-btn" = "Save My Goal";
+"wellness-checklist" = "Wellness Activities:";
+
+
+
+// MARK: -- MODAL META ATINGIDA
+"goal-achieved-title" = "Congratulations!";
+"goal-achieved-caption" = "Wow! Your dedication was super worth it!";
+"goal-achieved-text" = "You've achieved your goal with success and balance. Check out your journey in the 'Achievements' tab.";
+
+
+
+// MARK: -- CONQUISTAS
+"achievements-title" = "Achievements";
+"achievements-text" = "Recall Your Journey and Celebrate Your Achievements!";
+// Tela de detalhamento da conquista:
+"achievement-detail-wellness-title" = "Wellness Activities";
+"achievement-detail-wellness-text" = "These were the hours dedicated to your well-being while working towards this goal:";
+"achievement-detail-wellness-caption" = "This demonstrates how taking care of yourself is essential to achieving success.";
+"achievement-detail-work-title" = "Work Tasks";
+"achievement-detail-work-text" = "Breaking goals into tasks made the impossible possible. Small steps led to big accomplishments!";
+
+
+
+// MARK: -- REFLECTION
+"start-breathing" = "Start a breathing exercise";
+"inhale" = "Inhale";
+"hold" = "Hold";
+"exhale" = "Exhale";
+"reflection-cta-title" = "How about taking a break to reflect on your journey?";
+"reflection-cta-btn" = "New Reflection";
+"reflection-caption" = "Reflect on the following question:";
+"moodtracker-caption" = "Now, tell us:";
+"moodtracker-question" = "How are you feeling after this reflection?";
+"sad" = "Sad";
+"stressed" = "Stressed";
+"normal" = "Normal";
+"relaxed" = "Relaxed";
+"happy" = "Happy";
+"excited" = "Excited";
+"reflection-title-caption" = "According to what it represents to you:";
+"reflection-title" = "Name your Reflection.";
+"save-reflection" = "Save Reflection";
+
+
+
+// MARK: -- TAB BAR
 "goals" = "Goals";
 "achievements" = "Achievements";
 "reflections" = "Reflections";
 "settings" = "Settings";
-"application" = "App";
 
-// Settings
+
+
+// MARK: -- SETTINGS
 "notifications" = "Notifications";
 "preferences" = "Preferences";
 "onboarding" = "Onboarding";
@@ -33,18 +110,6 @@
 "experts" = "Experts";
 "mentors" = "Mentors";
 
-// Subgoal Level
-"easy" = "Easy";
-"medium" = "Medium";
-"hard" = "Hard";
-"subgoal-level-title" = "Measuring the Challenge:";
-"subgoal-level-text" = "Analyze how challenging each task will be. That will help you adjust your expectations.";
-
-// Wellness Subgoal
-"wellness-subgoal-title" = "Prioritize your well-being:";
-"wellness-subgoal-text" = "Setup your wellness goals to have a balanced life. We suggest you focus on doing things for your well-being for this amount of time:";
-"save-goals-btn" = "Save My Goal";
-
 // Privacy Policy
 "PrivacyTitle1" = "Privacy Policy for [APP]";
 "PrivacyText1" = "Thank you for choosing [APP]. This Privacy Policy describes how we collect, use, and share information when you use our app. Your privacy is important to us, and we are committed to protecting your personal data. By using [APP], you agree to the privacy practices outlined in this policy.";
@@ -57,8 +122,3 @@
 
 "PrivacyTitle4" = "Contact";
 "PrivacyText4" = "If you have any questions or concerns regarding privacy, please contact us at [Contact Email Address].";
-
-
-// Conquistas
-
-// NÃO ESQUECER JAMAIS DO ; NO FINAL DAS STRINGS 🙏

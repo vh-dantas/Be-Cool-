@@ -7,20 +7,20 @@
 
 import UIKit
 
-class NewGoalModalViewController: ViewController, UITextFieldDelegate {
+class NewGoalModalViewController: ViewController, UITextFieldDelegate, BigButtonDelegate {
     
     //Criar a home para iniciar o delegate
     let homeGoal: GoalsViewController
     
-    // Cria um UILabel
+    // Cria UILabel
     let firstLabel = UILabel()
     let secondLabel = UILabel()
     
     //Cria o textfield
     let bottomLineTextField = CustomLineTextField()
     
-    // Cria o botao de adicionar a meta
-    let addButton = UIButton(type: .custom)
+    // Cria o botão de navegação
+    let bigButton = BigButton()
     
     // Cria uma stack view
     let stackView = UIStackView()
@@ -47,25 +47,49 @@ class NewGoalModalViewController: ViewController, UITextFieldDelegate {
         // Coloca a cor de fundo da modal (ele seta como transparente por padrão)
         view.backgroundColor = .white
         
+        setUpFirstLabel()
+        setUpSecondLabel()
+        setUpBottomLineTextField()
+        setUpStackView()
+        setUpBigButton()
+        
+    }
+    
+    //MARK: -- SetUp Elementos da view
+    
+    ///título
+    func setUpFirstLabel() {
         // Configura propriedades do UILabel
-        firstLabel.text = "Definindo seu objetivo profissional"
+        firstLabel.text = "new-goal-title".localized
         firstLabel.font = UIFont.systemFont(ofSize: 28, weight: .bold)
         firstLabel.lineBreakMode = .byWordWrapping
         firstLabel.sizeToFit()
         firstLabel.numberOfLines = 0
-        
-        secondLabel.text = "Comece com uma meta clara e de curto prazo!"
+    }
+    
+    ///subtítulo
+    func setUpSecondLabel() {
+        secondLabel.text = "new-goal-text".localized
         secondLabel.font = UIFont.systemFont(ofSize: 15, weight: .light)
         secondLabel.lineBreakMode = .byWordWrapping
         secondLabel.sizeToFit()
         secondLabel.numberOfLines = 0
-        
+    }
+    
+    ///textField
+    func setUpBottomLineTextField() {
         //configura propriedades do textfield
-        bottomLineTextField.placeholder = "Digite alguma coisa"
+        bottomLineTextField.placeholder = "textfield-placeholder".localized
         bottomLineTextField.textAlignment = .left
         bottomLineTextField.maxLength = 30  //numero maximo de caracteres
         bottomLineTextField.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: .editingChanged) // o que acontece quando digita
         
+        //implemetando delegate do textField
+        bottomLineTextField.delegate = self
+    }
+    
+    ///stackView
+    func setUpStackView() {
         //Configura propriedades da StackView
         stackView.axis = .vertical //axis = eixo
         stackView.spacing = 16
@@ -84,30 +108,26 @@ class NewGoalModalViewController: ViewController, UITextFieldDelegate {
         stackView.addArrangedSubview(firstLabel)
         stackView.addArrangedSubview(secondLabel)
         stackView.addArrangedSubview(bottomLineTextField)
-        
-        //customizando o botao de ir pra próxima tela
-        let buttonSize: CGFloat = 50
-        addButton.backgroundColor = .systemBlue
-        addButton.tintColor = .white
-        addButton.setImage(UIImage(systemName: "chevron.right"), for: .normal)
-        addButton.layer.cornerRadius = buttonSize / 2
-        addButton.translatesAutoresizingMaskIntoConstraints = false
-        addButton.addTarget(self, action: #selector(addTask), for: .touchUpInside)  //ação de quando clica no botão
-        view.addSubview(addButton)
-        //constraints do botao
-        let addButtonBottomConstraint = addButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16)
+    }
+    
+    ///big button azul
+    func setUpBigButton() {
+        bigButton.delegate = self
+        view.addSubview(bigButton)
+        let bottomConstraint = bigButton.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         NSLayoutConstraint.activate([
-            addButton.widthAnchor.constraint(equalToConstant: buttonSize),
-            addButton.heightAnchor.constraint(equalToConstant: buttonSize),
-            addButtonBottomConstraint,
-            addButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+            bottomConstraint,
+            bigButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            bigButton.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         ])
         
         //adiciona acessório ao keyboard
-        stickViewToKeyboard(bottomConstraint: addButtonBottomConstraint)
-        
-        //implemetando delegate do textField
-        bottomLineTextField.delegate = self
+        stickViewToKeyboard(bottomConstraint: bottomConstraint)
+    }
+    
+    //MARK: -- Funcionalidades
+    func bigButtonTouched() {
+        addTask()
     }
     
     
@@ -151,6 +171,8 @@ class NewGoalModalViewController: ViewController, UITextFieldDelegate {
         return true
     }
 }
+
+//MARK: -- Protocolos
 
 protocol NewGoalModalDelegate: AnyObject {
     func addedGoal(_ goal: String)

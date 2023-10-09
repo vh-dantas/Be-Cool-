@@ -7,14 +7,92 @@
 */
 
 
-// Nomes das views - Tab bar
-"goals" = "Metas";
+// MARK: -- HOME
+// Níveis da balança:
+"level-1" = "Dedique tempo para o seu bem-estar também.";
+"level-2" = "Continue buscando o equilíbrio.";
+"level-3" = "Parabéns! Você está em equilíbrio.";
+"level-4" = "Equilibre seu foco e continue brilhando.";
+"level-5" = "Lembre-se das metas e transforme a procrastinação em ação!";
+"level-neutral" = "Defina uma meta para equilibrar a sua jornada.";
+// Tela sem metas atuais:
+"empty-goal" = "Você não tem nenhuma meta criada!";
+
+
+
+// MARK: -- CRIAR NOVA META
+// Definir Meta
+"new-goal-title" = "Definindo seu objetivo profissional.";
+"new-goal-text" = "Comece com uma meta clara e de curto prazo!";
+"textfield-placeholder" = "Escreva aqui";
+// Criar tarefas
+"subgoals-title" = "Dividindo para conquistar.";
+"subgoals-text" = "Divida sua meta em tarefas menores.";
+"subgoals-checklist" = "Checklist de tarefas:";
+// Medir Dificuldade
+"subgoal-level-title" = "Medindo o Desafio:";
+"subgoal-level-text" = "Avalie a dificuldade de cada tarefa para ajustar expectativas.";
+"easy" = "Fácil";
+"medium" = "Médio";
+"hard" = "Difícil";
+// Criar atividades de bem-estar
+"wellness-subgoal-title" = "Priorize seu bem-estar:";
+"wellness-subgoal-text" = "Defina metas de bem-estar para equilibrar sua vida. Sugerimos que você reserve:";
+"wellness-checklist" = "Atividades de Bem-Estar:";
+"save-goals-btn" = "Salvar Meta";
+
+
+
+// MARK: -- MODAL META ATINGIDA
+"goal-achieved-title" = "Parabéns!";
+"goal-achieved-caption" = "Uau! Sua dedicação valeu a pena, hein?";
+"goal-achieved-text" = "Você alcançou sua meta com sucesso e equilíbrio. Confira sua jornada na aba ”Conquistas”.";
+
+
+
+// MARK: -- CONQUISTAS
+"achievements-title" = "Achievements";
+"achievements-text" = "Relembre Sua Jornada e Celebre Suas Conquistas!";
+// Tela de detalhamento da conquista:
+"achievement-detail-wellness-title" = "Atividades de Bem-Estar";
+"achievement-detail-wellness-text" = "Essas foram as horas ao seu bem-estar enquanto trabalhava para esta meta:";
+"achievement-detail-wellness-caption" = "Isso demonstra o quanto cuidar de si mesmo é essencial para alcançar o sucesso.";
+"achievement-detail-work-title" = "Tarefas de trabalho";
+"achievement-detail-work-text" = "Dividir metas em tarefas tornou o impossível possível. Pequenos passos levaram a grandes realizações!";
+
+
+
+// MARK: -- REFLECTION
+"start-breathing" = "Iniciar exercício de respiração";
+"inhale" = "Inspire";
+"hold" = "Segure";
+"exhale" = "Expire";
+"reflection-cta-title" = "Que tal uma pausa para pensar em sua jornada?";
+"reflection-cta-btn" = "Nova Reflexão";
+"reflection-caption" = "Reflita sobre a seguinte questão:";
+"moodtracker-caption" = "Agora nos conte:";
+"moodtracker-question" = "Como você está se sentindo depois dessa reflexão?";
+"sad" = "Triste";
+"stressed" = "Estressado (a)";
+"normal" = "Normal";
+"relaxed" = "Tranquilo (a)";
+"happy" = "Feliz";
+"excited" = "Animado (a)";
+"reflection-title-caption" = "De acordo com o que ela representa para você:";
+"reflection-title" = "Nomeie sua Reflexão.";
+"save-reflection" = "Salvar Reflexão";
+
+
+
+// MARK: -- TAB BAR
+"goals" = "Meta Atual";
 "achievements" = "Conquistas";
 "reflections" = "Reflexões";
 "settings" = "Configurações";
-"application" = "App";
 
-// Settings
+
+
+// MARK: -- SETTINGS
 "notifications" = "Notificações";
 "preferences" = "Preferências";
 "onboarding" = "Onboarding";
@@ -33,19 +111,6 @@
 "experts" = "Especialistas consultados";
 "mentors" = "Mentores";
 
-// Subgoal Level
-"easy" = "Fácil";
-"medium" = "Médio";
-"hard" = "Difícil";
-"subgoal-level-title" = "Medindo o Desafio:";
-"subgoal-level-text" = "Avalie a dificuldade de cada tarefa para ajustar expectativas.";
-
-// Wellness Subgoal
-"wellness-subgoal-title" = "Priorize seu bem-estar:";
-"wellness-subgoal-text" = "Defina metas de bem-estar para equilibrar sua vida. Sugerimos que você reserve:";
-"save-goals-btn" = "Salvar Meta";
-
-
 // Privacy Policy
 "PrivacyTitle1" = "Política de Privacidade de [APP]";
 "PrivacyText1" = "Agradecemos por escolher o [APP]. Esta Política de Privacidade descreve como coletamos, usamos e compartilhamos informações quando você utiliza nosso aplicativo. Sua privacidade é importante para nós, e estamos comprometidos em proteger seus dados pessoais. Ao usar o [Nome do Aplicativo], você concorda com as práticas de privacidade descritas nesta política.";
@@ -58,5 +123,3 @@
 
 "PrivacyTitle4" = "Contato";
 "PrivacyText4" = "Se tiver alguma dúvida ou preocupação relacionada à privacidade, entre em contato conosco em [Endereço de E-mail de Contato].";
-
-// NÃO ESQUECER JAMAIS DO ; NO FINAL DAS STRINGS 🙏

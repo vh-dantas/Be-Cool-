@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewSubgoalLevelViewController: UIViewController {
+class NewSubgoalLevelViewController: ViewController, BigButtonDelegate {
     var sliderLevels: [Int: String] = [:]
     
     init() {
@@ -23,14 +23,14 @@ class NewSubgoalLevelViewController: UIViewController {
     override func viewDidLoad() {
         let firstLabel = UILabel()
         let secondLabel = UILabel()
-        let addButton = UIButton(type: .system)
+        let bigButton = BigButton()
         
         super.viewDidLoad()
         // Coloca a cor de fundo da modal (ele seta como transparente por padrão)
         view.backgroundColor = .white
         setupLabels()
         setupSlider()
-        setupNextButton()
+        setUpBigButton()
         
         func setupLabels() {
             firstLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -88,6 +88,7 @@ class NewSubgoalLevelViewController: UIViewController {
                 // define o valor dos sliders e chama a função sliderValueChanged
                 slider.minimumValue = 0
                 slider.maximumValue = 100
+                slider.maximumTrackTintColor = UIColor(named: "SliderEasyColor")
                 slider.tag = index
                 slider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
                 // define o nível "facil" como valor default pro slider
@@ -112,41 +113,30 @@ class NewSubgoalLevelViewController: UIViewController {
                 lastView = slider
             }
         }
-
         
-        func setupNextButton() {
-            //cria um conteiner para adicionar o botao dentro
-            let addButtonContainer = UIView()
-            addButtonContainer.isUserInteractionEnabled = true // deixa clicável
-            addButtonContainer.translatesAutoresizingMaskIntoConstraints = false  //deixa setar as constraints
-            view.addSubview(addButtonContainer)
-            
-            //customizando o botao de ir pra próxima tela
-            let buttonSize: CGFloat = 50
-            addButton.backgroundColor = .systemBlue
-            addButton.tintColor = .white
-            addButton.setImage(UIImage(systemName: "chevron.right"), for: .normal)
-            addButton.layer.cornerRadius = buttonSize / 2
-            addButton.translatesAutoresizingMaskIntoConstraints = false
-            addButton.addTarget(self, action: #selector(nextView), for: .touchUpInside)  //ação de quando clica no botão
-            addButtonContainer.addSubview(addButton)
-            //constraints do botao
+        func setUpBigButton() {
+            bigButton.delegate = self
+            view.addSubview(bigButton)
+            let bottomConstraint = bigButton.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             NSLayoutConstraint.activate([
-                addButtonContainer.heightAnchor.constraint(equalToConstant: buttonSize + 16),
-                addButtonContainer.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                addButtonContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                addButtonContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                addButton.widthAnchor.constraint(equalToConstant: buttonSize),
-                addButton.heightAnchor.constraint(equalToConstant: buttonSize),
-                addButton.bottomAnchor.constraint(equalTo: addButtonContainer.bottomAnchor, constant: -16),
-                addButton.trailingAnchor.constraint(equalTo: addButtonContainer.trailingAnchor, constant: -16)
+                bottomConstraint,
+                bigButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                bigButton.leadingAnchor.constraint(equalTo: view.leadingAnchor)
             ])
+            
+            //adiciona acessório ao keyboard
+            stickViewToKeyboard(bottomConstraint: bottomConstraint)
         }
+    }
+    
+    ///delegate de quando aperta o botão azul grande
+    func bigButtonTouched() {
+        nextView()
     }
     
     // MARK: -- Função para o valor do slider
     @objc func sliderValueChanged(_ sender: CustomSlider) {
-        let step: Float = 50 // Snap
+        let step: Float = 1 // Snap
         let roundedValue = round(sender.value / step) * step // Param no ponto de snap mais próximo
         
         sender.value = roundedValue // Arredonda os valores do slider
@@ -199,19 +189,19 @@ class CustomSlider: UISlider {
         let thumbLayer = CALayer()
         thumbLayer.bounds = CGRect(x: 0, y: 0, width: 130, height: 35) // ajuste do tamanho da thumb
         thumbLayer.cornerRadius = thumbLayer.bounds.height / 2 // cria o formato de cápsula
-        thumbLayer.backgroundColor = UIColor.lightGray.cgColor // cor da cápsula
+        thumbLayer.backgroundColor = UIColor(named: "SliderThumbColor")?.cgColor // cor da cápsula
         
         // Define o visual do slider de acordo com o valor:
         let label = UILabel(frame: thumbLayer.bounds)
         if self.value < 50 {
             label.text = "easy".localized
-            self.minimumTrackTintColor = UIColor.lightGray
-        } else if self.value == 50 {
+            self.minimumTrackTintColor = UIColor(named: "SliderEasyColor")
+        } else if self.value >= 40 && self.value < 70 {
             label.text = "medium".localized
-            self.minimumTrackTintColor = UIColor.gray
+            self.minimumTrackTintColor = UIColor(named: "SliderMediumColor")
         } else {
             label.text = "hard".localized
-            self.minimumTrackTintColor = UIColor.darkGray
+            self.minimumTrackTintColor = UIColor(named: "SliderHardColor")
         }
         
         label.textAlignment = .center

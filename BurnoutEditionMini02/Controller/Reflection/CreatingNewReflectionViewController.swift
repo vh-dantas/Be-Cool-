@@ -80,7 +80,6 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
     }
     
     // MARK: - Selector dos BarButtonItem
-    
     @objc func cancelButtonFunc() {
         navigationController?.popToRootViewController(animated: true)
     }
@@ -225,6 +224,7 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
         // Configurações básicas do Text Field
         textField.placeholder = "Reflect..."
         textField.borderStyle = .roundedRect
+        textField.enablesReturnKeyAutomatically = true
         textField.textColor = .black
         textField.autocapitalizationType = .sentences
         textField.contentVerticalAlignment = .top

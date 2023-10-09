@@ -41,7 +41,7 @@ class NewReflectionTableViewCell: UITableViewCell {
         // Configurações do botão
         newRefBt.setTitle("New Reflection", for: .normal)
         newRefBt.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        newRefBt.backgroundColor = .systemBlue
+        newRefBt.backgroundColor = UIColor(named: "AccentColor")
         cellNewRefShape.addSubview(newRefBt)
         
         newRefBt.addTarget(self, action: #selector(goToNewReflection), for: .touchUpInside)
@@ -53,7 +53,7 @@ class NewReflectionTableViewCell: UITableViewCell {
         cellNewRefShape.addSubview(cellNewRefLabel)
         
         // Configurações do fundo da célula
-        cellNewRefShape.backgroundColor = .systemGray4
+        cellNewRefShape.backgroundColor = UIColor(named: "AccentColor")?.withAlphaComponent(0.15)
         cellNewRefShape.layer.cornerRadius = 10
     }
     

@@ -92,6 +92,7 @@
 
 
 // MARK: -- SETTINGS
+"application" = "Application";
 "notifications" = "Notifications";
 "preferences" = "Preferences";
 "onboarding" = "Onboarding";

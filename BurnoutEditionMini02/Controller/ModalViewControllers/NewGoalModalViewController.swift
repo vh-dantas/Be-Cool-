@@ -45,7 +45,7 @@ class NewGoalModalViewController: ViewController, UITextFieldDelegate, BigButton
         super.viewDidLoad()
         
         // Coloca a cor de fundo da modal (ele seta como transparente por padrão)
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "BackgroundColor")
         
         setUpFirstLabel()
         setUpSecondLabel()

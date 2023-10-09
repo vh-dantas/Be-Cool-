@@ -45,7 +45,7 @@ class NewSubgoalsModalViewController: ViewController, AddSubGoalButtonDelegate, 
         super.viewDidLoad()
         
         // Coloca a cor de fundo da modal (ele seta como transparente por padrão)
-        view.layer.backgroundColor = UIColor(red: 0.975, green: 0.985, blue: 1, alpha: 1).cgColor
+        view.backgroundColor = UIColor(named: "BackgroundColor")
         setUpFirstLabel()
         setUpSecondLabel()
         setUpTableView()

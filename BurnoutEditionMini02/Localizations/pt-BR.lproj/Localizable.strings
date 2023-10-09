@@ -93,6 +93,7 @@
 
 
 // MARK: -- SETTINGS
+"application" = "Aplicação";
 "notifications" = "Notificações";
 "preferences" = "Preferências";
 "onboarding" = "Onboarding";

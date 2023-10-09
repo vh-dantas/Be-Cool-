@@ -30,8 +30,9 @@ class GoalsViewController: UIViewController, NewGoalModalDelegate, NewSubGoalMod
         tableView.dataSource = self
         // tirar as linhas de separacao
         tableView.separatorStyle = .none
-        // ajusta a ditencia entre as celulas
-        // tableView.separatorInset = .init(top: 80, left: 100, bottom: 40, right: 50)
+        tableView.allowsSelection = false
+        tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: "CustomCell")
+        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -43,35 +44,13 @@ class GoalsViewController: UIViewController, NewGoalModalDelegate, NewSubGoalMod
     override func viewDidLoad() {
         super.viewDidLoad()
         
-      //  navigationItem.title = "goals".localized
         // O Titulo é a ultima meta adicionada - a meta atual
         navigationItem.title = DataAcessObject.shared.fetchGoal().first?.title
-        view.backgroundColor = .white // Define a cor de fundo da view como branco
+        view.backgroundColor = UIColor(named: "BackgroundColor")
         
-        view.addSubview(scrollView)
-        scrollView.addSubview(goalsStackView)
+        constraints()
+        fetchSubGoalsArray() // Recarregar a array e o titulo
         
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        goalsStackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            
-            goalsStackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            goalsStackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            goalsStackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            goalsStackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            goalsStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -32)
-        ])
-     
-        constraintsTableView()
-        // Recarregar a array e o titulo
-       // addedGoal("Vazia")
-        addedSubGoal("Vazia")
-        fetchSubGoalsArray()
         // MARK: -- Botões de navegação
         let openModalBtn = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(createNewGoal))
         navigationItem.rightBarButtonItem = openModalBtn
@@ -86,7 +65,6 @@ class GoalsViewController: UIViewController, NewGoalModalDelegate, NewSubGoalMod
     @objc func createNewGoal() {
         // Certifique-se de criar sua nova view desejada
         let nextScreen = NewGoalModalViewController(homeGoal: self)
-        
         nextScreen.delegate = self // Define o delegate
         
         //navegação de telas
@@ -102,57 +80,13 @@ class GoalsViewController: UIViewController, NewGoalModalDelegate, NewSubGoalMod
             self.title = DataAcessObject.shared.fetchGoal().first?.title
             self.tableView.reloadData()
         }
-
- 
-//        DispatchQueue.main.async {
-//            self.navigationItem.title = DataAcessObject.shared.fetchGoal().first?.title
-//        }
-//       // navigationItem.title = DataAcessObject.shared.fetchGoal().first?.title
-//        if let atualGoal = DataAcessObject.shared.fetchGoal().first {
-//            let subGoals = DataAcessObject.shared.fetchSubGoals(goal: atualGoal)
-//            for subGoal in subGoals {
-//                let goalCheckItem = UIStackView()
-//                goalCheckItem.axis = .horizontal // Define a orientação da stack view como horizontal
-//                goalCheckItem.spacing = 8 // Define o espaçamento entre os itens
-//
-//                // Cria o checkmark clicável
-//                let checkmarkButton = UIButton(type: .system)
-//                checkmarkButton.setImage(UIImage(systemName: "circle"), for: .normal)
-//                checkmarkButton.addTarget(self, action: #selector(circleButtonTapped(_:)), for: .touchUpInside)
-//
-//                // Cria o label que é o nome da meta
-//                let goalName = UILabel()
-//                goalName.text = subGoal.title
-//
-//                // Adiciona os dois na stack view goalCheckItem
-//                goalCheckItem.addArrangedSubview(checkmarkButton)
-//                goalCheckItem.addArrangedSubview(goalName)
-//                self.goalsStackView.addArrangedSubview(goalCheckItem)
-//
-//
-//            }
-//        }
     }
-    
     
     func addedSubGoal(_ subgoal: String) {
         fetchSubGoalsArray()
     }
     
-    @objc func circleButtonTapped(_ tappedButton: UIButton) {
-        if let buttonImage = tappedButton.currentImage {
-            if buttonImage == UIImage(systemName: "circle") {
-                tappedButton.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
-            } else {
-                tappedButton.setImage(UIImage(systemName: "circle"), for: .normal)
-            }
-        }
-    }
-}
-
-extension GoalsViewController {
-    // Função para buscar todas as goals
-    func fetchSubGoalsArray() {
+    func fetchSubGoalsArray() { // Função para buscar todas as goals
         if let goal = DataAcessObject.shared.fetchGoal().first {
             self.subItems = DataAcessObject.shared.fetchSubGoals(goal: goal)
             DispatchQueue.main.async {
@@ -160,13 +94,10 @@ extension GoalsViewController {
             }
         }
     }
-    
-    
 }
-// MARK: Table View
-extension GoalsViewController: UITableViewDataSource{
-    
-    
+
+// MARK: -- Table View
+extension GoalsViewController: UITableViewDataSource {
     // Retorna o número de sections da list
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -179,29 +110,105 @@ extension GoalsViewController: UITableViewDataSource{
     
     // Retorna as celulas que preenchem as rows
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // cria a celula da UITableView
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "UITableViewCell")
-        // Pega os elementos presentes na array e passa cada uma para uma row
-        cell.textLabel?.text = subItems[indexPath.row].title //"Celula \(indexPath.item)"
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as! CustomTableViewCell
+        let subGoal = subItems[indexPath.row]
+        
+        cell.customLabel.text = subGoal.title
+        
+        switch subGoal.type {
+        case "work":
+            cell.backgroundColor = UIColor(named: "WorkCellColor")
+            cell.button.setImage(UIImage(systemName: "circle"), for: .normal)
+            cell.button.tintColor = UIColor(named: "CheckMarkColor")
+        case "personal":
+            cell.backgroundColor = UIColor(named: "WellnessCellColor")
+            cell.button.setImage(UIImage(systemName: "heart"), for: .normal)
+            cell.button.tintColor = UIColor(named: "HeartCheckColor")
+        default:
+            break
+        }
+        
+        let maskLayer = CAShapeLayer()
+        maskLayer.frame = cell.bounds
+        let path = UIBezierPath(roundedRect: cell.bounds, byRoundingCorners: [.topRight, .bottomRight], cornerRadii: CGSize(width: 20, height: 10))
+        maskLayer.path = path.cgPath
+        cell.layer.mask = maskLayer
+        
         return cell
     }
     
-    // Coloca um title para cada section
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        return goalSelected?.title ?? "Meta"
-//        
-//    }
     
-    private func constraintsTableView(){
+    private func constraints(){
+        view.addSubview(scrollView)
+        scrollView.addSubview(goalsStackView)
         view.addSubview(tableView)
         
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        goalsStackView.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            goalsStackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            goalsStackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            goalsStackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            goalsStackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            goalsStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])
     }
 }
 
+class CustomTableViewCell: UITableViewCell {
+    let customLabel = UILabel()
+    let button = UIButton(type: .system)
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        button.setImage(UIImage(systemName: "circle"), for: .normal)
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        
+        customLabel.translatesAutoresizingMaskIntoConstraints = false
+        button.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(customLabel)
+        contentView.addSubview(button)
+        
+        NSLayoutConstraint.activate([
+            button.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            button.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            customLabel.leadingAnchor.constraint(equalTo: button.trailingAnchor, constant: 10),
+            customLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            customLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            customLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
+        ])
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc func buttonTapped() {
+        switch button.currentImage {
+        case UIImage(systemName: "circle"):
+            button.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
+            customLabel.textColor = .lightGray
+        case UIImage(systemName: "checkmark.circle.fill"):
+            button.setImage(UIImage(systemName: "circle"), for: .normal)
+        case UIImage(systemName: "heart"):
+            button.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        case UIImage(systemName: "heart.fill"):
+            button.setImage(UIImage(systemName: "heart"), for: .normal)
+        default:
+            break
+        }
+    }
 
+}

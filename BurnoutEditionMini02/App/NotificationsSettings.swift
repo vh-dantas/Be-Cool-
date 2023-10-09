@@ -14,7 +14,6 @@ func scheduleWaterNotification() {
     content.title = "Water time"
     content.body = "Don't forget to stay hydrated"
     
-    // Set a repeating time interval trigger for every 10 seconds
     let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60, repeats: true)
     
     let request = UNNotificationRequest(identifier: "waterNotifIdentifier", content: content, trigger: trigger)
@@ -33,7 +32,6 @@ func scheduleStretchNotification() {
     content.title = "Stretch time"
     content.body = "Do some light stretches of your arms, legs and back"
     
-    // Set a repeating time interval trigger for every 10 seconds
     let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 180, repeats: true)
     
     let request = UNNotificationRequest(identifier: "stretchNotifIdentifier", content: content, trigger: trigger)
@@ -52,7 +50,6 @@ func scheduleWalkNotification() {
     content.title = "Walk around"
     content.body = "Try going for a quick 5 minute walk"
     
-    // Set a repeating time interval trigger for every 10 seconds
     let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 120, repeats: true)
     
     let request = UNNotificationRequest(identifier: "walkNotifIdentifier", content: content, trigger: trigger)

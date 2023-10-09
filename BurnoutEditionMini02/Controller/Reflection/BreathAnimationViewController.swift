@@ -70,7 +70,7 @@ class BreathAnimationViewController: UIViewController, CAAnimationDelegate {
         ])
         
         // Configuração da label fixa (antes de iniciar a animacão)
-        staticText.font = UIFont.systemFont(ofSize: 32, weight: .bold)
+        staticText.font = UIFont.systemFont(ofSize: 22, weight: .medium)
         staticText.textColor = UIColor.white
         staticText.text = "Tap to begin"
         
@@ -105,9 +105,17 @@ class BreathAnimationViewController: UIViewController, CAAnimationDelegate {
     // MARK: - Configuração e adicão da layer na view
     private func setupLayer() {
         // Configurações da layer
+        let x = view.frame.width/2
+        let y = view.frame.height/2
+        let halfX = (view.frame.width/2.5)/2
+        let halfY = (view.frame.width/2.5)/2
+        
+        let layerOrigin = CGPoint(x: x - halfX, y: y - halfY)
+        let layerSize = CGSize(width: view.frame.width/2.5, height: view.frame.width/2.5)
+        
         animLayer.backgroundColor = UIColor.systemBlue.cgColor
-        animLayer.frame = CGRect(x: screenWidth/2 - 125, y: screenHeight/2 - 125, width: 250, height: 250)
-        animLayer.cornerRadius = 125
+        animLayer.frame = CGRect(origin: layerOrigin, size: layerSize)
+        animLayer.cornerRadius = (view.frame.width/2.5) / 2
         
         // Adicionando a layer à View
         view.layer.addSublayer(animLayer)
@@ -126,21 +134,21 @@ class BreathAnimationViewController: UIViewController, CAAnimationDelegate {
         // Primeira animação
         let inhaleAnimation       = CABasicAnimation(keyPath: "transform.scale")
         inhaleAnimation.fromValue = 1
-        inhaleAnimation.toValue   = 4
+        inhaleAnimation.toValue   = 6
         inhaleAnimation.duration  = 4
         inhaleAnimation.delegate  = self
         
         // Segunda animação
         let holdBreathAnimation       = CABasicAnimation(keyPath: "transform.scale")
-        holdBreathAnimation.fromValue = 4
-        holdBreathAnimation.toValue   = 4
+        holdBreathAnimation.fromValue = 6
+        holdBreathAnimation.toValue   = 6
         holdBreathAnimation.duration  = 3
         holdBreathAnimation.beginTime = inhaleAnimation.duration
         holdBreathAnimation.delegate  = self
         
         // Terceira animação
         let exhaleAnimation       = CABasicAnimation(keyPath: "transform.scale")
-        exhaleAnimation.fromValue = 4
+        exhaleAnimation.fromValue = 6
         exhaleAnimation.toValue   = 1
         exhaleAnimation.duration  = 4
         exhaleAnimation.beginTime = inhaleAnimation.duration + holdBreathAnimation.duration

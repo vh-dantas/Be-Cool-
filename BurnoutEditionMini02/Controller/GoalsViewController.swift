@@ -81,6 +81,7 @@ class GoalsViewController: UIViewController, NewGoalModalDelegate, NewSubGoalMod
         super.viewWillAppear(animated)
         fetchSubGoalsArray()
         tableView.reloadData()
+        navigationItem.title = DataAcessObject.shared.fetchGoal().first?.title
     }
     
     @objc func createNewGoal() {

@@ -10,8 +10,6 @@ import PhotosUI
 
 class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate, ReflectionCanvasDelegate {
     
-    
-    
     // MARK: - Variáveis
     // TextField
     var textField: UITextField = UITextField()
@@ -35,6 +33,9 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
     
     // Botão para próxima tela
     let nextScreenBt = UIButton()
+    var suaBotaoBottomConstraint: NSLayoutConstraint!
+    var botaoBottomConstantPadrao: CGFloat = 16
+    let buttonSize: CGFloat = 50
     
     // BarButtonItens
     var backButton: UIBarButtonItem?
@@ -47,7 +48,6 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         view.backgroundColor = .white
         
         // BarButtonItem
@@ -56,6 +56,9 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
         // Esconde o botão "back"
         self.navigationItem.hidesBackButton = true
         navigationItem.rightBarButtonItem = cancelButton
+        
+        // Botão nextscreen
+        nextScreenBt.isHidden = true
         
         // Funções setup
         setupLabels()
@@ -77,24 +80,52 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
     }
     
     // MARK: - Selector dos BarButtonItem
-    
     @objc func cancelButtonFunc() {
         navigationController?.popToRootViewController(animated: true)
     }
     
     // MARK: - NextScreen Button
     private func setupNextScreenBt() {
-        // Configurações do botão
+        // Crie o botão
         nextScreenBt.setImage(UIImage(systemName: "chevron.right"), for: .normal)
         nextScreenBt.tintColor = UIColor.white
         nextScreenBt.configuration?.buttonSize = .large
-        
-        nextScreenBt.backgroundColor = .systemBlue
-        nextScreenBt.layer.cornerRadius = 27.5
-        
+        nextScreenBt.backgroundColor = UIColor(named: "AccentColor")
+        nextScreenBt.layer.cornerRadius = buttonSize / 2
+
         view.addSubview(nextScreenBt)
         
         nextScreenBt.addTarget(self, action: #selector(goToNextScreen), for: .touchUpInside)
+        
+        // Crie a constraint para o espaço entre a parte inferior do botão e a parte inferior da view
+        suaBotaoBottomConstraint = nextScreenBt.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -botaoBottomConstantPadrao)
+        suaBotaoBottomConstraint.isActive = true
+        
+        // Registre notificações para o teclado
+        NotificationCenter.default.addObserver(self, selector: #selector(tecladoApareceu), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(tecladoDesapareceu), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func tecladoApareceu(notification: Notification) {
+        if let userInfo = notification.userInfo,
+           let tecladoFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+            // Ajuste a constraint do botão quando o teclado aparecer
+            let alturaTeclado = view.frame.maxY - tecladoFrame.minY
+            suaBotaoBottomConstraint.constant = -alturaTeclado
+            
+            UIView.animate(withDuration: 0.3) {
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
+
+    @objc func tecladoDesapareceu(notification: Notification) {
+        // Restaure a constraint original do botão quando o teclado desaparecer
+        suaBotaoBottomConstraint.constant = -botaoBottomConstantPadrao
+        
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
     }
     
     @objc func goToNextScreen() {
@@ -193,15 +224,37 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
         // Configurações básicas do Text Field
         textField.placeholder = "Reflect..."
         textField.borderStyle = .roundedRect
+        textField.enablesReturnKeyAutomatically = true
         textField.textColor = .black
         textField.autocapitalizationType = .sentences
         textField.contentVerticalAlignment = .top
         textField.delegate = self
         
+        // Ação para o botão aparecer/desaparecer caso nao tenha texto
+        textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        
         textField.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(textField)
     }
+    
+    // Dismiss o teclado
+        func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+            textField.resignFirstResponder()
+            return true
+        }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        // Verifica se o texto do textField está vazio
+        if let text = textField.text, !text.isEmpty {
+            // Se não estiver vazio, mostra o botão
+            nextScreenBt.isHidden = false
+        } else {
+            // Se estiver vazio, oculta o botão
+            nextScreenBt.isHidden = true
+        }
+    }
+
     
     // MARK: - ImageView
     private func setupImageView() {
@@ -294,10 +347,9 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
         // NextScreen Button
         nextScreenBt.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            nextScreenBt.widthAnchor.constraint(equalToConstant: 55),
-            nextScreenBt.heightAnchor.constraint(equalToConstant: 55),
-            nextScreenBt.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -45),
-            nextScreenBt.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -35)
+            nextScreenBt.widthAnchor.constraint(equalToConstant: buttonSize),
+            nextScreenBt.heightAnchor.constraint(equalToConstant: buttonSize),
+            nextScreenBt.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])
         
     }

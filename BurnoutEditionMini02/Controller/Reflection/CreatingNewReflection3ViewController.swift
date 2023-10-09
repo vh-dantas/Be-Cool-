@@ -24,6 +24,8 @@ class CreatingNewReflection3ViewController: UIViewController, UITextFieldDelegat
     
     //Botão de salvar
     let saveButton = UIButton()
+    var suaBotaoBottomConstraint: NSLayoutConstraint!
+    var botaoBottomConstantPadrao: CGFloat = 16
     
     // Variáveis da VC anterior
     var selectedMood: String?
@@ -44,6 +46,8 @@ class CreatingNewReflection3ViewController: UIViewController, UITextFieldDelegat
         
         navigationItem.leftBarButtonItem = backButton
         navigationItem.rightBarButtonItem = cancelButton
+        
+        saveButton.isHidden = true
 
         
         // Funções setup
@@ -54,15 +58,6 @@ class CreatingNewReflection3ViewController: UIViewController, UITextFieldDelegat
         // Constraints
         constraints()
     }
-    
-    // MARK: - DELEGATE
-//    func sendData(img: UIImageView) {
-//        self.imageView = img
-//    }
-//
-//    func sendStrings(randomRefQst: String, randomRefAns: String) {
-//        random
-//    }
     
     // MARK: - ID
     func getID() -> UUID {
@@ -76,12 +71,42 @@ class CreatingNewReflection3ViewController: UIViewController, UITextFieldDelegat
         saveButton.setTitle("Save Reflection", for: .normal)
         saveButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         saveButton.titleLabel?.textColor = .white
-        saveButton.backgroundColor = .systemBlue
-        saveButton.layer.cornerRadius = 20
+        saveButton.backgroundColor = UIColor(named: "AccentColor")
+        saveButton.layer.cornerRadius = 25
         
         view.addSubview(saveButton)
         
         saveButton.addTarget(self, action: #selector(saveReflection), for: .touchUpInside)
+        
+        // Crie a constraint para o espaço entre a parte inferior do botão e a parte inferior da view
+        suaBotaoBottomConstraint = saveButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -botaoBottomConstantPadrao)
+        suaBotaoBottomConstraint.isActive = true
+        
+        // Registre notificações para o teclado
+        NotificationCenter.default.addObserver(self, selector: #selector(tecladoApareceu), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(tecladoDesapareceu), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func tecladoApareceu(notification: Notification) {
+        if let userInfo = notification.userInfo,
+           let tecladoFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+            // Ajuste a constraint do botão quando o teclado aparecer
+            let alturaTeclado = view.frame.maxY - tecladoFrame.minY
+            suaBotaoBottomConstraint.constant = -alturaTeclado
+            
+            UIView.animate(withDuration: 0.3) {
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
+
+    @objc func tecladoDesapareceu(notification: Notification) {
+        // Restaure a constraint original do botão quando o teclado desaparecer
+        suaBotaoBottomConstraint.constant = -botaoBottomConstantPadrao
+        
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
     }
     
     @objc func saveReflection() {
@@ -109,8 +134,29 @@ class CreatingNewReflection3ViewController: UIViewController, UITextFieldDelegat
         
         line.backgroundColor = .lightGray
         
+        // Ação para o botão aparecer/desaparecer caso nao tenha texto
+        textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        
         view.addSubview(textField)
         view.addSubview(line)
+    }
+    
+    // Dismiss o teclado
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        // Verifica se o texto do textField está vazio
+        if let text = textField.text, !text.isEmpty {
+            // Se não estiver vazio, mostra o botão
+            saveButton.isHidden = false
+        } else {
+            // Se estiver vazio, oculta o botão
+            saveButton.isHidden = true
+        }
     }
     
     // MARK: - Labels
@@ -172,9 +218,8 @@ class CreatingNewReflection3ViewController: UIViewController, UITextFieldDelegat
         saveButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             saveButton.widthAnchor.constraint(equalToConstant: 160),
-            saveButton.heightAnchor.constraint(equalToConstant: 40),
-            saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            saveButton.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50)
+            saveButton.heightAnchor.constraint(equalToConstant: 50),
+            saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
     }

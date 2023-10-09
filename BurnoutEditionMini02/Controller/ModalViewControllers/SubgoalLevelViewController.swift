@@ -27,7 +27,7 @@ class NewSubgoalLevelViewController: ViewController, BigButtonDelegate {
         
         super.viewDidLoad()
         // Coloca a cor de fundo da modal (ele seta como transparente por padrão)
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "BackgroundColor")
         setupLabels()
         setupSlider()
         setUpBigButton()
@@ -37,12 +37,14 @@ class NewSubgoalLevelViewController: ViewController, BigButtonDelegate {
             secondLabel.translatesAutoresizingMaskIntoConstraints = false
             
             firstLabel.text = "subgoal-level-title".localized
+            firstLabel.accessibilityLabel = "subgoal-level-title".localized
             firstLabel.font = UIFont.systemFont(ofSize: 28, weight: .bold)
             firstLabel.lineBreakMode = .byWordWrapping
             firstLabel.sizeToFit()
             firstLabel.numberOfLines = 0
             
             secondLabel.text = "subgoal-level-text".localized
+            secondLabel.accessibilityLabel = "subgoal-level-text".localized
             secondLabel.font = UIFont.systemFont(ofSize: 15, weight: .light)
             secondLabel.lineBreakMode = .byWordWrapping
             secondLabel.sizeToFit()
@@ -77,7 +79,7 @@ class NewSubgoalLevelViewController: ViewController, BigButtonDelegate {
                 // cria a label com o nome da task
                 taskLabel.translatesAutoresizingMaskIntoConstraints = false
                 taskLabel.text = subGoal.title
-                taskLabel.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+                taskLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
                 taskLabel.lineBreakMode = .byWordWrapping
                 taskLabel.sizeToFit()
                 taskLabel.numberOfLines = 0
@@ -95,21 +97,30 @@ class NewSubgoalLevelViewController: ViewController, BigButtonDelegate {
                 sliderLevels[index] = ("easy")
                 Calculator.shared.savedValues[index] = 60 // define como 60 o valor default pra calculadora
 
-                // Constraints pra label
-                NSLayoutConstraint.activate([
-                    taskLabel.topAnchor.constraint(equalTo: lastView.bottomAnchor, constant: 45),
-                    taskLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-                    taskLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
-                ])
-
-                // Constraints pro slider
+                // Constraints
                 slider.translatesAutoresizingMaskIntoConstraints = false
-                NSLayoutConstraint.activate([
-                    slider.topAnchor.constraint(equalTo: taskLabel.bottomAnchor, constant: -5),
-                    slider.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-                    slider.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16)
-                ])
+                // IF IPAD (limita o tamanho do slider no ipad)
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    NSLayoutConstraint.activate([
+                        taskLabel.topAnchor.constraint(equalTo: lastView.bottomAnchor, constant: 45),
+                        taskLabel.leadingAnchor.constraint(equalTo: slider.leadingAnchor),
+                        taskLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
 
+                        slider.topAnchor.constraint(equalTo: taskLabel.bottomAnchor, constant: -5),
+                        slider.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                        slider.widthAnchor.constraint(equalToConstant: 690)
+                    ])
+                } else {
+                    NSLayoutConstraint.activate([
+                        taskLabel.topAnchor.constraint(equalTo: lastView.bottomAnchor, constant: 45),
+                        taskLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+                        taskLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+                        
+                        slider.topAnchor.constraint(equalTo: taskLabel.bottomAnchor, constant: -5),
+                        slider.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+                        slider.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16)
+                    ])
+                }
                 lastView = slider
             }
         }
@@ -146,10 +157,10 @@ class NewSubgoalLevelViewController: ViewController, BigButtonDelegate {
         var savedValue: Float
         var savedLevel: String
         
-        if sender.value >= 0 && sender.value < 50 {
+        if sender.value >= 0 && sender.value < 40 {
             savedValue = 60
             savedLevel = "easy"
-        } else if sender.value >= 50 && sender.value < 100 {
+        } else if sender.value >= 40 && sender.value < 70 {
             savedValue = 150
             savedLevel = "medium"
         } else { // sender.value = 100
@@ -193,7 +204,7 @@ class CustomSlider: UISlider {
         
         // Define o visual do slider de acordo com o valor:
         let label = UILabel(frame: thumbLayer.bounds)
-        if self.value < 50 {
+        if self.value < 40 {
             label.text = "easy".localized
             self.minimumTrackTintColor = UIColor(named: "SliderEasyColor")
         } else if self.value >= 40 && self.value < 70 {
@@ -205,7 +216,7 @@ class CustomSlider: UISlider {
         }
         
         label.textAlignment = .center
-        label.textColor = .black // cor da label no slider
+        label.textColor = UIColor(named: "LabelColor") // cor da label no slider
         
         // Adiciona a label em uma "imagem"
         UIGraphicsBeginImageContextWithOptions(label.bounds.size, false, UIScreen.main.scale)

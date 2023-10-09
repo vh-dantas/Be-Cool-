@@ -53,10 +53,10 @@ class ReflectionTableViewCell: UITableViewCell {
         // Configuração do shape
         addSubview(refShape)
         refShape.layer.cornerRadius = 10
-        refShape.backgroundColor = .systemGray4
+        refShape.backgroundColor = UIColor(named: "AccentColor")?.withAlphaComponent(0.075)
         
         // Configuração do background do mood
-        refCircleBg.backgroundColor = .systemGray6
+        refCircleBg.backgroundColor = UIColor(named: "AccentColor")?.withAlphaComponent(0.15)
         refCircleBg.layer.cornerRadius = vc.view.frame.width / 9.6
         refShape.addSubview(refCircleBg)
         
@@ -108,8 +108,8 @@ class ReflectionTableViewCell: UITableViewCell {
         // Mood background
         refCircleBg.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            refCircleBg.widthAnchor.constraint(equalToConstant: vc.view.frame.width / 4.8),
-            refCircleBg.heightAnchor.constraint(equalToConstant: vc.view.frame.width / 4.8),
+            refCircleBg.widthAnchor.constraint(equalTo: refShape.heightAnchor, multiplier: 0.8),
+            refCircleBg.heightAnchor.constraint(equalTo: refShape.heightAnchor, multiplier: 0.8),
             refCircleBg.centerYAnchor.constraint(equalTo: refShape.centerYAnchor),
             refCircleBg.leadingAnchor.constraint(equalTo: refShape.leadingAnchor, constant: 16)
         ])
@@ -125,7 +125,8 @@ class ReflectionTableViewCell: UITableViewCell {
         refTitle.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             refTitle.topAnchor.constraint(equalTo: refShape.topAnchor, constant: 10),
-            refTitle.leadingAnchor.constraint(equalTo: refCircleBg.trailingAnchor, constant: 16)
+            refTitle.leadingAnchor.constraint(equalTo: refCircleBg.trailingAnchor, constant: 16),
+            refTitle.widthAnchor.constraint(equalTo: refDiv.widthAnchor, multiplier: 0.7)
         ])
         
         // Data
@@ -140,7 +141,7 @@ class ReflectionTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             refDiv.leadingAnchor.constraint(equalTo: refTitle.leadingAnchor),
             refDiv.trailingAnchor.constraint(equalTo: refShape.trailingAnchor),
-            refDiv.topAnchor.constraint(equalTo: refTitle.bottomAnchor),
+            refDiv.topAnchor.constraint(equalTo: refDate.bottomAnchor, constant: 5),
             refDiv.heightAnchor.constraint(equalToConstant: 1)
         ])
         
@@ -153,6 +154,12 @@ class ReflectionTableViewCell: UITableViewCell {
             refText.bottomAnchor.constraint(equalTo: refShape.bottomAnchor, constant: -16)
         ])
         
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        refCircleBg.layer.cornerRadius = refCircleBg.frame.size.height / 2
     }
     
 }

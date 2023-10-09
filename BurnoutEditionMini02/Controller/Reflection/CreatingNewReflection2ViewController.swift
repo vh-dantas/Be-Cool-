@@ -41,12 +41,17 @@ class CreatingNewReflection2ViewController: UIViewController {
     var excitedMood = UIButton()
     var tranquilMood = UIButton()
     
+    var moodsArray: [UIButton] = []
+        
     // BarButtonItens
     var backButton: UIBarButtonItem?
     var cancelButton: UIBarButtonItem?
     
-    // Botão para a próxima página
+    // Botão para próxima tela
     let nextScreenBt = UIButton()
+    var suaBotaoBottomConstraint: NSLayoutConstraint!
+    var botaoBottomConstantPadrao: CGFloat = 16
+    let buttonSize: CGFloat = 50
     
     // Variáveis da VC anterior
     var randomRefQst: String?
@@ -67,6 +72,10 @@ class CreatingNewReflection2ViewController: UIViewController {
         navigationItem.leftBarButtonItem = backButton
         navigationItem.rightBarButtonItem = cancelButton
         
+        // Botão para a próxima tela não aparece até escrever algo
+        nextScreenBt.isHidden = true
+        moodsArray = [happyMood, normalMood, sadMood, stressedMood, excitedMood, tranquilMood]
+
         // Funções setup
         setupLabels()
         setupMoodTracker()
@@ -74,7 +83,7 @@ class CreatingNewReflection2ViewController: UIViewController {
         
         // Constraints
         constraints()
-    
+        
     }
     
     // MARK: - Selector dos BarButtonItem
@@ -88,17 +97,46 @@ class CreatingNewReflection2ViewController: UIViewController {
     
     // MARK: - NextScreen Button
     private func setupNextScreenBt() {
-        // Configurações do botão
+        // Crie o botão
         nextScreenBt.setImage(UIImage(systemName: "chevron.right"), for: .normal)
         nextScreenBt.tintColor = UIColor.white
         nextScreenBt.configuration?.buttonSize = .large
-        
-        nextScreenBt.backgroundColor = .systemBlue
-        nextScreenBt.layer.cornerRadius = 27.5
-        
+        nextScreenBt.backgroundColor = UIColor(named: "AccentColor")
+        nextScreenBt.layer.cornerRadius = buttonSize / 2
+
         view.addSubview(nextScreenBt)
         
         nextScreenBt.addTarget(self, action: #selector(goToScreen3), for: .touchUpInside)
+        
+        // Crie a constraint para o espaço entre a parte inferior do botão e a parte inferior da view
+        suaBotaoBottomConstraint = nextScreenBt.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -botaoBottomConstantPadrao)
+        suaBotaoBottomConstraint.isActive = true
+        
+        // Registre notificações para o teclado
+        NotificationCenter.default.addObserver(self, selector: #selector(tecladoApareceu), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(tecladoDesapareceu), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func tecladoApareceu(notification: Notification) {
+        if let userInfo = notification.userInfo,
+           let tecladoFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+            // Ajuste a constraint do botão quando o teclado aparecer
+            let alturaTeclado = view.frame.maxY - tecladoFrame.minY
+            suaBotaoBottomConstraint.constant = -alturaTeclado
+            
+            UIView.animate(withDuration: 0.3) {
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
+
+    @objc func tecladoDesapareceu(notification: Notification) {
+        // Restaure a constraint original do botão quando o teclado desaparecer
+        suaBotaoBottomConstraint.constant = -botaoBottomConstantPadrao
+        
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
     }
     
     @objc func goToScreen3() {
@@ -177,35 +215,12 @@ class CreatingNewReflection2ViewController: UIViewController {
         
         mainStackView.axis = .horizontal
         //mainStackView.alignment = .center
-        mainStackView.spacing = 70
-        
-        // Célula "Happy"
-        happyMood.setTitle("😃", for: .normal)
-        happyMood.titleLabel?.font = UIFont.systemFont(ofSize: 45)
-        happyMood.backgroundColor = .lightGray
-        happyMood.layer.cornerRadius = 40
-        happyTxt.text = "Happy"
-        happyTxt.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        
-        happyStackView.addArrangedSubview(happyMood)
-        happyStackView.addArrangedSubview(happyTxt)
-        
-        // Célula "Normal"
-        normalMood.setTitle("😐", for: .normal)
-        normalMood.titleLabel?.font = UIFont.systemFont(ofSize: 45)
-        normalMood.backgroundColor = .lightGray
-        normalMood.layer.cornerRadius = 40
-        normalTxt.text = "Normal"
-        normalTxt.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        
-        normalStackView.addArrangedSubview(normalMood)
-        normalStackView.addArrangedSubview(normalTxt)
-        
+        mainStackView.spacing = 45
         
         // Célula "Sad"
         sadMood.setTitle("😔", for: .normal)
         sadMood.titleLabel?.font = UIFont.systemFont(ofSize: 45)
-        sadMood.backgroundColor = .lightGray
+        sadMood.backgroundColor = .systemGray4
         sadMood.layer.cornerRadius = 40
         sadTxt.text = "Sad"
         sadTxt.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
@@ -216,7 +231,7 @@ class CreatingNewReflection2ViewController: UIViewController {
         // Célula "Stressed"
         stressedMood.setTitle("😤", for: .normal)
         stressedMood.titleLabel?.font = UIFont.systemFont(ofSize: 45)
-        stressedMood.backgroundColor = .lightGray
+        stressedMood.backgroundColor = .systemGray4
         stressedMood.layer.cornerRadius = 40
         stressedTxt.text = "Stressed"
         stressedTxt.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
@@ -224,21 +239,21 @@ class CreatingNewReflection2ViewController: UIViewController {
         stressedStackView.addArrangedSubview(stressedMood)
         stressedStackView.addArrangedSubview(stressedTxt)
         
-        // Célula "Excited"
-        excitedMood.setTitle("🤩", for: .normal)
-        excitedMood.titleLabel?.font = UIFont.systemFont(ofSize: 45)
-        excitedMood.backgroundColor = .lightGray
-        excitedMood.layer.cornerRadius = 40
-        excitedTxt.text = "Excited"
-        excitedTxt.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        // Célula "Normal"
+        normalMood.setTitle("😐", for: .normal)
+        normalMood.titleLabel?.font = UIFont.systemFont(ofSize: 45)
+        normalMood.backgroundColor = .systemGray4
+        normalMood.layer.cornerRadius = 40
+        normalTxt.text = "Normal"
+        normalTxt.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         
-        excitedStackView.addArrangedSubview(excitedMood)
-        excitedStackView.addArrangedSubview(excitedTxt)
+        normalStackView.addArrangedSubview(normalMood)
+        normalStackView.addArrangedSubview(normalTxt)
         
         // Célula "Tranquil"
         tranquilMood.setTitle("😌", for: .normal)
         tranquilMood.titleLabel?.font = UIFont.systemFont(ofSize: 45)
-        tranquilMood.backgroundColor = .lightGray
+        tranquilMood.backgroundColor = .systemGray4
         tranquilMood.layer.cornerRadius = 40
         tranquilTxt.text = "Tranquil"
         tranquilTxt.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
@@ -246,16 +261,38 @@ class CreatingNewReflection2ViewController: UIViewController {
         tranquilStackView.addArrangedSubview(tranquilMood)
         tranquilStackView.addArrangedSubview(tranquilTxt)
         
+        // Célula "Happy"
+        happyMood.setTitle("😃", for: .normal)
+        happyMood.titleLabel?.font = UIFont.systemFont(ofSize: 45)
+        happyMood.backgroundColor = .systemGray4
+        happyMood.layer.cornerRadius = 40
+        happyTxt.text = "Happy"
+        happyTxt.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        
+        happyStackView.addArrangedSubview(happyMood)
+        happyStackView.addArrangedSubview(happyTxt)
+        
+        // Célula "Excited"
+        excitedMood.setTitle("🤩", for: .normal)
+        excitedMood.titleLabel?.font = UIFont.systemFont(ofSize: 45)
+        excitedMood.backgroundColor = .systemGray4
+        excitedMood.layer.cornerRadius = 40
+        excitedTxt.text = "Excited"
+        excitedTxt.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        
+        excitedStackView.addArrangedSubview(excitedMood)
+        excitedStackView.addArrangedSubview(excitedTxt)
+        
         // Adicionando todas as stack views dentro da rightStackView
-        rightStackView.addArrangedSubview(happyStackView)
-        rightStackView.addArrangedSubview(normalStackView)
         rightStackView.addArrangedSubview(sadStackView)
+        rightStackView.addArrangedSubview(normalStackView)
+        rightStackView.addArrangedSubview(happyStackView)
         mainStackView.addArrangedSubview(rightStackView)
         
         // Adicionando todas as stack views dentro da leftStackView
         leftStackView.addArrangedSubview(stressedStackView)
-        leftStackView.addArrangedSubview(excitedStackView)
         leftStackView.addArrangedSubview(tranquilStackView)
+        leftStackView.addArrangedSubview(excitedStackView)
         mainStackView.addArrangedSubview(leftStackView)
         
         view.addSubview(mainStackView)
@@ -273,74 +310,109 @@ class CreatingNewReflection2ViewController: UIViewController {
     // Métodos dos botões de mood
     // Happy Mood
     @objc func happyMoodFunc() {
-        if hasSelectedMood {
-            
-        } else {
+        nextScreenBt.isHidden = false
+        if selectedMood != "😃" {
             selectedMood = "😃"
-            hasSelectedMood = true
+            happyMood.backgroundColor = UIColor(named: "AccentColor")
             
-            happyMood.backgroundColor = .systemBlue
+            for mood in moodsArray {
+                if mood != happyMood {
+                    mood.backgroundColor = .systemGray4
+                }
+            }
+        } else {
+            happyMood.backgroundColor = .systemGray4
         }
+        
     }
     
     // Normal Mood
     @objc func normalMoodFunc() {
-        if hasSelectedMood {
-            
-        } else {
+        nextScreenBt.isHidden = false
+        if selectedMood != "😐" {
             selectedMood = "😐"
-            hasSelectedMood = true
+            normalMood.backgroundColor = UIColor(named: "AccentColor")
             
-            normalMood.backgroundColor = .systemBlue
+            for mood in moodsArray {
+                if mood != normalMood {
+                    mood.backgroundColor = .systemGray4
+                }
+            }
+        } else {
+            normalMood.backgroundColor = .systemGray4
         }
     }
     
     // Sad Mood
     @objc func sadMoodFunc() {
-        if hasSelectedMood {
-            
-        } else {
+        nextScreenBt.isHidden = false
+        if selectedMood != "😔" {
             selectedMood = "😔"
-            hasSelectedMood = true
+            sadMood.backgroundColor = UIColor(named: "AccentColor")
             
-            sadMood.backgroundColor = .systemBlue
+            for mood in moodsArray {
+                if mood != sadMood {
+                    mood.backgroundColor = .systemGray4
+                }
+            }
+        } else {
+            sadMood.backgroundColor = .systemGray4
         }
+        
     }
     
     // Stressed Mood
     @objc func stressedMoodFunc() {
-        if hasSelectedMood {
-            
-        } else {
+        nextScreenBt.isHidden = false
+        if selectedMood != "😤" {
             selectedMood = "😤"
-            hasSelectedMood = true
+            stressedMood.backgroundColor = UIColor(named: "AccentColor")
             
-            stressedMood.backgroundColor = .systemBlue
+            for mood in moodsArray {
+                if mood != stressedMood {
+                    mood.backgroundColor = .systemGray4
+                }
+            }
+        } else {
+            stressedMood.backgroundColor = .systemGray4
         }
+        
     }
     
     // Excited Mood
     @objc func excitedMoodFunc() {
-        if hasSelectedMood {
-            
-        } else {
+        nextScreenBt.isHidden = false
+        if selectedMood != "🤩" {
             selectedMood = "🤩"
-            hasSelectedMood = true
+            excitedMood.backgroundColor = UIColor(named: "AccentColor")
             
-            excitedMood.backgroundColor = .systemBlue
+            for mood in moodsArray {
+                if mood != excitedMood {
+                    mood.backgroundColor = .systemGray4
+                }
+            }
+        } else {
+            excitedMood.backgroundColor = .systemGray4
         }
+        
     }
     
     // Tranquil Mood
     @objc func tranquilMoodFunc() {
-        if hasSelectedMood {
-            
-        } else {
+        nextScreenBt.isHidden = false
+        if selectedMood != "😌" {
             selectedMood = "😌"
-            hasSelectedMood = true
+            tranquilMood.backgroundColor = UIColor(named: "AccentColor")
             
-            tranquilMood.backgroundColor = .systemBlue
+            for mood in moodsArray {
+                if mood != tranquilMood {
+                    mood.backgroundColor = .systemGray4
+                }
+            }
+        } else {
+            tranquilMood.backgroundColor = .systemGray4
         }
+        
     }
     
     // MARK: - Constraints
@@ -364,7 +436,7 @@ class CreatingNewReflection2ViewController: UIViewController {
         // MoodTracker
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            mainStackView.topAnchor.constraint(equalTo: label2.bottomAnchor, constant: view.frame.height / 10),
+            mainStackView.topAnchor.constraint(equalTo: label2.bottomAnchor, constant: view.frame.height / 15),
             mainStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
@@ -399,10 +471,9 @@ class CreatingNewReflection2ViewController: UIViewController {
         // Botão NextScreen
         nextScreenBt.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            nextScreenBt.widthAnchor.constraint(equalToConstant: 55),
-            nextScreenBt.heightAnchor.constraint(equalToConstant: 55),
-            nextScreenBt.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -45),
-            nextScreenBt.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -35)
+            nextScreenBt.widthAnchor.constraint(equalToConstant: buttonSize),
+            nextScreenBt.heightAnchor.constraint(equalToConstant: buttonSize),
+            nextScreenBt.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])
         
     }

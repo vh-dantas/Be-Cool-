@@ -27,6 +27,9 @@ class BreathAnimationViewController: UIViewController, CAAnimationDelegate {
     // DisplayLink (Labels que alteram conforme a animação passa) e propriedade que rastreia o progresso da animação
     var displayLink: CADisplayLink?
     var animationProgress: CGFloat = 0.0
+    
+    // Botão "skip"
+    var skipBt: UIBarButtonItem?
 
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
@@ -35,9 +38,19 @@ class BreathAnimationViewController: UIViewController, CAAnimationDelegate {
         // Cor de fundo da View
         view.backgroundColor = .white
         
+        // Botão de skip
+        skipBt = UIBarButtonItem(title: "Skip", style: .plain, target: self, action: #selector(skipAnimation))
+        navigationItem.rightBarButtonItem = skipBt
+        
+        // Funcs setup
         setupLayer()
         setupButton()
         setupLabels()
+    }
+    
+    // MARK: - Selector do skipBt
+    @objc func skipAnimation() {
+        navigationController?.pushViewController(CreatingNewReflectionViewController(), animated: true)
     }
     
     // MARK: - Botão para iniciar a animação
@@ -113,7 +126,7 @@ class BreathAnimationViewController: UIViewController, CAAnimationDelegate {
         let layerOrigin = CGPoint(x: x - halfX, y: y - halfY)
         let layerSize = CGSize(width: view.frame.width/2.5, height: view.frame.width/2.5)
         
-        animLayer.backgroundColor = UIColor.systemBlue.cgColor
+        animLayer.backgroundColor = UIColor(named: "AccentColor")?.cgColor
         animLayer.frame = CGRect(origin: layerOrigin, size: layerSize)
         animLayer.cornerRadius = (view.frame.width/2.5) / 2
         
@@ -135,7 +148,7 @@ class BreathAnimationViewController: UIViewController, CAAnimationDelegate {
         let inhaleAnimation       = CABasicAnimation(keyPath: "transform.scale")
         inhaleAnimation.fromValue = 1
         inhaleAnimation.toValue   = 6
-        inhaleAnimation.duration  = 4
+        inhaleAnimation.duration  = 3
         inhaleAnimation.delegate  = self
         
         // Segunda animação

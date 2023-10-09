@@ -14,7 +14,7 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
     let firstLabel = UILabel()
     let secondLabel = UILabel()
     
-    let timeLabel = UILabel()
+    //let timeLabel = UIDatePicker()
     
     // Cria célula com texto e botão de +
     var addSubGoalCell: AddSubGoalCell?
@@ -57,7 +57,22 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
         setupTimeCard()
         setupSaveButton()
         setUpTableView()
+        //setUpTimeLabel()
         
+//        func setUpTimeLabel() {
+//            // Horário default de entrada
+//            let defaultTime = Calendar.current.date(bySettingHour: 9, minute: 0, second: 0, of: Date())
+//            timeLabel.date = defaultTime ?? Date()
+//            timeLabel.datePickerMode = .time
+//            view.addSubview(timeLabel)
+//            timeLabel.translatesAutoresizingMaskIntoConstraints = false
+//
+//            NSLayoutConstraint.activate([
+//                timeLabel.centerYAnchor.constraint(equalTo: stackView.centerYAnchor),
+//                timeLabel.leadingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: 10),
+//                timeLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10)
+//            ])
+//        }
         
         func setupLabels() {
             firstLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -236,8 +251,8 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
     ///função que adiciona subgoal ao array static
     func addSubGoalButtonTouched() {
         subGoals.append(SubGoalStatic(id: UUID(), title: "", level: .easy, type: .personal))
-        tableView.reloadData()
         toggleAddSubGoalButton()
+        tableView.reloadData()
     }
     
     ///adiciona a subgoal no return do teclado
@@ -316,8 +331,10 @@ extension NewWellnessSubgoalsModalViewController: UITableViewDelegate, UITableVi
             cell.textField.text = subGoal.title
             cell.subGoal = subGoal
             cell.delegate = self
+            cell.type = .date
             cell.selectionStyle = .none // remove a seleção cinza da célula
-            
+     
+            //corners arrendodadas
             cell.layer.maskedCorners = []
             if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
                 cell.backgroundColor = .white

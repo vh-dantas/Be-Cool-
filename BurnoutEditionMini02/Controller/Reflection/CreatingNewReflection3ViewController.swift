@@ -141,6 +141,13 @@ class CreatingNewReflection3ViewController: UIViewController, UITextFieldDelegat
         view.addSubview(line)
     }
     
+    // Dismiss o teclado
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+
     @objc func textFieldDidChange(_ textField: UITextField) {
         // Verifica se o texto do textField está vazio
         if let text = textField.text, !text.isEmpty {

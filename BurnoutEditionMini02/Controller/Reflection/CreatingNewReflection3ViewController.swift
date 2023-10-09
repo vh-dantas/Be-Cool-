@@ -25,9 +25,6 @@ class CreatingNewReflection3ViewController: UIViewController, UITextFieldDelegat
     //Botão de salvar
     let saveButton = UIButton()
     
-    // Reflection
-    var reflectionModels: [ReflectionModel] = []
-    
     // Variáveis da VC anterior
     var selectedMood: String?
     var randomRefQst: String?

@@ -42,15 +42,14 @@ class NewReflectionTableViewCell: UITableViewCell {
         newRefBt.setTitle("New Reflection", for: .normal)
         newRefBt.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         newRefBt.backgroundColor = .systemBlue
-        newRefBt.layer.cornerRadius = 18
         cellNewRefShape.addSubview(newRefBt)
         
         newRefBt.addTarget(self, action: #selector(goToNewReflection), for: .touchUpInside)
         
         // Configurações da label
         cellNewRefLabel.text = "What about a break to reflect about your journey?"
-        cellNewRefLabel.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        cellNewRefLabel.numberOfLines = 5
+        cellNewRefLabel.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        cellNewRefLabel.numberOfLines = 0
         cellNewRefShape.addSubview(cellNewRefLabel)
         
         // Configurações do fundo da célula
@@ -79,9 +78,9 @@ class NewReflectionTableViewCell: UITableViewCell {
         cellNewRefLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             cellNewRefLabel.leadingAnchor.constraint(equalTo: cellNewRefShape.leadingAnchor, constant: 16),
-            cellNewRefLabel.topAnchor.constraint(equalTo: cellNewRefShape.topAnchor, constant: 16),
-            cellNewRefLabel.widthAnchor.constraint(equalToConstant: vc.view.frame.width / 2),
-            // HEIGHT ANCHOR AQUI
+            cellNewRefLabel.topAnchor.constraint(equalTo: cellNewRefShape.topAnchor, constant: 8),
+            cellNewRefLabel.widthAnchor.constraint(equalToConstant: vc.view.frame.width / 2.5),
+            cellNewRefLabel.heightAnchor.constraint(equalTo: cellNewRefShape.heightAnchor, multiplier: 0.5)
         ])
         
         // Botão da célula
@@ -90,9 +89,14 @@ class NewReflectionTableViewCell: UITableViewCell {
             newRefBt.leadingAnchor.constraint(equalTo: cellNewRefShape.leadingAnchor, constant: 16),
             newRefBt.bottomAnchor.constraint(equalTo: cellNewRefShape.bottomAnchor, constant: -16),
             newRefBt.widthAnchor.constraint(equalToConstant: vc.view.frame.width / 3),
-            newRefBt.heightAnchor.constraint(equalToConstant: 36)
+            newRefBt.heightAnchor.constraint(equalTo: cellNewRefShape.heightAnchor, multiplier: 0.25)
         ])
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
         
+        newRefBt.layer.cornerRadius = newRefBt.frame.size.height / 2
     }
     
 }

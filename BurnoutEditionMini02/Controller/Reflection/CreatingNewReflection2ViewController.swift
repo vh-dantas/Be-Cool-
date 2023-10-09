@@ -313,7 +313,7 @@ class CreatingNewReflection2ViewController: UIViewController {
         nextScreenBt.isHidden = false
         if selectedMood != "😃" {
             selectedMood = "😃"
-            happyMood.backgroundColor = .systemOrange
+            happyMood.backgroundColor = UIColor(named: "AccentColor")
             
             for mood in moodsArray {
                 if mood != happyMood {
@@ -331,7 +331,7 @@ class CreatingNewReflection2ViewController: UIViewController {
         nextScreenBt.isHidden = false
         if selectedMood != "😐" {
             selectedMood = "😐"
-            normalMood.backgroundColor = .systemOrange
+            normalMood.backgroundColor = UIColor(named: "AccentColor")
             
             for mood in moodsArray {
                 if mood != normalMood {
@@ -348,7 +348,7 @@ class CreatingNewReflection2ViewController: UIViewController {
         nextScreenBt.isHidden = false
         if selectedMood != "😔" {
             selectedMood = "😔"
-            sadMood.backgroundColor = .systemOrange
+            sadMood.backgroundColor = UIColor(named: "AccentColor")
             
             for mood in moodsArray {
                 if mood != sadMood {
@@ -366,7 +366,7 @@ class CreatingNewReflection2ViewController: UIViewController {
         nextScreenBt.isHidden = false
         if selectedMood != "😤" {
             selectedMood = "😤"
-            stressedMood.backgroundColor = .systemOrange
+            stressedMood.backgroundColor = UIColor(named: "AccentColor")
             
             for mood in moodsArray {
                 if mood != stressedMood {
@@ -384,7 +384,7 @@ class CreatingNewReflection2ViewController: UIViewController {
         nextScreenBt.isHidden = false
         if selectedMood != "🤩" {
             selectedMood = "🤩"
-            excitedMood.backgroundColor = .systemOrange
+            excitedMood.backgroundColor = UIColor(named: "AccentColor")
             
             for mood in moodsArray {
                 if mood != excitedMood {
@@ -402,7 +402,7 @@ class CreatingNewReflection2ViewController: UIViewController {
         nextScreenBt.isHidden = false
         if selectedMood != "😌" {
             selectedMood = "😌"
-            tranquilMood.backgroundColor = .systemOrange
+            tranquilMood.backgroundColor = UIColor(named: "AccentColor")
             
             for mood in moodsArray {
                 if mood != tranquilMood {

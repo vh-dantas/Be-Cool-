@@ -97,6 +97,14 @@ class AchievementsViewController: UIViewController {
         }
     }
     
+    // MARK: ViewWillAppear
+    override func viewWillAppear(_ animated: Bool) {
+        // Confirmando que a CollectionView sempre estará atualizada
+        achievementArray = DataAcessObject.shared.fetchGoal()
+        self.achievCollectionView.reloadData()
+        
+    }
+    
     // Configurando todos os Container Views - ela preenche metade da view MARK: COntainerView
     func setUpCntainerViews(){
         view.addSubview(topContainerView)
@@ -115,7 +123,7 @@ class AchievementsViewController: UIViewController {
         topContainerView.addSubview(jorneyLabel)
         NSLayoutConstraint.activate([
             jorneyLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            jorneyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            jorneyLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: view.safeAreaLayoutGuide.leadingAnchor, multiplier: 2.5)
         ])
     }
     
@@ -188,22 +196,22 @@ extension AchievementsViewController: UICollectionViewDataSource, UICollectionVi
        }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return  90 //achievementArray.count
+        return  achievementArray.count
  
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // Criando a Celula
         guard let cell = achievCollectionView.dequeueReusableCell(withReuseIdentifier: AchievementCell.reuseIdentifier, for: indexPath) as? AchievementCell else { fatalError("Cannot Convert cell") }
-      //  let goal = achievementArray[indexPath.row]
-        cell.imageCellLabel.text = "Paralelepipedo Paralelepipedo"//achievementArray[indexPath.item].title
+        let goal = achievementArray[indexPath.row]
+        cell.imageCellLabel.text = goal.title
         cell.iPadSetUp(view: self)
         // Mudando a imagem se a pessoa completou toda a conquista
-//        if goal.isCompleted{
-//            cell.imageCell.image = UIImage(named: "Achievement.fill")
-//        } else {
-//            cell.imageCell.image = UIImage(named: "Achievement.Normal2")
-//        }
+        if goal.isCompleted{
+            cell.imageCell.image = UIImage(named: "Achievement.fill")
+        } else {
+            cell.imageCell.image = UIImage(named: "Achievement.Normal2")
+        }
         // Configurando a imagem da Celula
         //cell.layer.borderWidth = 2
         return cell
@@ -225,11 +233,11 @@ class AchievementCell: UICollectionViewCell {
     // Criando o identificador do register
     static let reuseIdentifier = "achievCell-reuse-identifier"
     
-     let imageCell: UIImageView = {
-       let imageView = UIImageView()
-         imageView.image = UIImage(named: "Achievement.Normal2")
+    let imageCell: UIImageView = {
+        let imageView = UIImageView()
+        //    imageView.image = UIImage(named: "Achievement.Normal2")
         imageView.layer.borderColor = UIColor.black.cgColor
-    //    imageView.clipsToBounds = true
+        //    imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         return imageView

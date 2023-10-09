@@ -9,7 +9,7 @@ import UIKit
 
 class AchievementDetailViewController: UIViewController {
     // meta selecionada na tela de conquistas
-    private var goal: Goal?
+    private var goal: Goal
     
     //ScrollView
     private let scrollView: UIScrollView = {
@@ -107,7 +107,7 @@ class AchievementDetailViewController: UIViewController {
         label.adjustsFontForContentSizeCategory = true
         return label
     }()
-    
+    // Tab;e view com as workGoals
     private let workTableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -137,7 +137,7 @@ class AchievementDetailViewController: UIViewController {
     // MARK: ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Nome da Meta"
+        navigationItem.title = goal.title
         navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = .systemBackground
         // Adicionando todas as views
@@ -157,10 +157,8 @@ class AchievementDetailViewController: UIViewController {
         setUpProgressBar()
         setUpWorkTableView()
         setUpFinalLabel()
-        
-        
     }
-    
+
     // MARK: INIT
     init(goal: Goal){
         self.goal = goal
@@ -170,10 +168,7 @@ class AchievementDetailViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    init() {
-        super.init(nibName: nil, bundle: nil)
-    }
+
     
     // Função para adicionar todos na view
     func addToView(){
@@ -223,7 +218,7 @@ class AchievementDetailViewController: UIViewController {
     // MARK: SetUpDateLabel
     func setUpDateLabel() {
         // Formatando a data
-        let date = self.goal?.createdDate ?? Date()
+        let date = self.goal.createdDate ?? Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "d 'de' MMMM 'de' yyyy"
         let formatedDate = dateFormatter.string(from: date)
@@ -500,12 +495,13 @@ class AchievementDetailViewController: UIViewController {
 // MARK: Celula da DataSourceDelegate ----------------------------------
 extension AchievementDetailViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return goal.subGoalsArray.count
     }
     
     // Retorna as celulas que preenchem as rows
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // cria a celula da UITableView
+        let subGoal = goal.subGoalsArray[indexPath.row]
 //        if goal?.subGoalsArray[indexPath.row].type == "WellNess" {
 //            guard let cell = wellNessTableView.dequeueReusableCell(withIdentifier: AchievementTableViewCell.reuseIdentifier, for: indexPath) as? AchievementTableViewCell else { fatalError("Cannot Convert cell") }
 //            // Pega os elementos presentes na array e passa cada uma para uma row
@@ -523,10 +519,10 @@ extension AchievementDetailViewController: UITableViewDataSource, UITableViewDel
           
 //            return cell
 //        }
-        
+    
         guard let cell = wellNessTableView.dequeueReusableCell(withIdentifier: AchievementTableViewCell.reuseIdentifier, for: indexPath) as? AchievementTableViewCell else { fatalError("Cannot Convert cell") }
         // Pega os elementos presentes na array e passa cada uma para uma row
-        cell.cellLabel.text = "Teste"
+        cell.cellLabel.text = subGoal.title
         cell.image.image = UIImage(systemName: "heart.fill")
         cell.tintColor = UIColor(named: "IconGreenWell")
         cell.backgroundColor = UIColor(named: "BgGreenWell")

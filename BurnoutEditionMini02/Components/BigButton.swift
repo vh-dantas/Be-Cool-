@@ -38,7 +38,7 @@ class BigButton: UIView {
             heightAnchor.constraint(equalToConstant: buttonSize + 16),
             bigButton.widthAnchor.constraint(equalToConstant: buttonSize),
             bigButton.heightAnchor.constraint(equalToConstant: buttonSize),
-            bigButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
+            bigButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
             bigButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
         ])
         

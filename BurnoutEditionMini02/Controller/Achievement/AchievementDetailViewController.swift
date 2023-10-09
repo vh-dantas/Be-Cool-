@@ -319,21 +319,29 @@ class AchievementDetailViewController: UIViewController {
     
     //MARK: WELLNESS TABLEVIEW
     func setUpWellNessTableView(){
-        wellNessTableView.dataSource = self
-        wellNessTableView.register(AchievementTableViewCell.self, forCellReuseIdentifier: AchievementTableViewCell.reuseIdentifier)
-        wellNessTableView.separatorInset = UIEdgeInsets(top: 0, left: 38, bottom: 0, right: 0)
-        var constant: Double = 0.2
-        if wellNessTableView.numberOfRows(inSection: 0) < 4 {
-            constant = 0.1
+            wellNessTableView.dataSource = self
+            wellNessTableView.delegate = self
+            //wellNessTableView.rowHeight = UITableView.automaticDimension
+            wellNessTableView.register(AchievementTableViewCell.self, forCellReuseIdentifier: AchievementTableViewCell.reuseIdentifier)
+            wellNessTableView.separatorInset = UIEdgeInsets(top: 0, left: 56, bottom: 0, right: 0)
+            // definindo um constante apra diminuir o tamamho da tableview de acordo com o numero de rows
+            var constant: Double = 0.2
+            if wellNessTableView.numberOfRows(inSection: 0) < 4 {
+                constant = 0.1
+            }
+            // Deixando o tamamho das celulas dinamico
+            wellNessTableView.rowHeight = UITableView.automaticDimension
+        wellNessTableView.estimatedRowHeight = UITableView.automaticDimension
+           // wellNessTableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            NSLayoutConstraint.activate([
+                wellNessTableView.topAnchor.constraint(equalToSystemSpacingBelow: stackView.bottomAnchor, multiplier: 3),
+                wellNessTableView.bottomAnchor.constraint(equalTo: lastWellNessLabel.topAnchor, constant: -20),
+                wellNessTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+                wellNessTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+                wellNessTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: constant)
+            ])
         }
-        NSLayoutConstraint.activate([
-            wellNessTableView.topAnchor.constraint(equalToSystemSpacingBelow: stackView.bottomAnchor, multiplier: 3),
-            wellNessTableView.bottomAnchor.constraint(equalTo: lastWellNessLabel.topAnchor, constant: -20),
-            wellNessTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            wellNessTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            wellNessTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: constant)
-        ])
-    }
+
     
     //MARK: LastLabel
     func setUPLasLabel() {
@@ -562,15 +570,18 @@ class AchievementTableViewCell: UITableViewCell {
         image.translatesAutoresizingMaskIntoConstraints = false
         cellLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            image.leadingAnchor.constraint(equalToSystemSpacingAfter: contentView.leadingAnchor, multiplier: 1), // Mude de contentView.trailingAnchor para contentView.leadingAnchor
-            image.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.3), // Ajuste o valor conforme necessário
-            image.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.5), // Ajuste o valor conforme necessário
+            // Imagem
+            image.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            image.widthAnchor.constraint(equalToConstant: 27),
+            image.heightAnchor.constraint(equalToConstant: 28),
             image.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            //Label
-            cellLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: image.trailingAnchor, multiplier: 1),
-            cellLabel.trailingAnchor.constraint(equalToSystemSpacingAfter: contentView.trailingAnchor, multiplier: 1),
-            cellLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
-        ])
+            
+            // Espaço entre a imagem e o texto
+            cellLabel.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 10), // Ajuste o valor conforme necessário
+            
+            // Texto
+            cellLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            cellLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)        ])
     }
     
     required init?(coder: NSCoder) {

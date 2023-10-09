@@ -24,6 +24,7 @@
 // Definir Meta
 "new-goal-title" = "Definindo seu objetivo profissional.";
 "new-goal-text" = "Comece com uma meta clara e de curto prazo!";
+"textfield-placeholder" = "Escreva aqui";
 // Criar tarefas
 "subgoals-title" = "Dividindo para conquistar.";
 "subgoals-text" = "Divida sua meta em tarefas menores.";

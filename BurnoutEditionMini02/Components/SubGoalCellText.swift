@@ -1,19 +1,31 @@
-//
-//  SubGoalCellText.swift
-//  BurnoutEditionMini02
-//
-//  Created by Mirelle Sine on 29/09/23.
-//
-
 import UIKit
 
-//celula da NewSubGoalModalViewController que tem o textField
+enum TextFieldType {
+    case text
+    case date
+}
+
+// Celula da NewSubGoalModalViewController que tem o textField
 class SubGoalCellText: UITableViewCell, UITextFieldDelegate {
     let textField = UITextField()
     var subGoal: SubGoalStatic?
     
     weak var delegate: SubGoalCellTextDelegate?
-        
+    
+    var type: TextFieldType = .text {
+        didSet {
+            switch type {
+            case .text:
+                setUpForText()
+            case .date:
+                setUpForDate()
+            }
+        }
+    }
+    
+    private let stackView = UIStackView()
+    private let datePicker = UIDatePicker()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUp()
@@ -24,38 +36,61 @@ class SubGoalCellText: UITableViewCell, UITextFieldDelegate {
     }
     
     func setUp() {
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.spacing = 8
+        contentView.addSubview(stackView)
         
         textField.delegate = self
-        textField.translatesAutoresizingMaskIntoConstraints = false //sempre para usar os constraints
-        contentView.addSubview(textField)
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        stackView.addArrangedSubview(textField)
+        
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
         
         separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         NSLayoutConstraint.activate([
-            textField.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 11),
-            textField.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
-            textField.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -11),
-            textField.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 9),
+            stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
+            stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -9),
+            datePicker.widthAnchor.constraint(lessThanOrEqualToConstant: UIScreen.main.bounds.size.width * 0.3)
         ])
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        
+        // Configurar o UIDatePicker
+        datePicker.datePickerMode = .time
+        var calendar = Calendar.current
+        let dateComponents = DateComponents(calendar: calendar, hour: 0, minute: 0)
+            datePicker.date = calendar.date(from: dateComponents) ?? Date()
+        stackView.addArrangedSubview(datePicker)
+        datePicker.isHidden = true
     }
-
-    // Método chamado quando o texto do campo de texto é alterado
+    
+    func setUpForText() {
+        datePicker.isHidden = true
+        // Configure a célula para o tipo de texto
+    }
+    
+    func setUpForDate() {
+        datePicker.isHidden = false
+    }
+    
     @objc func textFieldDidChange(_ textField: UITextField) {
-        guard let text = textField.text, let subGoal else {
+        guard let text = textField.text, let subGoal = subGoal else {
             return
         }
         delegate?.subGoalTextDidChangeText(subGoal, text: text)
     }
     
-    //botao de return do teclado
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard let subGoal else {
+        guard let subGoal = subGoal else {
             return true
         }
         delegate?.subGoalTextReturnTouched(subGoal)
         return true
     }
 }
+
 
 protocol SubGoalCellTextDelegate: AnyObject {
     func subGoalTextReturnTouched(_ subGoal: SubGoalStatic)

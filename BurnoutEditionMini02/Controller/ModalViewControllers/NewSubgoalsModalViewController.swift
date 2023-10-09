@@ -227,6 +227,7 @@ extension NewSubgoalsModalViewController: UITableViewDelegate, UITableViewDataSo
             let subGoal = subGoals[indexPath.row - 1]
             cell.textField.text = subGoal.title
             cell.subGoal = subGoal
+            cell.type = .text // Defina o tipo como .text
             cell.delegate = self
             cell.selectionStyle = .none // remove a seleção cinza da célula
             

@@ -10,6 +10,21 @@ import UIKit
 class AchievementDetailViewController: UIViewController {
     // meta selecionada na tela de conquistas
     private var goal: Goal?
+    
+    //ScrollView
+    private let scrollView: UIScrollView = {
+       let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
+    // View que abriga a scrollView
+    private let contentView: UIView = {
+       let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     // Label da data da conquista
     private let dateLabel: UILabel = {
         let label = UILabel()
@@ -128,6 +143,8 @@ class AchievementDetailViewController: UIViewController {
         // Adicionando todas as views
         addToView()
         // Funções de SetUp
+       // setUpScrollView()
+        //setUpContentView()
         setUpDateImage()
         setUpDateLabel()
         setUpWellBeingTitleLabel()
@@ -160,6 +177,9 @@ class AchievementDetailViewController: UIViewController {
     
     // Função para adicionar todos na view
     func addToView(){
+        // ScrollView
+//        view.addSubview(scrollView)
+//        scrollView.addSubview(contentView)
         view.addSubview(dateLabel)
         view.addSubview(dateImage)
         view.addSubview(stackView)
@@ -173,6 +193,32 @@ class AchievementDetailViewController: UIViewController {
         view.addSubview(workTableView)
         view.addSubview(finalLabel)
     }
+    
+//    // MARK: SetUpScrollView
+//    private func setUpScrollView(){
+//        NSLayoutConstraint.activate([
+//            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+//            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+//        ])
+//    }
+//    // MARK: SetUpContentView
+//    private func setUpContentView(){
+//        // Setando a prioridade do height da para ativar a scrollView
+//        let hConts = contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
+//        hConts.isActive = true
+//        hConts.priority = UILayoutPriority(50)
+//
+//        NSLayoutConstraint.activate([
+//            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+//            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+//            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+//            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+//            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+//           // contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
+//        ])
+//    }
     
     // MARK: SetUpDateLabel
     func setUpDateLabel() {

@@ -29,7 +29,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let goalsVC = navHome
         let achievementsVC = UINavigationController(rootViewController: AchievementsViewController())
         let reflectionVC = navConReflection
-        let settingsVC = UINavigationController(rootViewController: SettingsViewController())
+        let settingsVC = UINavigationController(rootViewController: ReflectionSugestionViewController())
         
         
         // Atribuição das ViewController à Tab Bar

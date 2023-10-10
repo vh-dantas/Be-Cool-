@@ -66,6 +66,13 @@
 "congratulations-body" = "Você alcançou sua meta com sucesso e equilíbrio, agora não se esqueça de confira sua jornada na aba ”Conquistas”.";
 "congratulations-button" = "Continuar";
 
+// Sugestão de Reflection
+"reflection-suggestion-title" = "Que tal refletir sobre sua jornada?";
+"reflection-suggestion-body" = "Refletir sobre o caminho que você percorreu é uma ótima ferramenta para quem busca sucesso e desenvolvimento pessoal.";
+"reflection-suggestion-deny" = "Talvez mais tarde";
+"reflection-suggestion-button" = "Fazer Reflexão";
+
+
 // MARK: -- REFLECTION
 "start-breathing" = "Iniciar exercício de respiração";
 "inhale" = "Inspire";

@@ -158,6 +158,13 @@
 			path = Achievement;
 			sourceTree = "<group>";
 		};
+		BA2FEF2C2AD4DFEA006A472E /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		BA7E71672AC35A930036028B /* Entities */ = {
 			isa = PBXGroup;
 			children = (
@@ -227,6 +234,7 @@
 		F15BE4F52ABCC892005A1C39 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				BA2FEF2C2AD4DFEA006A472E /* New Group */,
 				C5DF0BA62ACB03800012C1F4 /* CreateGoalVCStore.swift */,
 				2F80C2AB2ACE1F9F0088EB9A /* WellnessTimeCalculator.swift */,
 				F15BE4F92ABCC97D005A1C39 /* GoalsViewController.swift */,
@@ -572,7 +580,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = VictorHugo.BurnoutEdition;
+				PRODUCT_BUNDLE_IDENTIFIER = BurnoutEdition;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -601,7 +609,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = VictorHugo.BurnoutEdition;
+				PRODUCT_BUNDLE_IDENTIFIER = BurnoutEdition;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

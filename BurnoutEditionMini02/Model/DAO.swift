@@ -112,6 +112,10 @@ class DataAcessObject {
         
     }
     
+//    func fetchWorkSubGoals(goal: Goal) -> [SubGoal]{
+//        let workGoals = goal.subGoals?.filter {
+//    }
+    
     // Criando uma Sub meta - SubGoal
     func createSubGoal(title: String, type: String, goal: Goal){
         let newSubGoal = SubGoal(context: context)

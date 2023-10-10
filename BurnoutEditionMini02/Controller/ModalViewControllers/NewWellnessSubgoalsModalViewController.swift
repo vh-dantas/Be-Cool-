@@ -220,11 +220,11 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
             let newGoal = DataAcessObject.shared.createGoal(title: goal.title)
             //submeta
             subGoals.forEach { subGoal in
-                DataAcessObject.shared.createSubGoal(title: subGoal.title, type: subGoal.type.rawValue, goal: newGoal)
+                DataAcessObject.shared.createSubGoal(title: subGoal.title, type: subGoal.type.rawValue, goal: newGoal, time: 0)
             }
             //submeta wellness
             subGoalsWellness.forEach { subGoalWellness in
-                DataAcessObject.shared.createSubGoal(title: subGoalWellness.title, type: subGoalWellness.type.rawValue, goal: newGoal)
+                DataAcessObject.shared.createSubGoal(title: subGoalWellness.title, type: subGoalWellness.type.rawValue, goal: newGoal, time: 0)
             }
             
             // Cria a navegação de pop para a home

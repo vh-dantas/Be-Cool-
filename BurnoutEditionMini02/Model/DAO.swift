@@ -133,11 +133,6 @@ class DataAcessObject {
         saveContext()
     }
     
-    func toggleIsCompleted(subGoal: SubGoal){
-        subGoal.isCompleted.toggle()
-        saveContext()
-    }
-    
     // Atualizando uma Sub meta - SubGoal
     func updateSubGoal(_ subGoal: SubGoal, title: String){
         subGoal.title = title

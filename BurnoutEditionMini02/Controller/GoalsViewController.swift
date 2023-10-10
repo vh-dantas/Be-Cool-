@@ -264,8 +264,8 @@ class GradientView: UIView {
         super.init(frame: frame)
         setupGradient()
         
-        workIcon.tintColor = .blue
-        lifeIcon.tintColor = .systemIndigo
+        workIcon.tintColor = UIColor(named: "ScaleIcon1Color")
+        lifeIcon.tintColor = UIColor(named: "ScaleIcon2Color")
         
         let iconSizeHeight: CGFloat = 18
         let iconSizeWidth: CGFloat = 20
@@ -285,7 +285,7 @@ class GradientView: UIView {
     
     private func setupGradient() {
         gradientLayer.frame = bounds
-        gradientLayer.colors = [UIColor.systemBlue.cgColor, UIColor.systemMint.cgColor]
+        gradientLayer.colors = [UIColor(named: "WorkSideScaleColor")?.cgColor ?? UIColor.cyan, UIColor(named: "WellnessSideScaleColor")?.cgColor ?? UIColor.systemMint]
         gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
         gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.5)
         layer.addSublayer(gradientLayer)

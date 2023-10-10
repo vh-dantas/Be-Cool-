@@ -31,6 +31,8 @@ class NewGoalModalViewController: ViewController, UITextFieldDelegate, BigButton
     //delegate
     weak var delegate: NewGoalModalDelegate?
     
+    let imageView = UIImageView(image: UIImage(named: "pinguimWork"))
+
     init(homeGoal: GoalsViewController) {
         self.homeGoal = homeGoal
         super.init(nibName: nil, bundle: nil)
@@ -47,6 +49,7 @@ class NewGoalModalViewController: ViewController, UITextFieldDelegate, BigButton
         // Coloca a cor de fundo da modal (ele seta como transparente por padrão)
         view.backgroundColor = UIColor(named: "BackgroundColor")
         
+        setUpImageView()
         setUpFirstLabel()
         setUpSecondLabel()
         setUpBottomLineTextField()
@@ -56,7 +59,22 @@ class NewGoalModalViewController: ViewController, UITextFieldDelegate, BigButton
     }
     
     //MARK: -- SetUp Elementos da view
-    
+    /// Image
+    /// Image
+    func setUpImageView() {
+        // Configure properties of UIImageView
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Add imageView to the stackView
+        stackView.addArrangedSubview(imageView)
+        
+        // Add constraints
+        NSLayoutConstraint.activate([
+            imageView.widthAnchor.constraint(equalTo: stackView.widthAnchor),
+        ])
+    }
+
     ///título
     func setUpFirstLabel() {
         // Configura propriedades do UILabel
@@ -105,6 +123,7 @@ class NewGoalModalViewController: ViewController, UITextFieldDelegate, BigButton
         ])
         
         //adiciona como filhas da stack view
+        stackView.addArrangedSubview(imageView)
         stackView.addArrangedSubview(firstLabel)
         stackView.addArrangedSubview(secondLabel)
         stackView.addArrangedSubview(bottomLineTextField)

@@ -146,4 +146,16 @@ class DataAcessObject {
         context.delete(subGoal)
         saveContext()
     }
+    
+    // Mudando se a submeta tá completa ou não
+    func toggleIsCompleted(subGoal: SubGoal){
+           subGoal.isCompleted.toggle()
+           saveContext()
+       }
+    
+    // Mudando se a meta principal tá completa ou não
+    func toggleIsCompleted(goal: Goal) {
+        goal.isCompleted.toggle()
+        saveContext()
+    }
 }

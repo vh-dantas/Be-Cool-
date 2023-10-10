@@ -96,7 +96,13 @@ class ReflectionSugestionViewController: UIViewController {
         let boldFont = UIFont(descriptor: boldFontDescriptor ?? UIFontDescriptor(name: "arial", size: 12), size: 0)
         label.font = boldFont
         label.textColor = UIColor(named: "CongratsCollor")
-        label.font = UIFont.preferredFont(forTextStyle: .body)
+        let boldAttributes: [NSAttributedString.Key: Any] = [
+            .font: boldFont,
+            .underlineStyle: NSUnderlineStyle.single.rawValue // Adiciona sublinhado
+        ]
+        // Cria um atributo de texto com os estilos definidos
+        let attributedText = NSAttributedString(string: label.text ?? "", attributes: boldAttributes)
+        label.attributedText = attributedText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontForContentSizeCategory = true
         label.textAlignment = .center
@@ -129,20 +135,21 @@ class ReflectionSugestionViewController: UIViewController {
     // MARK: Funções de constraints
     func setUpTopContentView(){
         NSLayoutConstraint.activate([
-            topContentView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            topContentView.topAnchor.constraint(equalTo: view.topAnchor),
             topContentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             topContentView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             topContentView.widthAnchor.constraint(equalTo: view.widthAnchor),
             topContentView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5),
             
             // Imagens
-            cloudsImage.centerXAnchor.constraint(equalTo: topContentView.centerXAnchor),
-            cloudsImage.topAnchor.constraint(equalTo: topContentView.topAnchor, constant: -70),
-            cloudsImage.widthAnchor.constraint(equalTo: topContentView.widthAnchor, multiplier: 1),
+            cloudsImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
+            cloudsImage.leadingAnchor.constraint(equalTo: topContentView.leadingAnchor),
+            cloudsImage.trailingAnchor.constraint(equalTo: topContentView.trailingAnchor),
+            cloudsImage.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1),
             cloudsImage.heightAnchor.constraint(equalTo: topContentView.heightAnchor, multiplier: 0.8),
             
             penguinImage.centerXAnchor.constraint(equalTo: topContentView.centerXAnchor),
-            penguinImage.topAnchor.constraint(equalTo: topContentView.topAnchor, constant: -12),
+            penguinImage.topAnchor.constraint(equalTo: topContentView.topAnchor, constant: 80),
             penguinImage.widthAnchor.constraint(equalTo: topContentView.widthAnchor, multiplier: 0.7),
             penguinImage.heightAnchor.constraint(equalTo: topContentView.heightAnchor, multiplier: 0.7)
         ])
@@ -164,6 +171,9 @@ class ReflectionSugestionViewController: UIViewController {
     
     func setUpButton() {
         continueButton.addTarget(self, action: #selector(tapButton), for: .touchUpInside)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapFunction))
+        laterLabel.isUserInteractionEnabled = true
+        laterLabel.addGestureRecognizer(tap)
         NSLayoutConstraint.activate([
             continueButton.topAnchor.constraint(equalTo: bodyLabel.bottomAnchor, constant: 60),
             continueButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -172,14 +182,20 @@ class ReflectionSugestionViewController: UIViewController {
             // Botao mais tarde
             laterLabel.topAnchor.constraint(equalTo: continueButton.bottomAnchor, constant: 9),
             laterLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//            laterLabel.widthAnchor.constraint(equalToConstant: 250),
-//            laterLabel.heightAnchor.constraint(equalToConstant: 50),
         ])
+        
     }
     
     @objc private func tapButton(){
         print("PPPPPPOOOOOOUURRRRAAA")
-        navigationController?.pushViewController(BreathAnimationViewController(), animated: true)
+        let reflectionView = BreathAnimationViewController()
+        reflectionView.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(reflectionView, animated: true)
+    }
+    
+    @objc private func tapFunction(){
+        print("Num é que tocou")
+        navigationController?.pushViewController(GoalsViewController(), animated: true)
     }
     
 }

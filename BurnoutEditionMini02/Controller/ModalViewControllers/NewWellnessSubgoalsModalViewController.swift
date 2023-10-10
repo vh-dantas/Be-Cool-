@@ -27,6 +27,8 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
     
     let stackView = UIStackView()
     
+    var timeDigits = ["0", "0", "0", "0"]
+    
     
     init() {
         // Sempre chamar este super.init
@@ -149,6 +151,8 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
                 
                 stackView.addArrangedSubview(rectangle)
                 
+                self.timeDigits[index] = String(timeDigits[index])
+                
                 // Adiciona o separador (:) entre o segundo e o terceiro cartão
                 if index == 1 {
                     let separator = UILabel()
@@ -197,33 +201,42 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
     }
     
     @objc func createGoal() {
-        // se a subgoal estiver vazia a celula eh excluída
-        subGoals.enumerated().forEach { index, subGoal in
-            if subGoal.title.isEmpty == true {
-                subGoals.remove(at: index)
+        // Verifique se o valor de timeDigits é "00:00"
+        if timeDigits.joined() == "0000" {
+            // se a subgoal estiver vazia a celula eh excluída
+            subGoals.enumerated().forEach { index, subGoal in
+                if subGoal.title.isEmpty == true {
+                    subGoals.remove(at: index)
+                }
             }
+            tableView.reloadData()
+            
+            //core data
+            guard let goal = CreateGoalVCStore.shared.newGoalModalViewController?.goal, let subGoals = CreateGoalVCStore.shared.newSubGoalModalViewController?.subGoals, let sliderLevels = CreateGoalVCStore.shared.subgoalLevelViewController?.sliderLevels, let subGoalsWellness = CreateGoalVCStore.shared.newWellnessSubgoalsModalViewController?.subGoals else {
+                return
+            }
+            
+            //meta
+            let newGoal = DataAcessObject.shared.createGoal(title: goal.title)
+            //submeta
+            subGoals.forEach { subGoal in
+                DataAcessObject.shared.createSubGoal(title: subGoal.title, type: subGoal.type.rawValue, goal: newGoal)
+            }
+            //submeta wellness
+            subGoalsWellness.forEach { subGoalWellness in
+                DataAcessObject.shared.createSubGoal(title: subGoalWellness.title, type: subGoalWellness.type.rawValue, goal: newGoal)
+            }
+            
+            // Cria a navegação de pop para a home
+            navigationController?.popToRootViewController(animated: true)
+        } else {
+            // Mostrar um alerta ao usuário ou tomar outra ação apropriada
+            let alertController = UIAlertController(title: "Aviso", message: "O valor do tempo deve ser 00:00 antes de continuar.", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .destructive, handler: nil))
+            present(alertController, animated: true, completion: nil)
         }
-        tableView.reloadData()
-        
-        //core data
-        guard let goal = CreateGoalVCStore.shared.newGoalModalViewController?.goal, let subGoals = CreateGoalVCStore.shared.newSubGoalModalViewController?.subGoals, let sliderLevels = CreateGoalVCStore.shared.subgoalLevelViewController?.sliderLevels, let subGoalsWellness = CreateGoalVCStore.shared.newWellnessSubgoalsModalViewController?.subGoals else {
-            return
-        }
-        
-        //meta
-        let newGoal = DataAcessObject.shared.createGoal(title: goal.title)
-        //submeta
-        subGoals.forEach { subGoal in
-            DataAcessObject.shared.createSubGoal(title: subGoal.title, type: subGoal.type.rawValue, goal: newGoal)
-        }
-        //submeta wellness
-        subGoalsWellness.forEach { subGoalWellness in
-            DataAcessObject.shared.createSubGoal(title: subGoalWellness.title, type: subGoalWellness.type.rawValue, goal: newGoal)
-        }
-        
-        // Cria a navegação de pop para a home
-        navigationController?.popToRootViewController(animated: true)
     }
+
     
 //MARK: --meu
     

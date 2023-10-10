@@ -131,17 +131,17 @@ class NewSubgoalsModalViewController: ViewController, AddSubGoalButtonDelegate, 
     //MARK: -- Funcionalidades
     
     @objc func nextView() {
-        // Cria a navegação de push entre as telas
-        let newSubgoalLevelViewController = NewSubgoalLevelViewController()
-        navigationController?.pushViewController(newSubgoalLevelViewController, animated: true)
-        
-        //se a subgoal estiver vazia exclui
-        subGoals.enumerated().forEach { index, subGoal in
-            if subGoal.title.isEmpty == true {
-                subGoals.remove(at: index)
-            }
+        // Verifique se todas as células têm pelo menos uma subgoal
+        if subGoals.contains(where: { $0.title.isEmpty }) {
+            // Mostrar um alerta ao usuário ou tomar outra ação apropriada
+            let alertController = UIAlertController(title: "Aviso", message: "Lembre-se de quebrar sua meta em pelo menos uma submeta", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .destructive, handler: nil))
+            present(alertController, animated: true, completion: nil)
+        } else {
+            // Todas as células têm pelo menos uma subgoal, continue com a navegação
+            let newSubgoalLevelViewController = NewSubgoalLevelViewController()
+            navigationController?.pushViewController(newSubgoalLevelViewController, animated: true)
         }
-        tableView.reloadData()
     }
     
     ///função que adiciona subgoal ao array static

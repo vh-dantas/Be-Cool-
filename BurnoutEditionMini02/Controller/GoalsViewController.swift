@@ -54,8 +54,6 @@ class GoalsViewController: UIViewController, NewGoalModalDelegate, NewSubGoalMod
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
         
-        
-        
         constraints()
         fetchSubGoalsArray() // Recarregar a array e o titulo
         
@@ -131,27 +129,54 @@ extension GoalsViewController: UITableViewDataSource {
         let subGoal = subItems[indexPath.row]
         
         cell.customLabel.text = subGoal.title
-        
+        cell.button.tag = indexPath.row
+
         switch subGoal.type {
-        case "work":
-            cell.backgroundColor = UIColor(named: "WorkCellColor")
-            cell.button.setImage(UIImage(systemName: "circle"), for: .normal)
-            cell.button.tintColor = UIColor(named: "CheckMarkColor")
-        case "personal":
-            cell.backgroundColor = UIColor(named: "WellnessCellColor")
-            cell.button.setImage(UIImage(systemName: "heart"), for: .normal)
-            cell.button.tintColor = UIColor(named: "HeartCheckColor")
-        default:
-            break
-        }
+            case "work":
+            cell.button.addTarget(self, action: #selector(buttonTapped(sender:)), for: .touchUpInside)
+                cell.backgroundColor = UIColor(named: "WorkCellColor")
+                cell.button.tintColor = UIColor(named: "CheckMarkColor")
+                cell.button.setImage(UIImage(systemName: subGoal.isCompleted ? "checkmark.circle.fill" : "circle"), for: .normal)
+            case "personal":
+            cell.button.addTarget(self, action: #selector(buttonTapped(sender:)), for: .touchUpInside)
+                cell.backgroundColor = UIColor(named: "WellnessCellColor")
+                cell.button.tintColor = UIColor(named: "HeartCheckColor")
+                cell.button.setImage(UIImage(systemName: subGoal.isCompleted ? "heart.fill" : "heart"), for: .normal)
+            default:
+                break
+            }
         
         let maskLayer = CAShapeLayer()
         maskLayer.frame = cell.bounds
         let path = UIBezierPath(roundedRect: cell.bounds, byRoundingCorners: [.topRight, .bottomRight], cornerRadii: CGSize(width: 20, height: 10))
         maskLayer.path = path.cgPath
         cell.layer.mask = maskLayer
+
         
         return cell
+    }
+    
+    @objc func buttonTapped(sender: UIButton) {
+        let subGoal = subItems[sender.tag]
+        let dao = DataAcessObject()
+        dao.toggleIsCompleted(subGoal: subGoal)
+        checkSubGoalsCompletion()
+        tableView.reloadData()
+    }
+    
+    func checkSubGoalsCompletion() {
+        if let goal = DataAcessObject.shared.fetchGoal().first {
+            let subGoals = DataAcessObject.shared.fetchSubGoals(goal: goal)
+            
+            let allSubGoalsCompleted = subGoals.allSatisfy { $0.isCompleted }
+            
+            if allSubGoalsCompleted && !goal.isCompleted {
+                DataAcessObject.shared.toggleIsCompleted(goal: goal)
+                let congratulationsViewController = CongratulationsViewController()
+                congratulationsViewController.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(congratulationsViewController, animated: true)
+            }
+        }
     }
     
     
@@ -208,10 +233,7 @@ class CustomTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        button.setImage(UIImage(systemName: "circle"), for: .normal)
-        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-        
+                
         customLabel.translatesAutoresizingMaskIntoConstraints = false
         button.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(customLabel)
@@ -229,21 +251,6 @@ class CustomTableViewCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    @objc func buttonTapped() {
-        switch button.currentImage {
-        case UIImage(systemName: "circle"):
-            button.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
-        case UIImage(systemName: "checkmark.circle.fill"):
-            button.setImage(UIImage(systemName: "circle"), for: .normal)
-        case UIImage(systemName: "heart"):
-            button.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-        case UIImage(systemName: "heart.fill"):
-            button.setImage(UIImage(systemName: "heart"), for: .normal)
-        default:
-            break
-        }
     }
     
 }

@@ -35,10 +35,10 @@ class BigButton: UIView {
         
         //constraints do botao
         NSLayoutConstraint.activate([
-            heightAnchor.constraint(equalToConstant: buttonSize + 16),
+            heightAnchor.constraint(equalToConstant: buttonSize + 32),
             bigButton.widthAnchor.constraint(equalToConstant: buttonSize),
             bigButton.heightAnchor.constraint(equalToConstant: buttonSize),
-            bigButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            bigButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             bigButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
         ])
         

@@ -34,6 +34,8 @@ class CreatingNewReflection3ViewController: UIViewController, UITextFieldDelegat
     var imageView: UIImageView?
     var finalDrawing: UIImageView?
     
+    var goal: Goal?
+    
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,7 +120,7 @@ class CreatingNewReflection3ViewController: UIViewController, UITextFieldDelegat
         let image = imageView
         let mood = selectedMood
         
-        DataAcessObject.shared.createReflection(refName: refName ?? "", mood: mood ?? "", randomRefQST: randomRefQst ?? "", randomRefANS: randomRefAns ?? "", drawing: drawing, image: image)
+        DataAcessObject.shared.createReflection(refName: refName ?? "", mood: mood ?? "", randomRefQST: randomRefQst ?? "", randomRefANS: randomRefAns ?? "", drawing: drawing, image: image, goal: self.goal)
         
         navigationController?.popToRootViewController(animated: true)
     }
@@ -225,3 +227,5 @@ class CreatingNewReflection3ViewController: UIViewController, UITextFieldDelegat
     }
 
 }
+
+

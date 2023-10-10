@@ -1,18 +1,3 @@
-//
-//  ViewController.swift
-//  BurnoutEditionMini02
-//
-//  Created by Mirelle Sine on 03/10/23.
-//
-
-import Foundation
-//
-//  ViewController.swift
-//  BurnoutEditionMini02
-//
-//  Created by Mirelle Sine on 03/10/23.
-//
-
 import UIKit
 
 //View controller principal com métodos adicionais do botão azul de ir pra próxima tela

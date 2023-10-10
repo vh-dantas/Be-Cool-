@@ -62,7 +62,7 @@ class DataAcessObject {
         return newGoal
     }
     
-    func createReflection(refName: String, mood: String, randomRefQST: String, randomRefANS: String, drawing: UIImageView?, image: UIImageView?) {
+    func createReflection(refName: String, mood: String, randomRefQST: String, randomRefANS: String, drawing: UIImageView?, image: UIImageView?, goal: Goal?) {
         let newReflection = ReflectionEntity(context: context)
         newReflection.id = UUID()
         newReflection.date = Date()
@@ -79,7 +79,11 @@ class DataAcessObject {
                 newReflection.image = imageData
             }
         }
+        // Caso nao seja vazio a goal ele cria o relacionamento
         newReflection.refName = refName
+        if let goal = goal {
+            newReflection.goal = goal
+        }
         saveContext()
     }
     
@@ -117,14 +121,20 @@ class DataAcessObject {
 //    }
     
     // Criando uma Sub meta - SubGoal
-    func createSubGoal(title: String, type: String, goal: Goal){
+    func createSubGoal(title: String, type: String, goal: Goal, time: Int){
         let newSubGoal = SubGoal(context: context)
         newSubGoal.id = UUID()
         newSubGoal.title = title
         newSubGoal.type = type
         newSubGoal.isCompleted = false
         newSubGoal.goal = goal
+        newSubGoal.time = Int32(time)
         // Salvando os dados
+        saveContext()
+    }
+    
+    func toggleIsCompleted(subGoal: SubGoal){
+        subGoal.isCompleted.toggle()
         saveContext()
     }
     

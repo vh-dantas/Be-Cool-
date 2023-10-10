@@ -60,7 +60,11 @@
 "achievement-detail-work-title" = "Tarefas de trabalho";
 "achievement-detail-work-text" = "Dividir metas em tarefas tornou o impossível possível. Pequenos passos levaram a grandes realizações!";
 
-
+// Finalizou uma meta e ganhando conquista
+"congratulations-title" = "Parabens!";
+"congratulations-sub-title" = "Uau! Sua dedicação valeu a pena, hein?";
+"congratulations-body" = "Você alcançou sua meta com sucesso e equilíbrio, agora não se esqueça de confira sua jornada na aba ”Conquistas”.";
+"congratulations-button" = "Continuar";
 
 // MARK: -- REFLECTION
 "start-breathing" = "Iniciar exercício de respiração";

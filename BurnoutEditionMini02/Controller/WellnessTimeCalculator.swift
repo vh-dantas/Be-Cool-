@@ -26,4 +26,8 @@ class Calculator {
         print("horas de bem-estar recomendadas: \(hours) hora(s) e \(minutes) minutos")
         return (hours, minutes)
     }
+    
+    func calculateRemainingTime() {
+        return 
+    }
 }

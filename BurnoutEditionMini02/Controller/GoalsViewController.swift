@@ -10,6 +10,9 @@ import CoreData
 
 // Implementa o protocolo NewGoalModalDelegate
 class GoalsViewController: UIViewController, NewGoalModalDelegate, NewSubGoalModalDelegate {
+    
+    let gradientView = GradientView(frame: CGRect(x: 0, y: 0, width: 310, height: 25))
+    
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         return scrollView
@@ -28,14 +31,15 @@ class GoalsViewController: UIViewController, NewGoalModalDelegate, NewSubGoalMod
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.dataSource = self
-        // tirar as linhas de separacao
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
         tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: "CustomCell")
-        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
+    
+    let label = UILabel()
+    let phrases = ["Dedique tempo ao seu bem-estar também", "Continue buscando o equilíbrio.", "Parabéns! Você está em equilíbrio", "Equilibre seu foco e continue brilhando", "Lembre-se das metas e transforme a procrastinação em ação!"]
     
     //CoreData and TableView
     private var subItems:[SubGoal] = []
@@ -47,10 +51,22 @@ class GoalsViewController: UIViewController, NewGoalModalDelegate, NewSubGoalMod
         // O Titulo é a ultima meta adicionada - a meta atual
         navigationItem.title = DataAcessObject.shared.fetchGoal().first?.title
         view.backgroundColor = UIColor(named: "BackgroundColor")
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .always
+        
+        
         
         constraints()
         fetchSubGoalsArray() // Recarregar a array e o titulo
         
+        label.text = "oiiii"
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        label.font = UIFont.systemFont(ofSize: 15)
+        
+        let index = 4
+        label.text = phrases[index]
         // MARK: -- Botões de navegação
         let openModalBtn = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(createNewGoal))
         navigationItem.rightBarButtonItem = openModalBtn
@@ -139,19 +155,38 @@ extension GoalsViewController: UITableViewDataSource {
     }
     
     
-    private func constraints(){
+    private func constraints() {
+        view.addSubview(gradientView)
+        view.addSubview(label) // Add the label to the view hierarchy
+        
+        // Rest of your constraints
         view.addSubview(scrollView)
         scrollView.addSubview(goalsStackView)
         view.addSubview(tableView)
         
+        gradientView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         goalsStackView.translatesAutoresizingMaskIntoConstraints = false
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        let safeArea = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            gradientView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            gradientView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            gradientView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            gradientView.heightAnchor.constraint(equalToConstant: 25),
+            
+            label.topAnchor.constraint(equalTo: gradientView.bottomAnchor, constant: 8),
+            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            
+            scrollView.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 8),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: -8),
+            
+            scrollView.heightAnchor.constraint(equalTo: label.heightAnchor, multiplier: 1.0),
             
             goalsStackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             goalsStackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
@@ -159,10 +194,10 @@ extension GoalsViewController: UITableViewDataSource {
             goalsStackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             goalsStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 8),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            tableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
     }
 }
@@ -200,7 +235,6 @@ class CustomTableViewCell: UITableViewCell {
         switch button.currentImage {
         case UIImage(systemName: "circle"):
             button.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
-            customLabel.textColor = .lightGray
         case UIImage(systemName: "checkmark.circle.fill"):
             button.setImage(UIImage(systemName: "circle"), for: .normal)
         case UIImage(systemName: "heart"):
@@ -211,5 +245,44 @@ class CustomTableViewCell: UITableViewCell {
             break
         }
     }
+    
+}
 
+class GradientView: UIView {
+    let workIcon = UIImageView(image: UIImage(systemName: "briefcase.fill"))
+    let lifeIcon = UIImageView(image: UIImage(systemName: "heart.fill"))
+    let gradientLayer = CAGradientLayer()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupGradient()
+        
+        workIcon.tintColor = .blue
+        lifeIcon.tintColor = .systemIndigo
+        
+        let iconSizeHeight: CGFloat = 18
+        let iconSizeWidth: CGFloat = 20
+        let yPosition = (bounds.height - iconSizeWidth) / 2
+        
+        workIcon.frame = CGRect(x: 10, y: yPosition, width: iconSizeWidth, height: iconSizeHeight)
+        lifeIcon.frame = CGRect(x: bounds.width - iconSizeWidth - 10, y: yPosition, width: iconSizeWidth, height: iconSizeHeight)
+        
+        addSubview(workIcon)
+        addSubview(lifeIcon)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setupGradient()
+    }
+    
+    private func setupGradient() {
+        gradientLayer.frame = bounds
+        gradientLayer.colors = [UIColor.systemBlue.cgColor, UIColor.systemMint.cgColor]
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
+        gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.5)
+        layer.addSublayer(gradientLayer)
+        layer.cornerRadius = 13
+        layer.masksToBounds = true
+    }
 }

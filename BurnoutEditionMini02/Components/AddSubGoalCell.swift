@@ -25,7 +25,7 @@ class AddSubGoalCell: UITableViewCell {
     }
     
     func setUp() {
-        backgroundColor = .white
+        backgroundColor = UIColor(named:"SubGoalCellColor")
         layer.cornerRadius = 10
         clipsToBounds = true
         

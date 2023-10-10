@@ -9,6 +9,7 @@ import Foundation
 // Essa classe calcula o valor necessário das metas de bem estar
 class Calculator {
     static let shared = Calculator()
+    //guarda os valores dos sliders
     var savedValues: [Int: Float] = [:]
     let balance: Float = 0.3
 
@@ -27,7 +28,32 @@ class Calculator {
         return (hours, minutes)
     }
     
-    func calculateRemainingTime() {
-        return 
+    func calculateRemainingTime(wellnessDates: [Date]) -> (Int, Int) {
+        // Chamando a função calculateResult para obter as horas e minutos de bem-estar calculados
+        let (resultHours, resultMinutes) = calculateResult()
+        
+        // Calculando a soma das horas e minutos das wellnessDates
+        let calendar = Calendar.current
+        var totalWellnessHours = 0
+        var totalWellnessMinutes = 0
+        
+        for date in wellnessDates {
+            let components = calendar.dateComponents([.hour, .minute], from: date)
+            totalWellnessHours += components.hour ?? 0
+            totalWellnessMinutes += components.minute ?? 0
+        }
+        
+        // Subtraindo as horas e minutos de bem-estar das wellnessDates dos resultados
+        var remainingHours = resultHours - totalWellnessHours
+        var remainingMinutes = resultMinutes - totalWellnessMinutes
+        
+        // Certificando-se de que os minutos não sejam negativos
+        if remainingMinutes < 0 {
+            remainingHours -= 1
+            remainingMinutes += 60
+        }
+        
+        return (remainingHours, remainingMinutes)
     }
+
 }

@@ -27,8 +27,7 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
     
     let stackView = UIStackView()
     
-    var timeDigits = ["0", "0", "0", "0"]
-    
+    var timeDigits = [UILabel(), UILabel(), UILabel(), UILabel()]
     
     init() {
         // Sempre chamar este super.init
@@ -119,11 +118,6 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
             stackView.spacing = 5
             stackView.translatesAutoresizingMaskIntoConstraints = false
             
-            // pega o valor da classe calculadora
-            let (hours, minutes) = Calculator.shared.calculateResult()
-            // transforma o resultado em uma string e separa cada dígito com um .map
-            let timeDigits = String(format: "%02d%02d", hours, minutes).map { String($0) }
-            
             for index in 0..<4 {
                 // Cria um retângulo com as dimensões e posição certas
                 let rectangle = UIView()
@@ -135,10 +129,8 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
                     rectangle.heightAnchor.constraint(equalToConstant: 70)
                 ])
                 
-                // Cria a label do cartão
-                let timeDigit = UILabel()
+                let timeDigit = timeDigits[index]
                 // Adiciona os dígitos no cartão, um por vez
-                timeDigit.text = timeDigits[index]
                 timeDigit.textAlignment = .center
                 timeDigit.font = UIFont.systemFont(ofSize: 40)
                 timeDigit.translatesAutoresizingMaskIntoConstraints = false
@@ -150,9 +142,7 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
                 ])
                 
                 stackView.addArrangedSubview(rectangle)
-                
-                self.timeDigits[index] = String(timeDigits[index])
-                
+                                
                 // Adiciona o separador (:) entre o segundo e o terceiro cartão
                 if index == 1 {
                     let separator = UILabel()
@@ -162,6 +152,9 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
                     stackView.addArrangedSubview(separator)
                 }
             }
+            
+            let (hours, minutes) = Calculator.shared.calculateResult()
+            renderTimeDigits(hours: hours, minutes: minutes)
             
             self.view.addSubview(stackView)
             
@@ -200,9 +193,21 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
         }
     }
     
+    func renderTimeDigits(hours: Int, minutes: Int) {
+        // transforma o resultado em uma string e separa cada dígito com um .map
+        let digits = String(format: "%02d%02d", hours, minutes).map { String($0) }
+        
+        for index in 0..<digits.count {
+            timeDigits[index].text = digits[index]
+        }
+    }
+    
     @objc func createGoal() {
         // Verifique se o valor de timeDigits é "00:00"
-        if timeDigits.joined() == "0000" {
+        let time = timeDigits.map { label in
+            return label.text ?? ""
+        }.joined()
+        if time == "0000" {
             // se a subgoal estiver vazia a celula eh excluída
             subGoals.enumerated().forEach { index, subGoal in
                 if subGoal.title.isEmpty == true {
@@ -226,6 +231,8 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
             subGoalsWellness.forEach { subGoalWellness in
                 DataAcessObject.shared.createSubGoal(title: subGoalWellness.title, type: subGoalWellness.type.rawValue, goal: newGoal)
             }
+            
+            
             
             // Cria a navegação de pop para a home
             navigationController?.popToRootViewController(animated: true)
@@ -263,7 +270,15 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
     
     ///função que adiciona subgoal ao array static
     func addSubGoalButtonTouched() {
-        subGoals.append(SubGoalStatic(id: UUID(), title: "", level: .easy, type: .personal))
+        let calendar = Calendar.current
+        var components = calendar.dateComponents([.year, .month, .day], from: Date())
+        
+        components.hour = 0
+        components.minute = 0
+        
+        let startDate = calendar.date(from: components)
+        
+        subGoals.append(SubGoalStatic(id: UUID(), title: "", level: .easy, type: .personal, date: startDate))
         toggleAddSubGoalButton()
         tableView.reloadData()
     }
@@ -292,6 +307,26 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
     func subGoalTextDidChangeText(_ subGoal: SubGoalStatic, text: String) {
         subGoal.title = text
         toggleAddSubGoalButton()
+    }
+    
+    func subGoalDateDidChange(_ subGoal: SubGoalStatic, date: Date) {
+        var dates = [Date]()
+        for s in subGoals {
+            if s === subGoal {
+                dates.append(date)
+            } else if let sDate = s.date {
+                dates.append(sDate)
+            }
+        }
+        // pega o valor da classe calculadora
+        let (hours, minutes) = Calculator.shared.calculateRemainingTime(wellnessDates: dates)
+        if hours >= 0 && minutes >= 0 {
+            subGoal.date = date
+            renderTimeDigits(hours: hours, minutes: minutes)
+        } else {
+            // Opcional: Mostrar alerta
+            tableView.reloadData()
+        }
     }
 }
 
@@ -341,6 +376,9 @@ extension NewWellnessSubgoalsModalViewController: UITableViewDelegate, UITableVi
             }
             
             let subGoal = subGoals[indexPath.row - 1]
+            if let date = subGoal.date {
+                cell.datePicker.date = date
+            }
             cell.textField.text = subGoal.title
             cell.subGoal = subGoal
             cell.delegate = self

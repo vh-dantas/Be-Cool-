@@ -11,6 +11,7 @@ enum SubGoalType: String {
     case work
     case personal
 }
+
 enum Difficulty {
     case easy
     case medium
@@ -23,12 +24,14 @@ class SubGoalStatic {
     var level: Difficulty
     var isCompleted: Bool
     var type: SubGoalType
+    var date: Date?
     
-    init(id: UUID, title: String, level: Difficulty, isCompleted: Bool = false, type: SubGoalType) {
+    init(id: UUID, title: String, level: Difficulty, isCompleted: Bool = false, type: SubGoalType, date: Date? = nil) {
         self.id = id
         self.title = title
         self.level = level
         self.isCompleted = isCompleted
         self.type = type
+        self.date = date
     }
 }

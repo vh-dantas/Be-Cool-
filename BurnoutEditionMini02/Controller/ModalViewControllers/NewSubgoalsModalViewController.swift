@@ -8,7 +8,6 @@
 import UIKit
 
 class NewSubgoalsModalViewController: ViewController, AddSubGoalButtonDelegate, SubGoalCellTextDelegate, BigButtonDelegate {
-    
     // Cria UILabel
     let firstLabel = UILabel()
     let secondLabel = UILabel()
@@ -176,6 +175,8 @@ class NewSubgoalsModalViewController: ViewController, AddSubGoalButtonDelegate, 
         subGoal.title = text
         toggleAddSubGoalButton()
     }
+    
+    func subGoalDateDidChange(_ subGoal: SubGoalStatic, date: Date) {}
 }
 
 
@@ -233,7 +234,6 @@ extension NewSubgoalsModalViewController: UITableViewDelegate, UITableViewDataSo
             
             cell.layer.maskedCorners = []
             if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
-                cell.backgroundColor = .white
                 cell.layer.cornerRadius = 10
                 cell.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
                 cell.clipsToBounds = true

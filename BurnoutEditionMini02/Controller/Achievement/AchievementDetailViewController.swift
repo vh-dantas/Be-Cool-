@@ -50,7 +50,17 @@ class AchievementDetailViewController: UIViewController {
     private let wellBeingTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "Atividades de Bem-Estar"
-        label.font = UIFont.preferredFont(forTextStyle: .callout, compatibleWith: UITraitCollection(legibilityWeight: .bold))
+        // Obtém a fonte preferida para o estilo de texto .callout
+        let preferredFont = UIFont.preferredFont(forTextStyle: .callout)
+        
+        // Cria um descritor de fonte com estilo em negrito
+        let boldFontDescriptor = preferredFont.fontDescriptor.withSymbolicTraits(.traitBold)
+        
+        // Verifica se o descritor de fonte em negrito é nulo
+        let boldFont = UIFont(descriptor: boldFontDescriptor ?? UIFontDescriptor(name: "arial", size: 12), size: 0)
+        // Define a nova fonte em negrito para a sua label
+        label.font = boldFont
+        
         label.textColor = UIColor.black
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -106,7 +116,13 @@ class AchievementDetailViewController: UIViewController {
     private let workTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "Tarefas de trabalho"
-        label.font = UIFont.preferredFont(forTextStyle: .callout)
+        let preferredFont = UIFont.preferredFont(forTextStyle: .callout)
+        // Cria um descritor de fonte com estilo em negrito
+        let boldFontDescriptor = preferredFont.fontDescriptor.withSymbolicTraits(.traitBold)
+        // Verifica se o descritor de fonte em negrito é nulo
+        let boldFont = UIFont(descriptor: boldFontDescriptor ?? UIFontDescriptor(name: "arial", size: 12), size: 0)
+        // Define a nova fonte em negrito para a sua label
+        label.font = boldFont
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontForContentSizeCategory = true
         return label
@@ -451,7 +467,11 @@ class AchievementDetailViewController: UIViewController {
         easyPercent.translatesAutoresizingMaskIntoConstraints = false
         mediumPercent.translatesAutoresizingMaskIntoConstraints = false
         hardPercent.translatesAutoresizingMaskIntoConstraints = false
-        // Atualize o layout das subviews - cada color recebe uma width com sua porcentagem na barra
+        // Atualize o layout das subviews - cada color recebe uma width com sua porcentagem na barra - irei criar uma constante para ajustar o layout caso algum dos numeros seja 100%
+        var constantPorcent: Double = 11
+        if width1 == 1 || width2 == 2 || width3 == 3 {
+            constantPorcent = 11.5
+        }
         NSLayoutConstraint.activate([
             progressBar.topAnchor.constraint(equalToSystemSpacingBelow: workTitleLabel.bottomAnchor, multiplier: 2),
             progressBar.trailingAnchor.constraint(equalToSystemSpacingAfter: view.trailingAnchor, multiplier: 2),
@@ -477,12 +497,13 @@ class AchievementDetailViewController: UIViewController {
             colorView3.widthAnchor.constraint(equalTo: progressBar.widthAnchor, multiplier: width3),
             colorView3.heightAnchor.constraint(equalTo: progressBar.heightAnchor),
             // Indice
+        
             easyPercent.topAnchor.constraint(equalToSystemSpacingBelow: progressBar.bottomAnchor, multiplier: 2),
             easyPercent.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 3.5),
             mediumPercent.topAnchor.constraint(equalToSystemSpacingBelow: progressBar.bottomAnchor, multiplier: 2),
-            mediumPercent.leadingAnchor.constraint(equalToSystemSpacingAfter: easyPercent.trailingAnchor, multiplier: 11),
+            mediumPercent.leadingAnchor.constraint(equalToSystemSpacingAfter: easyPercent.trailingAnchor, multiplier: constantPorcent),
             hardPercent.topAnchor.constraint(equalToSystemSpacingBelow: progressBar.bottomAnchor, multiplier: 2),
-            hardPercent.leadingAnchor.constraint(equalToSystemSpacingAfter: mediumPercent.trailingAnchor, multiplier: 12 ),
+            hardPercent.leadingAnchor.constraint(equalToSystemSpacingAfter: mediumPercent.trailingAnchor, multiplier: constantPorcent),
         ])
     }
     
@@ -528,9 +549,11 @@ extension AchievementDetailViewController: UITableViewDataSource, UITableViewDel
     
     // Retorna as celulas que preenchem as rows
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // cria a celula da UITableView
+        // Varificando se a tag é a tag de WellNess, caso contrario é a tag de work - assim é possivel configurar duas tableViews
         if tableView.tag == 0 {
-            let subGoal = goal.subGoalsArray.filter{$0.type == "personal"}[indexPath.row]
+            // Filtrando as submetas e ordenando por ordem alfabetica
+            let wellSubGoal = goal.subGoalsArray.filter{$0.type == "personal"}.sorted{ $0.title ?? "" < $1.title  ?? ""}
+            let subGoal = wellSubGoal[indexPath.row]
             guard let cell = workTableView.dequeueReusableCell(withIdentifier: AchievementTableViewCell.reuseIdentifier, for: indexPath) as? AchievementTableViewCell else { fatalError("Cannot Convert cell") }
             // Pega os elementos presentes na array e passa cada uma para uma row
             cell.cellLabel.text = subGoal.title
@@ -538,9 +561,10 @@ extension AchievementDetailViewController: UITableViewDataSource, UITableViewDel
             cell.tintColor = UIColor(named: "IconGreenWell")
             cell.backgroundColor = UIColor(named: "BgWellnColor")
             return cell
-          
         } else {
-            let subGoal = goal.subGoalsArray.filter{$0.type == "work"}[indexPath.row]
+            // Filtrando as submetas e ordenando por ordem alfabetica
+            let workSubGoals = goal.subGoalsArray.filter{$0.type == "work"}.sorted{ $0.title ?? "" < $1.title  ?? ""}
+            let subGoal = workSubGoals[indexPath.row]
             guard let cell = wellNessTableView.dequeueReusableCell(withIdentifier: AchievementTableViewCell.reuseIdentifier, for: indexPath) as? AchievementTableViewCell else { fatalError("Cannot Convert cell") }
             // Pega os elementos presentes na array e passa cada uma para uma row
             cell.cellLabel.text = subGoal.title

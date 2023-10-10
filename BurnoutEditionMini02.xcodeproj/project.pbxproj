@@ -19,6 +19,7 @@
 		2FC6D6452AC3096A00CAD167 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC6D6442AC3096A00CAD167 /* SettingsViewController.swift */; };
 		BA2FEF082AD046D3006A472E /* AchievementDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2FEF072AD046D3006A472E /* AchievementDetailViewController.swift */; };
 		BA2FEF0B2AD0F65F006A472E /* AchievementComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2FEF0A2AD0F65F006A472E /* AchievementComponents.swift */; };
+		BA2FEF2E2AD4E0B8006A472E /* CongratulationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2FEF2D2AD4E0B8006A472E /* CongratulationsViewController.swift */; };
 		BA7E71652AC35A8D0036028B /* Goal+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7E71632AC35A8D0036028B /* Goal+CoreDataClass.swift */; };
 		BA7E71662AC35A8D0036028B /* Goal+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7E71642AC35A8D0036028B /* Goal+CoreDataProperties.swift */; };
 		BA7E71692AC3609D0036028B /* DAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7E71682AC3609D0036028B /* DAO.swift */; };
@@ -69,6 +70,7 @@
 		2FC6D6442AC3096A00CAD167 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		BA2FEF072AD046D3006A472E /* AchievementDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementDetailViewController.swift; sourceTree = "<group>"; };
 		BA2FEF0A2AD0F65F006A472E /* AchievementComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementComponents.swift; sourceTree = "<group>"; };
+		BA2FEF2D2AD4E0B8006A472E /* CongratulationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratulationsViewController.swift; sourceTree = "<group>"; };
 		BA7E71632AC35A8D0036028B /* Goal+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataClass.swift"; sourceTree = "<group>"; };
 		BA7E71642AC35A8D0036028B /* Goal+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		BA7E71682AC3609D0036028B /* DAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DAO.swift; sourceTree = "<group>"; };
@@ -158,11 +160,12 @@
 			path = Achievement;
 			sourceTree = "<group>";
 		};
-		BA2FEF2C2AD4DFEA006A472E /* New Group */ = {
+		BA2FEF2C2AD4DFEA006A472E /* WinGoal */ = {
 			isa = PBXGroup;
 			children = (
+				BA2FEF2D2AD4E0B8006A472E /* CongratulationsViewController.swift */,
 			);
-			path = "New Group";
+			path = WinGoal;
 			sourceTree = "<group>";
 		};
 		BA7E71672AC35A930036028B /* Entities */ = {
@@ -234,7 +237,7 @@
 		F15BE4F52ABCC892005A1C39 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				BA2FEF2C2AD4DFEA006A472E /* New Group */,
+				BA2FEF2C2AD4DFEA006A472E /* WinGoal */,
 				C5DF0BA62ACB03800012C1F4 /* CreateGoalVCStore.swift */,
 				2F80C2AB2ACE1F9F0088EB9A /* WellnessTimeCalculator.swift */,
 				F15BE4F92ABCC97D005A1C39 /* GoalsViewController.swift */,
@@ -380,6 +383,7 @@
 				BA2FEF082AD046D3006A472E /* AchievementDetailViewController.swift in Sources */,
 				F1D15BD02ACCB6D300528743 /* NewReflectionTableViewCell.swift in Sources */,
 				F15BE5092ABCD985005A1C39 /* NewWellnessSubgoalsModalViewController.swift in Sources */,
+				BA2FEF2E2AD4E0B8006A472E /* CongratulationsViewController.swift in Sources */,
 				BA7E71692AC3609D0036028B /* DAO.swift in Sources */,
 				BA7E71662AC35A8D0036028B /* Goal+CoreDataProperties.swift in Sources */,
 				F15BE5292AC203CD005A1C39 /* BreathAnimationViewController.swift in Sources */,

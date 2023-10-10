@@ -52,15 +52,12 @@ class AchievementDetailViewController: UIViewController {
         label.text = "Atividades de Bem-Estar"
         // Obtém a fonte preferida para o estilo de texto .callout
         let preferredFont = UIFont.preferredFont(forTextStyle: .callout)
-        
         // Cria um descritor de fonte com estilo em negrito
         let boldFontDescriptor = preferredFont.fontDescriptor.withSymbolicTraits(.traitBold)
-        
         // Verifica se o descritor de fonte em negrito é nulo
         let boldFont = UIFont(descriptor: boldFontDescriptor ?? UIFontDescriptor(name: "arial", size: 12), size: 0)
         // Define a nova fonte em negrito para a sua label
         label.font = boldFont
-        
         label.textColor = UIColor.black
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false

@@ -40,6 +40,7 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
         tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
+        tableView.rowHeight = 70
         tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: "CustomCell")
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
@@ -193,12 +194,12 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
             cell.button.addTarget(self, action: #selector(buttonTapped(sender:)), for: .touchUpInside)
             cell.button.tintColor = UIColor(named: "CheckMarkColor")
             cell.button.setImage(UIImage(systemName: subGoal.isCompleted ? "checkmark.circle.fill" : "circle"), for: .normal)
-            cell.backgroundColor = UIColor(named: "WorkCellColor")
+            cell.rectangleView.backgroundColor = UIColor(named: "WorkCellColor")
         case "personal":
             cell.button.addTarget(self, action: #selector(buttonTapped(sender:)), for: .touchUpInside)
             cell.button.tintColor = UIColor(named: "HeartCheckColor")
             cell.button.setImage(UIImage(systemName: subGoal.isCompleted ? "heart.fill" : "heart"), for: .normal)
-            cell.backgroundColor = UIColor(named: "WellnessCellColor")
+            cell.rectangleView.backgroundColor = UIColor(named: "WellnessCellColor")
         default:
             break
         }

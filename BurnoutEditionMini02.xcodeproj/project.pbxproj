@@ -10,6 +10,8 @@
 		2F0A5C962ACB4BF0003BA21C /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0A5C952ACB4BF0003BA21C /* NotificationsViewController.swift */; };
 		2F0A5C982ACB4BFF003BA21C /* AcknowledgementsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0A5C972ACB4BFF003BA21C /* AcknowledgementsViewController.swift */; };
 		2F0A5C9A2ACB4C0E003BA21C /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0A5C992ACB4C0E003BA21C /* PrivacyViewController.swift */; };
+		2F3009562AD640C800A015A5 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3009552AD640C800A015A5 /* GradientView.swift */; };
+		2F3009582AD642D400A015A5 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3009572AD642D400A015A5 /* CustomTableViewCell.swift */; };
 		2F38E75D2ACF1E4D007A42B8 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F38E75C2ACF1E4D007A42B8 /* PreferencesViewController.swift */; };
 		2F5FD3A62AC751330012DA88 /* NotificationsSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5FD3A52AC751330012DA88 /* NotificationsSettings.swift */; };
 		2F5FD3A82AC7518C0012DA88 /* SubgoalLevelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5FD3A72AC7518C0012DA88 /* SubgoalLevelViewController.swift */; };
@@ -61,6 +63,8 @@
 		2F0A5C952ACB4BF0003BA21C /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		2F0A5C972ACB4BFF003BA21C /* AcknowledgementsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcknowledgementsViewController.swift; sourceTree = "<group>"; };
 		2F0A5C992ACB4C0E003BA21C /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
+		2F3009552AD640C800A015A5 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		2F3009572AD642D400A015A5 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		2F38E75C2ACF1E4D007A42B8 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		2F5FD3A52AC751330012DA88 /* NotificationsSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsSettings.swift; sourceTree = "<group>"; };
 		2F5FD3A72AC7518C0012DA88 /* SubgoalLevelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubgoalLevelViewController.swift; sourceTree = "<group>"; };
@@ -133,6 +137,16 @@
 				2F0A5C972ACB4BFF003BA21C /* AcknowledgementsViewController.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		2F3009542AD6409F00A015A5 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				F15BE4F92ABCC97D005A1C39 /* GoalsViewController.swift */,
+				2F3009572AD642D400A015A5 /* CustomTableViewCell.swift */,
+				2F3009552AD640C800A015A5 /* GradientView.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 		2FFE58CD2AC1385500ECA413 /* Localizations */ = {
@@ -240,10 +254,10 @@
 		F15BE4F52ABCC892005A1C39 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				2F3009542AD6409F00A015A5 /* Home */,
 				BA2FEF2C2AD4DFEA006A472E /* WinGoal */,
 				C5DF0BA62ACB03800012C1F4 /* CreateGoalVCStore.swift */,
 				2F80C2AB2ACE1F9F0088EB9A /* WellnessTimeCalculator.swift */,
-				F15BE4F92ABCC97D005A1C39 /* GoalsViewController.swift */,
 				C5AFA7952ACCAC4D000BFE0C /* ViewController.swift */,
 				2F0A5C942ACB4BD9003BA21C /* Settings */,
 				BA2FEF092AD046D8006A472E /* Achievement */,
@@ -404,9 +418,11 @@
 				2F5FD3A62AC751330012DA88 /* NotificationsSettings.swift in Sources */,
 				BA2FEF302AD591B7006A472E /* ReflectionSugestionViewController.swift in Sources */,
 				C5AFA7962ACCAC4D000BFE0C /* ViewController.swift in Sources */,
+				2F3009562AD640C800A015A5 /* GradientView.swift in Sources */,
 				C5DF0BA12AC6147A0012C1F4 /* CustomLineTextField.swift in Sources */,
 				F15BE5052ABCD950005A1C39 /* NewGoalModalViewController.swift in Sources */,
 				F15BE5022ABCD8E9005A1C39 /* NewWellnessSubgoalsModalView.swift in Sources */,
+				2F3009582AD642D400A015A5 /* CustomTableViewCell.swift in Sources */,
 				C5DF0BA52AC70F160012C1F4 /* SubGoalCellText.swift in Sources */,
 				C5AFA7982ACF3484000BFE0C /* BigButton.swift in Sources */,
 				F15BE4FE2ABCD789005A1C39 /* NewGoalModalView.swift in Sources */,

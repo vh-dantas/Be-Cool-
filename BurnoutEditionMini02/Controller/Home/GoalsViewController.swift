@@ -253,5 +253,3 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
         ])
     }
 }
-
-

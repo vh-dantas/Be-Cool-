@@ -195,7 +195,7 @@ class ReflectionSugestionViewController: UIViewController {
     
     @objc private func tapFunction(){
         print("Num é que tocou")
-        navigationController?.pushViewController(GoalsViewController(), animated: true)
+        navigationController?.popToRootViewController(animated: true)
     }
     
 }

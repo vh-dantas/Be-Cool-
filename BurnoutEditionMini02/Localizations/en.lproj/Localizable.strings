@@ -133,3 +133,16 @@
 
 "PrivacyTitle4" = "Contact";
 "PrivacyText4" = "If you have any questions or concerns regarding privacy, please contact us at [Contact Email Address].";
+
+//MARK: ONBOARDING -
+"Onboarding-title1" = "Welcome to Your Successful Journey!";
+"Onboarding-title2" = "Create, Plan, Reflect!";
+"Onboarding-title3" = "Celebrate and Grow!";
+"Onboarding-body1" = "We are excited to start this incredible journey with you! Get ready for an exciting adventure that combines work and well-being in harmony.";
+"Onboarding-body2" = "Here, we will create goals, maintain balance, achieve great things and reflect on our success. All this to ensure a healthier and more balanced routine!";
+"Onboarding-body3" = "Ready to celebrate your achievements?
+In the 'Achievements' tab, dive into details of how you achieved your goals.";
+"Onboarding-skip" = "Skip";
+"Onboarding-start" = "Start";
+
+

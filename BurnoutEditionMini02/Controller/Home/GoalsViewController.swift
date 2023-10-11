@@ -318,6 +318,7 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
                 DataAcessObject.shared.toggleIsCompleted(goal: goal)
                 let congratulationsViewController = CongratulationsViewController()
                 congratulationsViewController.hidesBottomBarWhenPushed = true
+                congratulationsViewController.navigationItem.hidesBackButton = true
                 self.navigationController?.pushViewController(congratulationsViewController, animated: true)
             }
         }

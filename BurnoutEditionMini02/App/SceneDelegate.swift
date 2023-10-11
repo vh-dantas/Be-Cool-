@@ -17,6 +17,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
+       
+        //Configurando o Onboarding
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let swipingController = OnboardingViewController(collectionViewLayout: layout)
         
         // Instância da Tab Bar Controller
         let tabBarController = UITabBarController()
@@ -29,7 +34,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let goalsVC = navHome
         let achievementsVC = UINavigationController(rootViewController: AchievementsViewController())
         let reflectionVC = navConReflection
-        let settingsVC = UINavigationController(rootViewController: SettingsViewController())
+        let settingsVC = UINavigationController(rootViewController: swipingController)
         
         
         // Atribuição das ViewController à Tab Bar
@@ -41,10 +46,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         reflectionVC.tabBarItem = UITabBarItem(title: "reflections".localized, image: UIImage(systemName: "text.bubble"), selectedImage: UIImage(systemName: "text.bubble.fill"))
         settingsVC.tabBarItem = UITabBarItem(title: "settings".localized, image: UIImage(systemName: "gearshape"), selectedImage: UIImage(systemName: "gearshape.fill"))
         
+      
         // Configuração da janela, atribuindo à rootView (Necessário ao retirar o arquivo .storyboard)
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = tabBarController
+        window?.rootViewController = swipingController
         window?.makeKeyAndVisible()
     }
 

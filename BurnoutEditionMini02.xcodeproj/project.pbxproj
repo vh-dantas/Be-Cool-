@@ -21,6 +21,8 @@
 		BA2FEF0B2AD0F65F006A472E /* AchievementComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2FEF0A2AD0F65F006A472E /* AchievementComponents.swift */; };
 		BA2FEF2E2AD4E0B8006A472E /* CongratulationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2FEF2D2AD4E0B8006A472E /* CongratulationsViewController.swift */; };
 		BA2FEF302AD591B7006A472E /* ReflectionSugestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2FEF2F2AD591B7006A472E /* ReflectionSugestionViewController.swift */; };
+		BA2FEF3B2AD63105006A472E /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2FEF3A2AD63105006A472E /* OnboardingViewController.swift */; };
+		BA2FEF3D2AD63116006A472E /* OnboardingPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2FEF3C2AD63116006A472E /* OnboardingPageCell.swift */; };
 		BA7E71652AC35A8D0036028B /* Goal+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7E71632AC35A8D0036028B /* Goal+CoreDataClass.swift */; };
 		BA7E71662AC35A8D0036028B /* Goal+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7E71642AC35A8D0036028B /* Goal+CoreDataProperties.swift */; };
 		BA7E71692AC3609D0036028B /* DAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7E71682AC3609D0036028B /* DAO.swift */; };
@@ -73,6 +75,8 @@
 		BA2FEF0A2AD0F65F006A472E /* AchievementComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementComponents.swift; sourceTree = "<group>"; };
 		BA2FEF2D2AD4E0B8006A472E /* CongratulationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratulationsViewController.swift; sourceTree = "<group>"; };
 		BA2FEF2F2AD591B7006A472E /* ReflectionSugestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectionSugestionViewController.swift; sourceTree = "<group>"; };
+		BA2FEF3A2AD63105006A472E /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		BA2FEF3C2AD63116006A472E /* OnboardingPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageCell.swift; sourceTree = "<group>"; };
 		BA7E71632AC35A8D0036028B /* Goal+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataClass.swift"; sourceTree = "<group>"; };
 		BA7E71642AC35A8D0036028B /* Goal+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		BA7E71682AC3609D0036028B /* DAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DAO.swift; sourceTree = "<group>"; };
@@ -171,6 +175,15 @@
 			path = WinGoal;
 			sourceTree = "<group>";
 		};
+		BA2FEF392AD630BF006A472E /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				BA2FEF3A2AD63105006A472E /* OnboardingViewController.swift */,
+				BA2FEF3C2AD63116006A472E /* OnboardingPageCell.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		BA7E71672AC35A930036028B /* Entities */ = {
 			isa = PBXGroup;
 			children = (
@@ -240,11 +253,12 @@
 		F15BE4F52ABCC892005A1C39 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				BA2FEF2C2AD4DFEA006A472E /* WinGoal */,
 				C5DF0BA62ACB03800012C1F4 /* CreateGoalVCStore.swift */,
 				2F80C2AB2ACE1F9F0088EB9A /* WellnessTimeCalculator.swift */,
 				F15BE4F92ABCC97D005A1C39 /* GoalsViewController.swift */,
 				C5AFA7952ACCAC4D000BFE0C /* ViewController.swift */,
+				BA2FEF392AD630BF006A472E /* Onboarding */,
+				BA2FEF2C2AD4DFEA006A472E /* WinGoal */,
 				2F0A5C942ACB4BD9003BA21C /* Settings */,
 				BA2FEF092AD046D8006A472E /* Achievement */,
 				F1D15BC82AC4EC7600528743 /* Reflection */,
@@ -407,6 +421,8 @@
 				C5DF0BA12AC6147A0012C1F4 /* CustomLineTextField.swift in Sources */,
 				F15BE5052ABCD950005A1C39 /* NewGoalModalViewController.swift in Sources */,
 				F15BE5022ABCD8E9005A1C39 /* NewWellnessSubgoalsModalView.swift in Sources */,
+				BA2FEF3B2AD63105006A472E /* OnboardingViewController.swift in Sources */,
+				BA2FEF3D2AD63116006A472E /* OnboardingPageCell.swift in Sources */,
 				C5DF0BA52AC70F160012C1F4 /* SubGoalCellText.swift in Sources */,
 				C5AFA7982ACF3484000BFE0C /* BigButton.swift in Sources */,
 				F15BE4FE2ABCD789005A1C39 /* NewGoalModalView.swift in Sources */,

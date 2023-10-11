@@ -186,7 +186,7 @@ class CreatingNewReflection3ViewController: UIViewController, UITextFieldDelegat
         let yesLabel = UILabel()
         yesLabel.textColor = .systemRed
         yesLabel.text = "Yes"
-        let alertController = UIAlertController(title: yesLabel.text, message: "Deseja mesmo cancelar essa Reflection?", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Aviso", message: "Deseja mesmo cancelar essa Reflection?", preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Sim", style: .default, handler: { action in
             self.navigationController?.popToRootViewController(animated: true)
         }))

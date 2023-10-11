@@ -266,7 +266,7 @@ extension AchievementsViewController: UICollectionViewDataSource, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let itemSelected = indexPath.item
         let achievDetail = AchievementDetailViewController(goal: achievementArray[itemSelected])
-        navigationController?.pushViewController(achievDetail, animated: true)
+      // navigationController?.pushViewController(achievDetail, animated: true)
     }
 }
 

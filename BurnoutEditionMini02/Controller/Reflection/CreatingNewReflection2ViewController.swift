@@ -280,7 +280,7 @@ class CreatingNewReflection2ViewController: UIViewController {
         excitedMood.layer.cornerRadius = 50
         excitedTxt.text = "Excited"
         excitedTxt.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        
+        //
         excitedStackView.addArrangedSubview(excitedMood)
         excitedStackView.addArrangedSubview(excitedTxt)
         

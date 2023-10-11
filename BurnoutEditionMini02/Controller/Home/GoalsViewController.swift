@@ -9,9 +9,7 @@ import UIKit
 import CoreData
 
 // Implementa o protocolo NewGoalModalDelegate
-class GoalsViewController: UIViewController, NewGoalModalDelegate, NewSubGoalModalDelegate {
-    
-    let gradientView = GradientView(frame: CGRect(x: 0, y: 0, width: 310, height: 25))
+class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModalDelegate, NewSubGoalModalDelegate {
     
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -27,7 +25,16 @@ class GoalsViewController: UIViewController, NewGoalModalDelegate, NewSubGoalMod
         return stackView
     }()
     
-    // Table View
+    // Balança:
+    let gradientView = GradientView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 25))
+    var imageViewCenterXConstraint: NSLayoutConstraint?
+    let imageView = UIImageView(image: UIImage(named: "pinguimScale"))
+    let label = UILabel()
+    let index = 4
+    let phrases = ["Dedique tempo ao seu bem-estar também", "Continue buscando o equilíbrio.", "Parabéns! Você está em equilíbrio", "Equilibre seu foco e continue brilhando", "Lembre-se das metas e transforme a procrastinação em ação!"]
+    
+    
+    // Table View:
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.dataSource = self
@@ -38,11 +45,10 @@ class GoalsViewController: UIViewController, NewGoalModalDelegate, NewSubGoalMod
         return tableView
     }()
     
-    let label = UILabel()
-    let phrases = ["Dedique tempo ao seu bem-estar também", "Continue buscando o equilíbrio.", "Parabéns! Você está em equilíbrio", "Equilibre seu foco e continue brilhando", "Lembre-se das metas e transforme a procrastinação em ação!"]
     
     //CoreData and TableView
     private var subItems:[SubGoal] = []
+    
     
     // MARK: -- Carrega a view
     override func viewDidLoad() {
@@ -50,21 +56,22 @@ class GoalsViewController: UIViewController, NewGoalModalDelegate, NewSubGoalMod
         
         // O Titulo é a ultima meta adicionada - a meta atual
         navigationItem.title = DataAcessObject.shared.fetchGoal().first?.title
-        view.backgroundColor = UIColor(named: "BackgroundColor")
-        navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
+        navigationController?.navigationBar.prefersLargeTitles = true
+        view.backgroundColor = UIColor(named: "BackgroundColor")
         
-        constraints()
+        
+        constraints() // Carrega as constraints da view
         fetchSubGoalsArray() // Recarregar a array e o titulo
         
-        label.text = "oiiii"
+        // Texto da balança
         label.textAlignment = .center
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         label.font = UIFont.systemFont(ofSize: 15)
-        
-        let index = 4
         label.text = phrases[index]
+        
+        
         // MARK: -- Botões de navegação
         let openModalBtn = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(createNewGoal))
         navigationItem.rightBarButtonItem = openModalBtn
@@ -78,14 +85,13 @@ class GoalsViewController: UIViewController, NewGoalModalDelegate, NewSubGoalMod
     }
     
     @objc func createNewGoal() {
-        // Certifique-se de criar sua nova view desejada
-        let nextScreen = NewGoalModalViewController(homeGoal: self)
-        nextScreen.delegate = self // Define o delegate
+        let newGoalView = NewGoalModalViewController(homeGoal: self)
+        newGoalView.delegate = self // Define o delegate
         
         //navegação de telas
         if let navigationController = self.navigationController {
-            nextScreen.hidesBottomBarWhenPushed = true
-            navigationController.pushViewController(nextScreen, animated: true)
+            newGoalView.hidesBottomBarWhenPushed = true
+            navigationController.pushViewController(newGoalView, animated: true)
         }
     }
     
@@ -109,14 +115,6 @@ class GoalsViewController: UIViewController, NewGoalModalDelegate, NewSubGoalMod
             }
         }
     }
-}
-
-// MARK: -- Table View
-extension GoalsViewController: UITableViewDataSource {
-    // Retorna o número de sections da list
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
     
     // retorna o numero de elementos presentes em cada section
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -125,55 +123,100 @@ extension GoalsViewController: UITableViewDataSource {
     
     // Retorna as celulas que preenchem as rows
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as! CustomTableViewCell
-        let subGoal = subItems[indexPath.row]
         
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as! CustomTableViewCell
+        
+        let subGoal = subItems[indexPath.row]
         cell.customLabel.text = subGoal.title
         cell.button.tag = indexPath.row
-
+        
+        // verifica o tipo de subgoal pra personalizar a célula
         switch subGoal.type {
-            case "work":
+        case "work":
             cell.button.addTarget(self, action: #selector(buttonTapped(sender:)), for: .touchUpInside)
-                cell.backgroundColor = UIColor(named: "WorkCellColor")
-                cell.button.tintColor = UIColor(named: "CheckMarkColor")
-                cell.button.setImage(UIImage(systemName: subGoal.isCompleted ? "checkmark.circle.fill" : "circle"), for: .normal)
-            case "personal":
+            cell.button.tintColor = UIColor(named: "CheckMarkColor")
+            cell.button.setImage(UIImage(systemName: subGoal.isCompleted ? "checkmark.circle.fill" : "circle"), for: .normal)
+            cell.backgroundColor = UIColor(named: "WorkCellColor")
+        case "personal":
             cell.button.addTarget(self, action: #selector(buttonTapped(sender:)), for: .touchUpInside)
-                cell.backgroundColor = UIColor(named: "WellnessCellColor")
-                cell.button.tintColor = UIColor(named: "HeartCheckColor")
-                cell.button.setImage(UIImage(systemName: subGoal.isCompleted ? "heart.fill" : "heart"), for: .normal)
-            default:
-                break
-            }
-        
-        let maskLayer = CAShapeLayer()
-        maskLayer.frame = cell.bounds
-        let path = UIBezierPath(roundedRect: cell.bounds, byRoundingCorners: [.topRight, .bottomRight], cornerRadii: CGSize(width: 20, height: 10))
-        maskLayer.path = path.cgPath
-        cell.layer.mask = maskLayer
-
-        
+            cell.button.tintColor = UIColor(named: "HeartCheckColor")
+            cell.button.setImage(UIImage(systemName: subGoal.isCompleted ? "heart.fill" : "heart"), for: .normal)
+            cell.backgroundColor = UIColor(named: "WellnessCellColor")
+        default:
+            break
+        }
         return cell
     }
     
+    // função pra lidar com o clique no checkmark (salva no core data)
     @objc func buttonTapped(sender: UIButton) {
         let subGoal = subItems[sender.tag]
         let dao = DataAcessObject()
         dao.toggleIsCompleted(subGoal: subGoal)
         checkSubGoalsCompletion()
+        movePenguin(for: subGoal)
+        
         tableView.reloadData()
     }
     
+    func movePenguin(for subGoal: SubGoal) {
+        let totalWidth = gradientView.frame.width - 65
+        let halfWidth = totalWidth / 2
+
+        // quantidade de cada task
+        let easyTasks = subItems.filter { $0.level == "easy" }.count
+        let mediumTasks = subItems.filter { $0.level == "medium" }.count
+        let hardTasks = subItems.filter { $0.level == "hard" }.count
+
+        // peso de cada task
+        let easyWeight = CGFloat(easyTasks * 1)
+        let mediumWeight = CGFloat(mediumTasks * 2)
+        let hardWeight = CGFloat(hardTasks * 3)
+
+        // total de movimento possivel
+        let totalPossibleMovement = easyWeight + mediumWeight + hardWeight
+
+        // quantos pontos pode andar
+        let movementPerPoint = halfWidth / totalPossibleMovement
+
+        // movimento
+        var movement: CGFloat = 0
+
+        // calcula o movimento baseado no level
+        switch subGoal.level {
+        case "easy":
+            movement = movementPerPoint * 1
+        case "medium":
+            movement = movementPerPoint * 2
+        case "hard":
+            movement = movementPerPoint * 3
+        default:
+            break
+        }
+
+        // posição do pinguim
+            if subGoal.isCompleted {
+                imageViewCenterXConstraint?.constant -= movement
+            } else {
+                imageViewCenterXConstraint?.constant += movement
+            }
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
+        }
+    }
+
+    
+    
+    
+    
+    // verifica se todas as subgoals foram feitas
     func checkSubGoalsCompletion() {
         if let goal = DataAcessObject.shared.fetchGoal().first {
             let subGoals = DataAcessObject.shared.fetchSubGoals(goal: goal)
-            
             let allSubGoalsCompleted = subGoals.allSatisfy { $0.isCompleted }
-            
             if allSubGoalsCompleted && !goal.isCompleted {
                 DataAcessObject.shared.toggleIsCompleted(goal: goal)
                 let congratulationsViewController = CongratulationsViewController()
-                congratulationsViewController.navigationItem.setHidesBackButton(true, animated: true)
                 congratulationsViewController.hidesBottomBarWhenPushed = true
                 self.navigationController?.pushViewController(congratulationsViewController, animated: true)
             }
@@ -182,11 +225,13 @@ extension GoalsViewController: UITableViewDataSource {
     
     
     private func constraints() {
-        view.addSubview(gradientView)
-        view.addSubview(label) // Add the label to the view hierarchy
+        imageView.contentMode = .scaleAspectFit
         
-        // Rest of your constraints
+        view.addSubview(gradientView)
+        view.addSubview(imageView)
+        view.addSubview(label)
         view.addSubview(scrollView)
+        
         scrollView.addSubview(goalsStackView)
         view.addSubview(tableView)
         
@@ -194,11 +239,19 @@ extension GoalsViewController: UITableViewDataSource {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         goalsStackView.translatesAutoresizingMaskIntoConstraints = false
         label.translatesAutoresizingMaskIntoConstraints = false
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        imageViewCenterXConstraint = imageView.centerXAnchor.constraint(equalTo: gradientView.centerXAnchor)
         
         let safeArea = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
-            gradientView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            imageViewCenterXConstraint!,
+            imageView.bottomAnchor.constraint(equalTo: gradientView.topAnchor, constant: 5),
+            imageView.widthAnchor.constraint(equalTo: gradientView.widthAnchor),
+            imageView.heightAnchor.constraint(equalToConstant: 38),
+            
+            gradientView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 40),
             gradientView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             gradientView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             gradientView.heightAnchor.constraint(equalToConstant: 25),
@@ -225,72 +278,5 @@ extension GoalsViewController: UITableViewDataSource {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             tableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
-    }
-}
-
-class CustomTableViewCell: UITableViewCell {
-    let customLabel = UILabel()
-    let button = UIButton(type: .system)
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-                
-        customLabel.translatesAutoresizingMaskIntoConstraints = false
-        button.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(customLabel)
-        contentView.addSubview(button)
-        
-        NSLayoutConstraint.activate([
-            button.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            button.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            customLabel.leadingAnchor.constraint(equalTo: button.trailingAnchor, constant: 10),
-            customLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            customLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-            customLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
-        ])
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-}
-
-class GradientView: UIView {
-    let workIcon = UIImageView(image: UIImage(systemName: "briefcase.fill"))
-    let lifeIcon = UIImageView(image: UIImage(systemName: "heart.fill"))
-    let gradientLayer = CAGradientLayer()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupGradient()
-        
-        workIcon.tintColor = .blue
-        lifeIcon.tintColor = .systemIndigo
-        
-        let iconSizeHeight: CGFloat = 18
-        let iconSizeWidth: CGFloat = 20
-        let yPosition = (bounds.height - iconSizeWidth) / 2
-        
-        workIcon.frame = CGRect(x: 10, y: yPosition, width: iconSizeWidth, height: iconSizeHeight)
-        lifeIcon.frame = CGRect(x: bounds.width - iconSizeWidth - 10, y: yPosition, width: iconSizeWidth, height: iconSizeHeight)
-        
-        addSubview(workIcon)
-        addSubview(lifeIcon)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setupGradient()
-    }
-    
-    private func setupGradient() {
-        gradientLayer.frame = bounds
-        gradientLayer.colors = [UIColor.systemBlue.cgColor, UIColor.systemMint.cgColor]
-        gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
-        gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.5)
-        layer.addSublayer(gradientLayer)
-        layer.cornerRadius = 13
-        layer.masksToBounds = true
     }
 }

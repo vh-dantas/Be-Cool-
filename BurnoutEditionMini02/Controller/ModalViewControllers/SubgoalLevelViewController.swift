@@ -138,7 +138,7 @@ class NewSubgoalLevelViewController: ViewController, BigButtonDelegate {
                 // define o valor dos sliders e chama a função sliderValueChanged
                 slider.minimumValue = 0
                 slider.maximumValue = 100
-                slider.maximumTrackTintColor = UIColor(named: "SliderEasyColor")
+                slider.maximumTrackTintColor = UIColor(named: "SliderTrackColor")
                 slider.tag = index
                 slider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
                 // define o nível "facil" como valor default pro slider

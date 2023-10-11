@@ -12,10 +12,21 @@ enum SubGoalType: String {
     case personal
 }
 
-enum Difficulty {
+enum Difficulty: String {
     case easy
     case medium
     case hard
+    
+    var minutes: Int {
+        switch self {
+        case .easy:
+            return 60
+        case .medium:
+            return 120
+        case .hard:
+            return 180
+        }
+    }
 }
 
 class SubGoalStatic {

@@ -411,11 +411,15 @@ class AchievementDetailViewController: UIViewController {
         var hardWork: Int = 0
          //Loop para identificar a dificuldade das submetas
         for subGoals in goal.subGoalsArray {
-            if subGoals.time >= 0 && subGoals.time < 40 {
+            guard let level = subGoals.level, let difficulty = Difficulty(rawValue: level) else {
+                continue
+            }
+            switch difficulty {
+            case .easy:
                 easyWork += 1
-            } else if subGoals.time >= 40 && subGoals.time < 70 {
+            case .medium:
                 mediumWork += 1
-            } else { // sender.value = 100
+            case .hard:
                 hardWork += 1
             }
         }

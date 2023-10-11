@@ -30,7 +30,7 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
     var imageViewCenterXConstraint: NSLayoutConstraint?
     let imageView = UIImageView(image: UIImage(named: "pinguimScale"))
     let label = UILabel()
-    let index = 4
+    var index = 3
     let phrases = ["Dedique tempo ao seu bem-estar também", "Continue buscando o equilíbrio.", "Parabéns! Você está em equilíbrio", "Equilibre seu foco e continue brilhando", "Lembre-se das metas e transforme a procrastinação em ação!"]
     
     
@@ -63,7 +63,8 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
         
         constraints() // Carrega as constraints da view
         fetchSubGoalsArray() // Recarregar a array e o titulo
-
+        updatePhrases()
+        
         // Texto da balança
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -220,7 +221,39 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
         UIView.animate(withDuration: 0.5) {
             self.view.layoutIfNeeded()
         }
+        
+            var newIndex = 2
+
+
+        let penguinPosition = imageViewCenterXConstraint?.constant ?? 0
+        UserDefaults.standard.set(penguinPosition, forKey: "PenguinPosition")
+
+
+            if penguinPosition < -halfWidth * 2 / 4 {
+                newIndex = 0
+            } else if penguinPosition < -halfWidth / 4 {
+                newIndex = 1
+            } else if penguinPosition > halfWidth / 4 {
+                newIndex = 3
+            } else if penguinPosition > halfWidth * 2 / 4 {
+                newIndex = 4
+            }
+
+            index = newIndex
+            updatePhrases()
     }
+    
+    func updatePhrases() {
+        label.text = phrases[index]
+        
+        if let savedPosition = UserDefaults.standard.value(forKey: "PenguinPosition") as? CGFloat {
+            imageViewCenterXConstraint?.constant = savedPosition
+            UIView.animate(withDuration: 0.0) { [weak self] in
+                self?.view.layoutIfNeeded()
+            }
+        }
+    }
+
 
     // verifica se todas as subgoals foram feitas
     func checkSubGoalsCompletion() {

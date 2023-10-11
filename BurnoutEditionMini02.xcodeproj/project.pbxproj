@@ -184,6 +184,14 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
+		BA2FEF402AD73277006A472E /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				F15BE4F92ABCC97D005A1C39 /* GoalsViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 		BA7E71672AC35A930036028B /* Entities */ = {
 			isa = PBXGroup;
 			children = (
@@ -253,9 +261,9 @@
 		F15BE4F52ABCC892005A1C39 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				BA2FEF402AD73277006A472E /* Home */,
 				C5DF0BA62ACB03800012C1F4 /* CreateGoalVCStore.swift */,
 				2F80C2AB2ACE1F9F0088EB9A /* WellnessTimeCalculator.swift */,
-				F15BE4F92ABCC97D005A1C39 /* GoalsViewController.swift */,
 				C5AFA7952ACCAC4D000BFE0C /* ViewController.swift */,
 				BA2FEF392AD630BF006A472E /* Onboarding */,
 				BA2FEF2C2AD4DFEA006A472E /* WinGoal */,

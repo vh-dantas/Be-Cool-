@@ -60,7 +60,7 @@ class NewGoalModalViewController: ViewController, UITextFieldDelegate, BigButton
         // Checa se o teclado tá aberto na tela
         NotificationCenter.default.addObserver(self, selector: #selector(myKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(myKeyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-
+        
         // Coloca a cor de fundo da modal (ele seta como transparente por padrão)
         view.backgroundColor = UIColor(named: "BackgroundColor")
         
@@ -80,14 +80,6 @@ class NewGoalModalViewController: ViewController, UITextFieldDelegate, BigButton
         // Configure properties of UIImageView
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Add imageView to the stackView
-        stackView.addArrangedSubview(imageView)
-        
-        // Add constraints
-        NSLayoutConstraint.activate([
-            imageView.widthAnchor.constraint(equalTo: stackView.widthAnchor),
-        ])
     }
     
     ///título
@@ -133,7 +125,7 @@ class NewGoalModalViewController: ViewController, UITextFieldDelegate, BigButton
         //Sempre que for criar constraints tem que adicionar antes a subview
         scrollView.addSubview(stackView)
         stackView.axis = .vertical
-          
+        
         
         //adiciona como filhas da stack view
         stackView.addArrangedSubview(imageView)
@@ -153,6 +145,12 @@ class NewGoalModalViewController: ViewController, UITextFieldDelegate, BigButton
             stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            
+            imageView.leftAnchor.constraint(equalTo: stackView.leftAnchor),
+            imageView.rightAnchor.constraint(equalTo: stackView.rightAnchor),
+            
+            bottomLineTextField.leftAnchor.constraint(equalTo: stackView.leftAnchor),
+            bottomLineTextField.rightAnchor.constraint(equalTo: stackView.rightAnchor)
         ])
     }
     
@@ -223,16 +221,16 @@ class NewGoalModalViewController: ViewController, UITextFieldDelegate, BigButton
             scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height + 25, right: 0)
         }
     }
-
+    
     @objc func myKeyboardWillHide(notification: NSNotification) {
         scrollView.contentInset = UIEdgeInsets.zero
     }
     // Desinicializa o observer do teclado
     deinit {
-            NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-            NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-        }
-
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
 }
 
 //MARK: -- Protocolos

@@ -161,7 +161,7 @@ class NewSubgoalsModalViewController: ViewController, AddSubGoalButtonDelegate, 
             
         } else {
             // Mostrar um alerta ao usuário ou tomar outra ação apropriada
-            let alertController = UIAlertController(title: "Aviso", message: "Lembre-se de quebrar sua meta em pelo menos uma submeta", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "warning".localized, message: "remember".localized, preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "OK", style: .destructive, handler: nil))
             present(alertController, animated: true, completion: nil)
             

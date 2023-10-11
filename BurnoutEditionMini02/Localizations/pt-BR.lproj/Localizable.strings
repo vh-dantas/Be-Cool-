@@ -41,6 +41,11 @@
 "wellness-checklist" = "Atividades de Bem-Estar:";
 "save-goals-btn" = "Salvar Meta";
 
+//aviso
+"warning" = "Aviso";
+"remember" = "Lembre-se de quebrar sua meta em pelo menos uma submeta";
+"yes" = "Sim";
+"no" = "Não";
 
 
 // MARK: -- MODAL META ATINGIDA
@@ -92,7 +97,18 @@
 "reflection-title-caption" = "De acordo com o que ela representa para você:";
 "reflection-title" = "Nomeie sua Reflexão.";
 "save-reflection" = "Salvar Reflexão";
-
+"wish-cancel" = "Deseja mesmo cancelar essa Reflection?";
+"card" = "Que tal um tempo para refletir sobre sua jornada?";
+"tap-reflection" = "Começar";
+"text-reflect" = "Reflita sobre a seguinte pergunta:";
+"feelings1" = "O que você aprendeu nas últimas duas semanas?";
+"feelings2" = "Quão bom você ficou no que você estava fazendo?";
+"feelings3" = "Como você se sente depois de ter conquistado sua meta?";
+"textplacereflect" = "Reflita...";
+"draw-feels" = "Desenhe o que está sentindo";
+"tell" = "Agora nos diga:";
+"accordingly" = "De acordo com o que representa para você:";
+"my-reflection" = "Minha reflexão";
 
 
 // MARK: -- TAB BAR

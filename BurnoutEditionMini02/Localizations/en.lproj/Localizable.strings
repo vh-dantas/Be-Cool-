@@ -39,6 +39,11 @@
 "wellness-subgoal-text" = "Set up your wellness goals to have a balanced life. We suggest you focus on doing things for your well-being for this amount of time:";
 "save-goals-btn" = "Save My Goal";
 "wellness-checklist" = "Wellness Activities:";
+//aviso
+"warning" = "Warning";
+"remember" = "Remember to break your goal in subgoals";
+"yes" = "Yes";
+"no" = "No";
 
 
 
@@ -90,7 +95,18 @@
 "reflection-title-caption" = "According to what it represents to you:";
 "reflection-title" = "Name your Reflection.";
 "save-reflection" = "Save Reflection";
-
+"wish-cancel" = "Are you sure you want to cancel this reflection?";
+"card" = "What about a break to reflect about your journey?";
+"tap-reflection" = "Tap to begin";
+"text-reflect" = "Reflect about the following question:";
+"feelings1" = "What have you learned in the past two weeks?";
+"feelings2" = "How good are you at the thing you were doing?";
+"feelings3" = "How do you feel after accomplishing your goal?";
+"textplacereflect" = "Reflect...";
+"draw-feels" = "Draw your feelings";
+"tell" = "Now tell us:";
+"accordingly" = "Accordingly to what it represents to you:";
+"my-reflection" = "My Reflection";
 
 
 // MARK: -- TAB BAR

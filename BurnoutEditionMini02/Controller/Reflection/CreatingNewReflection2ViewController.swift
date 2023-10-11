@@ -92,7 +92,17 @@ class CreatingNewReflection2ViewController: UIViewController {
     }
     
     @objc func cancelButtonFunc() {
-        navigationController?.popToRootViewController(animated: true)
+        // Mostrar um alerta ao usuário ou tomar outra ação apropriada
+        let yesLabel = UILabel()
+        yesLabel.textColor = .systemRed
+        yesLabel.text = "Yes"
+        let alertController = UIAlertController(title: yesLabel.text, message: "Deseja mesmo cancelar essa Reflection?", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Sim", style: .default, handler: { action in
+            self.navigationController?.popToRootViewController(animated: true)
+        }))
+        alertController.addAction(UIAlertAction(title: "Não", style: .cancel))
+        present(alertController, animated: true, completion: nil)
+       
     }
     
     // MARK: - NextScreen Button

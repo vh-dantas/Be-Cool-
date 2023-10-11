@@ -173,6 +173,7 @@ extension GoalsViewController: UITableViewDataSource {
             if allSubGoalsCompleted && !goal.isCompleted {
                 DataAcessObject.shared.toggleIsCompleted(goal: goal)
                 let congratulationsViewController = CongratulationsViewController()
+                congratulationsViewController.navigationItem.setHidesBackButton(true, animated: true)
                 congratulationsViewController.hidesBottomBarWhenPushed = true
                 self.navigationController?.pushViewController(congratulationsViewController, animated: true)
             }

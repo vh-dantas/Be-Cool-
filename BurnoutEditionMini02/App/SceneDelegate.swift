@@ -10,8 +10,6 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    
-    var delegate: iPadDetailViewDelegate?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -34,25 +32,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         if UIDevice.current.userInterfaceIdiom == .pad {
             // Configurações para iPad
-            let splitViewController = UISplitViewController(style: .doubleColumn)
-
-            let menuVC = SideBarMenuVC()
-
-            // Atribuição das VC à SideBar
-            splitViewController.viewControllers = [menuVC, goalsVC]
             
-            switch menuVC.buttonTapped {
-            case "achievements".localized:
-                splitViewController.viewControllers[1] = achievementsVC
-            case "reflections".localized:
-                splitViewController.viewControllers[1] = reflectionVC
-            case "settings".localized:
-                splitViewController.viewControllers[1] = settingsVC
-            default:
-                splitViewController.viewControllers[1] = reflectionVC
-            }
-            
-            rootViewController = splitViewController
+            rootViewController = iPadSplitViewController()
             
         } else {
             // Instância da Tab Bar Controller

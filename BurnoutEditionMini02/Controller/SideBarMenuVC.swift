@@ -21,7 +21,9 @@ class SideBarMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                                   "reflections".localized,
                                   "settings".localized]
     
-    var buttonTapped: String?
+    //var buttonTapped: String?
+    
+    weak var delegate: SideBarMenuDelegate?
     
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
@@ -77,7 +79,8 @@ class SideBarMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        buttonTapped = buttonsLabel[indexPath.row]
+        let selectedItem = buttonsLabel[indexPath.row]
+        delegate?.didSelectMenuItem(selectedItem)
     }
     
     // MARK: - Constraints
@@ -166,3 +169,7 @@ class sideBarButtonCell: UITableViewCell {
 }
 
 
+// MARK: - Protocolo do delegate
+protocol SideBarMenuDelegate: AnyObject {
+    func didSelectMenuItem(_ menuItem: String)
+}

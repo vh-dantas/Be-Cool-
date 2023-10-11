@@ -49,7 +49,6 @@
 		F15BE5292AC203CD005A1C39 /* BreathAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE5282AC203CD005A1C39 /* BreathAnimationViewController.swift */; };
 		F15BE52B2AC21BB2005A1C39 /* CreatingNewReflectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE52A2AC21BB2005A1C39 /* CreatingNewReflectionViewController.swift */; };
 		F1B2898C2AD7014C0078B7E1 /* iPadSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B2898B2AD7014C0078B7E1 /* iPadSplitViewController.swift */; };
-		F1B2898E2AD704D30078B7E1 /* iPadDetailViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B2898D2AD704D30078B7E1 /* iPadDetailViewDelegate.swift */; };
 		F1B5E80E2AD4BAD7006BE7B8 /* SideBarMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B5E80D2AD4BAD7006BE7B8 /* SideBarMenuVC.swift */; };
 		F1D15BC72AC45E2E00528743 /* ReflectionCanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D15BC62AC45E2E00528743 /* ReflectionCanvasViewController.swift */; };
 		F1D15BCA2AC4ECF800528743 /* CreatingNewReflection2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D15BC92AC4ECF800528743 /* CreatingNewReflection2ViewController.swift */; };
@@ -105,7 +104,6 @@
 		F15BE5282AC203CD005A1C39 /* BreathAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathAnimationViewController.swift; sourceTree = "<group>"; };
 		F15BE52A2AC21BB2005A1C39 /* CreatingNewReflectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatingNewReflectionViewController.swift; sourceTree = "<group>"; };
 		F1B2898B2AD7014C0078B7E1 /* iPadSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPadSplitViewController.swift; sourceTree = "<group>"; };
-		F1B2898D2AD704D30078B7E1 /* iPadDetailViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPadDetailViewDelegate.swift; sourceTree = "<group>"; };
 		F1B5E80D2AD4BAD7006BE7B8 /* SideBarMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarMenuVC.swift; sourceTree = "<group>"; };
 		F1D15BC62AC45E2E00528743 /* ReflectionCanvasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectionCanvasViewController.swift; sourceTree = "<group>"; };
 		F1D15BC92AC4ECF800528743 /* CreatingNewReflection2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatingNewReflection2ViewController.swift; sourceTree = "<group>"; };
@@ -261,7 +259,6 @@
 				F1359EE42ABB6F92004536E6 /* AppDelegate.swift */,
 				F1359EE62ABB6F92004536E6 /* SceneDelegate.swift */,
 				2F5FD3A52AC751330012DA88 /* NotificationsSettings.swift */,
-				F1B2898D2AD704D30078B7E1 /* iPadDetailViewDelegate.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -387,7 +384,6 @@
 				F1359EEF2ABB6F92004536E6 /* BurnoutEditionMini02.xcdatamodeld in Sources */,
 				2F9CDC902ABD153B00C10425 /* LocalizedStringExtension.swift in Sources */,
 				C562C56D2ABE297E00A3311C /* SubGoalModel.swift in Sources */,
-				F1B2898E2AD704D30078B7E1 /* iPadDetailViewDelegate.swift in Sources */,
 				F15BE4FA2ABCC97D005A1C39 /* GoalsViewController.swift in Sources */,
 				2F80C2AC2ACE1F9F0088EB9A /* WellnessTimeCalculator.swift in Sources */,
 				2F38E75D2ACF1E4D007A42B8 /* PreferencesViewController.swift in Sources */,

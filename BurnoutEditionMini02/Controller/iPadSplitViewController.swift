@@ -17,9 +17,9 @@ class iPadSplitViewController: UISplitViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        sideBar = self.viewControllers[0] as? SideBarMenuVC
-//        navHome = (self.viewControllers[1] as! UINavigationController).topViewController as? GoalsViewController
-        
+        if let sideBar = viewControllers.first as? SideBarMenuVC {
+            
+        }
         
     }
 

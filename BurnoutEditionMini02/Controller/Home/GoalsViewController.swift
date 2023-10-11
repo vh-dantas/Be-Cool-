@@ -168,6 +168,10 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
         let mediumTasks = subItems.filter { $0.level == "medium" }.count
         let hardTasks = subItems.filter { $0.level == "hard" }.count
 
+        // conta quantidade de subgoals de wellness
+        let personalSubGoalsCount = subItems.filter { $0.type == "personal" }.count
+        let wellnessMovement = halfWidth / CGFloat(personalSubGoalsCount)
+        
         // peso de cada task
         let easyWeight = CGFloat(easyTasks * 1)
         let mediumWeight = CGFloat(mediumTasks * 2)
@@ -195,20 +199,28 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
         }
 
         // posição do pinguim
+        switch subGoal.type {
+        case "work":
             if subGoal.isCompleted {
                 imageViewCenterXConstraint?.constant -= movement
             } else {
                 imageViewCenterXConstraint?.constant += movement
             }
+        case "personal":
+            if subGoal.isCompleted {
+                imageViewCenterXConstraint?.constant += wellnessMovement
+            } else {
+                imageViewCenterXConstraint?.constant -= wellnessMovement
+            }
+        default:
+            imageViewCenterXConstraint?.constant = 0
+        }
+
         UIView.animate(withDuration: 0.5) {
             self.view.layoutIfNeeded()
         }
     }
 
-    
-    
-    
-    
     // verifica se todas as subgoals foram feitas
     func checkSubGoalsCompletion() {
         if let goal = DataAcessObject.shared.fetchGoal().first {

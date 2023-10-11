@@ -146,3 +146,10 @@
 Na aba 'Conquistas' mergulhe em detalhes de como você alcançou suas metas. ";
 "Onboarding-skip" = "Pular";
 "Onboarding-start" = "Começar";
+
+// MARK: -- BALANÇA
+"scale-1" = "Dedique tempo ao seu bem-estar também";
+"scale-2" = "Continue buscando o equilíbrio.";
+"scale-3" = "Parabéns! Você está em equilíbrio";
+"scale-4" = "Equilibre seu foco e continue brilhando";
+"scale-5" = "Lembre-se das metas e transforme a procrastinação em ação!";

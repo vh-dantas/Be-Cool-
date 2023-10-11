@@ -17,6 +17,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
+       
+        //Configurando o Onboarding
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let swipingController = OnboardingViewController(collectionViewLayout: layout)
+      
+        
         
         // Instância da Tab Bar Controller
         let tabBarController = UITabBarController()
@@ -31,9 +38,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let reflectionVC = navConReflection
         let settingsVC = UINavigationController(rootViewController: SettingsViewController())
         
-        
-        // Atribuição das ViewController à Tab Bar
-        tabBarController.viewControllers = [goalsVC, achievementsVC, reflectionVC, settingsVC]
+        // UserDefauls para armazanar a visualização do onboarding
+        let onboardingCompleted = UserDefaults.standard.bool(forKey: "Onboarding")
+        // Verificando se o Onbording ja foi concluido - se sim tiramos ele da lista de viewControllers
+        if onboardingCompleted {
+            // Atribuição das ViewController à Tab Bar
+            tabBarController.viewControllers = [goalsVC, achievementsVC, reflectionVC, settingsVC]
+        } else {
+            // Atribuição das ViewController à Tab Bar
+
+            tabBarController.viewControllers = [ goalsVC, achievementsVC, reflectionVC, settingsVC]
+        }
+     
 
         // Configuração dos Tab Bar Itens
         goalsVC.tabBarItem = UITabBarItem(title: "goals".localized, image: UIImage(systemName: "list.bullet.circle"), selectedImage: UIImage(systemName: "list.bullet.circle.fill"))
@@ -41,11 +57,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         reflectionVC.tabBarItem = UITabBarItem(title: "reflections".localized, image: UIImage(systemName: "text.bubble"), selectedImage: UIImage(systemName: "text.bubble.fill"))
         settingsVC.tabBarItem = UITabBarItem(title: "settings".localized, image: UIImage(systemName: "gearshape"), selectedImage: UIImage(systemName: "gearshape.fill"))
         
+        
         // Configuração da janela, atribuindo à rootView (Necessário ao retirar o arquivo .storyboard)
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
+
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

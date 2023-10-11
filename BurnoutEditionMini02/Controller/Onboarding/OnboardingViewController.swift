@@ -74,6 +74,7 @@ class OnboardingViewController: UICollectionViewController {
         collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
         setUpBottomControls()
+     
     }
     
     private func setUpBottomControls(){
@@ -236,8 +237,12 @@ extension OnboardingViewController {
 
     @objc private func tapFunction(){
         print("Num é que tocou")
-        navigationController?.pushViewController(GoalsViewController(), animated: true)
+        // 1. Altere o valor no UserDefaults para indicar que o onboarding foi concluído
+        UserDefaults.standard.set(true, forKey: "Onboarding")
+        // 2. Salve as alterações no UserDefaults (opcional em versões mais recentes do iOS)
+        UserDefaults.standard.synchronize()
         
+      
     }
 
 }

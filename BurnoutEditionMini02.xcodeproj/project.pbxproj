@@ -10,8 +10,6 @@
 		2F0A5C962ACB4BF0003BA21C /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0A5C952ACB4BF0003BA21C /* NotificationsViewController.swift */; };
 		2F0A5C982ACB4BFF003BA21C /* AcknowledgementsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0A5C972ACB4BFF003BA21C /* AcknowledgementsViewController.swift */; };
 		2F0A5C9A2ACB4C0E003BA21C /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0A5C992ACB4C0E003BA21C /* PrivacyViewController.swift */; };
-		2F3009562AD640C800A015A5 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3009552AD640C800A015A5 /* GradientView.swift */; };
-		2F3009582AD642D400A015A5 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3009572AD642D400A015A5 /* CustomTableViewCell.swift */; };
 		2F38E75D2ACF1E4D007A42B8 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F38E75C2ACF1E4D007A42B8 /* PreferencesViewController.swift */; };
 		2F5FD3A62AC751330012DA88 /* NotificationsSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5FD3A52AC751330012DA88 /* NotificationsSettings.swift */; };
 		2F5FD3A82AC7518C0012DA88 /* SubgoalLevelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5FD3A72AC7518C0012DA88 /* SubgoalLevelViewController.swift */; };
@@ -23,6 +21,10 @@
 		BA2FEF0B2AD0F65F006A472E /* AchievementComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2FEF0A2AD0F65F006A472E /* AchievementComponents.swift */; };
 		BA2FEF2E2AD4E0B8006A472E /* CongratulationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2FEF2D2AD4E0B8006A472E /* CongratulationsViewController.swift */; };
 		BA2FEF302AD591B7006A472E /* ReflectionSugestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2FEF2F2AD591B7006A472E /* ReflectionSugestionViewController.swift */; };
+		BA2FEF3B2AD63105006A472E /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2FEF3A2AD63105006A472E /* OnboardingViewController.swift */; };
+		BA2FEF3D2AD63116006A472E /* OnboardingPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2FEF3C2AD63116006A472E /* OnboardingPageCell.swift */; };
+		BA2FEF462AD73C05006A472E /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2FEF442AD73C05006A472E /* CustomTableViewCell.swift */; };
+		BA2FEF472AD73C05006A472E /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2FEF452AD73C05006A472E /* GradientView.swift */; };
 		BA7E71652AC35A8D0036028B /* Goal+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7E71632AC35A8D0036028B /* Goal+CoreDataClass.swift */; };
 		BA7E71662AC35A8D0036028B /* Goal+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7E71642AC35A8D0036028B /* Goal+CoreDataProperties.swift */; };
 		BA7E71692AC3609D0036028B /* DAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7E71682AC3609D0036028B /* DAO.swift */; };
@@ -52,6 +54,8 @@
 		F15BE5122ABCDEB1005A1C39 /* ReflectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE5112ABCDEB1005A1C39 /* ReflectionViewController.swift */; };
 		F15BE5292AC203CD005A1C39 /* BreathAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE5282AC203CD005A1C39 /* BreathAnimationViewController.swift */; };
 		F15BE52B2AC21BB2005A1C39 /* CreatingNewReflectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE52A2AC21BB2005A1C39 /* CreatingNewReflectionViewController.swift */; };
+		F1B2898C2AD7014C0078B7E1 /* iPadSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B2898B2AD7014C0078B7E1 /* iPadSplitViewController.swift */; };
+		F1B5E80E2AD4BAD7006BE7B8 /* SideBarMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B5E80D2AD4BAD7006BE7B8 /* SideBarMenuVC.swift */; };
 		F1D15BC72AC45E2E00528743 /* ReflectionCanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D15BC62AC45E2E00528743 /* ReflectionCanvasViewController.swift */; };
 		F1D15BCA2AC4ECF800528743 /* CreatingNewReflection2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D15BC92AC4ECF800528743 /* CreatingNewReflection2ViewController.swift */; };
 		F1D15BCC2AC51A2B00528743 /* CreatingNewReflection3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D15BCB2AC51A2B00528743 /* CreatingNewReflection3ViewController.swift */; };
@@ -63,8 +67,6 @@
 		2F0A5C952ACB4BF0003BA21C /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		2F0A5C972ACB4BFF003BA21C /* AcknowledgementsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcknowledgementsViewController.swift; sourceTree = "<group>"; };
 		2F0A5C992ACB4C0E003BA21C /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
-		2F3009552AD640C800A015A5 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
-		2F3009572AD642D400A015A5 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		2F38E75C2ACF1E4D007A42B8 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		2F5FD3A52AC751330012DA88 /* NotificationsSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsSettings.swift; sourceTree = "<group>"; };
 		2F5FD3A72AC7518C0012DA88 /* SubgoalLevelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubgoalLevelViewController.swift; sourceTree = "<group>"; };
@@ -77,6 +79,10 @@
 		BA2FEF0A2AD0F65F006A472E /* AchievementComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementComponents.swift; sourceTree = "<group>"; };
 		BA2FEF2D2AD4E0B8006A472E /* CongratulationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratulationsViewController.swift; sourceTree = "<group>"; };
 		BA2FEF2F2AD591B7006A472E /* ReflectionSugestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectionSugestionViewController.swift; sourceTree = "<group>"; };
+		BA2FEF3A2AD63105006A472E /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		BA2FEF3C2AD63116006A472E /* OnboardingPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageCell.swift; sourceTree = "<group>"; };
+		BA2FEF442AD73C05006A472E /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		BA2FEF452AD73C05006A472E /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		BA7E71632AC35A8D0036028B /* Goal+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataClass.swift"; sourceTree = "<group>"; };
 		BA7E71642AC35A8D0036028B /* Goal+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		BA7E71682AC3609D0036028B /* DAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DAO.swift; sourceTree = "<group>"; };
@@ -109,6 +115,8 @@
 		F15BE5112ABCDEB1005A1C39 /* ReflectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectionViewController.swift; sourceTree = "<group>"; };
 		F15BE5282AC203CD005A1C39 /* BreathAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathAnimationViewController.swift; sourceTree = "<group>"; };
 		F15BE52A2AC21BB2005A1C39 /* CreatingNewReflectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatingNewReflectionViewController.swift; sourceTree = "<group>"; };
+		F1B2898B2AD7014C0078B7E1 /* iPadSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPadSplitViewController.swift; sourceTree = "<group>"; };
+		F1B5E80D2AD4BAD7006BE7B8 /* SideBarMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarMenuVC.swift; sourceTree = "<group>"; };
 		F1D15BC62AC45E2E00528743 /* ReflectionCanvasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectionCanvasViewController.swift; sourceTree = "<group>"; };
 		F1D15BC92AC4ECF800528743 /* CreatingNewReflection2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatingNewReflection2ViewController.swift; sourceTree = "<group>"; };
 		F1D15BCB2AC51A2B00528743 /* CreatingNewReflection3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatingNewReflection3ViewController.swift; sourceTree = "<group>"; };
@@ -137,16 +145,6 @@
 				2F0A5C972ACB4BFF003BA21C /* AcknowledgementsViewController.swift */,
 			);
 			path = Settings;
-			sourceTree = "<group>";
-		};
-		2F3009542AD6409F00A015A5 /* Home */ = {
-			isa = PBXGroup;
-			children = (
-				F15BE4F92ABCC97D005A1C39 /* GoalsViewController.swift */,
-				2F3009572AD642D400A015A5 /* CustomTableViewCell.swift */,
-				2F3009552AD640C800A015A5 /* GradientView.swift */,
-			);
-			path = Home;
 			sourceTree = "<group>";
 		};
 		2FFE58CD2AC1385500ECA413 /* Localizations */ = {
@@ -183,6 +181,25 @@
 				BA2FEF2F2AD591B7006A472E /* ReflectionSugestionViewController.swift */,
 			);
 			path = WinGoal;
+			sourceTree = "<group>";
+		};
+		BA2FEF392AD630BF006A472E /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				BA2FEF3A2AD63105006A472E /* OnboardingViewController.swift */,
+				BA2FEF3C2AD63116006A472E /* OnboardingPageCell.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		BA2FEF402AD73277006A472E /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				BA2FEF442AD73C05006A472E /* CustomTableViewCell.swift */,
+				BA2FEF452AD73C05006A472E /* GradientView.swift */,
+				F15BE4F92ABCC97D005A1C39 /* GoalsViewController.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 		BA7E71672AC35A930036028B /* Entities */ = {
@@ -254,11 +271,14 @@
 		F15BE4F52ABCC892005A1C39 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				2F3009542AD6409F00A015A5 /* Home */,
-				BA2FEF2C2AD4DFEA006A472E /* WinGoal */,
+				BA2FEF402AD73277006A472E /* Home */,
+				F1B5E80D2AD4BAD7006BE7B8 /* SideBarMenuVC.swift */,
+				F1B2898B2AD7014C0078B7E1 /* iPadSplitViewController.swift */,
 				C5DF0BA62ACB03800012C1F4 /* CreateGoalVCStore.swift */,
 				2F80C2AB2ACE1F9F0088EB9A /* WellnessTimeCalculator.swift */,
 				C5AFA7952ACCAC4D000BFE0C /* ViewController.swift */,
+				BA2FEF392AD630BF006A472E /* Onboarding */,
+				BA2FEF2C2AD4DFEA006A472E /* WinGoal */,
 				2F0A5C942ACB4BD9003BA21C /* Settings */,
 				BA2FEF092AD046D8006A472E /* Achievement */,
 				F1D15BC82AC4EC7600528743 /* Reflection */,
@@ -399,7 +419,9 @@
 				C5DF0B982AC3725D0012C1F4 /* UIViewController+PresentModal.swift in Sources */,
 				BA2FEF082AD046D3006A472E /* AchievementDetailViewController.swift in Sources */,
 				F1D15BD02ACCB6D300528743 /* NewReflectionTableViewCell.swift in Sources */,
+				BA2FEF472AD73C05006A472E /* GradientView.swift in Sources */,
 				F15BE5092ABCD985005A1C39 /* NewWellnessSubgoalsModalViewController.swift in Sources */,
+				BA2FEF462AD73C05006A472E /* CustomTableViewCell.swift in Sources */,
 				BA2FEF2E2AD4E0B8006A472E /* CongratulationsViewController.swift in Sources */,
 				BA7E71692AC3609D0036028B /* DAO.swift in Sources */,
 				BA7E71662AC35A8D0036028B /* Goal+CoreDataProperties.swift in Sources */,
@@ -418,16 +440,17 @@
 				2F5FD3A62AC751330012DA88 /* NotificationsSettings.swift in Sources */,
 				BA2FEF302AD591B7006A472E /* ReflectionSugestionViewController.swift in Sources */,
 				C5AFA7962ACCAC4D000BFE0C /* ViewController.swift in Sources */,
-				2F3009562AD640C800A015A5 /* GradientView.swift in Sources */,
 				C5DF0BA12AC6147A0012C1F4 /* CustomLineTextField.swift in Sources */,
 				F15BE5052ABCD950005A1C39 /* NewGoalModalViewController.swift in Sources */,
 				F15BE5022ABCD8E9005A1C39 /* NewWellnessSubgoalsModalView.swift in Sources */,
-				2F3009582AD642D400A015A5 /* CustomTableViewCell.swift in Sources */,
+				BA2FEF3B2AD63105006A472E /* OnboardingViewController.swift in Sources */,
+				BA2FEF3D2AD63116006A472E /* OnboardingPageCell.swift in Sources */,
 				C5DF0BA52AC70F160012C1F4 /* SubGoalCellText.swift in Sources */,
 				C5AFA7982ACF3484000BFE0C /* BigButton.swift in Sources */,
 				F15BE4FE2ABCD789005A1C39 /* NewGoalModalView.swift in Sources */,
 				C562C56B2ABE290E00A3311C /* GoalModel.swift in Sources */,
 				F1D15BCC2AC51A2B00528743 /* CreatingNewReflection3ViewController.swift in Sources */,
+				F1B2898C2AD7014C0078B7E1 /* iPadSplitViewController.swift in Sources */,
 				F1359EE72ABB6F92004536E6 /* SceneDelegate.swift in Sources */,
 				2F5FD3A82AC7518C0012DA88 /* SubgoalLevelViewController.swift in Sources */,
 				F15BE5002ABCD89C005A1C39 /* NewSubgoalsModalView.swift in Sources */,
@@ -440,6 +463,7 @@
 				2F0A5C9A2ACB4C0E003BA21C /* PrivacyViewController.swift in Sources */,
 				BA2FEF0B2AD0F65F006A472E /* AchievementComponents.swift in Sources */,
 				F15BE52B2AC21BB2005A1C39 /* CreatingNewReflectionViewController.swift in Sources */,
+				F1B5E80E2AD4BAD7006BE7B8 /* SideBarMenuVC.swift in Sources */,
 				2F0A5C962ACB4BF0003BA21C /* NotificationsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -591,14 +615,14 @@
 				CODE_SIGN_ENTITLEMENTS = BurnoutEditionMini02/BurnoutEditionMini02.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 3A253HAV36;
+				DEVELOPMENT_TEAM = 99Z68J6579;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BurnoutEditionMini02/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to your camera.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -620,14 +644,14 @@
 				CODE_SIGN_ENTITLEMENTS = BurnoutEditionMini02/BurnoutEditionMini02.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 3A253HAV36;
+				DEVELOPMENT_TEAM = 99Z68J6579;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BurnoutEditionMini02/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to your camera.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

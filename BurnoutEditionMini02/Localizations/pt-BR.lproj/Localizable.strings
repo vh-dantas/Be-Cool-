@@ -135,3 +135,14 @@
 
 "PrivacyTitle4" = "Contato";
 "PrivacyText4" = "Se tiver alguma dúvida ou preocupação relacionada à privacidade, entre em contato conosco em [Endereço de E-mail de Contato].";
+
+//MARK: ONBOARDING -
+"Onboarding-title1" = "Bem-vindo à Sua Jornada de Sucesso!";
+"Onboarding-title2" = "Crie, Planeje, Reflita!";
+"Onboarding-title3" = "Celebre e Cresça!";
+"Onboarding-body1" = "Estamos animados para iniciar essa jornada incrível com você! Prepare-se para uma aventura emocionante que combina trabalho e bem-estar em harmonia.";
+"Onboarding-body2" = "Aqui, vamos criar metas, manter o equilíbrio, conquistar grandes feitos e refletir sobre o seu sucesso. Tudo isso para garantir uma rotina mais saudável e equilibrada!";
+"Onboarding-body3" = "Preparado para celebrar suas conquistas?
+Na aba 'Conquistas' mergulhe em detalhes de como você alcançou suas metas. ";
+"Onboarding-skip" = "Pular";
+"Onboarding-start" = "Começar";

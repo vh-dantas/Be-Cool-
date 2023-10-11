@@ -7,16 +7,33 @@
 
 import UIKit
 
+// Instância e configuração de NavController da Reflection
+let navConReflection = UINavigationController(rootViewController: ReflectionViewController())
+let navHome = UINavigationController(rootViewController: GoalsViewController())
+
+// Instâncias das View Controllers para a Tab Bar e Side Bar
+let goalsVC = navHome
+let achievementsVC = UINavigationController(rootViewController: AchievementsViewController())
+let reflectionVC = navConReflection
+let settingsVC = UINavigationController(rootViewController: SettingsViewController())
+
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
+       
+        //Configurando o Onboarding
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let swipingController = OnboardingViewController(collectionViewLayout: layout)
+      
+        
         
         // Instância da Tab Bar Controller
         let tabBarController = UITabBarController()
@@ -31,21 +48,49 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let reflectionVC = navConReflection
         let settingsVC = UINavigationController(rootViewController: SettingsViewController())
         
-        
-        // Atribuição das ViewController à Tab Bar
-        tabBarController.viewControllers = [goalsVC, achievementsVC, reflectionVC, settingsVC]
+        // UserDefauls para armazanar a visualização do onboarding
+        let onboardingCompleted = UserDefaults.standard.bool(forKey: "Onboarding")
+        // Verificando se o Onbording ja foi concluido - se sim tiramos ele da lista de viewControllers
+        if onboardingCompleted {
+            // Atribuição das ViewController à Tab Bar
+            tabBarController.viewControllers = [goalsVC, achievementsVC, reflectionVC, settingsVC]
+        } else {
+            // Atribuição das ViewController à Tab Bar
 
-        // Configuração dos Tab Bar Itens
-        goalsVC.tabBarItem = UITabBarItem(title: "goals".localized, image: UIImage(systemName: "list.bullet.circle"), selectedImage: UIImage(systemName: "list.bullet.circle.fill"))
-        achievementsVC.tabBarItem = UITabBarItem(title: "achievements".localized, image: UIImage(systemName: "medal"), selectedImage: UIImage(systemName: "medal.fill"))
-        reflectionVC.tabBarItem = UITabBarItem(title: "reflections".localized, image: UIImage(systemName: "text.bubble"), selectedImage: UIImage(systemName: "text.bubble.fill"))
-        settingsVC.tabBarItem = UITabBarItem(title: "settings".localized, image: UIImage(systemName: "gearshape"), selectedImage: UIImage(systemName: "gearshape.fill"))
+            tabBarController.viewControllers = [ goalsVC, achievementsVC, reflectionVC, settingsVC]
+        }
+        // rootView principal
+        var rootViewController: UIViewController?
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            // Configurações para iPad
+            
+            rootViewController = iPadSplitViewController()
+            
+        } else {
+            // Instância da Tab Bar Controller
+            let tabBarController = UITabBarController()
+            
+            // Configuração dos Tab Bar Itens
+            goalsVC.tabBarItem = UITabBarItem(title: "goals".localized, image: UIImage(systemName: "list.bullet.circle"), selectedImage: UIImage(systemName: "list.bullet.circle.fill"))
+            achievementsVC.tabBarItem = UITabBarItem(title: "achievements".localized, image: UIImage(systemName: "medal"), selectedImage: UIImage(systemName: "medal.fill"))
+            reflectionVC.tabBarItem = UITabBarItem(title: "reflections".localized, image: UIImage(systemName: "text.bubble"), selectedImage: UIImage(systemName: "text.bubble.fill"))
+            settingsVC.tabBarItem = UITabBarItem(title: "settings".localized, image: UIImage(systemName: "gearshape"), selectedImage: UIImage(systemName: "gearshape.fill"))
+            
+            // Atribuição das ViewController à Tab Bar
+            tabBarController.viewControllers = [goalsVC, achievementsVC, reflectionVC, settingsVC]
+            
+            rootViewController = tabBarController
+            
+        }
+        
         
         // Configuração da janela, atribuindo à rootView (Necessário ao retirar o arquivo .storyboard)
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = tabBarController
+        window?.rootViewController = rootViewController
         window?.makeKeyAndVisible()
+
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

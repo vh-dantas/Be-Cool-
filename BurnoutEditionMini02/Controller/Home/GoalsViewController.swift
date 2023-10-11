@@ -45,7 +45,27 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
         return tableView
     }()
     
+    let emptyGoalImage: UIImageView = {
+       let burnImage = UIImageView()
+       burnImage.image = UIImage(named: "EmptyGoalImage")
+       burnImage.translatesAutoresizingMaskIntoConstraints = false
+       burnImage.contentMode = .scaleAspectFit
+       return burnImage
+   }()
     
+    private let emptyGoalLabel: UILabel = {
+       let label = UILabel()
+        label.text = "empty-goal".localized
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontForContentSizeCategory = true
+        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        label.textAlignment = .center
+        return label
+    }()
+
+
     //CoreData and TableView
     private var subItems:[SubGoal] = []
     
@@ -59,7 +79,7 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
         navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = UIColor(named: "BackgroundColor")
-        
+      
         
         constraints() // Carrega as constraints da view
         fetchSubGoalsArray() // Recarregar a array e o titulo
@@ -71,7 +91,7 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
         label.lineBreakMode = .byWordWrapping
         label.font = UIFont.systemFont(ofSize: 15)
         label.text = phrases[index]
-        
+        noCurrentGoal()
         
         // MARK: -- Botões de navegação
         let openModalBtn = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(createNewGoal))
@@ -83,9 +103,43 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
         fetchSubGoalsArray()
         tableView.reloadData()
         navigationItem.title = DataAcessObject.shared.fetchGoal().first?.title
-        
+        noCurrentGoal()
         
         //if first.iscompleted = true zera a tela
+    }
+    
+    func noCurrentGoal() {
+        if DataAcessObject.shared.fetchGoal().first?.isCompleted == true {
+            tableView.removeFromSuperview()
+            label.text = "level-neutral".localized
+            navigationItem.title = "empty-goal-title".localized
+            view.addSubview(emptyGoalImage)
+            view.addSubview(emptyGoalLabel)
+            
+            NSLayoutConstraint.activate([
+                emptyGoalImage.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7),
+                emptyGoalImage.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4),
+                emptyGoalImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                emptyGoalImage.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+                emptyGoalLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
+                emptyGoalLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
+                emptyGoalLabel.topAnchor.constraint(equalTo: emptyGoalImage.bottomAnchor)
+                
+            ])
+        } else {
+            emptyGoalImage.removeFromSuperview()
+            emptyGoalLabel.removeFromSuperview()
+            view.addSubview(tableView)
+            NSLayoutConstraint.activate([
+                tableView.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 8),
+                tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+                tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            ])
+            label.text = "scale-3".localized
+            navigationItem.title = DataAcessObject.shared.fetchGoal().first?.title
+
+        }
     }
     
     @objc func createNewGoal() {

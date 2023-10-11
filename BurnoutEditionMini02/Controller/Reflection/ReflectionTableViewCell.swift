@@ -17,7 +17,7 @@ class ReflectionTableViewCell: UITableViewCell {
     let refCircleBg = UIView()
     
     // Mood da célula
-    let refMood = UILabel()
+    let refMood = UIImageView()
     
     // Título da reflection
     let refTitle = UILabel()
@@ -61,7 +61,7 @@ class ReflectionTableViewCell: UITableViewCell {
         refShape.addSubview(refCircleBg)
         
         // Configuracão do mood
-        refMood.font = UIFont.systemFont(ofSize: 50)
+        //refMood.font = UIFont.systemFont(ofSize: 50)
         refShape.addSubview(refMood)
         
         // Configuração da label TÍTULO DA REFLECTION
@@ -89,7 +89,7 @@ class ReflectionTableViewCell: UITableViewCell {
         dateFormatter.dateFormat = "dd-MM"
         let formattedDate = dateFormatter.string(from: date)
         
-        refMood.text = reflection.mood
+        refMood.image = UIImage(named: reflection.mood ?? "")
         refTitle.text = reflection.refName
         refDate.text = formattedDate
         refText.text = reflection.randomRefAns

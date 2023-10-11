@@ -26,7 +26,8 @@ class CreatingNewReflection2ViewController: UIViewController {
     let tranquilTxt = UILabel()
     
     // Mood (emoji) selecionado pelo usuário na Reflection
-    var selectedMood: String = ""
+    var selectedMood: String?
+    //var moodImage: UIImageView?
     var hasSelectedMood: Bool = false
     
     // Mood StackView
@@ -218,10 +219,10 @@ class CreatingNewReflection2ViewController: UIViewController {
         mainStackView.spacing = 45
         
         // Célula "Sad"
-        sadMood.setTitle("😔", for: .normal)
-        sadMood.titleLabel?.font = UIFont.systemFont(ofSize: 45)
+        sadMood.setImage(UIImage(named: "Triste"), for: .normal)
+        //sadMood.titleLabel?.font = UIFont.systemFont(ofSize: 45)
         sadMood.backgroundColor = .systemGray4
-        sadMood.layer.cornerRadius = 40
+        sadMood.layer.cornerRadius = 50
         sadTxt.text = "Sad"
         sadTxt.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         
@@ -229,10 +230,10 @@ class CreatingNewReflection2ViewController: UIViewController {
         sadStackView.addArrangedSubview(sadTxt)
         
         // Célula "Stressed"
-        stressedMood.setTitle("😤", for: .normal)
-        stressedMood.titleLabel?.font = UIFont.systemFont(ofSize: 45)
+        stressedMood.setImage(UIImage(named: "Estressado"), for: .normal)
+        //stressedMood.titleLabel?.font = UIFont.systemFont(ofSize: 45)
         stressedMood.backgroundColor = .systemGray4
-        stressedMood.layer.cornerRadius = 40
+        stressedMood.layer.cornerRadius = 50
         stressedTxt.text = "Stressed"
         stressedTxt.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         
@@ -240,10 +241,10 @@ class CreatingNewReflection2ViewController: UIViewController {
         stressedStackView.addArrangedSubview(stressedTxt)
         
         // Célula "Normal"
-        normalMood.setTitle("😐", for: .normal)
-        normalMood.titleLabel?.font = UIFont.systemFont(ofSize: 45)
+        normalMood.setImage(UIImage(named: "Normal"), for: .normal)
+        //normalMood.titleLabel?.font = UIFont.systemFont(ofSize: 45)
         normalMood.backgroundColor = .systemGray4
-        normalMood.layer.cornerRadius = 40
+        normalMood.layer.cornerRadius = 50
         normalTxt.text = "Normal"
         normalTxt.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         
@@ -251,10 +252,10 @@ class CreatingNewReflection2ViewController: UIViewController {
         normalStackView.addArrangedSubview(normalTxt)
         
         // Célula "Tranquil"
-        tranquilMood.setTitle("😌", for: .normal)
-        tranquilMood.titleLabel?.font = UIFont.systemFont(ofSize: 45)
+        tranquilMood.setImage(UIImage(named: "Tranquilo"), for: .normal)
+        //tranquilMood.titleLabel?.font = UIFont.systemFont(ofSize: 45)
         tranquilMood.backgroundColor = .systemGray4
-        tranquilMood.layer.cornerRadius = 40
+        tranquilMood.layer.cornerRadius = 50
         tranquilTxt.text = "Tranquil"
         tranquilTxt.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         
@@ -262,10 +263,10 @@ class CreatingNewReflection2ViewController: UIViewController {
         tranquilStackView.addArrangedSubview(tranquilTxt)
         
         // Célula "Happy"
-        happyMood.setTitle("😃", for: .normal)
-        happyMood.titleLabel?.font = UIFont.systemFont(ofSize: 45)
+        happyMood.setImage(UIImage(named: "Feliz"), for: .normal)
+        //happyMood.titleLabel?.font = UIFont.systemFont(ofSize: 45)
         happyMood.backgroundColor = .systemGray4
-        happyMood.layer.cornerRadius = 40
+        happyMood.layer.cornerRadius = 50
         happyTxt.text = "Happy"
         happyTxt.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         
@@ -273,10 +274,10 @@ class CreatingNewReflection2ViewController: UIViewController {
         happyStackView.addArrangedSubview(happyTxt)
         
         // Célula "Excited"
-        excitedMood.setTitle("🤩", for: .normal)
-        excitedMood.titleLabel?.font = UIFont.systemFont(ofSize: 45)
+        excitedMood.setImage(UIImage(named: "Animado"), for: .normal)
+        //excitedMood.titleLabel?.font = UIFont.systemFont(ofSize: 45)
         excitedMood.backgroundColor = .systemGray4
-        excitedMood.layer.cornerRadius = 40
+        excitedMood.layer.cornerRadius = 50
         excitedTxt.text = "Excited"
         excitedTxt.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         
@@ -311,8 +312,8 @@ class CreatingNewReflection2ViewController: UIViewController {
     // Happy Mood
     @objc func happyMoodFunc() {
         nextScreenBt.isHidden = false
-        if selectedMood != "😃" {
-            selectedMood = "😃"
+        if selectedMood != "Feliz" {
+            selectedMood = "Feliz"
             happyMood.backgroundColor = UIColor(named: "AccentColor")
             
             for mood in moodsArray {
@@ -329,8 +330,8 @@ class CreatingNewReflection2ViewController: UIViewController {
     // Normal Mood
     @objc func normalMoodFunc() {
         nextScreenBt.isHidden = false
-        if selectedMood != "😐" {
-            selectedMood = "😐"
+        if selectedMood != "Normal" {
+            selectedMood = "Normal"
             normalMood.backgroundColor = UIColor(named: "AccentColor")
             
             for mood in moodsArray {
@@ -346,8 +347,8 @@ class CreatingNewReflection2ViewController: UIViewController {
     // Sad Mood
     @objc func sadMoodFunc() {
         nextScreenBt.isHidden = false
-        if selectedMood != "😔" {
-            selectedMood = "😔"
+        if selectedMood != "Triste" {
+            selectedMood = "Triste"
             sadMood.backgroundColor = UIColor(named: "AccentColor")
             
             for mood in moodsArray {
@@ -364,8 +365,8 @@ class CreatingNewReflection2ViewController: UIViewController {
     // Stressed Mood
     @objc func stressedMoodFunc() {
         nextScreenBt.isHidden = false
-        if selectedMood != "😤" {
-            selectedMood = "😤"
+        if selectedMood != "Estressado" {
+            selectedMood = "Estressado"
             stressedMood.backgroundColor = UIColor(named: "AccentColor")
             
             for mood in moodsArray {
@@ -382,8 +383,8 @@ class CreatingNewReflection2ViewController: UIViewController {
     // Excited Mood
     @objc func excitedMoodFunc() {
         nextScreenBt.isHidden = false
-        if selectedMood != "🤩" {
-            selectedMood = "🤩"
+        if selectedMood != "Animado" {
+            selectedMood = "Animado"
             excitedMood.backgroundColor = UIColor(named: "AccentColor")
             
             for mood in moodsArray {
@@ -400,8 +401,8 @@ class CreatingNewReflection2ViewController: UIViewController {
     // Tranquil Mood
     @objc func tranquilMoodFunc() {
         nextScreenBt.isHidden = false
-        if selectedMood != "😌" {
-            selectedMood = "😌"
+        if selectedMood != "Tranquilo" {
+            selectedMood = "Tranquilo"
             tranquilMood.backgroundColor = UIColor(named: "AccentColor")
             
             for mood in moodsArray {
@@ -449,23 +450,23 @@ class CreatingNewReflection2ViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             
-            happyMood.widthAnchor.constraint(equalToConstant: 80),
-            happyMood.heightAnchor.constraint(equalToConstant: 80),
+            happyMood.widthAnchor.constraint(equalToConstant: 100 ),
+            happyMood.heightAnchor.constraint(equalToConstant: 100),
             
-            normalMood.widthAnchor.constraint(equalToConstant: 80),
-            normalMood.heightAnchor.constraint(equalToConstant: 80),
+            normalMood.widthAnchor.constraint(equalToConstant: 100),
+            normalMood.heightAnchor.constraint(equalToConstant: 100),
             
-            sadMood.widthAnchor.constraint(equalToConstant: 80),
-            sadMood.heightAnchor.constraint(equalToConstant: 80),
+            sadMood.widthAnchor.constraint(equalToConstant: 100),
+            sadMood.heightAnchor.constraint(equalToConstant: 100),
             
-            stressedMood.widthAnchor.constraint(equalToConstant: 80),
-            stressedMood.heightAnchor.constraint(equalToConstant: 80),
+            stressedMood.widthAnchor.constraint(equalToConstant: 100),
+            stressedMood.heightAnchor.constraint(equalToConstant: 100),
             
-            excitedMood.widthAnchor.constraint(equalToConstant: 80),
-            excitedMood.heightAnchor.constraint(equalToConstant: 80),
+            excitedMood.widthAnchor.constraint(equalToConstant: 100),
+            excitedMood.heightAnchor.constraint(equalToConstant: 100),
             
-            tranquilMood.widthAnchor.constraint(equalToConstant: 80),
-            tranquilMood.heightAnchor.constraint(equalToConstant: 80)
+            tranquilMood.widthAnchor.constraint(equalToConstant: 100),
+            tranquilMood.heightAnchor.constraint(equalToConstant: 100)
         ])
         
         // Botão NextScreen

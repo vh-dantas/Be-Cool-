@@ -48,6 +48,9 @@
 		F15BE5122ABCDEB1005A1C39 /* ReflectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE5112ABCDEB1005A1C39 /* ReflectionViewController.swift */; };
 		F15BE5292AC203CD005A1C39 /* BreathAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE5282AC203CD005A1C39 /* BreathAnimationViewController.swift */; };
 		F15BE52B2AC21BB2005A1C39 /* CreatingNewReflectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15BE52A2AC21BB2005A1C39 /* CreatingNewReflectionViewController.swift */; };
+		F1B2898C2AD7014C0078B7E1 /* iPadSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B2898B2AD7014C0078B7E1 /* iPadSplitViewController.swift */; };
+		F1B2898E2AD704D30078B7E1 /* iPadDetailViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B2898D2AD704D30078B7E1 /* iPadDetailViewDelegate.swift */; };
+		F1B5E80E2AD4BAD7006BE7B8 /* SideBarMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B5E80D2AD4BAD7006BE7B8 /* SideBarMenuVC.swift */; };
 		F1D15BC72AC45E2E00528743 /* ReflectionCanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D15BC62AC45E2E00528743 /* ReflectionCanvasViewController.swift */; };
 		F1D15BCA2AC4ECF800528743 /* CreatingNewReflection2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D15BC92AC4ECF800528743 /* CreatingNewReflection2ViewController.swift */; };
 		F1D15BCC2AC51A2B00528743 /* CreatingNewReflection3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D15BCB2AC51A2B00528743 /* CreatingNewReflection3ViewController.swift */; };
@@ -101,6 +104,9 @@
 		F15BE5112ABCDEB1005A1C39 /* ReflectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectionViewController.swift; sourceTree = "<group>"; };
 		F15BE5282AC203CD005A1C39 /* BreathAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathAnimationViewController.swift; sourceTree = "<group>"; };
 		F15BE52A2AC21BB2005A1C39 /* CreatingNewReflectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatingNewReflectionViewController.swift; sourceTree = "<group>"; };
+		F1B2898B2AD7014C0078B7E1 /* iPadSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPadSplitViewController.swift; sourceTree = "<group>"; };
+		F1B2898D2AD704D30078B7E1 /* iPadDetailViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPadDetailViewDelegate.swift; sourceTree = "<group>"; };
+		F1B5E80D2AD4BAD7006BE7B8 /* SideBarMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarMenuVC.swift; sourceTree = "<group>"; };
 		F1D15BC62AC45E2E00528743 /* ReflectionCanvasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectionCanvasViewController.swift; sourceTree = "<group>"; };
 		F1D15BC92AC4ECF800528743 /* CreatingNewReflection2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatingNewReflection2ViewController.swift; sourceTree = "<group>"; };
 		F1D15BCB2AC51A2B00528743 /* CreatingNewReflection3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatingNewReflection3ViewController.swift; sourceTree = "<group>"; };
@@ -227,6 +233,8 @@
 		F15BE4F52ABCC892005A1C39 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				F1B5E80D2AD4BAD7006BE7B8 /* SideBarMenuVC.swift */,
+				F1B2898B2AD7014C0078B7E1 /* iPadSplitViewController.swift */,
 				C5DF0BA62ACB03800012C1F4 /* CreateGoalVCStore.swift */,
 				2F80C2AB2ACE1F9F0088EB9A /* WellnessTimeCalculator.swift */,
 				F15BE4F92ABCC97D005A1C39 /* GoalsViewController.swift */,
@@ -253,6 +261,7 @@
 				F1359EE42ABB6F92004536E6 /* AppDelegate.swift */,
 				F1359EE62ABB6F92004536E6 /* SceneDelegate.swift */,
 				2F5FD3A52AC751330012DA88 /* NotificationsSettings.swift */,
+				F1B2898D2AD704D30078B7E1 /* iPadDetailViewDelegate.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -378,6 +387,7 @@
 				F1359EEF2ABB6F92004536E6 /* BurnoutEditionMini02.xcdatamodeld in Sources */,
 				2F9CDC902ABD153B00C10425 /* LocalizedStringExtension.swift in Sources */,
 				C562C56D2ABE297E00A3311C /* SubGoalModel.swift in Sources */,
+				F1B2898E2AD704D30078B7E1 /* iPadDetailViewDelegate.swift in Sources */,
 				F15BE4FA2ABCC97D005A1C39 /* GoalsViewController.swift in Sources */,
 				2F80C2AC2ACE1F9F0088EB9A /* WellnessTimeCalculator.swift in Sources */,
 				2F38E75D2ACF1E4D007A42B8 /* PreferencesViewController.swift in Sources */,
@@ -396,6 +406,7 @@
 				F15BE4FE2ABCD789005A1C39 /* NewGoalModalView.swift in Sources */,
 				C562C56B2ABE290E00A3311C /* GoalModel.swift in Sources */,
 				F1D15BCC2AC51A2B00528743 /* CreatingNewReflection3ViewController.swift in Sources */,
+				F1B2898C2AD7014C0078B7E1 /* iPadSplitViewController.swift in Sources */,
 				F1359EE72ABB6F92004536E6 /* SceneDelegate.swift in Sources */,
 				2F5FD3A82AC7518C0012DA88 /* SubgoalLevelViewController.swift in Sources */,
 				F15BE5002ABCD89C005A1C39 /* NewSubgoalsModalView.swift in Sources */,
@@ -408,6 +419,7 @@
 				2F0A5C9A2ACB4C0E003BA21C /* PrivacyViewController.swift in Sources */,
 				BA2FEF0B2AD0F65F006A472E /* AchievementComponents.swift in Sources */,
 				F15BE52B2AC21BB2005A1C39 /* CreatingNewReflectionViewController.swift in Sources */,
+				F1B5E80E2AD4BAD7006BE7B8 /* SideBarMenuVC.swift in Sources */,
 				2F0A5C962ACB4BF0003BA21C /* NotificationsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -559,7 +571,7 @@
 				CODE_SIGN_ENTITLEMENTS = BurnoutEditionMini02/BurnoutEditionMini02.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 3A253HAV36;
+				DEVELOPMENT_TEAM = 99Z68J6579;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BurnoutEditionMini02/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to your camera.";
@@ -588,7 +600,7 @@
 				CODE_SIGN_ENTITLEMENTS = BurnoutEditionMini02/BurnoutEditionMini02.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 3A253HAV36;
+				DEVELOPMENT_TEAM = 99Z68J6579;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BurnoutEditionMini02/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to your camera.";

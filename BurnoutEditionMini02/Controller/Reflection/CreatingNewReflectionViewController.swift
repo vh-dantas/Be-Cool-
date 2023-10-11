@@ -197,8 +197,6 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
         return randomRefQst
     }
     
-    
-    
     // MARK: - Labels
     private func setupLabels() {
         
@@ -232,9 +230,7 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
         
         // Ação para o botão aparecer/desaparecer caso nao tenha texto
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        
+                
         view.addSubview(textField)
     }
     
@@ -282,10 +278,11 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
         ])
         
         // TextField
+        textField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             textField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             textField.topAnchor.constraint(equalTo: label2.bottomAnchor, constant: 15),
-            textField.widthAnchor.constraint(equalToConstant: screenWidth-40),
+            textField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 18),
             textField.heightAnchor.constraint(equalToConstant: screenHeight/2.5)
         ])
         

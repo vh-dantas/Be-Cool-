@@ -34,6 +34,8 @@ class CreatingNewReflection3ViewController: UIViewController, UITextFieldDelegat
     var imageView: UIImageView?
     var finalDrawing: UIImageView?
     
+    var goal: Goal?
+    
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,7 +120,7 @@ class CreatingNewReflection3ViewController: UIViewController, UITextFieldDelegat
         let image = imageView
         let mood = selectedMood
         
-        DataAcessObject.shared.createReflection(refName: refName ?? "", mood: mood ?? "", randomRefQST: randomRefQst ?? "", randomRefANS: randomRefAns ?? "", drawing: drawing, image: image)
+        DataAcessObject.shared.createReflection(refName: refName ?? "", mood: mood ?? "", randomRefQST: randomRefQst ?? "", randomRefANS: randomRefAns ?? "", drawing: drawing, image: image, goal: self.goal)
         
         navigationController?.popToRootViewController(animated: true)
     }
@@ -181,7 +183,16 @@ class CreatingNewReflection3ViewController: UIViewController, UITextFieldDelegat
     }
     
     @objc func cancelButtonFunc() {
-        navigationController?.popToRootViewController(animated: true)
+        let yesLabel = UILabel()
+        yesLabel.textColor = .systemRed
+        yesLabel.text = "Yes"
+        let alertController = UIAlertController(title: "Aviso", message: "Deseja mesmo cancelar essa Reflection?", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Sim", style: .default, handler: { action in
+            self.navigationController?.popToRootViewController(animated: true)
+        }))
+        alertController.addAction(UIAlertAction(title: "Não", style: .cancel))
+        present(alertController, animated: true, completion: nil)
+       
     }
     
     // MARK: - Constraints
@@ -225,3 +236,5 @@ class CreatingNewReflection3ViewController: UIViewController, UITextFieldDelegat
     }
 
 }
+
+

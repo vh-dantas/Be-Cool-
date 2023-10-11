@@ -25,7 +25,7 @@ class AddSubGoalCell: UITableViewCell {
     }
     
     func setUp() {
-        backgroundColor = .white
+        backgroundColor = UIColor(named:"SubGoalCellColor")
         layer.cornerRadius = 10
         clipsToBounds = true
         
@@ -52,10 +52,10 @@ class AddSubGoalCell: UITableViewCell {
             button.widthAnchor.constraint(equalToConstant: buttonSize),
             button.heightAnchor.constraint(equalToConstant: buttonSize),
 
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 11),
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 9),
             stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
             stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -11),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -9),
         ])
         
         button.addTarget(self, action: #selector(handleTap), for: .touchUpInside)

@@ -15,6 +15,7 @@ class AchievementDetailViewController: UIViewController {
     private let scrollView: UIScrollView = {
        let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.backgroundColor = .systemBackground
         return scrollView
     }()
     
@@ -50,11 +51,19 @@ class AchievementDetailViewController: UIViewController {
     private let wellBeingTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "Atividades de Bem-Estar"
-        label.font = UIFont.preferredFont(forTextStyle: .callout, compatibleWith: UITraitCollection(legibilityWeight: .bold))
+        // Obtém a fonte preferida para o estilo de texto .callout
+        let preferredFont = UIFont.preferredFont(forTextStyle: .callout)
+        // Cria um descritor de fonte com estilo em negrito
+        let boldFontDescriptor = preferredFont.fontDescriptor.withSymbolicTraits(.traitBold)
+        // Verifica se o descritor de fonte em negrito é nulo
+        let boldFont = UIFont(descriptor: boldFontDescriptor ?? UIFontDescriptor(name: "arial", size: 12), size: 0)
+        // Define a nova fonte em negrito para a sua label
+        label.font = boldFont
         label.textColor = UIColor.black
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     // texto body do bem estar, acima do relogio
@@ -81,6 +90,10 @@ class AchievementDetailViewController: UIViewController {
         table.isEditing = false
         table.isScrollEnabled = true
         table.layer.cornerRadius = 10
+        table.rowHeight = UITableView.automaticDimension
+        table.estimatedRowHeight = 100
+        table.register(AchievementTableViewCell.self, forCellReuseIdentifier: AchievementTableViewCell.reuseIdentifier)
+        table.separatorInset = UIEdgeInsets(top: 0, left: 56, bottom: 0, right: 0)
         return table
     }()
     // Ultima Label antes das tarefas de trabalho
@@ -102,9 +115,17 @@ class AchievementDetailViewController: UIViewController {
     private let workTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "Tarefas de trabalho"
-        label.font = UIFont.preferredFont(forTextStyle: .callout)
+        let preferredFont = UIFont.preferredFont(forTextStyle: .callout)
+        // Cria um descritor de fonte com estilo em negrito
+        let boldFontDescriptor = preferredFont.fontDescriptor.withSymbolicTraits(.traitBold)
+        // Verifica se o descritor de fonte em negrito é nulo
+        let boldFont = UIFont(descriptor: boldFontDescriptor ?? UIFontDescriptor(name: "arial", size: 12), size: 0)
+        // Define a nova fonte em negrito para a sua label
+        label.font = boldFont
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontForContentSizeCategory = true
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     // Tab;e view com as workGoals
@@ -143,8 +164,8 @@ class AchievementDetailViewController: UIViewController {
         // Adicionando todas as views
         addToView()
         // Funções de SetUp
-       // setUpScrollView()
-        //setUpContentView()
+        setUpScrollView()
+        setUpContentView()
         setUpDateImage()
         setUpDateLabel()
         setUpWellBeingTitleLabel()
@@ -157,6 +178,7 @@ class AchievementDetailViewController: UIViewController {
         setUpProgressBar()
         setUpWorkTableView()
         setUpFinalLabel()
+       // navigationController?.tabBarController?.tabBar.isTranslucent = false
     }
 
     // MARK: INIT
@@ -173,47 +195,47 @@ class AchievementDetailViewController: UIViewController {
     // Função para adicionar todos na view
     func addToView(){
         // ScrollView
-//        view.addSubview(scrollView)
-//        scrollView.addSubview(contentView)
-        view.addSubview(dateLabel)
-        view.addSubview(dateImage)
-        view.addSubview(stackView)
-        view.addSubview(wellBeingTitleLabel)
-        view.addSubview(wellBeingTextLabel)
-        view.addSubview(wellNessTableView)
-        view.addSubview(lastWellNessLabel)
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(dateLabel)
+        contentView.addSubview(dateImage)
+        contentView.addSubview(stackView)
+        contentView.addSubview(wellBeingTitleLabel)
+        contentView.addSubview(wellBeingTextLabel)
+        contentView.addSubview(wellNessTableView)
+        contentView.addSubview(lastWellNessLabel)
         // Trabalhas
-        view.addSubview(workTitleLabel)
-        view.addSubview(progressBar)
-        view.addSubview(workTableView)
-        view.addSubview(finalLabel)
+        contentView.addSubview(workTitleLabel)
+        contentView.addSubview(progressBar)
+        contentView.addSubview(workTableView)
+        contentView.addSubview(finalLabel)
     }
     
-//    // MARK: SetUpScrollView
-//    private func setUpScrollView(){
-//        NSLayoutConstraint.activate([
-//            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-//            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-//        ])
-//    }
-//    // MARK: SetUpContentView
-//    private func setUpContentView(){
-//        // Setando a prioridade do height da para ativar a scrollView
-//        let hConts = contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
-//        hConts.isActive = true
-//        hConts.priority = UILayoutPriority(50)
-//
-//        NSLayoutConstraint.activate([
-//            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-//            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-//            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-//            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-//            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-//           // contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
-//        ])
-//    }
+    // MARK: SetUpScrollView
+    private func setUpScrollView(){
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
+    // MARK: SetUpContentView
+    private func setUpContentView(){
+        // Setando a prioridade do height da para ativar a scrollView
+        let hConts = contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
+        hConts.isActive = true
+        hConts.priority = UILayoutPriority(250)
+
+        NSLayoutConstraint.activate([
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+           // contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
+        ])
+    }
     
     // MARK: SetUpDateLabel
     func setUpDateLabel() {
@@ -228,8 +250,8 @@ class AchievementDetailViewController: UIViewController {
         dateLabel.textColor = UIColor.gray
         // Criando as constraints
         NSLayoutConstraint.activate([
-            dateLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -5),
-            dateLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 17),
+            dateLabel.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: -5),
+            dateLabel.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: 17),
             dateLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: dateImage.trailingAnchor,multiplier: 0.8)
             
         ])
@@ -238,8 +260,8 @@ class AchievementDetailViewController: UIViewController {
     func setUpDateImage() {
         // Constraints
         NSLayoutConstraint.activate([
-            dateImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant:  -6),
-            dateImage.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 2),
+            dateImage.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant:  -6),
+            dateImage.leadingAnchor.constraint(equalToSystemSpacingAfter: contentView.leadingAnchor, multiplier: 2),
             dateImage.widthAnchor.constraint(equalToConstant: 14),
             dateImage.heightAnchor.constraint(equalToConstant: 18),
         ])
@@ -249,16 +271,16 @@ class AchievementDetailViewController: UIViewController {
     func setUpWellBeingTitleLabel(){
         NSLayoutConstraint.activate([
             wellBeingTitleLabel.topAnchor.constraint(equalToSystemSpacingBelow: dateLabel.bottomAnchor, multiplier: 4),
-            wellBeingTitleLabel.trailingAnchor.constraint(equalToSystemSpacingAfter: view.trailingAnchor, multiplier: 1),
-            wellBeingTitleLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 2)
+            wellBeingTitleLabel.trailingAnchor.constraint(equalToSystemSpacingAfter: contentView.trailingAnchor, multiplier: 1),
+            wellBeingTitleLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: contentView.leadingAnchor, multiplier: 2)
         ])
     }
     // MARK: SetUp WellBeingTextLabel
     func setUpWellBeingTextLabel(){
         NSLayoutConstraint.activate([
             wellBeingTextLabel.topAnchor.constraint(equalToSystemSpacingBelow: wellBeingTitleLabel.bottomAnchor, multiplier: 2),
-            wellBeingTextLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            wellBeingTextLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 2)
+            wellBeingTextLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            wellBeingTextLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: contentView.leadingAnchor, multiplier: 2)
         ])
     }
     // MARK: Relogio de horas - Obrigado Thayná 🙏
@@ -312,7 +334,7 @@ class AchievementDetailViewController: UIViewController {
         // Adicionando na View
         // Constraints
         NSLayoutConstraint.activate([
-            stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            stackView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             stackView.topAnchor.constraint(equalToSystemSpacingBelow: wellBeingTextLabel.bottomAnchor, multiplier: 3)
         ])
     }
@@ -320,27 +342,33 @@ class AchievementDetailViewController: UIViewController {
     //MARK: WELLNESS TABLEVIEW
     func setUpWellNessTableView(){
         wellNessTableView.dataSource = self
-        wellNessTableView.register(AchievementTableViewCell.self, forCellReuseIdentifier: AchievementTableViewCell.reuseIdentifier)
-        wellNessTableView.separatorInset = UIEdgeInsets(top: 0, left: 38, bottom: 0, right: 0)
+        wellNessTableView.delegate = self
+        
+        wellNessTableView.tag = 0
         var constant: Double = 0.2
         if wellNessTableView.numberOfRows(inSection: 0) < 4 {
             constant = 0.1
         }
+        // Deixando o tamamho das celulas dinamico
+        wellNessTableView.rowHeight = UITableView.automaticDimension
+        wellNessTableView.estimatedRowHeight = UITableView.automaticDimension
+        // wellNessTableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         NSLayoutConstraint.activate([
             wellNessTableView.topAnchor.constraint(equalToSystemSpacingBelow: stackView.bottomAnchor, multiplier: 3),
             wellNessTableView.bottomAnchor.constraint(equalTo: lastWellNessLabel.topAnchor, constant: -20),
-            wellNessTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            wellNessTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            wellNessTableView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            wellNessTableView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
             wellNessTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: constant)
         ])
     }
+
     
     //MARK: LastLabel
     func setUPLasLabel() {
         NSLayoutConstraint.activate([
             lastWellNessLabel.topAnchor.constraint(equalToSystemSpacingBelow: wellNessTableView.bottomAnchor, multiplier: 1),
-            lastWellNessLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            lastWellNessLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 2)
+            lastWellNessLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            lastWellNessLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: contentView.leadingAnchor, multiplier: 2)
         ])
     }
     
@@ -348,8 +376,8 @@ class AchievementDetailViewController: UIViewController {
     func setUpWorkTitleLabel() {
         NSLayoutConstraint.activate([
             workTitleLabel.topAnchor.constraint(equalToSystemSpacingBelow: lastWellNessLabel.bottomAnchor, multiplier: 4),
-            workTitleLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 2),
-            workTitleLabel.trailingAnchor.constraint(equalToSystemSpacingAfter: view.trailingAnchor, multiplier: 1),
+            workTitleLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: contentView.leadingAnchor, multiplier: 2),
+            workTitleLabel.trailingAnchor.constraint(equalToSystemSpacingAfter: contentView.trailingAnchor, multiplier: 1),
         ])
     }
     
@@ -385,29 +413,42 @@ class AchievementDetailViewController: UIViewController {
         var easyWork: Int = 0
         var mediumWork:Int = 0
         var hardWork: Int = 0
-        // Loop para identificar a dificuldade das submetas
-//        if let goal = goal {
-//            for subGoals in goal.subGoalsArray {
-//                switch subGoals.dificulty {
-//                case "easy":
-//                    easyWork += 1
-//                case "medium":
-//                    mediumWork += 1
-//                case "hard":
-//                    hardWork += 1
-//                default:
-//                    print("Dificuldade não encontrada")
-//                }
-//            }
-//        }
-        // Calculando a porcentagem %
-//        let totalWorkGoals: Int = easy + medium + hard
-//        let width1 =  (easy/totalWorkGoals) * 100
-//        let width2 =  (medium/totalWorkGoals) * 100
-//        let width3 =  (hard/totalWorkGoals) * 100
-        let width1 =  0.2
-        let width2 =  0.5
-        let width3 =  0.3
+         //Loop para identificar a dificuldade das submetas
+        for subGoals in goal.subGoalsArray {
+            guard let level = subGoals.level, let difficulty = Difficulty(rawValue: level) else {
+                continue
+            }
+            switch difficulty {
+            case .easy:
+                easyWork += 1
+            case .medium:
+                mediumWork += 1
+            case .hard:
+                hardWork += 1
+            }
+        }
+      //   Calculando a porcentagem %
+        let totalWorkGoals: Int = easyWork + mediumWork + hardWork
+        let width1: Double = Double((easyWork/totalWorkGoals))
+        let width2: Double = Double((mediumWork/totalWorkGoals))
+        let width3: Double = Double((hardWork/totalWorkGoals))
+        
+        // Condicionais para manter o arrendoamento
+        if width1 == 1 {
+            colorView1.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner, .layerMaxXMinYCorner]
+            colorView1.layer.cornerRadius = 13
+        }
+        if width2 == 1 {
+            colorView2.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner, .layerMaxXMinYCorner]
+            colorView2.layer.cornerRadius = 13
+        } else if width3 <= 0 {
+            colorView2.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner, .layerMaxXMinYCorner]
+            colorView2.layer.cornerRadius = 13
+        }
+        if width3 == 1 {
+            colorView3.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner, .layerMaxXMinYCorner]
+            colorView3.layer.cornerRadius = 13
+        }
         
         // Criando o indice do grafico
         //      let indiceStackView = UIStackView() // configurando a StackView
@@ -422,8 +463,8 @@ class AchievementDetailViewController: UIViewController {
         //        view.addSubview(indiceStackView)
         // Criando as bolinhas do indice do grafico
         let easyPercent = PercentualComponent(frame: CGRect(), color: UIColor(named: "EasyWork") ?? .systemGreen, percentagem: width1 * 100, text: "Fácil")
-        let mediumPercent = PercentualComponent(frame: CGRect(), color: UIColor(named: "MediumWork") ?? .systemYellow, percentagem: width2 * 100, text: "Médio")
-        let hardPercent = PercentualComponent(frame: CGRect(), color: UIColor(named: "HardWork") ?? .systemRed, percentagem: width3 * 100, text: "Difícil")
+        let mediumPercent = PercentualComponent(frame: CGRect(), color: UIColor(named: "MediumWork") ?? .systemYellow, percentagem: width2 * 100 , text: "Médio")
+        let hardPercent = PercentualComponent(frame: CGRect(), color: UIColor(named: "HardWork") ?? .systemRed, percentagem: width3 * 100 , text: "Difícil")
 
         view.addSubview(easyPercent)
         view.addSubview(mediumPercent)
@@ -431,12 +472,16 @@ class AchievementDetailViewController: UIViewController {
         easyPercent.translatesAutoresizingMaskIntoConstraints = false
         mediumPercent.translatesAutoresizingMaskIntoConstraints = false
         hardPercent.translatesAutoresizingMaskIntoConstraints = false
-        // Atualize o layout das subviews - cada color recebe uma width com sua porcentagem na barra
+        // Atualize o layout das subviews - cada color recebe uma width com sua porcentagem na barra - irei criar uma constante para ajustar o layout caso algum dos numeros seja 100%
+        var constantPorcent: Double = 11
+        if width1 == 1 || width2 == 2 || width3 == 3 {
+            constantPorcent = 11.5
+        }
         NSLayoutConstraint.activate([
             progressBar.topAnchor.constraint(equalToSystemSpacingBelow: workTitleLabel.bottomAnchor, multiplier: 2),
-            progressBar.trailingAnchor.constraint(equalToSystemSpacingAfter: view.trailingAnchor, multiplier: 2),
-            progressBar.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 2),
-            progressBar.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75),
+            progressBar.trailingAnchor.constraint(equalToSystemSpacingAfter: contentView.trailingAnchor, multiplier: 2),
+            progressBar.leadingAnchor.constraint(equalToSystemSpacingAfter: contentView.leadingAnchor, multiplier: 2),
+            progressBar.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.75),
             progressBar.heightAnchor.constraint(equalToConstant: 25),
             // Constraints da Color 1
             colorView1.topAnchor.constraint(equalTo: progressBar.topAnchor),
@@ -457,17 +502,19 @@ class AchievementDetailViewController: UIViewController {
             colorView3.widthAnchor.constraint(equalTo: progressBar.widthAnchor, multiplier: width3),
             colorView3.heightAnchor.constraint(equalTo: progressBar.heightAnchor),
             // Indice
+        
             easyPercent.topAnchor.constraint(equalToSystemSpacingBelow: progressBar.bottomAnchor, multiplier: 2),
-            easyPercent.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 3.5),
+            easyPercent.leadingAnchor.constraint(equalToSystemSpacingAfter: contentView.leadingAnchor, multiplier: 3.5),
             mediumPercent.topAnchor.constraint(equalToSystemSpacingBelow: progressBar.bottomAnchor, multiplier: 2),
-            mediumPercent.leadingAnchor.constraint(equalToSystemSpacingAfter: easyPercent.trailingAnchor, multiplier: 11),
+            mediumPercent.leadingAnchor.constraint(equalToSystemSpacingAfter: easyPercent.trailingAnchor, multiplier: constantPorcent),
             hardPercent.topAnchor.constraint(equalToSystemSpacingBelow: progressBar.bottomAnchor, multiplier: 2),
-            hardPercent.leadingAnchor.constraint(equalToSystemSpacingAfter: mediumPercent.trailingAnchor, multiplier: 12 ),
+            hardPercent.leadingAnchor.constraint(equalToSystemSpacingAfter: mediumPercent.trailingAnchor, multiplier: constantPorcent),
         ])
     }
     
     func setUpWorkTableView(){
         workTableView.dataSource = self
+        workTableView.tag = 1
         workTableView.register(AchievementTableViewCell.self, forCellReuseIdentifier: AchievementTableViewCell.reuseIdentifier)
         workTableView.separatorInset = UIEdgeInsets(top: 0, left: 38, bottom: 0, right: 0)
         var constant: Double = 0.2
@@ -477,58 +524,113 @@ class AchievementDetailViewController: UIViewController {
         NSLayoutConstraint.activate([
             workTableView.topAnchor.constraint(equalToSystemSpacingBelow: progressBar.bottomAnchor, multiplier: 7),
           //  workTableView.bottomAnchor.constraint(equalTo: lastWellNessLabel.topAnchor, constant: -20),
-            workTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            workTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            workTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: constant)
+            workTableView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            workTableView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            workTableView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: constant)
         ])
     }
     
     func setUpFinalLabel() {
         NSLayoutConstraint.activate([
-            finalLabel.topAnchor.constraint(equalToSystemSpacingBelow: workTableView.bottomAnchor, multiplier: 1),
-            finalLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            finalLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 2)
+            finalLabel.topAnchor.constraint(equalToSystemSpacingBelow: workTableView.bottomAnchor, multiplier: 5),
+            finalLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            finalLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: contentView.leadingAnchor, multiplier: 2),
+            finalLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
+    }
+    
+    @objc private func didLongPress(_ gesture: UILongPressGestureRecognizer){
+        if gesture.state == .began {
+            print("que doido")
+            scrollView.isScrollEnabled = false
+            wellNessTableView.isScrollEnabled = true
+        }
+   
     }
 }
 
 // MARK: Celula da DataSourceDelegate ----------------------------------
-extension AchievementDetailViewController: UITableViewDataSource, UITableViewDelegate {
+extension AchievementDetailViewController: UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return goal.subGoalsArray.count
+        // Filtrando as metas
+        if tableView.tag == 0 {
+            return goal.subGoalsArray.filter{ $0.type == "personal"}.count
+        } else {
+            return goal.subGoalsArray.filter{ $0.type == "work" }.count
+        }
+        
+        
     }
     
     // Retorna as celulas que preenchem as rows
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // cria a celula da UITableView
-        let subGoal = goal.subGoalsArray[indexPath.row]
-//        if goal?.subGoalsArray[indexPath.row].type == "WellNess" {
-//            guard let cell = wellNessTableView.dequeueReusableCell(withIdentifier: AchievementTableViewCell.reuseIdentifier, for: indexPath) as? AchievementTableViewCell else { fatalError("Cannot Convert cell") }
-//            // Pega os elementos presentes na array e passa cada uma para uma row
-//            cell.cellLabel.text = goal?.subGoalsArray[indexPath.row].title
-//            cell.image.image = UIImage(systemName: "checkmark.circle.fill")
-//            cell.tintColor = UIColor(named: "IconBlueWork")
-//       cell.backgroundColor = UIColor(named: "BgGreenWell")
-//            return cell
-//        } else {
-//            guard let cell = workTableView.dequeueReusableCell(withIdentifier: AchievementTableViewCell.reuseIdentifier, for: indexPath) as? AchievementTableViewCell else { fatalError("Cannot Convert cell") }
-//            // Pega os elementos presentes na array e passa cada uma para uma row
-//            cell.cellLabel.text = goal?.subGoalsArray[indexPath.row].title
-//            cell.image.image = UIImage(systemName: "heart.fill")
-//            cell.tintColor = UIColor(named: "IconGreenWell")
-          
-//            return cell
-//        }
-    
-        guard let cell = wellNessTableView.dequeueReusableCell(withIdentifier: AchievementTableViewCell.reuseIdentifier, for: indexPath) as? AchievementTableViewCell else { fatalError("Cannot Convert cell") }
-        // Pega os elementos presentes na array e passa cada uma para uma row
-        cell.cellLabel.text = subGoal.title
-        cell.image.image = UIImage(systemName: "heart.fill")
-        cell.tintColor = UIColor(named: "IconGreenWell")
-        cell.backgroundColor = UIColor(named: "BgGreenWell")
-        return cell
+        // Varificando se a tag é a tag de WellNess, caso contrario é a tag de work - assim é possivel configurar duas tableViews
+        if tableView.tag == 0 {
+            // Filtrando as submetas e ordenando por ordem alfabetica
+            let wellSubGoal = goal.subGoalsArray.filter{$0.type == "personal"}.sorted{ $0.title ?? "" < $1.title  ?? ""}
+            let subGoal = wellSubGoal[indexPath.row]
+            guard let cell = workTableView.dequeueReusableCell(withIdentifier: AchievementTableViewCell.reuseIdentifier, for: indexPath) as? AchievementTableViewCell else { fatalError("Cannot Convert cell") }
+            // Pega os elementos presentes na array e passa cada uma para uma row
+            cell.cellLabel.text = subGoal.title
+            cell.image.image = UIImage(systemName: "heart.fill")
+            cell.tintColor = UIColor(named: "IconGreenWell")
+            cell.backgroundColor = UIColor(named: "BgWellnColor")
+            return cell
+        } else {
+            // Filtrando as submetas e ordenando por ordem alfabetica
+            let workSubGoals = goal.subGoalsArray.filter{$0.type == "work"}.sorted{ $0.title ?? "" < $1.title  ?? ""}
+            let subGoal = workSubGoals[indexPath.row]
+            guard let cell = wellNessTableView.dequeueReusableCell(withIdentifier: AchievementTableViewCell.reuseIdentifier, for: indexPath) as? AchievementTableViewCell else { fatalError("Cannot Convert cell") }
+            // Pega os elementos presentes na array e passa cada uma para uma row
+            cell.cellLabel.text = subGoal.title
+            cell.image.image = UIImage(systemName: "checkmark.circle.fill")
+            cell.tintColor = UIColor(named: "IconBlueWork")
+            cell.backgroundColor = UIColor(named: "BGWorkColor")
+            return cell
+        }
+//
+//        guard let cell = wellNessTableView.dequeueReusableCell(withIdentifier: AchievementTableViewCell.reuseIdentifier, for: indexPath) as? AchievementTableViewCell else { fatalError("Cannot Convert cell") }
+//        // Pega os elementos presentes na array e passa cada uma para uma row
+//        cell.cellLabel.text = subGoal.title
+//        cell.cellLabel.lineBreakMode = .byWordWrapping
+//        cell.cellLabel.numberOfLines = 0
+//        cell.cellLabel.textAlignment = .left
+//        cell.image.image = UIImage(systemName: "heart.fill")
+//        cell.tintColor = UIColor(named: "IconGreenWell")
+//        cell.backgroundColor = UIColor(named: "BgGreenWell")
+//        return cell
         
     }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        if scrollView == wellNessTableView || scrollView == workTableView {
+            self.scrollView.isScrollEnabled = false
+        }
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if (scrollView == wellNessTableView || scrollView == workTableView) {
+            self.scrollView.isScrollEnabled = true
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+          if scrollView == wellNessTableView {
+              // Reative a rolagem da UIScrollView externa quando a rolagem da UITableView terminar
+              scrollView.isScrollEnabled = true
+          }
+      }
+    
+    // Este método detecta o término do toque
+      func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+          if gestureRecognizer is UITapGestureRecognizer {
+              // Aqui você pode lidar com o término do toque
+              if otherGestureRecognizer.state == .ended {
+                  self.scrollView.isScrollEnabled = true
+              }
+          }
+          return false
+      }
 }
 
 
@@ -550,26 +652,49 @@ class AchievementTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .body)
         label.adjustsFontForContentSizeCategory = true
+        //label.sizeToFit()
+        label.lineBreakMode = .byTruncatingTail
+        label.numberOfLines = 3
+
         return label
     }()
     
     
+    private let containerView: UIView = {
+        // wrapper to contain all the subviews for the UITableViewCell
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
       //  contentView.backgroundColor = UIColor(named: "BgGreenWell")
-        addSubview(image) // Mova essa linha para cá
-        addSubview(cellLabel)
+        contentView.addSubview(containerView) // Mova essa linha para cá
+        containerView.addSubview(image)
+        containerView.addSubview(cellLabel)
         image.translatesAutoresizingMaskIntoConstraints = false
         cellLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            image.leadingAnchor.constraint(equalToSystemSpacingAfter: contentView.leadingAnchor, multiplier: 1), // Mude de contentView.trailingAnchor para contentView.leadingAnchor
-            image.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.3), // Ajuste o valor conforme necessário
-            image.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.5), // Ajuste o valor conforme necessário
-            image.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            //Label
-            cellLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: image.trailingAnchor, multiplier: 1),
-            cellLabel.trailingAnchor.constraint(equalToSystemSpacingAfter: contentView.trailingAnchor, multiplier: 1),
-            cellLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            // Imagem
+            image.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 15),
+            image.widthAnchor.constraint(equalToConstant: 27),
+            image.heightAnchor.constraint(equalToConstant: 28),
+//            image.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            image.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            // Espaço entre a imagem e o texto
+            cellLabel.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 10), // Ajuste o valor conforme necessário
+            
+            // Texto
+            cellLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10),
+            cellLabel.topAnchor.constraint(equalTo: image.topAnchor, constant: 3)
+        
+           
         ])
     }
     

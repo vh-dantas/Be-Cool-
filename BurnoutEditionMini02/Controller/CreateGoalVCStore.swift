@@ -16,4 +16,5 @@ final class CreateGoalVCStore {
     weak var newSubGoalModalViewController: NewSubgoalsModalViewController?
     weak var subgoalLevelViewController: NewSubgoalLevelViewController?
     weak var newWellnessSubgoalsModalViewController: NewWellnessSubgoalsModalViewController?
+    
 }

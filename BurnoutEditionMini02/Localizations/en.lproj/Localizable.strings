@@ -59,7 +59,17 @@
 "achievement-detail-work-title" = "Work Tasks";
 "achievement-detail-work-text" = "Breaking goals into tasks made the impossible possible. Small steps led to big accomplishments!";
 
+// Finalizou uma meta e ganhando conquista
+"congratulations-title" = "Congratulations!";
+"congratulations-sub-title" = "Wow! His dedication paid off, huh?";
+"congratulations-body" = "You reached your goal with success and balance, now don’t forget to check out your journey in the “Achievements” tab.";
+"congratulations-button" = "Continue";
 
+// Sugestão de Reflection
+"reflection-suggestion-title" = "How about reflecting on your journey?";
+"reflection-suggestion-body" = "Reflecting on the path you have taken is a great tool for those seeking success and personal development.";
+"reflection-suggestion-deny" = "Maybe later";
+"reflection-suggestion-button" = "Make Reflection";
 
 // MARK: -- REFLECTION
 "start-breathing" = "Start a breathing exercise";
@@ -123,3 +133,16 @@
 
 "PrivacyTitle4" = "Contact";
 "PrivacyText4" = "If you have any questions or concerns regarding privacy, please contact us at [Contact Email Address].";
+
+//MARK: ONBOARDING -
+"Onboarding-title1" = "Welcome to Your Successful Journey!";
+"Onboarding-title2" = "Create, Plan, Reflect!";
+"Onboarding-title3" = "Celebrate and Grow!";
+"Onboarding-body1" = "We are excited to start this incredible journey with you! Get ready for an exciting adventure that combines work and well-being in harmony.";
+"Onboarding-body2" = "Here, we will create goals, maintain balance, achieve great things and reflect on our success. All this to ensure a healthier and more balanced routine!";
+"Onboarding-body3" = "Ready to celebrate your achievements?
+In the 'Achievements' tab, dive into details of how you achieved your goals.";
+"Onboarding-skip" = "Skip";
+"Onboarding-start" = "Start";
+
+

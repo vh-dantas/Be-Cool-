@@ -27,6 +27,7 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
     
     let stackView = UIStackView()
     
+    var timeDigits = [UILabel(), UILabel(), UILabel(), UILabel()]
     
     init() {
         // Sempre chamar este super.init
@@ -40,6 +41,10 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(myKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(myKeyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
         // Só testando os valores da view anterior
         if let sliderLevels = CreateGoalVCStore.shared.subgoalLevelViewController?.sliderLevels {
             let subGoals = CreateGoalVCStore.shared.newSubGoalModalViewController?.subGoals ?? []
@@ -52,7 +57,7 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
         }
         
         // Coloca a cor de fundo da modal (ele seta como transparente por padrão)
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "BackgroundColor")
         setupLabels()
         setupTimeCard()
         setupSaveButton()
@@ -107,20 +112,14 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
             ])
         }
         
-        
+
         // MARK: -- TIME CARD
         func setupTimeCard() {
-            
             
             stackView.axis = .horizontal
             stackView.distribution = .equalSpacing
             stackView.spacing = 5
             stackView.translatesAutoresizingMaskIntoConstraints = false
-            
-            // pega o valor da classe calculadora
-            let (hours, minutes) = Calculator.shared.calculateResult()
-            // transforma o resultado em uma string e separa cada dígito com um .map
-            let timeDigits = String(format: "%02d%02d", hours, minutes).map { String($0) }
             
             for index in 0..<4 {
                 // Cria um retângulo com as dimensões e posição certas
@@ -133,10 +132,8 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
                     rectangle.heightAnchor.constraint(equalToConstant: 70)
                 ])
                 
-                // Cria a label do cartão
-                let timeDigit = UILabel()
+                let timeDigit = timeDigits[index]
                 // Adiciona os dígitos no cartão, um por vez
-                timeDigit.text = timeDigits[index]
                 timeDigit.textAlignment = .center
                 timeDigit.font = UIFont.systemFont(ofSize: 40)
                 timeDigit.translatesAutoresizingMaskIntoConstraints = false
@@ -148,7 +145,7 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
                 ])
                 
                 stackView.addArrangedSubview(rectangle)
-                
+                                
                 // Adiciona o separador (:) entre o segundo e o terceiro cartão
                 if index == 1 {
                     let separator = UILabel()
@@ -158,6 +155,9 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
                     stackView.addArrangedSubview(separator)
                 }
             }
+            
+            let (hours, minutes) = Calculator.shared.calculateResult()
+            renderTimeDigits(hours: hours, minutes: minutes)
             
             self.view.addSubview(stackView)
             
@@ -196,34 +196,75 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
         }
     }
     
-    @objc func createGoal() {
-        // se a subgoal estiver vazia a celula eh excluída
-        subGoals.enumerated().forEach { index, subGoal in
-            if subGoal.title.isEmpty == true {
-                subGoals.remove(at: index)
-            }
-        }
-        tableView.reloadData()
+    func renderTimeDigits(hours: Int, minutes: Int) {
+        // transforma o resultado em uma string e separa cada dígito com um .map
+        let digits = String(format: "%02d%02d", hours, minutes).map { String($0) }
         
-        //core data
-        guard let goal = CreateGoalVCStore.shared.newGoalModalViewController?.goal, let subGoals = CreateGoalVCStore.shared.newSubGoalModalViewController?.subGoals, let sliderLevels = CreateGoalVCStore.shared.subgoalLevelViewController?.sliderLevels, let subGoalsWellness = CreateGoalVCStore.shared.newWellnessSubgoalsModalViewController?.subGoals else {
+        for index in 0..<digits.count {
+            timeDigits[index].text = digits[index]
+        }
+    }
+    
+    //MARK: -- Keyboard
+            
+            @objc func myKeyboardWillShow(notification: NSNotification) {
+                if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+                    tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height - 90, right: 0)
+                }
+            }
+
+            @objc func myKeyboardWillHide(notification: NSNotification) {
+                tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            }
+
+            
+            // Desinicializa o observer do teclado
+            deinit {
+                    NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+                    NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+                }
+            
+            
+    
+    @objc func createGoal() {
+        //core data desembrulhando variaveis
+        guard let goal = CreateGoalVCStore.shared.newGoalModalViewController?.goal, let subGoals = CreateGoalVCStore.shared.newSubGoalModalViewController?.subGoals, var subGoalsWellness = CreateGoalVCStore.shared.newWellnessSubgoalsModalViewController?.subGoals else {
             return
         }
         
-        //meta
-        let newGoal = DataAcessObject.shared.createGoal(title: goal.title)
-        //submeta
-        subGoals.forEach { subGoal in
-            DataAcessObject.shared.createSubGoal(title: subGoal.title, type: subGoal.type.rawValue, goal: newGoal)
-        }
-        //submeta wellness
-        subGoalsWellness.forEach { subGoalWellness in
-            DataAcessObject.shared.createSubGoal(title: subGoalWellness.title, type: subGoalWellness.type.rawValue, goal: newGoal)
-        }
+            // Verifique se o valor de timeDigits é "00:00"
+            let time = timeDigits.map { label in
+                return label.text ?? ""
+            }.joined()
         
-        // Cria a navegação de pop para a home
-        navigationController?.popToRootViewController(animated: true)
+            // se o texto de alguma submeta estiver vazio aviso
+        if subGoalsWellness.contains(where: { $0.title.isEmpty }) {
+            let alertController = UIAlertController(title: "Aviso", message: "Lembre-se de quebrar sua meta em pelo menos uma submeta", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .destructive, handler: nil))
+            present(alertController, animated: true, completion: nil)
+            //se nao tiver 0000 aviso
+        } else if time != "0000" {
+            let alertController = UIAlertController(title: "Aviso", message: "O valor do tempo deve ser 00:00 antes de continuar.", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .destructive, handler: nil))
+            present(alertController, animated: true, completion: nil)
+        } else {
+            //salva tudo no core data aqui (depois de verificar tudo para não ter o risco de duplicar as metas)
+            //meta
+            let newGoal = DataAcessObject.shared.createGoal(title: goal.title)
+            //submeta
+            subGoals.forEach { subGoal in
+                DataAcessObject.shared.createSubGoal(title: subGoal.title, type: subGoal.type, level: subGoal.level, goal: newGoal, date: nil)
+            }
+            //submeta wellness
+            subGoalsWellness.forEach { subGoalWellness in
+                guard let date = subGoalWellness.date else { return }
+                DataAcessObject.shared.createSubGoal(title: subGoalWellness.title, type: subGoalWellness.type, level: nil, goal: newGoal, date: date)
+            }
+            //navegação
+            navigationController?.popToRootViewController(animated: true)
+        }
     }
+
     
 //MARK: --meu
     
@@ -243,14 +284,22 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            tableView.topAnchor.constraint(equalTo: stackView.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 60),
             tableView.bottomAnchor.constraint(equalTo: saveButton.topAnchor, constant: -40),
         ])
     }
     
     ///função que adiciona subgoal ao array static
     func addSubGoalButtonTouched() {
-        subGoals.append(SubGoalStatic(id: UUID(), title: "", level: .easy, type: .personal))
+        let calendar = Calendar.current
+        var components = calendar.dateComponents([.year, .month, .day], from: Date())
+        
+        components.hour = 0
+        components.minute = 0
+        
+        let startDate = calendar.date(from: components)
+        
+        subGoals.append(SubGoalStatic(id: UUID(), title: "", level: .easy, type: .personal, date: startDate))
         toggleAddSubGoalButton()
         tableView.reloadData()
     }
@@ -279,6 +328,26 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
     func subGoalTextDidChangeText(_ subGoal: SubGoalStatic, text: String) {
         subGoal.title = text
         toggleAddSubGoalButton()
+    }
+    
+    func subGoalDateDidChange(_ subGoal: SubGoalStatic, date: Date) {
+        var dates = [Date]()
+        for s in subGoals {
+            if s === subGoal {
+                dates.append(date)
+            } else if let sDate = s.date {
+                dates.append(sDate)
+            }
+        }
+        // pega o valor da classe calculadora
+        let (hours, minutes) = Calculator.shared.calculateRemainingTime(wellnessDates: dates)
+        if hours >= 0 && minutes >= 0 {
+            subGoal.date = date
+            renderTimeDigits(hours: hours, minutes: minutes)
+        } else {
+            // Opcional: Mostrar alerta
+            tableView.reloadData()
+        }
     }
 }
 
@@ -313,7 +382,7 @@ extension NewWellnessSubgoalsModalViewController: UITableViewDelegate, UITableVi
                 return UITableViewCell()  //vai retornar vazio se não conseguir
             }
             cell.delegate = self
-            cell.label.text = "Atividades de Bem-Estar"
+            cell.label.text = "wellness-checklist".localized
             cell.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
             
             //se for a primeira e ultima seta as corners embaixo também
@@ -328,6 +397,9 @@ extension NewWellnessSubgoalsModalViewController: UITableViewDelegate, UITableVi
             }
             
             let subGoal = subGoals[indexPath.row - 1]
+            if let date = subGoal.date {
+                cell.datePicker.date = date
+            }
             cell.textField.text = subGoal.title
             cell.subGoal = subGoal
             cell.delegate = self
@@ -337,7 +409,7 @@ extension NewWellnessSubgoalsModalViewController: UITableViewDelegate, UITableVi
             //corners arrendodadas
             cell.layer.maskedCorners = []
             if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
-                cell.backgroundColor = .white
+                cell.backgroundColor = UIColor(named: "SubGoalCellColor")
                 cell.layer.cornerRadius = 10
                 cell.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
                 cell.clipsToBounds = true

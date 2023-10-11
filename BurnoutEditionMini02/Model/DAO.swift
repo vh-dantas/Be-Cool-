@@ -62,7 +62,7 @@ class DataAcessObject {
         return newGoal
     }
     
-    func createReflection(refName: String, mood: String, randomRefQST: String, randomRefANS: String, drawing: UIImageView?, image: UIImageView?) {
+    func createReflection(refName: String, mood: String, randomRefQST: String, randomRefANS: String, drawing: UIImageView?, image: UIImageView?, goal: Goal?) {
         let newReflection = ReflectionEntity(context: context)
         newReflection.id = UUID()
         newReflection.date = Date()
@@ -79,7 +79,11 @@ class DataAcessObject {
                 newReflection.image = imageData
             }
         }
+        // Caso nao seja vazio a goal ele cria o relacionamento
         newReflection.refName = refName
+        if let goal = goal {
+            newReflection.goal = goal
+        }
         saveContext()
     }
     
@@ -112,14 +116,20 @@ class DataAcessObject {
         
     }
     
+//    func fetchWorkSubGoals(goal: Goal) -> [SubGoal]{
+//        let workGoals = goal.subGoals?.filter {
+//    }
+    
     // Criando uma Sub meta - SubGoal
-    func createSubGoal(title: String, type: String, goal: Goal){
+    func createSubGoal(title: String, type: SubGoalType, level: Difficulty?, goal: Goal, date: Date?){
         let newSubGoal = SubGoal(context: context)
         newSubGoal.id = UUID()
         newSubGoal.title = title
-        newSubGoal.type = type
+        newSubGoal.type = type.rawValue
+        newSubGoal.level = level?.rawValue
         newSubGoal.isCompleted = false
         newSubGoal.goal = goal
+        newSubGoal.date = date?.ISO8601Format()
         // Salvando os dados
         saveContext()
     }
@@ -140,6 +150,18 @@ class DataAcessObject {
     // Excluindo uma Sub meta - SubGoal
     func deleteSubGoal(subGoal: SubGoal){
         context.delete(subGoal)
+        saveContext()
+    }
+    
+    // Mudando se a submeta tá completa ou não
+    func toggleIsCompleted(subGoal: SubGoal){
+           subGoal.isCompleted.toggle()
+           saveContext()
+       }
+    
+    // Mudando se a meta principal tá completa ou não
+    func toggleIsCompleted(goal: Goal) {
+        goal.isCompleted.toggle()
         saveContext()
     }
 }

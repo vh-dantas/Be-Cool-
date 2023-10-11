@@ -27,7 +27,38 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
+       
+        //Configurando o Onboarding
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let swipingController = OnboardingViewController(collectionViewLayout: layout)
+      
         
+        
+        // Instância da Tab Bar Controller
+        let tabBarController = UITabBarController()
+        
+        // Instância e configuração de NavController da Reflection
+        let navConReflection = UINavigationController(rootViewController: ReflectionViewController())
+        let navHome = UINavigationController(rootViewController: GoalsViewController())
+        
+        // Instâncias das View Controllers para a Tab Bar
+        let goalsVC = navHome
+        let achievementsVC = UINavigationController(rootViewController: AchievementsViewController())
+        let reflectionVC = navConReflection
+        let settingsVC = UINavigationController(rootViewController: SettingsViewController())
+        
+        // UserDefauls para armazanar a visualização do onboarding
+        let onboardingCompleted = UserDefaults.standard.bool(forKey: "Onboarding")
+        // Verificando se o Onbording ja foi concluido - se sim tiramos ele da lista de viewControllers
+        if onboardingCompleted {
+            // Atribuição das ViewController à Tab Bar
+            tabBarController.viewControllers = [goalsVC, achievementsVC, reflectionVC, settingsVC]
+        } else {
+            // Atribuição das ViewController à Tab Bar
+
+            tabBarController.viewControllers = [ goalsVC, achievementsVC, reflectionVC, settingsVC]
+        }
         // rootView principal
         var rootViewController: UIViewController?
         
@@ -53,11 +84,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
         }
         
+        
         // Configuração da janela, atribuindo à rootView (Necessário ao retirar o arquivo .storyboard)
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         window?.rootViewController = rootViewController
         window?.makeKeyAndVisible()
+
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

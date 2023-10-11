@@ -357,7 +357,7 @@ extension NewWellnessSubgoalsModalViewController: UITableViewDelegate, UITableVi
                 return UITableViewCell()  //vai retornar vazio se não conseguir
             }
             cell.delegate = self
-            cell.label.text = "Atividades de Bem-Estar"
+            cell.label.text = "wellness-checklist".localized
             cell.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
             
             //se for a primeira e ultima seta as corners embaixo também

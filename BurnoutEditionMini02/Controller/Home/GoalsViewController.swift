@@ -82,6 +82,9 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
         fetchSubGoalsArray()
         tableView.reloadData()
         navigationItem.title = DataAcessObject.shared.fetchGoal().first?.title
+        
+        
+        //if first.iscompleted = true zera a tela
     }
     
     @objc func createNewGoal() {

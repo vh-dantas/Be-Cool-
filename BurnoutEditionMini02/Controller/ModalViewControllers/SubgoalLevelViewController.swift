@@ -10,6 +10,21 @@ import UIKit
 class NewSubgoalLevelViewController: ViewController, BigButtonDelegate {
     var sliderLevels: [Int: String] = [:]
     
+    //ScrollView
+    private let scrollView: UIScrollView = {
+       let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.backgroundColor = .systemBackground
+        return scrollView
+    }()
+    
+    // View que abriga a scrollView
+    private let contentView: UIView = {
+       let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     init() {
         // Sempre chamar este super.init
         super.init(nibName: nil, bundle: nil)
@@ -26,11 +41,44 @@ class NewSubgoalLevelViewController: ViewController, BigButtonDelegate {
         let bigButton = BigButton()
         
         super.viewDidLoad()
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
         // Coloca a cor de fundo da modal (ele seta como transparente por padrão)
         view.backgroundColor = UIColor(named: "BackgroundColor")
+        setUpScrollView()
+        setUpContentView()
         setupLabels()
         setupSlider()
         setUpBigButton()
+       
+        
+       
+        
+        // MARK: SetUpScrollView
+         func setUpScrollView(){
+            NSLayoutConstraint.activate([
+                scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+                scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            ])
+        }
+        // MARK: SetUpContentView
+         func setUpContentView(){
+            // Setando a prioridade do height da para ativar a scrollView
+            let hConts = contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
+            hConts.isActive = true
+            hConts.priority = UILayoutPriority(250)
+
+            NSLayoutConstraint.activate([
+                contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+                contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+                contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+                contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+                contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+               // contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
+            ])
+        }
         
         func setupLabels() {
             firstLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -50,20 +98,20 @@ class NewSubgoalLevelViewController: ViewController, BigButtonDelegate {
             secondLabel.sizeToFit()
             secondLabel.numberOfLines = 0
             
-            self.view.addSubview(firstLabel)
-            self.view.addSubview(secondLabel)
+            contentView.addSubview(firstLabel)
+            contentView.addSubview(secondLabel)
             
             // Constraints
             NSLayoutConstraint.activate([
-                firstLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-                firstLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-                firstLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+                firstLabel.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 16),
+                firstLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+                firstLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
             ])
             
             NSLayoutConstraint.activate([
                 secondLabel.topAnchor.constraint(equalTo: firstLabel.bottomAnchor, constant: 10),
-                secondLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-                secondLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+                secondLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+                secondLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
             ])
         }
         
@@ -104,25 +152,35 @@ class NewSubgoalLevelViewController: ViewController, BigButtonDelegate {
                     NSLayoutConstraint.activate([
                         taskLabel.topAnchor.constraint(equalTo: lastView.bottomAnchor, constant: 45),
                         taskLabel.leadingAnchor.constraint(equalTo: slider.leadingAnchor),
-                        taskLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+                        taskLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 
                         slider.topAnchor.constraint(equalTo: taskLabel.bottomAnchor, constant: -5),
-                        slider.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                        slider.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
                         slider.widthAnchor.constraint(equalToConstant: 690)
                     ])
                 } else {
                     NSLayoutConstraint.activate([
                         taskLabel.topAnchor.constraint(equalTo: lastView.bottomAnchor, constant: 45),
-                        taskLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-                        taskLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+                        taskLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+                        taskLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
                         
                         slider.topAnchor.constraint(equalTo: taskLabel.bottomAnchor, constant: -5),
-                        slider.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-                        slider.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16)
+                        slider.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+                        slider.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -16)
                     ])
                 }
                 lastView = slider
             }
+           
+            let invisibleView = UIView()
+            invisibleView.backgroundColor = .clear
+            invisibleView.translatesAutoresizingMaskIntoConstraints = false
+            contentView.addSubview(invisibleView)
+            NSLayoutConstraint.activate([ invisibleView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -5),
+                                         // invisibleView.topAnchor.constraint(equalTo: lastView.bottomAnchor),
+                                          invisibleView.heightAnchor.constraint(equalToConstant: 1),
+                                          invisibleView.widthAnchor.constraint(equalToConstant: 1)
+                                        ])
         }
         
         func setUpBigButton() {
@@ -131,8 +189,8 @@ class NewSubgoalLevelViewController: ViewController, BigButtonDelegate {
             let bottomConstraint = bigButton.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             NSLayoutConstraint.activate([
                 bottomConstraint,
-                bigButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                bigButton.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+                bigButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+                bigButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
             ])
             
             //adiciona acessório ao keyboard

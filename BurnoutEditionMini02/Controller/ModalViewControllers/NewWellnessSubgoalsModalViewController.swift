@@ -238,7 +238,7 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
             }.joined()
         
         if time != "0000" {
-            let alertController = UIAlertController(title: "Aviso", message: "O valor do tempo deve ser 00:00 antes de continuar.", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "warning".localized, message: "O valor do tempo deve ser 00:00 antes de continuar.", preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "OK", style: .destructive, handler: nil))
             present(alertController, animated: true, completion: nil)
     } else if subGoalsWellness.contains(where: { !$0.title.isEmpty }) { // se o time for "0000" e não tiver title vazio
@@ -258,7 +258,7 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
             //navegação
             navigationController?.popToRootViewController(animated: true)
         } else {
-            let alertController = UIAlertController(title: "Aviso", message: "Lembre-se de quebrar sua meta em pelo menos uma submeta", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "warning".localized, message: "remember".localized, preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "OK", style: .destructive, handler: nil))
             present(alertController, animated: true, completion: nil)
         }

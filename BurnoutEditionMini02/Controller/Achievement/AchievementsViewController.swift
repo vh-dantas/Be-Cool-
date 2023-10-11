@@ -16,7 +16,7 @@ class AchievementsViewController: UIViewController {
     private let jorneyLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Relembre Sua Jornada e Celebre Suas Conquistas!"
+        label.text = "achievements-text".localized
         label.adjustsFontForContentSizeCategory = true
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         label.numberOfLines = 0

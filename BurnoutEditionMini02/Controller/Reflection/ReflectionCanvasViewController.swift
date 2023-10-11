@@ -30,7 +30,7 @@ class ReflectionCanvasViewController: UIViewController, PKCanvasViewDelegate {
         navigationItem.leftBarButtonItem = backButton
         
         view.backgroundColor = .white
-        self.title = "Draw your feelings"
+        self.title = "draw-feels".localized
         setupCanvas()
         setupToolpicker()
         setupSaveDrawingButton()

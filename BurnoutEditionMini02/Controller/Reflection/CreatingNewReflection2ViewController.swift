@@ -97,11 +97,11 @@ class CreatingNewReflection2ViewController: UIViewController {
         let yesLabel = UILabel()
         yesLabel.textColor = .systemRed
         yesLabel.text = "Yes"
-        let alertController = UIAlertController(title: "Aviso", message: "Deseja mesmo cancelar essa Reflection?", preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Sim", style: .default, handler: { action in
+        let alertController = UIAlertController(title: "warning".localized, message: "wish-cancel".localized, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "yes".localized, style: .default, handler: { action in
             self.navigationController?.popToRootViewController(animated: true)
         }))
-        alertController.addAction(UIAlertAction(title: "Não", style: .cancel))
+        alertController.addAction(UIAlertAction(title: "no".localized, style: .cancel))
         present(alertController, animated: true, completion: nil)
        
     }
@@ -166,7 +166,7 @@ class CreatingNewReflection2ViewController: UIViewController {
     // MARK: - Labels
     private func setupLabels() {
         // Configurações da primeira label
-        label.text = "Now tell us:"
+        label.text = "tell".localized
         label.font.withSize(6)
         label.textColor = .gray
         
@@ -233,7 +233,7 @@ class CreatingNewReflection2ViewController: UIViewController {
         //sadMood.titleLabel?.font = UIFont.systemFont(ofSize: 45)
         sadMood.backgroundColor = .systemGray4
         sadMood.layer.cornerRadius = 50
-        sadTxt.text = "Sad"
+        sadTxt.text = "sad".localized
         sadTxt.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         
         sadStackView.addArrangedSubview(sadMood)
@@ -244,7 +244,7 @@ class CreatingNewReflection2ViewController: UIViewController {
         //stressedMood.titleLabel?.font = UIFont.systemFont(ofSize: 45)
         stressedMood.backgroundColor = .systemGray4
         stressedMood.layer.cornerRadius = 50
-        stressedTxt.text = "Stressed"
+        stressedTxt.text = "stressed".localized
         stressedTxt.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         
         stressedStackView.addArrangedSubview(stressedMood)
@@ -266,7 +266,7 @@ class CreatingNewReflection2ViewController: UIViewController {
         //tranquilMood.titleLabel?.font = UIFont.systemFont(ofSize: 45)
         tranquilMood.backgroundColor = .systemGray4
         tranquilMood.layer.cornerRadius = 50
-        tranquilTxt.text = "Tranquil"
+        tranquilTxt.text = "relaxed".localized
         tranquilTxt.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         
         tranquilStackView.addArrangedSubview(tranquilMood)
@@ -277,7 +277,7 @@ class CreatingNewReflection2ViewController: UIViewController {
         //happyMood.titleLabel?.font = UIFont.systemFont(ofSize: 45)
         happyMood.backgroundColor = .systemGray4
         happyMood.layer.cornerRadius = 50
-        happyTxt.text = "Happy"
+        happyTxt.text = "happy".localized
         happyTxt.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         
         happyStackView.addArrangedSubview(happyMood)
@@ -288,7 +288,7 @@ class CreatingNewReflection2ViewController: UIViewController {
         //excitedMood.titleLabel?.font = UIFont.systemFont(ofSize: 45)
         excitedMood.backgroundColor = .systemGray4
         excitedMood.layer.cornerRadius = 50
-        excitedTxt.text = "Excited"
+        excitedTxt.text = "excited".localized
         excitedTxt.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         
         excitedStackView.addArrangedSubview(excitedMood)

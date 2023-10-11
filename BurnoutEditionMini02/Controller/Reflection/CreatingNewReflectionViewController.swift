@@ -84,12 +84,12 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
         // Mostrar um alerta ao usuário ou tomar outra ação apropriada
         let yesLabel = UILabel()
         yesLabel.textColor = .systemRed
-        yesLabel.text = "Aviso"
-        let alertController = UIAlertController(title: yesLabel.text, message: "Deseja mesmo cancelar essa Reflection?", preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Sim", style: .default, handler: { action in
+        yesLabel.text = "warning".localized
+        let alertController = UIAlertController(title: yesLabel.text, message: "wish-cancel".localized, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "yes".localized, style: .default, handler: { action in
             self.navigationController?.popToRootViewController(animated: true)
         }))
-        alertController.addAction(UIAlertAction(title: "Não", style: .cancel))
+        alertController.addAction(UIAlertAction(title: "no".localized, style: .cancel))
         present(alertController, animated: true, completion: nil)
        
     }
@@ -202,9 +202,9 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
     // MARK: - Gerar mensagem random
     private func generateMessage() -> String {
         // Reflexões propostas pelo app
-        let message: [String] = ["What have you learned in the past two weeks?",
-                                 "How good are you at the thing you were doing?",
-                                 "How do you feel after accomplishing your goal?"]
+        let message: [String] = ["feelings1".localized,
+                                 "feelings2".localized,
+                                 "feelings3".localized]
         
         randomRefQst = message[Int.random(in: 0...message.count - 1)]
         
@@ -215,7 +215,7 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
     private func setupLabels() {
         
         // Demais labels fixas e configurações
-        label1.text = "Reflect about the following question:"
+        label1.text = "text-reflect".localized
         label1.numberOfLines = 2
         label1.font.withSize(6)
         label1.textColor = .gray
@@ -234,7 +234,7 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
     private func setupTextFields() {
         
         // Configurações básicas do Text Field
-        textField.placeholder = "Reflect..."
+        textField.placeholder = "textplacereflect".localized
         textField.borderStyle = .roundedRect
         textField.enablesReturnKeyAutomatically = true
         textField.textColor = .black

@@ -7,10 +7,20 @@
 
 import UIKit
 
+// Instância e configuração de NavController da Reflection
+let navConReflection = UINavigationController(rootViewController: ReflectionViewController())
+let navHome = UINavigationController(rootViewController: GoalsViewController())
+
+// Instâncias das View Controllers para a Tab Bar e Side Bar
+let goalsVC = navHome
+let achievementsVC = UINavigationController(rootViewController: AchievementsViewController())
+let reflectionVC = navConReflection
+let settingsVC = UINavigationController(rootViewController: SettingsViewController())
+
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -49,19 +59,36 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
             tabBarController.viewControllers = [ goalsVC, achievementsVC, reflectionVC, settingsVC]
         }
-     
-
-        // Configuração dos Tab Bar Itens
-        goalsVC.tabBarItem = UITabBarItem(title: "goals".localized, image: UIImage(systemName: "list.bullet.circle"), selectedImage: UIImage(systemName: "list.bullet.circle.fill"))
-        achievementsVC.tabBarItem = UITabBarItem(title: "achievements".localized, image: UIImage(systemName: "medal"), selectedImage: UIImage(systemName: "medal.fill"))
-        reflectionVC.tabBarItem = UITabBarItem(title: "reflections".localized, image: UIImage(systemName: "text.bubble"), selectedImage: UIImage(systemName: "text.bubble.fill"))
-        settingsVC.tabBarItem = UITabBarItem(title: "settings".localized, image: UIImage(systemName: "gearshape"), selectedImage: UIImage(systemName: "gearshape.fill"))
+        // rootView principal
+        var rootViewController: UIViewController?
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            // Configurações para iPad
+            
+            rootViewController = iPadSplitViewController()
+            
+        } else {
+            // Instância da Tab Bar Controller
+            let tabBarController = UITabBarController()
+            
+            // Configuração dos Tab Bar Itens
+            goalsVC.tabBarItem = UITabBarItem(title: "goals".localized, image: UIImage(systemName: "list.bullet.circle"), selectedImage: UIImage(systemName: "list.bullet.circle.fill"))
+            achievementsVC.tabBarItem = UITabBarItem(title: "achievements".localized, image: UIImage(systemName: "medal"), selectedImage: UIImage(systemName: "medal.fill"))
+            reflectionVC.tabBarItem = UITabBarItem(title: "reflections".localized, image: UIImage(systemName: "text.bubble"), selectedImage: UIImage(systemName: "text.bubble.fill"))
+            settingsVC.tabBarItem = UITabBarItem(title: "settings".localized, image: UIImage(systemName: "gearshape"), selectedImage: UIImage(systemName: "gearshape.fill"))
+            
+            // Atribuição das ViewController à Tab Bar
+            tabBarController.viewControllers = [goalsVC, achievementsVC, reflectionVC, settingsVC]
+            
+            rootViewController = tabBarController
+            
+        }
         
         
         // Configuração da janela, atribuindo à rootView (Necessário ao retirar o arquivo .storyboard)
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = tabBarController
+        window?.rootViewController = rootViewController
         window?.makeKeyAndVisible()
 
     }

@@ -159,7 +159,7 @@ class CongratulationsViewController: UIViewController {
         let nextView = ReflectionSugestionViewController()
         nextView.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(nextView, animated: true)
-        print("PPPPPPOOOOOOUURRRRAAA")
+        print("PPPPPPOOOOOOUURRRRAAAaaaaa")
     }
     
 }

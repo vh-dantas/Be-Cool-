@@ -41,6 +41,10 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(myKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(myKeyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
         // Só testando os valores da view anterior
         if let sliderLevels = CreateGoalVCStore.shared.subgoalLevelViewController?.sliderLevels {
             let subGoals = CreateGoalVCStore.shared.newSubGoalModalViewController?.subGoals ?? []
@@ -108,7 +112,7 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
             ])
         }
         
-        
+
         // MARK: -- TIME CARD
         func setupTimeCard() {
             
@@ -201,6 +205,27 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
         }
     }
     
+    //MARK: -- Keyboard
+            
+            @objc func myKeyboardWillShow(notification: NSNotification) {
+                if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+                    tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height - 90, right: 0)
+                }
+            }
+
+            @objc func myKeyboardWillHide(notification: NSNotification) {
+                tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            }
+
+            
+            // Desinicializa o observer do teclado
+            deinit {
+                    NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+                    NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+                }
+            
+            
+    
     @objc func createGoal() {
         //core data desembrulhando variaveis
         guard let goal = CreateGoalVCStore.shared.newGoalModalViewController?.goal, let subGoals = CreateGoalVCStore.shared.newSubGoalModalViewController?.subGoals, var subGoalsWellness = CreateGoalVCStore.shared.newWellnessSubgoalsModalViewController?.subGoals else {
@@ -259,7 +284,7 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            tableView.topAnchor.constraint(equalTo: stackView.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 60),
             tableView.bottomAnchor.constraint(equalTo: saveButton.topAnchor, constant: -40),
         ])
     }

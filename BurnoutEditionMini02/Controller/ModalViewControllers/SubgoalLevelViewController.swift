@@ -171,7 +171,7 @@ class NewSubgoalLevelViewController: ViewController, BigButtonDelegate {
                 }
                 lastView = slider
             }
-           
+           //
             let invisibleView = UIView()
             invisibleView.backgroundColor = .clear
             invisibleView.translatesAutoresizingMaskIntoConstraints = false

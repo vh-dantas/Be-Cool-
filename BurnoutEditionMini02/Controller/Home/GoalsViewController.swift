@@ -125,12 +125,8 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as! CustomTableViewCell
-       
         let subGoal = subItems[indexPath.row]
         cell.customLabel.text = subGoal.title
-       // if subGoal.type == "work" {
-       //     cell.secondLabel.text = "teste"
-       // }
         cell.button.tag = indexPath.row
         
         // verifica o tipo de subgoal pra personalizar a célula
@@ -158,27 +154,71 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
         dao.toggleIsCompleted(subGoal: subGoal)
         checkSubGoalsCompletion()
         movePenguin(for: subGoal)
-
         tableView.reloadData()
     }
-
+    
     func movePenguin(for subGoal: SubGoal) {
-        var direction: CGFloat = 0
-        if subGoal.type == "personal" {
-            direction = subGoal.isCompleted ? 20 : -20
-        } else if subGoal.type == "work" {
-            direction = subGoal.isCompleted ? -20 : 20
-        }
-        print("Subgoal type: \(subGoal.type), isCompleted: \(subGoal.isCompleted), direction: \(direction)")
+        let totalWidth = gradientView.frame.width - 65
+        let halfWidth = totalWidth / 2
 
-        imageViewCenterXConstraint?.constant += direction
+        // quantidade de cada task
+        let easyTasks = subItems.filter { $0.level == "easy" }.count
+        let mediumTasks = subItems.filter { $0.level == "medium" }.count
+        let hardTasks = subItems.filter { $0.level == "hard" }.count
+
+        // conta quantidade de subgoals de wellness
+        let personalSubGoalsCount = subItems.filter { $0.type == "personal" }.count
+        let wellnessMovement = halfWidth / CGFloat(personalSubGoalsCount)
+        
+        // peso de cada task
+        let easyWeight = CGFloat(easyTasks * 1)
+        let mediumWeight = CGFloat(mediumTasks * 2)
+        let hardWeight = CGFloat(hardTasks * 3)
+
+        // total de movimento possivel
+        let totalPossibleMovement = easyWeight + mediumWeight + hardWeight
+
+        // quantos pontos pode andar
+        let movementPerPoint = halfWidth / totalPossibleMovement
+
+        // movimento
+        var movement: CGFloat = 0
+
+        // calcula o movimento baseado no level
+        switch subGoal.level {
+        case "easy":
+            movement = movementPerPoint * 1
+        case "medium":
+            movement = movementPerPoint * 2
+        case "hard":
+            movement = movementPerPoint * 3
+        default:
+            break
+        }
+
+        // posição do pinguim
+        switch subGoal.type {
+        case "work":
+            if subGoal.isCompleted {
+                imageViewCenterXConstraint?.constant -= movement
+            } else {
+                imageViewCenterXConstraint?.constant += movement
+            }
+        case "personal":
+            if subGoal.isCompleted {
+                imageViewCenterXConstraint?.constant += wellnessMovement
+            } else {
+                imageViewCenterXConstraint?.constant -= wellnessMovement
+            }
+        default:
+            imageViewCenterXConstraint?.constant = 0
+        }
 
         UIView.animate(withDuration: 0.5) {
             self.view.layoutIfNeeded()
         }
     }
-    
-    
+
     // verifica se todas as subgoals foram feitas
     func checkSubGoalsCompletion() {
         if let goal = DataAcessObject.shared.fetchGoal().first {
@@ -196,7 +236,7 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
     
     private func constraints() {
         imageView.contentMode = .scaleAspectFit
-
+        
         view.addSubview(gradientView)
         view.addSubview(imageView)
         view.addSubview(label)

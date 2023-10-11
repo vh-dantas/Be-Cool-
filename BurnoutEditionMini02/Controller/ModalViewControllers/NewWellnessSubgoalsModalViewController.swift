@@ -53,7 +53,7 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
         }
         
         // Coloca a cor de fundo da modal (ele seta como transparente por padrão)
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "BackgroundColor")
         setupLabels()
         setupTimeCard()
         setupSaveButton()
@@ -393,7 +393,7 @@ extension NewWellnessSubgoalsModalViewController: UITableViewDelegate, UITableVi
             //corners arrendodadas
             cell.layer.maskedCorners = []
             if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
-                cell.backgroundColor = .white
+                cell.backgroundColor = UIColor(named: "SubGoalCellColor")
                 cell.layer.cornerRadius = 10
                 cell.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
                 cell.clipsToBounds = true

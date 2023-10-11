@@ -31,7 +31,7 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
     let imageView = UIImageView(image: UIImage(named: "pinguimScale"))
     let label = UILabel()
     var index = 3
-    let phrases = ["Dedique tempo ao seu bem-estar também", "Continue buscando o equilíbrio.", "Parabéns! Você está em equilíbrio", "Equilibre seu foco e continue brilhando", "Lembre-se das metas e transforme a procrastinação em ação!"]
+    let phrases = ["scale-1".localized, "scale-2".localized, "scale-3".localized, "scale-4".localized, "scale-5".localized]
     
     
     // Table View:

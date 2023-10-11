@@ -121,14 +121,15 @@ class DataAcessObject {
 //    }
     
     // Criando uma Sub meta - SubGoal
-    func createSubGoal(title: String, type: String, goal: Goal, time: Int){
+    func createSubGoal(title: String, type: SubGoalType, level: Difficulty?, goal: Goal, date: Date?){
         let newSubGoal = SubGoal(context: context)
         newSubGoal.id = UUID()
         newSubGoal.title = title
-        newSubGoal.type = type
+        newSubGoal.type = type.rawValue
+        newSubGoal.level = level?.rawValue
         newSubGoal.isCompleted = false
         newSubGoal.goal = goal
-        newSubGoal.time = Int32(time)
+        newSubGoal.date = date?.ISO8601Format()
         // Salvando os dados
         saveContext()
     }

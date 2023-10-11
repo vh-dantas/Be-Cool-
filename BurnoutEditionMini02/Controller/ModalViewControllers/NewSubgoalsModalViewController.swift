@@ -8,7 +8,6 @@
 import UIKit
 
 class NewSubgoalsModalViewController: ViewController, AddSubGoalButtonDelegate, SubGoalCellTextDelegate, BigButtonDelegate {
-    
     // Cria UILabel
     let firstLabel = UILabel()
     let secondLabel = UILabel()
@@ -43,6 +42,10 @@ class NewSubgoalsModalViewController: ViewController, AddSubGoalButtonDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Checa se o teclado tá aberto na tela
+        NotificationCenter.default.addObserver(self, selector: #selector(myKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(myKeyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+
         
         // Coloca a cor de fundo da modal (ele seta como transparente por padrão)
         view.backgroundColor = UIColor(named: "BackgroundColor")
@@ -53,6 +56,22 @@ class NewSubgoalsModalViewController: ViewController, AddSubGoalButtonDelegate, 
         setUpBigButton()
     }
     
+    @objc func myKeyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height + 25, right: 0)
+        }
+    }
+
+    @objc func myKeyboardWillHide(notification: NSNotification) {
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+
+    
+    // Desinicializa o observer do teclado
+    deinit {
+            NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+            NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        }
     //MARK: -- SetUp Elementos da view
     ///titulo da view
     func setUpFirstLabel() {
@@ -132,15 +151,20 @@ class NewSubgoalsModalViewController: ViewController, AddSubGoalButtonDelegate, 
     
     @objc func nextView() {
         // Verifique se todas as células têm pelo menos uma subgoal
-        if subGoals.contains(where: { $0.title.isEmpty }) {
+        if subGoals.contains(where: { !$0.title.isEmpty }) {
+            subGoals.removeAll(where: { $0.title.isEmpty })
+            tableView.reloadData()
+            
+            // Todas as células têm pelo menos uma subgoal, continue com a navegação
+            let newSubgoalLevelViewController = NewSubgoalLevelViewController()
+            navigationController?.pushViewController(newSubgoalLevelViewController, animated: true)
+            
+        } else {
             // Mostrar um alerta ao usuário ou tomar outra ação apropriada
             let alertController = UIAlertController(title: "Aviso", message: "Lembre-se de quebrar sua meta em pelo menos uma submeta", preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "OK", style: .destructive, handler: nil))
             present(alertController, animated: true, completion: nil)
-        } else {
-            // Todas as células têm pelo menos uma subgoal, continue com a navegação
-            let newSubgoalLevelViewController = NewSubgoalLevelViewController()
-            navigationController?.pushViewController(newSubgoalLevelViewController, animated: true)
+            
         }
     }
     
@@ -176,6 +200,8 @@ class NewSubgoalsModalViewController: ViewController, AddSubGoalButtonDelegate, 
         subGoal.title = text
         toggleAddSubGoalButton()
     }
+    
+    func subGoalDateDidChange(_ subGoal: SubGoalStatic, date: Date) {}
 }
 
 
@@ -233,7 +259,6 @@ extension NewSubgoalsModalViewController: UITableViewDelegate, UITableViewDataSo
             
             cell.layer.maskedCorners = []
             if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
-                cell.backgroundColor = .white
                 cell.layer.cornerRadius = 10
                 cell.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
                 cell.clipsToBounds = true

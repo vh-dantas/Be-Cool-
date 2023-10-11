@@ -24,7 +24,7 @@ class SubGoalCellText: UITableViewCell, UITextFieldDelegate {
     }
     
     private let stackView = UIStackView()
-    private let datePicker = UIDatePicker()
+    let datePicker = UIDatePicker()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -36,6 +36,7 @@ class SubGoalCellText: UITableViewCell, UITextFieldDelegate {
     }
     
     func setUp() {
+        backgroundColor = UIColor(named:"SubGoalCellColor")
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.spacing = 8
@@ -59,9 +60,9 @@ class SubGoalCellText: UITableViewCell, UITextFieldDelegate {
         
         // Configurar o UIDatePicker
         datePicker.datePickerMode = .time
-        var calendar = Calendar.current
-        let dateComponents = DateComponents(calendar: calendar, hour: 0, minute: 0)
-            datePicker.date = calendar.date(from: dateComponents) ?? Date()
+        
+        datePicker.addTarget(self, action: #selector(datePickerDidChange(_:)), for: .valueChanged)
+        
         stackView.addArrangedSubview(datePicker)
         datePicker.isHidden = true
     }
@@ -82,6 +83,13 @@ class SubGoalCellText: UITableViewCell, UITextFieldDelegate {
         delegate?.subGoalTextDidChangeText(subGoal, text: text)
     }
     
+    @objc func datePickerDidChange(_ datePicker: UIDatePicker) {
+        guard let subGoal = subGoal else {
+            return
+        }
+        delegate?.subGoalDateDidChange(subGoal, date: datePicker.date)
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let subGoal = subGoal else {
             return true
@@ -95,4 +103,5 @@ class SubGoalCellText: UITableViewCell, UITextFieldDelegate {
 protocol SubGoalCellTextDelegate: AnyObject {
     func subGoalTextReturnTouched(_ subGoal: SubGoalStatic)
     func subGoalTextDidChangeText(_ subGoal: SubGoalStatic, text: String)
+    func subGoalDateDidChange(_ subGoal: SubGoalStatic, date: Date)
 }

@@ -7,6 +7,17 @@
 
 import UIKit
 
+// Instância e configuração de NavController da Reflection
+let navConReflection = UINavigationController(rootViewController: ReflectionViewController())
+let navHome = UINavigationController(rootViewController: GoalsViewController())
+
+// Instâncias das View Controllers para a Tab Bar e Side Bar
+let goalsVC = navHome
+let achievementsVC = UINavigationController(rootViewController: AchievementsViewController())
+let reflectionVC = navConReflection
+let settingsVC = UINavigationController(rootViewController: SettingsViewController())
+
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
@@ -19,16 +30,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // rootView principal
         var rootViewController: UIViewController?
-        
-        // Instância e configuração de NavController da Reflection
-        let navConReflection = UINavigationController(rootViewController: ReflectionViewController())
-        let navHome = UINavigationController(rootViewController: GoalsViewController())
-        
-        // Instâncias das View Controllers para a Tab Bar e Side Bar
-        let goalsVC = navHome
-        let achievementsVC = UINavigationController(rootViewController: AchievementsViewController())
-        let reflectionVC = navConReflection
-        let settingsVC = UINavigationController(rootViewController: SettingsViewController())
         
         if UIDevice.current.userInterfaceIdiom == .pad {
             // Configurações para iPad

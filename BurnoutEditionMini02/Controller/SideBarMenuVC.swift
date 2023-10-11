@@ -23,7 +23,7 @@ class SideBarMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     //var buttonTapped: String?
     
-    weak var delegate: SideBarMenuDelegate?
+    var delegate: SideBarMenuDelegate?
     
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
@@ -170,6 +170,6 @@ class sideBarButtonCell: UITableViewCell {
 
 
 // MARK: - Protocolo do delegate
-protocol SideBarMenuDelegate: AnyObject {
+protocol SideBarMenuDelegate {
     func didSelectMenuItem(_ menuItem: String)
 }

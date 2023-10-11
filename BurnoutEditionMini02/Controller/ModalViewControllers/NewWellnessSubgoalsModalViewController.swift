@@ -112,7 +112,6 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
         // MARK: -- TIME CARD
         func setupTimeCard() {
             
-            
             stackView.axis = .horizontal
             stackView.distribution = .equalSpacing
             stackView.spacing = 5
@@ -203,50 +202,42 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
     }
     
     @objc func createGoal() {
-        // Verifique se o valor de timeDigits é "00:00"
-        let time = timeDigits.map { label in
-            return label.text ?? ""
-        }.joined()
-        if time == "0000" {
-            // se a subgoal estiver vazia a celula eh excluída
-            subGoals.enumerated().forEach { index, subGoal in
-                if subGoal.title.isEmpty == true {
-                    subGoals.remove(at: index)
-                }
-            }
-            tableView.reloadData()
-            
-            // Cria a navegação de pop para a home
-            navigationController?.popToRootViewController(animated: true)
-        } else {
-            // Mostrar um alerta ao usuário ou tomar outra ação apropriada
-            let alertController = UIAlertController(title: "Aviso", message: "O valor do tempo deve ser 00:00 antes de continuar.", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: .destructive, handler: nil))
-            present(alertController, animated: true, completion: nil)
-        }
-
-        tableView.reloadData()
-        
-        //core data
-        guard let goal = CreateGoalVCStore.shared.newGoalModalViewController?.goal, let subGoals = CreateGoalVCStore.shared.newSubGoalModalViewController?.subGoals, let subGoalsWellness = CreateGoalVCStore.shared.newWellnessSubgoalsModalViewController?.subGoals else {
+        //core data desembrulhando variaveis
+        guard let goal = CreateGoalVCStore.shared.newGoalModalViewController?.goal, let subGoals = CreateGoalVCStore.shared.newSubGoalModalViewController?.subGoals, var subGoalsWellness = CreateGoalVCStore.shared.newWellnessSubgoalsModalViewController?.subGoals else {
             return
         }
         
-        //meta
-        let newGoal = DataAcessObject.shared.createGoal(title: goal.title)
-        //submeta
-        subGoals.forEach { subGoal in
-            DataAcessObject.shared.createSubGoal(title: subGoal.title, type: subGoal.type, level: subGoal.level, goal: newGoal, date: nil)
-        }
-        //submeta wellness
-        subGoalsWellness.forEach { subGoalWellness in
-            guard let date = subGoalWellness.date else { return }
-            DataAcessObject.shared.createSubGoal(title: subGoalWellness.title, type: subGoalWellness.type, level: nil, goal: newGoal, date: date)
-        }
+            // Verifique se o valor de timeDigits é "00:00"
+            let time = timeDigits.map { label in
+                return label.text ?? ""
+            }.joined()
         
-        // Cria a navegação de pop para a home
-        navigationController?.popToRootViewController(animated: true)
-
+            // se o texto de alguma submeta estiver vazio aviso
+        if subGoalsWellness.contains(where: { $0.title.isEmpty }) {
+            let alertController = UIAlertController(title: "Aviso", message: "Lembre-se de quebrar sua meta em pelo menos uma submeta", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .destructive, handler: nil))
+            present(alertController, animated: true, completion: nil)
+            //se nao tiver 0000 aviso
+        } else if time != "0000" {
+            let alertController = UIAlertController(title: "Aviso", message: "O valor do tempo deve ser 00:00 antes de continuar.", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .destructive, handler: nil))
+            present(alertController, animated: true, completion: nil)
+        } else {
+            //salva tudo no core data aqui (depois de verificar tudo para não ter o risco de duplicar as metas)
+            //meta
+            let newGoal = DataAcessObject.shared.createGoal(title: goal.title)
+            //submeta
+            subGoals.forEach { subGoal in
+                DataAcessObject.shared.createSubGoal(title: subGoal.title, type: subGoal.type, level: subGoal.level, goal: newGoal, date: nil)
+            }
+            //submeta wellness
+            subGoalsWellness.forEach { subGoalWellness in
+                guard let date = subGoalWellness.date else { return }
+                DataAcessObject.shared.createSubGoal(title: subGoalWellness.title, type: subGoalWellness.type, level: nil, goal: newGoal, date: date)
+            }
+            //navegação
+            navigationController?.popToRootViewController(animated: true)
+        }
     }
 
     

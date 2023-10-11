@@ -151,15 +151,20 @@ class NewSubgoalsModalViewController: ViewController, AddSubGoalButtonDelegate, 
     
     @objc func nextView() {
         // Verifique se todas as células têm pelo menos uma subgoal
-        if subGoals.contains(where: { $0.title.isEmpty }) {
+        if subGoals.contains(where: { !$0.title.isEmpty }) {
+            subGoals.removeAll(where: { $0.title.isEmpty })
+            tableView.reloadData()
+            
+            // Todas as células têm pelo menos uma subgoal, continue com a navegação
+            let newSubgoalLevelViewController = NewSubgoalLevelViewController()
+            navigationController?.pushViewController(newSubgoalLevelViewController, animated: true)
+            
+        } else {
             // Mostrar um alerta ao usuário ou tomar outra ação apropriada
             let alertController = UIAlertController(title: "Aviso", message: "Lembre-se de quebrar sua meta em pelo menos uma submeta", preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "OK", style: .destructive, handler: nil))
             present(alertController, animated: true, completion: nil)
-        } else {
-            // Todas as células têm pelo menos uma subgoal, continue com a navegação
-            let newSubgoalLevelViewController = NewSubgoalLevelViewController()
-            navigationController?.pushViewController(newSubgoalLevelViewController, animated: true)
+            
         }
     }
     

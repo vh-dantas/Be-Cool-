@@ -65,6 +65,12 @@
 "congratulations-body" = "You reached your goal with success and balance, now don’t forget to check out your journey in the “Achievements” tab.";
 "congratulations-button" = "Continue";
 
+// Sugestão de Reflection
+"reflection-suggestion-title" = "How about reflecting on your journey?";
+"reflection-suggestion-body" = "Reflecting on the path you have taken is a great tool for those seeking success and personal development.";
+"reflection-suggestion-deny" = "Maybe later";
+"reflection-suggestion-button" = "Make Reflection";
+
 // MARK: -- REFLECTION
 "start-breathing" = "Start a breathing exercise";
 "inhale" = "Inhale";

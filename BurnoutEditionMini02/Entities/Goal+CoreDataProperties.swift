@@ -21,6 +21,7 @@ extension Goal {
     @NSManaged public var id: UUID?
     @NSManaged public var createdDate: Date?
     @NSManaged public var subGoals: NSSet?
+    @NSManaged public var reflection: ReflectionEntity?
     
     public var subGoalsArray: [SubGoal] {
         let setOfSubGoals = subGoals as? Set<SubGoal> ?? []
@@ -28,6 +29,8 @@ extension Goal {
             $0.id > $1.id
         }
     }
+    
+    
 
 }
 

@@ -225,11 +225,11 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
             let newGoal = DataAcessObject.shared.createGoal(title: goal.title)
             //submeta
             subGoals.forEach { subGoal in
-                DataAcessObject.shared.createSubGoal(title: subGoal.title, type: subGoal.type.rawValue, goal: newGoal)
+                DataAcessObject.shared.createSubGoal(title: subGoal.title, type: subGoal.type.rawValue, goal: newGoal, time: 0)
             }
             //submeta wellness
             subGoalsWellness.forEach { subGoalWellness in
-                DataAcessObject.shared.createSubGoal(title: subGoalWellness.title, type: subGoalWellness.type.rawValue, goal: newGoal)
+                DataAcessObject.shared.createSubGoal(title: subGoalWellness.title, type: subGoalWellness.type.rawValue, goal: newGoal, time: 0)
             }
             
             
@@ -242,6 +242,28 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
             alertController.addAction(UIAlertAction(title: "OK", style: .destructive, handler: nil))
             present(alertController, animated: true, completion: nil)
         }
+
+        tableView.reloadData()
+        
+        //core data
+        guard let goal = CreateGoalVCStore.shared.newGoalModalViewController?.goal, let subGoals = CreateGoalVCStore.shared.newSubGoalModalViewController?.subGoals, let sliderLevels = CreateGoalVCStore.shared.subgoalLevelViewController?.sliderLevels, let subGoalsWellness = CreateGoalVCStore.shared.newWellnessSubgoalsModalViewController?.subGoals else {
+            return
+        }
+        
+        //meta
+        let newGoal = DataAcessObject.shared.createGoal(title: goal.title)
+        //submeta
+        subGoals.forEach { subGoal in
+            DataAcessObject.shared.createSubGoal(title: subGoal.title, type: subGoal.type.rawValue, goal: newGoal, time: 0)
+        }
+        //submeta wellness
+        subGoalsWellness.forEach { subGoalWellness in
+            DataAcessObject.shared.createSubGoal(title: subGoalWellness.title, type: subGoalWellness.type.rawValue, goal: newGoal, time: 0)
+        }
+        
+        // Cria a navegação de pop para a home
+        navigationController?.popToRootViewController(animated: true)
+
     }
 
     

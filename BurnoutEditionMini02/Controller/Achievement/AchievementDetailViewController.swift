@@ -289,7 +289,20 @@ class AchievementDetailViewController: UIViewController {
         stackView.distribution = .equalSpacing
         stackView.spacing = 5
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        
+//        func calculateResult() -> (Int, Int) {
+//            var sum: Float = 0
+//            for value in savedValues.values {
+//                sum += value
+//            }
+//            print("total de horas de trabalho em minutos: \(sum)")
+//            let resultMinutes = (sum * balance)
+//            let roundedResultMinutes = round(resultMinutes)
+//            print("total de horas de bem-estar em minutos: \(resultMinutes)")
+//            let hours = Int(roundedResultMinutes) / 60
+//            let minutes = Int(roundedResultMinutes) % 60
+//            print("horas de bem-estar recomendadas: \(hours) hora(s) e \(minutes) minutos")
+//            return (hours, minutes)
+//        }
         // pega o valor da classe calculadora
         let (hours, minutes) = Calculator.shared.calculateResult()
         // transforma o resultado em uma string e separa cada dígito com um .map
@@ -415,16 +428,15 @@ class AchievementDetailViewController: UIViewController {
         var hardWork: Int = 0
          //Loop para identificar a dificuldade das submetas
         for subGoals in goal.subGoalsArray {
-            guard let level = subGoals.level, let difficulty = Difficulty(rawValue: level) else {
-                continue
-            }
-            switch difficulty {
-            case .easy:
+            switch subGoals.level {
+            case "easy":
                 easyWork += 1
-            case .medium:
+            case "medium":
                 mediumWork += 1
-            case .hard:
+            case "hard":
                 hardWork += 1
+            default:
+                print("A")
             }
         }
       //   Calculando a porcentagem %
@@ -574,7 +586,7 @@ extension AchievementDetailViewController: UITableViewDataSource, UITableViewDel
             cell.cellLabel.text = subGoal.title
             cell.image.image = UIImage(systemName: "heart.fill")
             cell.tintColor = UIColor(named: "IconGreenWell")
-            cell.backgroundColor = UIColor(named: "BgWellnColor")
+            cell.backgroundColor = UIColor(named: "BgGreenWell")
             return cell
         } else {
             // Filtrando as submetas e ordenando por ordem alfabetica
@@ -585,7 +597,7 @@ extension AchievementDetailViewController: UITableViewDataSource, UITableViewDel
             cell.cellLabel.text = subGoal.title
             cell.image.image = UIImage(systemName: "checkmark.circle.fill")
             cell.tintColor = UIColor(named: "IconBlueWork")
-            cell.backgroundColor = UIColor(named: "BGWorkColor")
+            cell.backgroundColor = UIColor(named: "BgBlueWork")
             return cell
         }
 //

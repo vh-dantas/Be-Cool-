@@ -181,13 +181,14 @@ class ReflectionSugestionViewController: UIViewController {
         laterLabel.isUserInteractionEnabled = true
         laterLabel.addGestureRecognizer(tap)
         NSLayoutConstraint.activate([
-            continueButton.topAnchor.constraint(equalTo: bodyLabel.bottomAnchor, constant: 60),
+            // Botao mais tarde
+            laterLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -90),
+            laterLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            continueButton.bottomAnchor.constraint(equalTo: laterLabel.topAnchor, constant: -9),
             continueButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             continueButton.widthAnchor.constraint(equalToConstant: 250),
             continueButton.heightAnchor.constraint(equalToConstant: 50),
-            // Botao mais tarde
-            laterLabel.topAnchor.constraint(equalTo: continueButton.bottomAnchor, constant: 9),
-            laterLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+   
         ])
         
     }

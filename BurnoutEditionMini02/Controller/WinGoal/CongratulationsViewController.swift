@@ -20,7 +20,7 @@ class CongratulationsViewController: UIViewController {
     private let bigMedalImage: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "BigMedal")
-        image.contentMode = .scaleAspectFit
+        image.contentMode = .scaleAspectFill
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -129,9 +129,16 @@ class CongratulationsViewController: UIViewController {
     }
 
     func setBody(){
+        if view.frame.height >= 1000 {
+            titleLabel.topAnchor.constraint(equalTo: topContentView.bottomAnchor).isActive = true
+        } else {
+       
+            titleLabel.topAnchor.constraint(equalTo: bigMedalImage.bottomAnchor, constant: 20).isActive = true
+        }
         NSLayoutConstraint.activate([
             // Title
-            titleLabel.topAnchor.constraint(equalTo: bigMedalImage.bottomAnchor, constant: 20),
+ 
+           
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             // SubTItle
@@ -148,7 +155,7 @@ class CongratulationsViewController: UIViewController {
     func setUpButton() {
         continueButton.addTarget(self, action: #selector(tapButton), for: .touchUpInside)
         NSLayoutConstraint.activate([
-            continueButton.topAnchor.constraint(equalTo: bodyLabel.bottomAnchor, constant: 54),
+            continueButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -80),
             continueButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             continueButton.widthAnchor.constraint(equalToConstant: 250),
             continueButton.heightAnchor.constraint(equalToConstant: 50)

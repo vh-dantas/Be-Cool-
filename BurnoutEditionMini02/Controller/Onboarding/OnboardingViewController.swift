@@ -7,8 +7,14 @@
 
 import UIKit
 
+protocol OnboardingDelegate: AnyObject {
+    func didTapButton() -> UIViewController
+}
+
 class OnboardingViewController: UICollectionViewController {
 
+    weak var delegate: SceneDelegate?
+    
     let realPages: [UICollectionViewCell] = [PageCell1(), PageCell2(), PageCell3()]
     // Botoes da BottomControl
     private let skipLabel: UILabel = {
@@ -51,7 +57,7 @@ class OnboardingViewController: UICollectionViewController {
         return button
     }()
  
-    private lazy var pageControl: UIPageControl = {
+     lazy var pageControl: UIPageControl = {
         let pageControl = UIPageControl()
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         pageControl.currentPage = 0
@@ -66,7 +72,12 @@ class OnboardingViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        if #available(iOS 11.0, *) {
+            collectionView.contentInsetAdjustmentBehavior = .never
+        } else {
+            automaticallyAdjustsScrollViewInsets = false
+        }
+  
       //  collectionView.backgroundColor = .green
         collectionView.register(PageCell1.self, forCellWithReuseIdentifier: "cellId1")
         collectionView.register(PageCell2.self, forCellWithReuseIdentifier: "cellId2")
@@ -74,7 +85,7 @@ class OnboardingViewController: UICollectionViewController {
         collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
         setUpBottomControls()
-     
+        
     }
     
     private func setUpBottomControls(){
@@ -87,7 +98,7 @@ class OnboardingViewController: UICollectionViewController {
         skipLabel.addGestureRecognizer(tap)
 
         nextButton.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
- 
+        nextBigButton.addTarget(self, action: #selector( tapFunction), for: .touchUpInside)
    
         // Constraints da StackView
         NSLayoutConstraint.activate([
@@ -222,6 +233,7 @@ extension OnboardingViewController {
         collectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         if pageControl.currentPage == 2 {
             setUpLastConstraints()
+           
         } else {
             setUpConstraints()
         }
@@ -241,10 +253,16 @@ extension OnboardingViewController {
         UserDefaults.standard.set(true, forKey: "Onboarding")
         // 2. Salve as alterações no UserDefaults (opcional em versões mais recentes do iOS)
         UserDefaults.standard.synchronize()
-        
-      
+//        
+        if let goalsViewController = delegate?.didTapButton() {
+          //  self.navigationItem.hidesBackButton = true
+            goalsViewController.navigationItem.hidesBackButton = true
+            navigationController?.pushViewController(goalsViewController, animated: true)
+        }
+
     }
 
 }
+
 
 

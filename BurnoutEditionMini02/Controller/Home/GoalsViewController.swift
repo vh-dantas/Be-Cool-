@@ -74,7 +74,7 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
     // MARK: -- Carrega a view
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationController?.isNavigationBarHidden = false
         // O Titulo é a ultima meta adicionada - a meta atual
         navigationItem.title = DataAcessObject.shared.fetchGoal().first?.title
         navigationItem.largeTitleDisplayMode = .always
@@ -109,8 +109,9 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
         //if first.iscompleted = true zera a tela
     }
     
+    // Função para verificar a pessoa precisa criar uma nova meta
     func noCurrentGoal() {
-        if DataAcessObject.shared.fetchGoal().first?.isCompleted == true {
+        if DataAcessObject.shared.fetchGoal().first?.isCompleted == true || DataAcessObject.shared.fetchGoal().isEmpty {
             tableView.removeFromSuperview()
             label.text = "level-neutral".localized
             navigationItem.title = "empty-goal-title".localized

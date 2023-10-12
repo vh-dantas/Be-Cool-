@@ -109,8 +109,9 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
         //if first.iscompleted = true zera a tela
     }
     
+    // Função para verificar a pessoa precisa criar uma nova meta
     func noCurrentGoal() {
-        if DataAcessObject.shared.fetchGoal().first?.isCompleted == true {
+        if DataAcessObject.shared.fetchGoal().first?.isCompleted == true || DataAcessObject.shared.fetchGoal().isEmpty {
             tableView.removeFromSuperview()
             label.text = "level-neutral".localized
             navigationItem.title = "empty-goal-title".localized

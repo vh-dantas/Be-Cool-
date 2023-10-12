@@ -32,8 +32,8 @@ class ReflectionSugestionViewController: UIViewController {
     
     private let penguinImage: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "PenguinIdeia")
-        image.contentMode = .scaleAspectFit
+        image.image = UIImage(named: "Pinguim_MetaAtingidaSVG")
+        image.contentMode = .scaleAspectFill
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -123,7 +123,7 @@ class ReflectionSugestionViewController: UIViewController {
     // MARK: Função de adicionar na View
     func addToView(){
         view.addSubview(topContentView)
-        topContentView.addSubview(cloudsImage)
+      //  topContentView.addSubview(cloudsImage)
         topContentView.addSubview(penguinImage)
         view.addSubview(titleLabel)
         view.addSubview(bodyLabel)
@@ -142,16 +142,22 @@ class ReflectionSugestionViewController: UIViewController {
             topContentView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5),
             
             // Imagens
-            cloudsImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
-            cloudsImage.leadingAnchor.constraint(equalTo: topContentView.leadingAnchor),
-            cloudsImage.trailingAnchor.constraint(equalTo: topContentView.trailingAnchor),
-            cloudsImage.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1),
-            cloudsImage.heightAnchor.constraint(equalTo: topContentView.heightAnchor, multiplier: 0.8),
+//            cloudsImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
+//            cloudsImage.leadingAnchor.constraint(equalTo: topContentView.leadingAnchor),
+//            cloudsImage.trailingAnchor.constraint(equalTo: topContentView.trailingAnchor),
+//            cloudsImage.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1),
+//            cloudsImage.heightAnchor.constraint(equalTo: topContentView.heightAnchor, multiplier: 0.8),
+            penguinImage.centerYAnchor.constraint(equalTo: topContentView.centerYAnchor, constant: 10),
+            penguinImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            penguinImage.leadingAnchor.constraint(equalTo: topContentView.leadingAnchor),
+            penguinImage.trailingAnchor.constraint(equalTo: topContentView.trailingAnchor),
+            penguinImage.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.84),
+            penguinImage.heightAnchor.constraint(equalTo: topContentView.heightAnchor, multiplier: 0.84),
             
-            penguinImage.centerXAnchor.constraint(equalTo: topContentView.centerXAnchor),
-            penguinImage.topAnchor.constraint(equalTo: topContentView.topAnchor, constant: 80),
-            penguinImage.widthAnchor.constraint(equalTo: topContentView.widthAnchor, multiplier: 0.7),
-            penguinImage.heightAnchor.constraint(equalTo: topContentView.heightAnchor, multiplier: 0.7)
+//            penguinImage.centerXAnchor.constraint(equalTo: topContentView.centerXAnchor),
+//            penguinImage.topAnchor.constraint(equalTo: topContentView.topAnchor, constant: 80),
+//            penguinImage.widthAnchor.constraint(equalTo: topContentView.widthAnchor, multiplier: 0.7),
+//            penguinImage.heightAnchor.constraint(equalTo: topContentView.heightAnchor, multiplier: 0.7)
         ])
     }
 

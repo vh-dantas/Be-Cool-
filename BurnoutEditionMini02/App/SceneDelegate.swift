@@ -39,7 +39,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let tabBarController = UITabBarController()
         
         // Instância e configuração de NavController da Reflection
-        let navConReflection = UINavigationController(rootViewController: ReflectionViewController())
+        let navConReflection = UINavigationController(rootViewController: ReflectionSugestionViewController())
         let navHome = UINavigationController(rootViewController: GoalsViewController())
         
         // Instâncias das View Controllers para a Tab Bar

@@ -74,7 +74,7 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
     // MARK: -- Carrega a view
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationController?.isNavigationBarHidden = false
         // O Titulo é a ultima meta adicionada - a meta atual
         navigationItem.title = DataAcessObject.shared.fetchGoal().first?.title
         navigationItem.largeTitleDisplayMode = .always

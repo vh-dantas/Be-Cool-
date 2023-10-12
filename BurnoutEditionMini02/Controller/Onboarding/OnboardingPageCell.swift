@@ -290,6 +290,7 @@ class PageCell: UICollectionViewCell {
         super.init(frame: frame)
         style()
         layout()
+
     }
     
     required init?(coder: NSCoder) {
@@ -332,9 +333,9 @@ class PageCell: UICollectionViewCell {
         topImageContainerView.addSubview(burnImage)
         // Layout View Constraints
         NSLayoutConstraint.activate([
-            topImageContainerView.topAnchor.constraint(equalTo: topAnchor),
-            topImageContainerView.leftAnchor.constraint(equalTo: leftAnchor),
-            topImageContainerView.rightAnchor.constraint(equalTo: rightAnchor),
+            topImageContainerView.topAnchor.constraint(equalTo: topAnchor, constant: 1),
+            topImageContainerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 1),
+            topImageContainerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -1),
             topImageContainerView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5)
         ])
         

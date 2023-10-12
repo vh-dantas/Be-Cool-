@@ -18,9 +18,19 @@ let reflectionVC = navConReflection
 //let settingsVC = UINavigationController(rootViewController: SettingsViewController())
 
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+class SceneDelegate: UIResponder, UIWindowSceneDelegate, OnboardingDelegate {
 
     var window: UIWindow?
+    
+    lazy var swipingController: OnboardingViewController = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let view = OnboardingViewController(collectionViewLayout: layout)
+        view.delegate = self
+        return view
+    }()
+
+
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -29,17 +39,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
        
         //Configurando o Onboarding
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        let swipingController = OnboardingViewController(collectionViewLayout: layout)
-      
-        
-        
+    
         // Instância da Tab Bar Controller
         let tabBarController = UITabBarController()
         
         // Instância e configuração de NavController da Reflection
-        let navConReflection = UINavigationController(rootViewController: CongratulationsViewController())
+        let navConReflection = UINavigationController(rootViewController: ReflectionViewController())
         let navHome = UINavigationController(rootViewController: GoalsViewController())
         
         // Instâncias das View Controllers para a Tab Bar
@@ -83,14 +88,46 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             rootViewController = tabBarController
             
         }
-        
-        
         // Configuração da janela, atribuindo à rootView (Necessário ao retirar o arquivo .storyboard)
+   
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = rootViewController
-        window?.makeKeyAndVisible()
+//        if onboardingCompleted == true {
+            window?.rootViewController = rootViewController
+            window?.makeKeyAndVisible()
+//        } else {
+//            window?.rootViewController = UINavigationController(rootViewController: swipingController)
+//            window?.makeKeyAndVisible()
+      //  }
 
+    }
+    
+    func didTapButton() -> UIViewController {
+        // rootView principal
+        var rootViewController: UIViewController
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            // Configurações para iPad
+            
+            rootViewController = iPadSplitViewController()
+            
+        } else {
+            // Instância da Tab Bar Controller
+            let tabBarController = UITabBarController()
+            
+            // Configuração dos Tab Bar Itens
+            goalsVC.tabBarItem = UITabBarItem(title: "goals".localized, image: UIImage(systemName: "list.bullet.circle"), selectedImage: UIImage(systemName: "list.bullet.circle.fill"))
+            achievementsVC.tabBarItem = UITabBarItem(title: "achievements".localized, image: UIImage(systemName: "medal"), selectedImage: UIImage(systemName: "medal.fill"))
+            reflectionVC.tabBarItem = UITabBarItem(title: "reflections".localized, image: UIImage(systemName: "text.bubble"), selectedImage: UIImage(systemName: "text.bubble.fill"))
+            //settingsVC.tabBarItem = UITabBarItem(title: "settings".localized, image: UIImage(systemName: "gearshape"), selectedImage: UIImage(systemName: "gearshape.fill"))
+            
+            // Atribuição das ViewController à Tab Bar
+            tabBarController.viewControllers = [goalsVC, achievementsVC, reflectionVC]
+            
+            rootViewController = tabBarController
+            
+        }
+        return rootViewController
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

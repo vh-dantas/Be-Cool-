@@ -196,7 +196,9 @@ class ReflectionSugestionViewController: UIViewController {
     @objc private func tapButton(){
         print("PPPPPPOOOOOOUURRRRAAA")
         let reflectionView = BreathAnimationViewController()
+        self.navigationItem.hidesBackButton = true
         reflectionView.hidesBottomBarWhenPushed = true
+        reflectionView.navigationItem.hidesBackButton = true
         navigationController?.pushViewController(reflectionView, animated: true)
     }
     

@@ -15,7 +15,7 @@ let navHome = UINavigationController(rootViewController: GoalsViewController())
 let goalsVC = navHome
 let achievementsVC = UINavigationController(rootViewController: AchievementsViewController())
 let reflectionVC = navConReflection
-let settingsVC = UINavigationController(rootViewController: SettingsViewController())
+//let settingsVC = UINavigationController(rootViewController: SettingsViewController())
 
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -46,18 +46,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let goalsVC = navHome
         let achievementsVC = UINavigationController(rootViewController: AchievementsViewController())
         let reflectionVC = navConReflection
-        let settingsVC = UINavigationController(rootViewController: SettingsViewController())
+        //let settingsVC = UINavigationController(rootViewController: SettingsViewController())
         
         // UserDefauls para armazanar a visualização do onboarding
         let onboardingCompleted = UserDefaults.standard.bool(forKey: "Onboarding")
         // Verificando se o Onbording ja foi concluido - se sim tiramos ele da lista de viewControllers
         if onboardingCompleted {
             // Atribuição das ViewController à Tab Bar
-            tabBarController.viewControllers = [goalsVC, achievementsVC, reflectionVC, settingsVC]
+            tabBarController.viewControllers = [goalsVC, achievementsVC, reflectionVC]
         } else {
             // Atribuição das ViewController à Tab Bar
 
-            tabBarController.viewControllers = [ goalsVC, achievementsVC, reflectionVC, settingsVC]
+            tabBarController.viewControllers = [ goalsVC, achievementsVC, reflectionVC]
         }
         // rootView principal
         var rootViewController: UIViewController?
@@ -75,10 +75,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             goalsVC.tabBarItem = UITabBarItem(title: "goals".localized, image: UIImage(systemName: "list.bullet.circle"), selectedImage: UIImage(systemName: "list.bullet.circle.fill"))
             achievementsVC.tabBarItem = UITabBarItem(title: "achievements".localized, image: UIImage(systemName: "medal"), selectedImage: UIImage(systemName: "medal.fill"))
             reflectionVC.tabBarItem = UITabBarItem(title: "reflections".localized, image: UIImage(systemName: "text.bubble"), selectedImage: UIImage(systemName: "text.bubble.fill"))
-            settingsVC.tabBarItem = UITabBarItem(title: "settings".localized, image: UIImage(systemName: "gearshape"), selectedImage: UIImage(systemName: "gearshape.fill"))
+            //settingsVC.tabBarItem = UITabBarItem(title: "settings".localized, image: UIImage(systemName: "gearshape"), selectedImage: UIImage(systemName: "gearshape.fill"))
             
             // Atribuição das ViewController à Tab Bar
-            tabBarController.viewControllers = [goalsVC, achievementsVC, reflectionVC, settingsVC]
+            tabBarController.viewControllers = [goalsVC, achievementsVC, reflectionVC]
             
             rootViewController = tabBarController
             

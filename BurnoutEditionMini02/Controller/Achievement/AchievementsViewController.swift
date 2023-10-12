@@ -16,7 +16,7 @@ class AchievementsViewController: UIViewController {
     private let jorneyLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Relembre Sua Jornada e Celebre Suas Conquistas!"
+        label.text = "achievements-text".localized
         label.adjustsFontForContentSizeCategory = true
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         label.numberOfLines = 0
@@ -266,7 +266,7 @@ extension AchievementsViewController: UICollectionViewDataSource, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let itemSelected = indexPath.item
         let achievDetail = AchievementDetailViewController(goal: achievementArray[itemSelected])
-        navigationController?.pushViewController(achievDetail, animated: true)
+      // navigationController?.pushViewController(achievDetail, animated: true)
     }
 }
 

@@ -70,7 +70,7 @@ class CreatingNewReflection3ViewController: UIViewController, UITextFieldDelegat
     // MARK: - Botão de salvar
     private func setupSaveBt() {
         // Configurações do botão
-        saveButton.setTitle("Save Reflection", for: .normal)
+        saveButton.setTitle("save-reflection".localized, for: .normal)
         saveButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         saveButton.titleLabel?.textColor = .white
         saveButton.backgroundColor = UIColor(named: "AccentColor")
@@ -164,13 +164,13 @@ class CreatingNewReflection3ViewController: UIViewController, UITextFieldDelegat
     // MARK: - Labels
     private func setupLabels() {
         // Configuração da primeira label
-        label.text = "Accordingly to what it represents to you:"
+        label.text = "accordingly".localized
         label.font.withSize(6)
         label.textColor = .gray
         
         view.addSubview(label)
         
-        label2.text = "Name your reflection."
+        label2.text = "reflection-title".localized
         label2.numberOfLines = 2
         label2.font = UIFont.systemFont(ofSize: 22, weight: .bold)
         
@@ -186,11 +186,11 @@ class CreatingNewReflection3ViewController: UIViewController, UITextFieldDelegat
         let yesLabel = UILabel()
         yesLabel.textColor = .systemRed
         yesLabel.text = "Yes"
-        let alertController = UIAlertController(title: "Aviso", message: "Deseja mesmo cancelar essa Reflection?", preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Sim", style: .default, handler: { action in
+        let alertController = UIAlertController(title: "warning".localized, message: "wish-cancel".localized, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "yes".localized, style: .default, handler: { action in
             self.navigationController?.popToRootViewController(animated: true)
         }))
-        alertController.addAction(UIAlertAction(title: "Não", style: .cancel))
+        alertController.addAction(UIAlertAction(title: "no".localized, style: .cancel))
         present(alertController, animated: true, completion: nil)
        
     }

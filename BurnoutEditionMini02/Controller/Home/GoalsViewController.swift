@@ -30,8 +30,8 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
     var imageViewCenterXConstraint: NSLayoutConstraint?
     let imageView = UIImageView(image: UIImage(named: "pinguimScale"))
     let label = UILabel()
-    let index = 4
-    let phrases = ["Dedique tempo ao seu bem-estar também", "Continue buscando o equilíbrio.", "Parabéns! Você está em equilíbrio", "Equilibre seu foco e continue brilhando", "Lembre-se das metas e transforme a procrastinação em ação!"]
+    var index = 3
+    let phrases = ["scale-1".localized, "scale-2".localized, "scale-3".localized, "scale-4".localized, "scale-5".localized]
     
     
     // Table View:
@@ -40,12 +40,33 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
         tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
+        tableView.rowHeight = 70
         tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: "CustomCell")
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     
+    let emptyGoalImage: UIImageView = {
+       let burnImage = UIImageView()
+       burnImage.image = UIImage(named: "EmptyGoalImage")
+       burnImage.translatesAutoresizingMaskIntoConstraints = false
+       burnImage.contentMode = .scaleAspectFit
+       return burnImage
+   }()
     
+    private let emptyGoalLabel: UILabel = {
+       let label = UILabel()
+        label.text = "empty-goal".localized
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontForContentSizeCategory = true
+        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        label.textAlignment = .center
+        return label
+    }()
+
+
     //CoreData and TableView
     private var subItems:[SubGoal] = []
     
@@ -59,18 +80,19 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
         navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = UIColor(named: "BackgroundColor")
-        
+      
         
         constraints() // Carrega as constraints da view
         fetchSubGoalsArray() // Recarregar a array e o titulo
-
+        updatePhrases()
+        
         // Texto da balança
         label.textAlignment = .center
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         label.font = UIFont.systemFont(ofSize: 15)
         label.text = phrases[index]
-        
+        noCurrentGoal()
         
         // MARK: -- Botões de navegação
         let openModalBtn = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(createNewGoal))
@@ -82,9 +104,43 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
         fetchSubGoalsArray()
         tableView.reloadData()
         navigationItem.title = DataAcessObject.shared.fetchGoal().first?.title
-        
+        noCurrentGoal()
         
         //if first.iscompleted = true zera a tela
+    }
+    
+    func noCurrentGoal() {
+        if DataAcessObject.shared.fetchGoal().first?.isCompleted == true {
+            tableView.removeFromSuperview()
+            label.text = "level-neutral".localized
+            navigationItem.title = "empty-goal-title".localized
+            view.addSubview(emptyGoalImage)
+            view.addSubview(emptyGoalLabel)
+            
+            NSLayoutConstraint.activate([
+                emptyGoalImage.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7),
+                emptyGoalImage.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4),
+                emptyGoalImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                emptyGoalImage.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+                emptyGoalLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
+                emptyGoalLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
+                emptyGoalLabel.topAnchor.constraint(equalTo: emptyGoalImage.bottomAnchor)
+                
+            ])
+        } else {
+            emptyGoalImage.removeFromSuperview()
+            emptyGoalLabel.removeFromSuperview()
+            view.addSubview(tableView)
+            NSLayoutConstraint.activate([
+                tableView.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 8),
+                tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+                tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            ])
+            label.text = "scale-3".localized
+            navigationItem.title = DataAcessObject.shared.fetchGoal().first?.title
+
+        }
     }
     
     @objc func createNewGoal() {
@@ -138,12 +194,12 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
             cell.button.addTarget(self, action: #selector(buttonTapped(sender:)), for: .touchUpInside)
             cell.button.tintColor = UIColor(named: "CheckMarkColor")
             cell.button.setImage(UIImage(systemName: subGoal.isCompleted ? "checkmark.circle.fill" : "circle"), for: .normal)
-            cell.backgroundColor = UIColor(named: "WorkCellColor")
+            cell.rectangleView.backgroundColor = UIColor(named: "WorkCellColor")
         case "personal":
             cell.button.addTarget(self, action: #selector(buttonTapped(sender:)), for: .touchUpInside)
             cell.button.tintColor = UIColor(named: "HeartCheckColor")
             cell.button.setImage(UIImage(systemName: subGoal.isCompleted ? "heart.fill" : "heart"), for: .normal)
-            cell.backgroundColor = UIColor(named: "WellnessCellColor")
+            cell.rectangleView.backgroundColor = UIColor(named: "WellnessCellColor")
         default:
             break
         }
@@ -220,7 +276,39 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
         UIView.animate(withDuration: 0.5) {
             self.view.layoutIfNeeded()
         }
+        
+            var newIndex = 2
+
+
+        let penguinPosition = imageViewCenterXConstraint?.constant ?? 0
+        UserDefaults.standard.set(penguinPosition, forKey: "PenguinPosition")
+
+
+            if penguinPosition < -halfWidth * 2 / 4 {
+                newIndex = 0
+            } else if penguinPosition < -halfWidth / 4 {
+                newIndex = 1
+            } else if penguinPosition > halfWidth / 4 {
+                newIndex = 3
+            } else if penguinPosition > halfWidth * 2 / 4 {
+                newIndex = 4
+            }
+
+            index = newIndex
+            updatePhrases()
     }
+    
+    func updatePhrases() {
+        label.text = phrases[index]
+        
+        if let savedPosition = UserDefaults.standard.value(forKey: "PenguinPosition") as? CGFloat {
+            imageViewCenterXConstraint?.constant = savedPosition
+            UIView.animate(withDuration: 0.0) { [weak self] in
+                self?.view.layoutIfNeeded()
+            }
+        }
+    }
+
 
     // verifica se todas as subgoals foram feitas
     func checkSubGoalsCompletion() {
@@ -231,6 +319,7 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
                 DataAcessObject.shared.toggleIsCompleted(goal: goal)
                 let congratulationsViewController = CongratulationsViewController()
                 congratulationsViewController.hidesBottomBarWhenPushed = true
+                congratulationsViewController.navigationItem.hidesBackButton = true
                 self.navigationController?.pushViewController(congratulationsViewController, animated: true)
             }
         }

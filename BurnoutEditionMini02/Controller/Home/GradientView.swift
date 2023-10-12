@@ -40,8 +40,15 @@ class GradientView: UIView {
     private func setupGradient() {
         gradientLayer.frame = bounds
         gradientLayer.colors = [UIColor(named: "WorkSideScaleColor")?.cgColor ?? UIColor.cyan, UIColor(named: "WellnessSideScaleColor")?.cgColor ?? UIColor.systemMint]
-        gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
-        gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.5)
+        
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
+        
+        func updateGradientStartAndEndPoints(startPoint: CGPoint, endPoint: CGPoint) {
+            gradientLayer.startPoint = startPoint
+            gradientLayer.endPoint = endPoint
+        }
+        
         layer.addSublayer(gradientLayer)
         layer.cornerRadius = 13
         layer.masksToBounds = true

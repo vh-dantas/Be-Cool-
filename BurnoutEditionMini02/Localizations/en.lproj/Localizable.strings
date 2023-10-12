@@ -39,6 +39,11 @@
 "wellness-subgoal-text" = "Set up your wellness goals to have a balanced life. We suggest you focus on doing things for your well-being for this amount of time:";
 "save-goals-btn" = "Save My Goal";
 "wellness-checklist" = "Wellness Activities:";
+//aviso
+"warning" = "Warning";
+"remember" = "Remember to break your goal in subgoals";
+"yes" = "Yes";
+"no" = "No";
 
 
 
@@ -61,7 +66,7 @@
 
 // Finalizou uma meta e ganhando conquista
 "congratulations-title" = "Congratulations!";
-"congratulations-sub-title" = "Wow! His dedication paid off, huh?";
+"congratulations-sub-title" = "Wow! Your dedication paid off, huh?";
 "congratulations-body" = "You reached your goal with success and balance, now don’t forget to check out your journey in the “Achievements” tab.";
 "congratulations-button" = "Continue";
 
@@ -90,7 +95,18 @@
 "reflection-title-caption" = "According to what it represents to you:";
 "reflection-title" = "Name your Reflection.";
 "save-reflection" = "Save Reflection";
-
+"wish-cancel" = "Are you sure you want to cancel this reflection?";
+"card" = "What about a break to reflect about your journey?";
+"tap-reflection" = "Tap to begin";
+"text-reflect" = "Reflect about the following question:";
+"feelings1" = "What have you learned in the past two weeks?";
+"feelings2" = "How good are you at the thing you were doing?";
+"feelings3" = "How do you feel after accomplishing your goal?";
+"textplacereflect" = "Reflect...";
+"draw-feels" = "Draw your feelings";
+"tell" = "Now tell us:";
+"accordingly" = "Accordingly to what it represents to you:";
+"my-reflection" = "My Reflection";
 
 
 // MARK: -- TAB BAR
@@ -146,3 +162,10 @@ In the 'Achievements' tab, dive into details of how you achieved your goals.";
 "Onboarding-start" = "Start";
 
 
+// MARK: -- BALANÇA
+"scale-1" = "Dedicate time to your well-being as well";
+"scale-2" = "Keep seeking balance.";
+"scale-3" = "Congratulations! You are in balance";
+"scale-4" = "Balance your focus and keep shining";
+"scale-5" = "Remember your goals and turn procrastination into action!";
+"empty-goal-title" = "Goal";

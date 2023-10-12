@@ -39,7 +39,7 @@ class BreathAnimationViewController: UIViewController, CAAnimationDelegate {
         view.backgroundColor = .white
         
         // Botão de skip
-        skipBt = UIBarButtonItem(title: "Skip", style: .plain, target: self, action: #selector(skipAnimation))
+        skipBt = UIBarButtonItem(title: "Onboarding-skip".localized, style: .plain, target: self, action: #selector(skipAnimation))
         navigationItem.rightBarButtonItem = skipBt
         
         // Funcs setup
@@ -85,7 +85,7 @@ class BreathAnimationViewController: UIViewController, CAAnimationDelegate {
         // Configuração da label fixa (antes de iniciar a animacão)
         staticText.font = UIFont.systemFont(ofSize: 22, weight: .medium)
         staticText.textColor = UIColor.white
-        staticText.text = "Tap to begin"
+        staticText.text = "tap-reflection".localized
         
         view.addSubview(staticText)
         
@@ -107,11 +107,11 @@ class BreathAnimationViewController: UIViewController, CAAnimationDelegate {
         animationProgress += 1.0 / (animationGroup!.duration)
         
         if animationProgress <= 20 {
-            labelText.text = "Inhale"
+            labelText.text = "inhale".localized
         } else if animationProgress <= 40 {
-            labelText.text = "Hold"
+            labelText.text = "hold".localized
         } else {
-            labelText.text = "Exhale"
+            labelText.text = "exhale".localized
         }
     }
     

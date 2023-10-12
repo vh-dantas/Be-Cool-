@@ -18,6 +18,9 @@ class NewReflectionTableViewCell: UITableViewCell {
     // Shape retangular
     let cellNewRefShape = UIView()
     
+    //Imagem do Penguin
+    let reflectingPenguin = UIImageView(image: UIImage(named: "pinguimReflecting"))
+    
     // ViewController
     let vc = ReflectionViewController()
     
@@ -39,7 +42,7 @@ class NewReflectionTableViewCell: UITableViewCell {
         addSubview(cellNewRefShape)
         
         // Configurações do botão
-        newRefBt.setTitle("New Reflection", for: .normal)
+        newRefBt.setTitle("reflection-cta-btn".localized, for: .normal)
         newRefBt.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         newRefBt.backgroundColor = UIColor(named: "AccentColor")
         cellNewRefShape.addSubview(newRefBt)
@@ -47,7 +50,7 @@ class NewReflectionTableViewCell: UITableViewCell {
         newRefBt.addTarget(self, action: #selector(goToNewReflection), for: .touchUpInside)
         
         // Configurações da label
-        cellNewRefLabel.text = "What about a break to reflect about your journey?"
+        cellNewRefLabel.text = "card".localized
         cellNewRefLabel.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         cellNewRefLabel.numberOfLines = 0
         cellNewRefShape.addSubview(cellNewRefLabel)
@@ -55,6 +58,9 @@ class NewReflectionTableViewCell: UITableViewCell {
         // Configurações do fundo da célula
         cellNewRefShape.backgroundColor = UIColor(named: "AccentColor")?.withAlphaComponent(0.15)
         cellNewRefShape.layer.cornerRadius = 10
+        
+        //Configurações da imagem do pinguim
+        cellNewRefLabel.addSubview(reflectingPenguin)
     }
     
     @objc func goToNewReflection() {
@@ -91,6 +97,16 @@ class NewReflectionTableViewCell: UITableViewCell {
             newRefBt.widthAnchor.constraint(equalToConstant: vc.view.frame.width / 3),
             newRefBt.heightAnchor.constraint(equalTo: cellNewRefShape.heightAnchor, multiplier: 0.25)
         ])
+        
+        // Imagem do penguin
+        reflectingPenguin.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            reflectingPenguin.topAnchor.constraint(equalTo: cellNewRefShape.topAnchor),
+            reflectingPenguin.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            reflectingPenguin.widthAnchor.constraint(equalToConstant: vc.view.frame.width * 0.44),
+            reflectingPenguin.heightAnchor.constraint(equalToConstant: vc.view.frame.height / 5.5)
+        ])
+        
     }
     
     override func layoutSubviews() {

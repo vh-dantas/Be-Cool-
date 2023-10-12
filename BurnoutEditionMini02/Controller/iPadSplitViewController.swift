@@ -31,8 +31,8 @@ class iPadSplitViewController: UISplitViewController, SideBarMenuDelegate {
             self.viewControllers[1] = achievementsVC
         case "reflections".localized:
             self.viewControllers[1] = reflectionVC
-        case "settings".localized:
-            self.viewControllers[1] = settingsVC
+        //case "settings".localized:
+        //    self.viewControllers[1] = settingsVC
         default:
             self.viewControllers[1] = goalsVC
         }

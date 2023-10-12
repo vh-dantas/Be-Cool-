@@ -11,12 +11,17 @@ import UIKit
 class CustomTableViewCell: UITableViewCell {
     let customLabel = UILabel()
     let button = UIButton(type: .system)
-    
+    let rectangleView = UIView()
+    let shape = CAShapeLayer()
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         customLabel.translatesAutoresizingMaskIntoConstraints = false
         button.translatesAutoresizingMaskIntoConstraints = false
+        rectangleView.translatesAutoresizingMaskIntoConstraints = false
+
+        contentView.addSubview(rectangleView)
         contentView.addSubview(customLabel)
         contentView.addSubview(button)
         
@@ -25,14 +30,29 @@ class CustomTableViewCell: UITableViewCell {
             button.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             
             customLabel.leadingAnchor.constraint(equalTo: button.trailingAnchor, constant: 10),
-            customLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            customLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
+            customLabel.centerYAnchor.constraint(equalTo: button.centerYAnchor),
 
+            rectangleView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            rectangleView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            rectangleView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            rectangleView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.7)
         ])
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        // Set the corner radius for the right side corners
+        let maskPath = UIBezierPath(roundedRect: rectangleView.bounds,
+                                    byRoundingCorners: [.topRight, .bottomRight],
+                                    cornerRadii: CGSize(width: 20, height: 20))
+        
+        shape.path = maskPath.cgPath
+        rectangleView.layer.mask = shape
     }
 }
 //

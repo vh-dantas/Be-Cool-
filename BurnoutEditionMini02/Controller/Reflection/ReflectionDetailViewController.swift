@@ -13,7 +13,7 @@ class ReflectionDetailViewController: UIViewController {
     var tagCollectionView: UICollectionView! = nil
     // Criando as tags
     let tagMood = RectangleLabelView(frame: CGRect(x: 0, y: 0, width: 100, height: 300))
-    let tagGoal = RectangleLabelView(frame: CGRect(x: 0, y: 0, width: 100, height: 30))
+    //let tagGoal = RectangleLabelView(frame: CGRect(x: 0, y: 0, width: 100, height: 30))
     
     // Imagem e desenho
     var imagem = UIImageView()
@@ -52,7 +52,8 @@ class ReflectionDetailViewController: UIViewController {
         configDateLabel()
         
         // Array que armazena os nomes das tags
-        tags = ["Paralelepipedo paralelepipedo", reflection.mood ?? ""]
+        //tags = ["paralelepipedo paralelepipedo", reflection.mood ?? ""]
+        tags = [reflection.mood ?? "_"]
         
         // Configurando as Tags com CollectionVirw
         setUpCollectionView()
@@ -217,7 +218,7 @@ class ReflectionDetailViewController: UIViewController {
     // Função para configurar as tags - elas estao dentro de uma UIStackView entao configuro aqui tambem MARK: Tags
     func configureTags(){
 
-        tagGoal.translatesAutoresizingMaskIntoConstraints = false
+        //tagGoal.translatesAutoresizingMaskIntoConstraints = false
         tagMood.translatesAutoresizingMaskIntoConstraints = false
         
         // Configurando a StackView

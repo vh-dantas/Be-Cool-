@@ -193,15 +193,15 @@ class AchievementsViewController: UIViewController {
         
         // Defina o tamanho mínimo dos itens (largura e altura)
         let minItemWidth: CGFloat = (view.frame.height * 0.11)// Largura mínima desejada para cada item
-        let minItemHeight: CGFloat = (view.frame.height * 0.11) // Altura mínima desejada para cada item
+        //let minItemHeight: CGFloat = (view.frame.height * 0.11) // Altura mínima desejada para cada item
         
         // Calcula o número de colunas com base na largura da tela
         let screenWidth = UIScreen.main.bounds.width
         let numberOfColumns = Int(screenWidth / minItemWidth)
         
         // Calcula o tamanho real dos itens com base no número de colunas
-        let itemWidth = screenWidth / CGFloat(numberOfColumns)
-        let itemHeight = minItemHeight // Mantém a altura fixa
+//        let itemWidth = screenWidth / CGFloat(numberOfColumns)
+//        let itemHeight = minItemHeight // Mantém a altura fixa
         
         flowLayout.itemSize = CGSize(width: 78, height: 89)
         

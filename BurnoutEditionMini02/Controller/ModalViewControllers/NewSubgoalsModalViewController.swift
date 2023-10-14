@@ -160,6 +160,7 @@ class NewSubgoalsModalViewController: ViewController, AddSubGoalButtonDelegate, 
             navigationController?.pushViewController(newSubgoalLevelViewController, animated: true)
             
         } else {
+            view.endEditing(true)
             // Mostrar um alerta ao usuário ou tomar outra ação apropriada
             let alertController = UIAlertController(title: "warning".localized, message: "remember".localized, preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "OK", style: .destructive, handler: nil))
@@ -172,7 +173,7 @@ class NewSubgoalsModalViewController: ViewController, AddSubGoalButtonDelegate, 
     func addSubGoalButtonTouched() {
         subGoals.append(SubGoalStatic(id: UUID(), title: "", level: .easy, type: .work))
         tableView.reloadData()
-        toggleAddSubGoalButton()
+        //toggleAddSubGoalButton()
     }
     
     ///adiciona a subgoal no return do teclado
@@ -188,17 +189,17 @@ class NewSubgoalsModalViewController: ViewController, AddSubGoalButtonDelegate, 
     }
     
     ///deixa o botao de add submeta opaco
-    func toggleAddSubGoalButton() {
-        if !subGoals.isEmpty {
-            addSubGoalCell?.button.isEnabled = subGoals[subGoals.count - 1].title != ""
-            addSubGoalCell?.layoutSubviews()
-        }
-    }
+//    func toggleAddSubGoalButton() {
+//        if !subGoals.isEmpty {
+//            addSubGoalCell?.button.isEnabled = subGoals[subGoals.count - 1].title != ""
+//            addSubGoalCell?.layoutSubviews()
+//        }
+//    }
     
     ///atualiza o nome do subgoal em caso de editar
     func subGoalTextDidChangeText(_ subGoal: SubGoalStatic, text: String) {
         subGoal.title = text
-        toggleAddSubGoalButton()
+        //toggleAddSubGoalButton()
     }
     
     func subGoalDateDidChange(_ subGoal: SubGoalStatic, date: Date) {}

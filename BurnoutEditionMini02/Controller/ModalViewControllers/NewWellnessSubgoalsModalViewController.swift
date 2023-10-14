@@ -232,6 +232,8 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
             return
         }
         
+        view.endEditing(true)
+        
             // Verifique se o valor de timeDigits é "00:00"
             let time = timeDigits.map { label in
                 return label.text ?? ""

@@ -301,7 +301,7 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
         let startDate = calendar.date(from: components)
         
         subGoals.append(SubGoalStatic(id: UUID(), title: "", level: .easy, type: .personal, date: startDate))
-        toggleAddSubGoalButton()
+        //toggleAddSubGoalButton()
         tableView.reloadData()
     }
     
@@ -318,17 +318,17 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
     }
     
     ///deixa o botao de add submeta opaco
-    func toggleAddSubGoalButton() {
-        if !subGoals.isEmpty {
-            addSubGoalCell?.button.isEnabled = subGoals[subGoals.count - 1].title != ""
-            addSubGoalCell?.layoutSubviews()
-        }
-    }
+//    func toggleAddSubGoalButton() {
+//        if !subGoals.isEmpty {
+//            addSubGoalCell?.button.isEnabled = subGoals[subGoals.count - 1].title != ""
+//            addSubGoalCell?.layoutSubviews()
+//        }
+//    }
     
     ///atualiza o nome do subgoal em caso de editar
     func subGoalTextDidChangeText(_ subGoal: SubGoalStatic, text: String) {
         subGoal.title = text
-        toggleAddSubGoalButton()
+        //toggleAddSubGoalButton()
     }
     
     func subGoalDateDidChange(_ subGoal: SubGoalStatic, date: Date) {

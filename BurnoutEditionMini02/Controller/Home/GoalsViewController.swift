@@ -57,6 +57,7 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
     private let emptyGoalLabel: UILabel = {
        let label = UILabel()
         label.text = "empty-goal".localized
+        label.textColor = .lightGray
         label.accessibilityLabel = "empty-goal".localized
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontForContentSizeCategory = true

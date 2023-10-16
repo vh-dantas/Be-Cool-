@@ -265,12 +265,15 @@ class CustomSlider: UISlider {
         let label = UILabel(frame: thumbLayer.bounds)
         if self.value < 40 {
             label.text = "easy".localized
+            label.accessibilityLabel =  "easy".localized
             self.minimumTrackTintColor = UIColor(named: "SliderEasyColor")
         } else if self.value >= 40 && self.value < 70 {
             label.text = "medium".localized
+            label.accessibilityLabel =  "medium".localized
             self.minimumTrackTintColor = UIColor(named: "SliderMediumColor")
         } else {
             label.text = "hard".localized
+            label.accessibilityLabel =  "hard".localized
             self.minimumTrackTintColor = UIColor(named: "SliderHardColor")
         }
         

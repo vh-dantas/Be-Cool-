@@ -31,6 +31,7 @@ class BigButton: UIView {
         bigButton.setImage(UIImage(systemName: "chevron.right"), for: .normal)
         bigButton.layer.cornerRadius = buttonSize / 2
         bigButton.translatesAutoresizingMaskIntoConstraints = false
+        bigButton.accessibilityHint = "big-button-hint".localized
         addSubview(bigButton)
         
         //constraints do botao

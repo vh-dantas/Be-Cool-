@@ -6,11 +6,180 @@
   
 */
 
+// MARK: -- HOME
+// Níveis da balança:
+"level-1" = "Dedicate time to your well-being too.";
+"level-2" = "Keep striving for balance.";
+"level-3" = "Congratulations! You are in balance.";
+"level-4" = "Balance your focus and keep shining.";
+"level-5" = "Remember your goals and turn procrastination into action!";
+"level-neutral" = "Set a goal to balance your journey.";
+// Screen with no current goals:
+"empty-goal" = "You don't have any goals created!";
 
-// Nomes das views - Tab bar
+
+
+// MARK: -- CRIAR NOVA META
+// Definir Meta
+"new-goal-title" = "Setting your professional goal";
+"new-goal-text" = "Start with a clear and short-term goal!";
+"textfield-placeholder" = "Start typing";
+// Criar tarefas
+"subgoals-title" = "Divide and conquer:";
+"subgoals-text" = "Break down your goal into smaller tasks";
+"subgoals-checklist" = "Task checklist";
+// Medir Dificuldade
+"easy" = "Easy";
+"medium" = "Medium";
+"hard" = "Hard";
+"subgoal-level-title" = "Measuring the Challenge:";
+"subgoal-level-text" = "Analyze how challenging each task will be. That will help you adjust your expectations.";
+// Criar atividades de bem-estar
+"wellness-subgoal-title" = "Prioritize your well-being:";
+"wellness-subgoal-text" = "Set up your wellness goals to have a balanced life. We suggest you focus on doing things for your well-being for this amount of time:";
+"save-goals-btn" = "Save My Goal";
+"wellness-checklist" = "Wellness Activities:";
+//aviso
+"warning-empty" = "Empty Field";
+"warning-message" = "The time value must be 00:00.";
+"remember" = "Remember to break your goal into subgoals";
+"yes" = "Yes";
+"no" = "No";
+"textFieldSubgoal" = "Write your subgoal here...";
+"timeUndefined" = "Undefined Time";
+
+
+
+// MARK: -- MODAL META ATINGIDA
+"goal-achieved-title" = "Congratulations!";
+"goal-achieved-caption" = "Wow! Your dedication was super worth it!";
+"goal-achieved-text" = "You've achieved your goal with success and balance. Check out your journey in the 'Achievements' tab.";
+
+
+
+// MARK: -- CONQUISTAS
+"achievements-title" = "Achievements";
+"achievements-text" = "Recall Your Journey and Celebrate Your Achievements!";
+// Tela de detalhamento da conquista:
+"achievement-detail-wellness-title" = "Wellness Activities";
+"achievement-detail-wellness-text" = "These were the hours dedicated to your well-being while working towards this goal:";
+"achievement-detail-wellness-caption" = "This demonstrates how taking care of yourself is essential to achieving success.";
+"achievement-detail-work-title" = "Work Tasks";
+"achievement-detail-work-text" = "Breaking goals into tasks made the impossible possible. Small steps led to big accomplishments!";
+
+// Finalizou uma meta e ganhando conquista
+"congratulations-title" = "Congratulations!";
+"congratulations-sub-title" = "Wow! Your dedication paid off, huh?";
+"congratulations-body" = "You reached your goal with success and balance, now don’t forget to check out your journey in the “Achievements” tab.";
+"congratulations-button" = "Continue";
+
+// Sugestão de Reflection
+"reflection-suggestion-title" = "How about reflecting on your journey?";
+"reflection-suggestion-body" = "Reflecting on the path you have taken is a great tool for those seeking success and personal development.";
+"reflection-suggestion-deny" = "Maybe later";
+"reflection-suggestion-button" = "Make Reflection";
+
+// MARK: -- REFLECTION
+"start-breathing" = "Start a breathing exercise";
+"inhale" = "Inhale";
+"hold" = "Hold";
+"exhale" = "Exhale";
+"reflection-cta-title" = "How about taking a break to reflect on your journey?";
+"reflection-cta-btn" = "New Reflection";
+"reflection-caption" = "Reflect on the following question:";
+"moodtracker-caption" = "Now, tell us:";
+"moodtracker-question" = "How are you feeling after this reflection?";
+"sad" = "Sad";
+"stressed" = "Stressed";
+"normal" = "Normal";
+"relaxed" = "Relaxed";
+"happy" = "Happy";
+"excited" = "Excited";
+"reflection-title-caption" = "According to what it represents to you:";
+"reflection-title" = "Name your Reflection.";
+"save-reflection" = "Save Reflection";
+"wish-cancel" = "Are you sure you want to cancel this reflection?";
+"card" = "What about a break to reflect about your journey?";
+"tap-reflection" = "Tap to begin";
+"text-reflect" = "Reflect about the following question:";
+"feelings1" = "What have you learned in the past two weeks?";
+"feelings2" = "How good are you at the thing you were doing?";
+"feelings3" = "How do you feel after accomplishing your goal?";
+"textplacereflect" = "Reflect...";
+"draw-feels" = "Draw your feelings";
+"tell" = "Now tell us:";
+"accordingly" = "Accordingly to what it represents to you:";
+"my-reflection" = "My Reflection";
+"warning" = "Warning";
+
+
+// MARK: -- TAB BAR
 "goals" = "Goals";
 "achievements" = "Achievements";
 "reflections" = "Reflections";
+"settings" = "Settings";
 
 
-// NÃO ESQUECER JAMAIS DO ; NO FINAL DAS STRINGS 🙏
+
+// MARK: -- SETTINGS
+"application" = "Application";
+"notifications" = "Notifications";
+"preferences" = "Preferences";
+"onboarding" = "Onboarding";
+"about" = "About Us";
+"privacy" = "Privacy Policy";
+"contact" = "Contact Us";
+"version" = "Version";
+
+// Notificações
+"water" = "Drink Water";
+"stretch" = "Stretch";
+"walk-around" = "Go for a walk";
+
+// About Us
+"team" = "Team";
+"experts" = "Experts";
+"mentors" = "Mentors";
+
+// Privacy Policy
+"PrivacyTitle1" = "Privacy Policy for [APP]";
+"PrivacyText1" = "Thank you for choosing [APP]. This Privacy Policy describes how we collect, use, and share information when you use our app. Your privacy is important to us, and we are committed to protecting your personal data. By using [APP], you agree to the privacy practices outlined in this policy.";
+
+"PrivacyTitle2" = "Data Collection & Storage";
+"PrivacyText2" = "We do not collect, store, or monitor any user's personal information. [App Name] does not request, access, or use any personal data, identifying information, or other sensitive information. [App Name] utilizes Apple's iCloud to enable data synchronization between the user's iPhone and iPad devices. The synchronized information solely pertains to the internal operation of the app and does not include personally identifiable data. We do not use cookies or other tracking technologies to collect information about app usage. We do not share personal information with third parties, as we do not collect such information. We are committed to safeguarding your data.";
+
+"PrivacyTitle3" = "Changes to this Privacy Policy";
+"PrivacyText3" = "We may update this Privacy Policy from time to time to reflect changes in our privacy practices. The latest version of the policy will always be available within the app. We recommend that you periodically review this policy to stay informed about how we are protecting your privacy.";
+
+"PrivacyTitle4" = "Contact";
+"PrivacyText4" = "If you have any questions or concerns regarding privacy, please contact us at [Contact Email Address].";
+
+//MARK: ONBOARDING -
+"Onboarding-title1" = "Welcome to Your Successful Journey!";
+"Onboarding-title2" = "Create, Plan, Reflect!";
+"Onboarding-title3" = "Celebrate and Grow!";
+"Onboarding-body1" = "We are excited to start this incredible journey with you! Get ready for an exciting adventure that combines work and well-being in harmony.";
+"Onboarding-body2" = "Here, we will create goals, maintain balance, achieve great things and reflect on our success. All this to ensure a healthier and more balanced routine!";
+"Onboarding-body3" = "Ready to celebrate your achievements?
+In the 'Achievements' tab, dive into details of how you achieved your goals.";
+"Onboarding-skip" = "Skip";
+"Onboarding-start" = "Start";
+
+
+// MARK: -- BALANÇA
+"scale-1" = "Dedicate time to your well-being as well";
+"scale-2" = "Keep seeking balance.";
+"scale-3" = "Congratulations! You are in balance";
+"scale-4" = "Balance your focus and keep shining";
+"scale-5" = "Remember your goals and turn procrastination into action!";
+"empty-goal-title" = "Goal";
+
+
+// MARK: -- ACCESSIBILITY HINTS
+"work-button-hint" = "You tapped a work task";
+"personal-button-hint" = "You tapped a personal task";
+"big-button-hint" = "Go to the next screen";
+"new-goal-hint" = "Tap to create a new goal"; //
+"add-subgoal-hint" = "Tap to create a new subgoal"; //
+"comecar-button-hint" = "Tap to start your breathing exercise";
+"open-pencil-hint" = "Draw button";

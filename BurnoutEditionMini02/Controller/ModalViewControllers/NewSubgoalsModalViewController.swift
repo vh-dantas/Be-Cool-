@@ -7,35 +7,33 @@
 
 import UIKit
 
-class NewSubgoalsModalViewController: UIViewController {
+class NewSubgoalsModalViewController: ViewController, AddSubGoalButtonDelegate, SubGoalCellTextDelegate, BigButtonDelegate {
+    // Cria UILabel
+    let firstLabel = UILabel()
+    let secondLabel = UILabel()
     
+    // Cria o botao passar para próxima tela
+    let bigButton = BigButton()
     
-    
-    // Cria um UILabel
-    let label = UILabel()
-    // Cria um UITextField
-    let textField = UITextField()
-    // Cria o botao de adicionar a meta
-    let addButton = UIButton(type: .system)
-    //Cria stack view
+    // Cria stack view
     let stackView = UIStackView()
     
-    // Dependency Injection (injeção de dependências)
-    let goals: [GoalStatic]
+    // Cria célula com texto e botão de +
+    var addSubGoalCell: AddSubGoalCell?
     
     //instancia da model subgoal
-    var subgoals = [SubGoalStatic]()
-    // Cria table view
+    var subGoals = [SubGoalStatic]()
     
     weak var delegate: NewSubGoalModalDelegate?
     
+    // Cria table view
     var tableView: UITableView!
     
-    
-    init(goals: [GoalStatic]) {
-        self.goals = goals
+    init() {
         // Sempre chamar este super.init
         super.init(nibName: nil, bundle: nil)
+        //Compartilha os dados das view controllers
+        CreateGoalVCStore.shared.newSubGoalModalViewController = self
     }
     
     required init?(coder: NSCoder) {
@@ -44,38 +42,91 @@ class NewSubgoalsModalViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Checa se o teclado tá aberto na tela
+        NotificationCenter.default.addObserver(self, selector: #selector(myKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(myKeyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
 
+        
         // Coloca a cor de fundo da modal (ele seta como transparente por padrão)
-        view.backgroundColor = .white
-        
+        view.backgroundColor = UIColor(named: "BackgroundColor")
+        setUpFirstLabel()
+        setUpSecondLabel()
+        setUpTableView()
+        setUpStackView()
+        setUpBigButton()
+    }
+    
+    @objc func myKeyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height + 25, right: 0)
+        }
+    }
+
+    @objc func myKeyboardWillHide(notification: NSNotification) {
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+
+    
+    // Desinicializa o observer do teclado
+    deinit {
+            NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+            NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        }
+    //MARK: -- SetUp Elementos da view
+    ///titulo da view
+    func setUpFirstLabel() {
         // Configura propriedades do UILabel
-        label.text = "Adicione aqui sua subgoal"
-        
-        // Configura propriedades do UITextField
-        textField.placeholder = "Digite algo aqui"
-        textField.borderStyle = .roundedRect
-        
-        //Configura propriedades do UIButton
-        addButton.setTitle("Adicionar", for: .normal)
-        addButton.addTarget(self, action: #selector(addSubTask), for: .touchUpInside)
-        
+        firstLabel.text = "subgoals-title".localized
+        firstLabel.font = UIFont.systemFont(ofSize: 28, weight: .bold)
+        firstLabel.lineBreakMode = .byWordWrapping
+        firstLabel.sizeToFit()
+        firstLabel.numberOfLines = 0
+    }
+    
+    ///subtitulo da view
+    func setUpSecondLabel() {
+        secondLabel.text = "subgoals-text".localized
+        secondLabel.font = UIFont.systemFont(ofSize: 15, weight: .light)
+        secondLabel.lineBreakMode = .byWordWrapping
+        secondLabel.sizeToFit()
+        secondLabel.numberOfLines = 0
+    }
+    
+    ///tableview
+    func setUpTableView() {
         // Inicializa a table view
-        tableView = UITableView()
+        tableView = UITableView(frame: .zero, style: .plain)
+        tableView.backgroundColor = .clear
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-                
-        // Add constraints here
-//                tableView.translatesAutoresizingMaskIntoConstraints = false
-//                NSLayoutConstraint.activate([
-//                    tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-//                    tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-//                    tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-//                    tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
-//                ])
-            
+        tableView.register(AddSubGoalCell.self, forCellReuseIdentifier: "addSubGoalCell")
+        tableView.register(SubGoalCellText.self, forCellReuseIdentifier: "subGoalCellText")
         
+    }
+    
+    ///botao azul grande
+    func setUpBigButton() {
+        bigButton.delegate = self
+        view.addSubview(bigButton)
+        let bottomConstraint = bigButton.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        NSLayoutConstraint.activate([
+            bottomConstraint,
+            bigButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            bigButton.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        ])
         
+        //adiciona acessório ao keyboard
+        stickViewToKeyboard(bottomConstraint: bottomConstraint)
+    }
+    
+    ///delegate de quando aperta o botão azul grande
+    func bigButtonTouched() {
+        Vibration.shared.vibrate2(for: .light)
+        nextView()
+    }
+    
+    ///stackView
+    func setUpStackView() {
         //Configura propriedades da StackView
         stackView.axis = .vertical //axis = eixo
         stackView.spacing = 16
@@ -85,63 +136,144 @@ class NewSubgoalsModalViewController: UIViewController {
         view.addSubview(stackView)
         
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
+            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
         //adiciona como filhas da stack view
-        stackView.addArrangedSubview(label)
-        stackView.addArrangedSubview(textField)
-        stackView.addArrangedSubview(addButton)
+        stackView.addArrangedSubview(firstLabel)
+        stackView.addArrangedSubview(secondLabel)
         stackView.addArrangedSubview(tableView)
-        
-        NSLayoutConstraint.activate([
-            textField.heightAnchor.constraint(equalToConstant: 52),
-            addButton.heightAnchor.constraint(equalToConstant: 52),
-            tableView.heightAnchor.constraint(equalToConstant: 200)
-        ])
     }
-    ///função que adiciona subgoal
-    @objc func addSubTask() {
-        if let subGoalText = textField.text, !subGoalText.isEmpty {
-            delegate?.addedSubGoal(subGoalText)
-            let subgoal = SubGoalStatic(id: UUID(), title: subGoalText, level: Int(), type: .work)
-            subgoals.append(subgoal)
-            textField.text = ""
-            
+    
+    //MARK: -- Funcionalidades
+    
+    @objc func nextView() {
+        // Verifique se todas as células têm pelo menos uma subgoal
+        if subGoals.contains(where: { !$0.title.isEmpty }) {
+            subGoals.removeAll(where: { $0.title.isEmpty })
             tableView.reloadData()
             
-            // cria a navegacao de push entre as modais
-//            let NewWellnessSubgoalsModalViewController = NewWellnessSubgoalsModalViewController()
-//            navigationController?.pushViewController(NewWellnessSubgoalsModalViewController, animated: true)
+            // Todas as células têm pelo menos uma subgoal, continue com a navegação
+            let newSubgoalLevelViewController = NewSubgoalLevelViewController()
+            navigationController?.pushViewController(newSubgoalLevelViewController, animated: true)
             
+        } else {
+            view.endEditing(true)
+            // Mostrar um alerta ao usuário ou tomar outra ação apropriada
+            let alertController = UIAlertController(title: "warning-empty".localized, message: "remember".localized, preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .destructive, handler: nil))
+            present(alertController, animated: true, completion: nil)
             
+        }
+    }
+    
+    ///função que adiciona subgoal ao array static
+    func addSubGoalButtonTouched() {
+        Vibration.shared.vibrate2(for: .soft)
+        subGoals.append(SubGoalStatic(id: UUID(), title: "", level: .easy, type: .work))
+        tableView.reloadData()
+        //toggleAddSubGoalButton()
+    }
+    
+    ///adiciona a subgoal no return do teclado
+    func subGoalTextReturnTouched(_ subGoal: SubGoalStatic) {
+        if subGoal.title == "" {
+            if let index = subGoals.firstIndex(where: { $0 === subGoal }) {
+                subGoals.remove(at: index)
+            }
+            tableView.reloadData()
+        }else{
+            addSubGoalButtonTouched()
+        }
+    }
+    
+    ///deixa o botao de add submeta opaco
+//    func toggleAddSubGoalButton() {
+//        if !subGoals.isEmpty {
+//            addSubGoalCell?.button.isEnabled = subGoals[subGoals.count - 1].title != ""
+//            addSubGoalCell?.layoutSubviews()
+//        }
+//    }
+    
+    ///atualiza o nome do subgoal em caso de editar
+    func subGoalTextDidChangeText(_ subGoal: SubGoalStatic, text: String) {
+        subGoal.title = text
+        //toggleAddSubGoalButton()
+    }
+    
+    func subGoalDateDidChange(_ subGoal: SubGoalStatic, date: Date) {}
+}
+
+
+extension NewSubgoalsModalViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    //tem que ser +1 pq é o row da table view
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return subGoals.count + 1
+    }
+    
+    //faz com que os rows editaveis sejam apenas os indexPath.row > 0
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return indexPath.row > 0
+    }
+    
+    //função que apaga submeta da tableview
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // tem que ser -1 pq é do array de subgoals
+            subGoals.remove(at: indexPath.row - 1)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+    
+    //exibe elementos da table view
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //quando tiver na primeira posição de quantidade de subgoals
+        if indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "addSubGoalCell", for: indexPath) as? AddSubGoalCell
+            addSubGoalCell = cell
+            guard let cell else {
+                return UITableViewCell()  //vai retornar vazio se não conseguir
+            }
+            cell.delegate = self
+            cell.label.text = "subgoals-checklist".localized
+            cell.label.accessibilityLabel = "subgoals-checklist".localized
+            cell.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+            
+            //se for a primeira e ultima seta as corners embaixo também
+            if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
+                cell.layer.maskedCorners.insert(.layerMinXMaxYCorner)
+                cell.layer.maskedCorners.insert(.layerMaxXMaxYCorner)
+            }
+            return cell
+        } else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "subGoalCellText", for: indexPath) as? SubGoalCellText else {
+                return UITableViewCell()
+            }
+            
+            let subGoal = subGoals[indexPath.row - 1]
+            cell.textField.text = subGoal.title
+            cell.subGoal = subGoal
+            cell.type = .text // Defina o tipo como .text
+            cell.delegate = self
+            cell.selectionStyle = .none // remove a seleção cinza da célula
+            
+            cell.layer.maskedCorners = []
+            if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
+                cell.layer.cornerRadius = 10
+                cell.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+                cell.clipsToBounds = true
+            }
+            return cell
         }
     }
 }
 
-// Extend o view controller pra entrar em conformidade com a UITableViewDelegate e UITableViewDataSource
-extension NewSubgoalsModalViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return subgoals.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        
-        let subgoal = subgoals[indexPath.row]
-        
-        cell.textLabel?.text = subgoal.title
-        
-        return cell
-    }
-
-}
+//MARK: -- Protocolos
 
 protocol NewSubGoalModalDelegate: AnyObject {
     func addedSubGoal(_ subgoal: String)
 }
-
-

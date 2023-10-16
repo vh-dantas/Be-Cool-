@@ -25,6 +25,7 @@
 		BA2FEF3D2AD63116006A472E /* OnboardingPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2FEF3C2AD63116006A472E /* OnboardingPageCell.swift */; };
 		BA2FEF462AD73C05006A472E /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2FEF442AD73C05006A472E /* CustomTableViewCell.swift */; };
 		BA2FEF472AD73C05006A472E /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2FEF452AD73C05006A472E /* GradientView.swift */; };
+		BA317DAE2ADCA80F000897B9 /* Vibration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA317DAD2ADCA80F000897B9 /* Vibration.swift */; };
 		BA7E71652AC35A8D0036028B /* Goal+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7E71632AC35A8D0036028B /* Goal+CoreDataClass.swift */; };
 		BA7E71662AC35A8D0036028B /* Goal+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7E71642AC35A8D0036028B /* Goal+CoreDataProperties.swift */; };
 		BA7E71692AC3609D0036028B /* DAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7E71682AC3609D0036028B /* DAO.swift */; };
@@ -83,6 +84,7 @@
 		BA2FEF3C2AD63116006A472E /* OnboardingPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageCell.swift; sourceTree = "<group>"; };
 		BA2FEF442AD73C05006A472E /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		BA2FEF452AD73C05006A472E /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		BA317DAD2ADCA80F000897B9 /* Vibration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vibration.swift; sourceTree = "<group>"; };
 		BA7E71632AC35A8D0036028B /* Goal+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataClass.swift"; sourceTree = "<group>"; };
 		BA7E71642AC35A8D0036028B /* Goal+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		BA7E71682AC3609D0036028B /* DAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DAO.swift; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 				C5DF0BA22AC614EA0012C1F4 /* AddSubGoalCell.swift */,
 				C5DF0BA42AC70F160012C1F4 /* SubGoalCellText.swift */,
 				C5AFA7972ACF3484000BFE0C /* BigButton.swift */,
+				BA317DAD2ADCA80F000897B9 /* Vibration.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -438,6 +441,7 @@
 				F1359EE52ABB6F92004536E6 /* AppDelegate.swift in Sources */,
 				C5DF0BA72ACB03800012C1F4 /* CreateGoalVCStore.swift in Sources */,
 				2F5FD3A62AC751330012DA88 /* NotificationsSettings.swift in Sources */,
+				BA317DAE2ADCA80F000897B9 /* Vibration.swift in Sources */,
 				BA2FEF302AD591B7006A472E /* ReflectionSugestionViewController.swift in Sources */,
 				C5AFA7962ACCAC4D000BFE0C /* ViewController.swift in Sources */,
 				C5DF0BA12AC6147A0012C1F4 /* CustomLineTextField.swift in Sources */,
@@ -619,6 +623,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BurnoutEditionMini02/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please grant permission to access the camera, so you can capture special moments and use them as part of your personal reflection.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
@@ -629,7 +634,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = VictorHugo.BurnoutEdition;
+				PRODUCT_BUNDLE_IDENTIFIER = BurnoutEdition;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -648,10 +653,11 @@
 				CODE_SIGN_ENTITLEMENTS = BurnoutEditionMini02/BurnoutEditionMini02.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 99Z68J6579;
+				DEVELOPMENT_TEAM = 3A253HAV36;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BurnoutEditionMini02/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please grant permission to access the camera, so you can capture special moments and use them as part of your personal reflection.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
@@ -662,7 +668,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = VictorHugo.BurnoutEdition;
+				PRODUCT_BUNDLE_IDENTIFIER = BurnoutEdition;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

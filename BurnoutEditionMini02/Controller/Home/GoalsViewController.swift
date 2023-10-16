@@ -322,6 +322,7 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
                 congratulationsViewController.hidesBottomBarWhenPushed = true
                 congratulationsViewController.navigationItem.hidesBackButton = true
                 self.navigationController?.pushViewController(congratulationsViewController, animated: true)
+                Vibration.shared.vibrate(for: .success)
             }
         }
     }

@@ -200,6 +200,7 @@ class NewSubgoalLevelViewController: ViewController, BigButtonDelegate {
     
     ///delegate de quando aperta o botão azul grande
     func bigButtonTouched() {
+        Vibration.shared.vibrate(for: .success)
         nextView()
     }
     

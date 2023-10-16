@@ -21,8 +21,8 @@ class ReflectionViewController: UIViewController, UITableViewDelegate, UITableVi
         super.viewDidLoad()
         
         // Cor de fundo da View
-        view.backgroundColor = .systemBackground
-        self.title = "Reflection"
+        view.backgroundColor = UIColor(named: "BackgroundColor")
+        self.title = "reflections".localized
         navigationController?.navigationBar.prefersLargeTitles = true
         
         reflections = fetchData()

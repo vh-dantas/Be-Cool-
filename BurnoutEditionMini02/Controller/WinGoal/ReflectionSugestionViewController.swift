@@ -18,7 +18,7 @@ class ReflectionSugestionViewController: UIViewController {
     private let bottomContentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemRed
+        view.backgroundColor = UIColor(named: "BackgroundColor")
         return view
     }()
     // Elementos

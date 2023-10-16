@@ -16,7 +16,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .systemGray6
+        self.view.backgroundColor = UIColor(named: "BackgroundColor")
         
         let label1 = UILabel()
         label1.text = "settings".localized

@@ -155,7 +155,7 @@ class ReflectionDetailViewController: UIViewController {
         tagCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: flowLayout)
         tagCollectionView.translatesAutoresizingMaskIntoConstraints = false
         tagCollectionView.dataSource = self
-        tagCollectionView.backgroundColor = .white
+        tagCollectionView.backgroundColor = UIColor(named: "BackgroundColor")
         tagCollectionView.register(RectangleLabelView.self, forCellWithReuseIdentifier: RectangleLabelView.reuseIdentifier)
         tagCollectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(tagCollectionView)

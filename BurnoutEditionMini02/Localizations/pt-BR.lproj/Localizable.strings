@@ -43,6 +43,7 @@
 
 //aviso
 "warning" = "Aviso";
+"warning-message" = "O valor do tempo deve ser 00:00 antes de continuar.";
 "remember" = "Lembre-se de quebrar sua meta em pelo menos uma submeta";
 "yes" = "Sim";
 "no" = "Não";

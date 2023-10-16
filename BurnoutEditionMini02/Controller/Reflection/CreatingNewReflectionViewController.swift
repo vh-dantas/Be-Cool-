@@ -143,6 +143,7 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
     }
     
     @objc func goToNextScreen() {
+        Vibration.shared.vibrate2(for: .soft)
         let nextScreen = CreatingNewReflection2ViewController()
         
         nextScreen.randomRefAns = self.textField.text
@@ -405,7 +406,7 @@ extension CreatingNewReflectionViewController: UIImagePickerControllerDelegate, 
         
         picker.dismiss(animated: true)
         
-        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
+        guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
         
         imageView.image = image
     }

@@ -22,4 +22,11 @@ final class Vibration{
             notificationGenerator.notificationOccurred(type)
         }
     }
+    
+    func vibrate2(for type: UIImpactFeedbackGenerator.FeedbackStyle) {
+        DispatchQueue.main.async {
+            let feedbackGenerator = UIImpactFeedbackGenerator(style: type)
+            feedbackGenerator.impactOccurred()
+        }
+    }
 }

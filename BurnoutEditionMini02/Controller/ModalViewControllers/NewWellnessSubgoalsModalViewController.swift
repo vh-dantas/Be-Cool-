@@ -227,7 +227,7 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
             
     
     @objc func createGoal() {
-        Vibration.shared.vibrate(for: .success)
+        Vibration.shared.vibrate2(for: .medium)
         //core data desembrulhando variaveis
         guard let goal = CreateGoalVCStore.shared.newGoalModalViewController?.goal, let subGoals = CreateGoalVCStore.shared.newSubGoalModalViewController?.subGoals, var subGoalsWellness = CreateGoalVCStore.shared.newWellnessSubgoalsModalViewController?.subGoals else {
             return
@@ -293,7 +293,7 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
     
     ///função que adiciona subgoal ao array static
     func addSubGoalButtonTouched() {
-        Vibration.shared.vibrate(for: .success)
+        Vibration.shared.vibrate2(for: .soft)
         let calendar = Calendar.current
         var components = calendar.dateComponents([.year, .month, .day], from: Date())
         

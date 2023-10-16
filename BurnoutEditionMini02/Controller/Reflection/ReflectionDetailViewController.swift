@@ -4,6 +4,7 @@ class ReflectionDetailViewController: UIViewController {
     
     // Scroll View
     let scrollView = UIScrollView()
+    let contentView = UIView()
     // Label da data
     let dateLabel = UILabel()
     // Labl para o body da reflection
@@ -44,7 +45,9 @@ class ReflectionDetailViewController: UIViewController {
         //Setando o titulo
         navigationItem.title = reflection.refName
         navigationController?.navigationBar.prefersLargeTitles = true
+        addViews()
         
+      
         // Configurando a ScrollView
         setUpScrollView()
         
@@ -74,6 +77,16 @@ class ReflectionDetailViewController: UIViewController {
       
     }
     
+    func addViews(){
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(imagem)
+      //  contentView.addSubview(tagStackView)
+        contentView.addSubview(dateLabel)
+        contentView.addSubview(bodyLabel)
+        contentView.addSubview(drawing)
+    }
+    
     // MARK: - Imagens e desenhos
     private func setupImgs() {
         // Convertendo Binary Data para imagem
@@ -86,7 +99,7 @@ class ReflectionDetailViewController: UIViewController {
                 imagem.clipsToBounds = true
                 imagem.contentMode = .scaleAspectFill
                 
-                view.addSubview(imagem)
+                //view.addSubview(imagem)
                 
                 imagem.translatesAutoresizingMaskIntoConstraints = false
                 NSLayoutConstraint.activate([
@@ -108,7 +121,7 @@ class ReflectionDetailViewController: UIViewController {
                 drawing.clipsToBounds = true
                 drawing.contentMode = .scaleAspectFill
                 
-                view.addSubview(drawing)
+               // view.addSubview(drawing)
                 
                 drawing.translatesAutoresizingMaskIntoConstraints = false
                 NSLayoutConstraint.activate([
@@ -132,14 +145,24 @@ class ReflectionDetailViewController: UIViewController {
     // MARK: - ScrollView
     func setUpScrollView(){
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(scrollView)
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+       // view.addSubview(scrollView)
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
         ])
+        let hConts = contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
+        hConts.isActive = true
+        hConts.priority = UILayoutPriority(250)
     }
     
     // MARK: - CollectionView
@@ -158,7 +181,7 @@ class ReflectionDetailViewController: UIViewController {
         tagCollectionView.backgroundColor = UIColor(named: "BackgroundColor")
         tagCollectionView.register(RectangleLabelView.self, forCellWithReuseIdentifier: RectangleLabelView.reuseIdentifier)
         tagCollectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.addSubview(tagCollectionView)
+        contentView.addSubview(tagCollectionView)
         
         // Pegar o tamanho da fonte para conseguir calcular o tamanho necessario para as tags
         let multiplierHeight: CGFloat = {
@@ -206,7 +229,7 @@ class ReflectionDetailViewController: UIViewController {
         dateLabel.numberOfLines = 0
         dateLabel.lineBreakMode = .byWordWrapping
         // Adicionando a dateLabel na view - seus anchor sao de acordo com a safe area e as constants são para alinhar melhor com o titulo
-        view.addSubview(dateLabel)
+       // view.addSubview(dateLabel)
         NSLayoutConstraint.activate([
             dateLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -5),
             dateLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 17),

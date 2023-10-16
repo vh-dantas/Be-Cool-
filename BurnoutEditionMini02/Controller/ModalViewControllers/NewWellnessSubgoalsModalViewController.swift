@@ -261,7 +261,7 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
             //navegação
             navigationController?.popToRootViewController(animated: true)
         } else {
-            let alertController = UIAlertController(title: "warning".localized, message: "remember".localized, preferredStyle: .alert)
+            let alertController = UIAlertController(title: "warning-empty".localized, message: "remember".localized, preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "OK", style: .destructive, handler: nil))
             present(alertController, animated: true, completion: nil)
         }

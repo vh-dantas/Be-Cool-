@@ -42,7 +42,7 @@
 "save-goals-btn" = "Salvar Meta";
 
 //aviso
-"warning" = "Campo Vazio";
+"warning-empty" = "Campo Vazio";
 "warning-message" = "O valor do tempo deve ser 00:00 antes de continuar.";
 "remember" = "Lembre-se de quebrar sua meta em pelo menos uma submeta";
 "yes" = "Sim";
@@ -112,6 +112,7 @@
 "tell" = "Agora nos diga:";
 "accordingly" = "De acordo com o que representa para você:";
 "my-reflection" = "Minha reflexão";
+"warning" = "Aviso:";
 
 
 // MARK: -- TAB BAR

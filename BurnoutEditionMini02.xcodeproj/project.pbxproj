@@ -622,6 +622,7 @@
 				DEVELOPMENT_TEAM = 3A253HAV36;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BurnoutEditionMini02/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Fica Frio";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please grant permission to access the camera, so you can capture special moments and use them as part of your personal reflection.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -656,6 +657,7 @@
 				DEVELOPMENT_TEAM = 3A253HAV36;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BurnoutEditionMini02/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Fica Frio";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please grant permission to access the camera, so you can capture special moments and use them as part of your personal reflection.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

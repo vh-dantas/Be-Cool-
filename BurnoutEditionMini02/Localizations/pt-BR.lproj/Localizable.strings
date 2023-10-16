@@ -42,11 +42,13 @@
 "save-goals-btn" = "Salvar Meta";
 
 //aviso
-"warning" = "Aviso";
+"warning" = "Campo Vazio";
 "warning-message" = "O valor do tempo deve ser 00:00 antes de continuar.";
 "remember" = "Lembre-se de quebrar sua meta em pelo menos uma submeta";
 "yes" = "Sim";
 "no" = "Não";
+"textFieldSubgoal" = "Escreva aqui sua submeta...";
+"timeUndefined" = "Tempo não definido";
 
 
 // MARK: -- MODAL META ATINGIDA

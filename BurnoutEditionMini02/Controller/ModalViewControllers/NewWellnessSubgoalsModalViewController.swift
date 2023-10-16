@@ -241,7 +241,7 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
             }.joined()
         
         if time != "0000" {
-            let alertController = UIAlertController(title: "warning".localized, message: "warning-message", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "timeUndefined".localized, message: "warning-message".localized, preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "OK", style: .destructive, handler: nil))
             present(alertController, animated: true, completion: nil)
     } else if subGoalsWellness.contains(where: { !$0.title.isEmpty }) { // se o time for "0000" e não tiver title vazio

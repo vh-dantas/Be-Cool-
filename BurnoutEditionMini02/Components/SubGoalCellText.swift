@@ -44,6 +44,7 @@ class SubGoalCellText: UITableViewCell, UITextFieldDelegate {
         
         textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "textFieldSubgoal".localized
         stackView.addArrangedSubview(textField)
         
         datePicker.translatesAutoresizingMaskIntoConstraints = false

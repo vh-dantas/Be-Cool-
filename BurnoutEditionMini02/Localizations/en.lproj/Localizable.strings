@@ -40,11 +40,13 @@
 "save-goals-btn" = "Save My Goal";
 "wellness-checklist" = "Wellness Activities:";
 //aviso
-"warning" = "Warning";
+"warning" = "Empty Field";
 "warning-message" = "The time value must be 00:00.";
-"remember" = "Remember to break your goal in subgoals";
+"remember" = "Remember to break your goal into subgoals";
 "yes" = "Yes";
 "no" = "No";
+"textFieldSubgoal" = "Write your subgoal here...";
+"timeUndefined" = "Undefined Time";
 
 
 

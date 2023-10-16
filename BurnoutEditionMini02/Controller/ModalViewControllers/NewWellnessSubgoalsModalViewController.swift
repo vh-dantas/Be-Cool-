@@ -282,7 +282,7 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
         
         self.view.addSubview(tableView)
         
-        // Constraints
+        // Constraints bibi
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),

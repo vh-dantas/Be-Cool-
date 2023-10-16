@@ -40,7 +40,7 @@
 "save-goals-btn" = "Save My Goal";
 "wellness-checklist" = "Wellness Activities:";
 //aviso
-"warning" = "Empty Field";
+"warning-empty" = "Empty Field";
 "warning-message" = "The time value must be 00:00.";
 "remember" = "Remember to break your goal into subgoals";
 "yes" = "Yes";
@@ -110,6 +110,7 @@
 "tell" = "Now tell us:";
 "accordingly" = "Accordingly to what it represents to you:";
 "my-reflection" = "My Reflection";
+"warning" = "Warning";
 
 
 // MARK: -- TAB BAR
@@ -178,3 +179,7 @@ In the 'Achievements' tab, dive into details of how you achieved your goals.";
 "work-button-hint" = "You tapped a work task";
 "personal-button-hint" = "You tapped a personal task";
 "big-button-hint" = "Go to the next screen";
+"new-goal-hint" = "Tap to create a new goal";
+"add-subgoal-hint" = "Tap to create a new subgoal";
+"comecar-button-hint" = "Tap to start your breathing exercise";
+"open-pencil-hint" = "Draw button";

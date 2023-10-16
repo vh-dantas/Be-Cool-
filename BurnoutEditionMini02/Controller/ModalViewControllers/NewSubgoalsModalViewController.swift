@@ -121,7 +121,7 @@ class NewSubgoalsModalViewController: ViewController, AddSubGoalButtonDelegate, 
     
     ///delegate de quando aperta o botão azul grande
     func bigButtonTouched() {
-        Vibration.shared.vibrate(for: .success)
+        Vibration.shared.vibrate2(for: .light)
         nextView()
     }
     
@@ -172,7 +172,7 @@ class NewSubgoalsModalViewController: ViewController, AddSubGoalButtonDelegate, 
     
     ///função que adiciona subgoal ao array static
     func addSubGoalButtonTouched() {
-        Vibration.shared.vibrate(for: .success)
+        Vibration.shared.vibrate2(for: .soft)
         subGoals.append(SubGoalStatic(id: UUID(), title: "", level: .easy, type: .work))
         tableView.reloadData()
         //toggleAddSubGoalButton()

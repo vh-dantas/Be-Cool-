@@ -155,7 +155,7 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
         
         //navegação de telas
         if let navigationController = self.navigationController {
-            Vibration.shared.vibrate(for: .success)
+            Vibration.shared.vibrate2(for: .light)
             newGoalView.hidesBottomBarWhenPushed = true
             navigationController.pushViewController(newGoalView, animated: true)
         }
@@ -217,7 +217,7 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
     
     // função pra lidar com o clique no checkmark (salva no core data)
     @objc func buttonTapped(sender: UIButton) {
-        Vibration.shared.vibrate(for: .success)
+        Vibration.shared.vibrate2(for: .medium)
         let subGoal = subItems[sender.tag]
         let dao = DataAcessObject()
         dao.toggleIsCompleted(subGoal: subGoal)

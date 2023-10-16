@@ -151,7 +151,7 @@ class CreatingNewReflection2ViewController: UIViewController {
     }
     
     @objc func goToScreen3() {
-        
+        Vibration.shared.vibrate2(for: .soft)
         let nextScreen = CreatingNewReflection3ViewController()
         
         nextScreen.randomRefAns = self.randomRefAns
@@ -323,6 +323,7 @@ class CreatingNewReflection2ViewController: UIViewController {
     @objc func happyMoodFunc() {
         nextScreenBt.isHidden = false
         if selectedMood != "Feliz" {
+            Vibration.shared.vibrate2(for: .light)
             selectedMood = "Feliz"
             happyMood.backgroundColor = UIColor(named: "AccentColor")
             
@@ -341,6 +342,7 @@ class CreatingNewReflection2ViewController: UIViewController {
     @objc func normalMoodFunc() {
         nextScreenBt.isHidden = false
         if selectedMood != "Normal" {
+            Vibration.shared.vibrate2(for: .light)
             selectedMood = "Normal"
             normalMood.backgroundColor = UIColor(named: "AccentColor")
             
@@ -358,6 +360,7 @@ class CreatingNewReflection2ViewController: UIViewController {
     @objc func sadMoodFunc() {
         nextScreenBt.isHidden = false
         if selectedMood != "Triste" {
+            Vibration.shared.vibrate2(for: .light)
             selectedMood = "Triste"
             sadMood.backgroundColor = UIColor(named: "AccentColor")
             
@@ -376,6 +379,7 @@ class CreatingNewReflection2ViewController: UIViewController {
     @objc func stressedMoodFunc() {
         nextScreenBt.isHidden = false
         if selectedMood != "Estressado" {
+            Vibration.shared.vibrate2(for: .light)
             selectedMood = "Estressado"
             stressedMood.backgroundColor = UIColor(named: "AccentColor")
             
@@ -394,6 +398,7 @@ class CreatingNewReflection2ViewController: UIViewController {
     @objc func excitedMoodFunc() {
         nextScreenBt.isHidden = false
         if selectedMood != "Animado" {
+            Vibration.shared.vibrate2(for: .light)
             selectedMood = "Animado"
             excitedMood.backgroundColor = UIColor(named: "AccentColor")
             
@@ -412,6 +417,7 @@ class CreatingNewReflection2ViewController: UIViewController {
     @objc func tranquilMoodFunc() {
         nextScreenBt.isHidden = false
         if selectedMood != "Tranquilo" {
+            Vibration.shared.vibrate2(for: .light)
             selectedMood = "Tranquilo"
             tranquilMood.backgroundColor = UIColor(named: "AccentColor")
             

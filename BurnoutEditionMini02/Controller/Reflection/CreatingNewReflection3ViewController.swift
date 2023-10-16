@@ -113,6 +113,7 @@ class CreatingNewReflection3ViewController: UIViewController, UITextFieldDelegat
     
     @objc func saveReflection() {
         // Dados
+        Vibration.shared.vibrate2(for: .medium)
         let refName = textField.text
         let randomRefQst = randomRefQst
         let randomRefAns = randomRefAns

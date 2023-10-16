@@ -170,3 +170,9 @@ In the 'Achievements' tab, dive into details of how you achieved your goals.";
 "scale-4" = "Balance your focus and keep shining";
 "scale-5" = "Remember your goals and turn procrastination into action!";
 "empty-goal-title" = "Goal";
+
+
+// MARK: -- ACCESSIBILITY HINTS
+"work-button-hint" = "You tapped a work task";
+"personal-button-hint" = "You tapped a personal task";
+"big-button-hint" = "Go to the next screen";

@@ -240,6 +240,7 @@ extension NewSubgoalsModalViewController: UITableViewDelegate, UITableViewDataSo
             }
             cell.delegate = self
             cell.label.text = "subgoals-checklist".localized
+            cell.label.accessibilityLabel = "subgoals-checklist".localized
             cell.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
             
             //se for a primeira e ultima seta as corners embaixo também

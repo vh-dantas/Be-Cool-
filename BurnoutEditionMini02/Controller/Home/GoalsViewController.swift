@@ -57,6 +57,7 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
     private let emptyGoalLabel: UILabel = {
        let label = UILabel()
         label.text = "empty-goal".localized
+        label.accessibilityLabel = "empty-goal".localized
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontForContentSizeCategory = true
         label.font = UIFont.preferredFont(forTextStyle: .body)
@@ -114,7 +115,9 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
         if DataAcessObject.shared.fetchGoal().first?.isCompleted == true || DataAcessObject.shared.fetchGoal().isEmpty {
             tableView.removeFromSuperview()
             label.text = "level-neutral".localized
+            label.accessibilityLabel = "level-neutral".localized
             navigationItem.title = "empty-goal-title".localized
+            navigationItem.accessibilityLabel = "empty-goal-title".localized
             view.addSubview(emptyGoalImage)
             view.addSubview(emptyGoalLabel)
             
@@ -139,6 +142,7 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
                 tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
             ])
             label.text = "scale-3".localized
+            label.accessibilityLabel = "scale-3".localized
             navigationItem.title = DataAcessObject.shared.fetchGoal().first?.title
 
         }
@@ -197,11 +201,13 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
             cell.button.tintColor = UIColor(named: "CheckMarkColor")
             cell.button.setImage(UIImage(systemName: subGoal.isCompleted ? "checkmark.circle.fill" : "circle"), for: .normal)
             cell.rectangleView.backgroundColor = UIColor(named: "WorkCellColor")
+            cell.button.accessibilityHint = "work-button-hint".localized
         case "personal":
             cell.button.addTarget(self, action: #selector(buttonTapped(sender:)), for: .touchUpInside)
             cell.button.tintColor = UIColor(named: "HeartCheckColor")
             cell.button.setImage(UIImage(systemName: subGoal.isCompleted ? "heart.fill" : "heart"), for: .normal)
             cell.rectangleView.backgroundColor = UIColor(named: "WellnessCellColor")
+            cell.button.accessibilityHint = "personal-button-hint".localized
         default:
             break
         }
@@ -386,5 +392,4 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
         ])
     }
 }
-//
 

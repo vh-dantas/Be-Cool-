@@ -126,7 +126,7 @@ class BreathAnimationViewController: UIViewController, CAAnimationDelegate {
         let layerOrigin = CGPoint(x: x - halfX, y: y - halfY)
         let layerSize = CGSize(width: view.frame.width/2.5, height: view.frame.width/2.5)
         
-        animLayer.backgroundColor = UIColor(named: "AccentColor")?.cgColor
+        animLayer.backgroundColor = UIColor(named: "CALayerColor")?.cgColor
         animLayer.frame = CGRect(origin: layerOrigin, size: layerSize)
         animLayer.cornerRadius = (view.frame.width/2.5) / 2
         

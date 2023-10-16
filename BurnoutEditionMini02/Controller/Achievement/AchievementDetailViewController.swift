@@ -214,7 +214,7 @@ class AchievementDetailViewController: UIViewController {
     // MARK: SetUpScrollView
     private func setUpScrollView(){
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -371,7 +371,7 @@ class AchievementDetailViewController: UIViewController {
             wellNessTableView.bottomAnchor.constraint(equalTo: lastWellNessLabel.topAnchor, constant: -20),
             wellNessTableView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -10),
             wellNessTableView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            wellNessTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: constant)
+            wellNessTableView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: constant)
         ])
     }
 

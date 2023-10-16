@@ -158,7 +158,8 @@ class ReflectionDetailViewController: UIViewController {
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+           // contentView.heightAnchor.constraint(equalToConstant: 1000)
         ])
         let hConts = contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
         hConts.isActive = true
@@ -200,10 +201,10 @@ class ReflectionDetailViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             tagCollectionView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 10),
-            tagCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            tagCollectionView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
             // tagCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            tagCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: multiplierHeight),
-            tagCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.99)
+            tagCollectionView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: multiplierHeight),
+            tagCollectionView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.99)
         ])
         
         
@@ -231,9 +232,9 @@ class ReflectionDetailViewController: UIViewController {
         // Adicionando a dateLabel na view - seus anchor sao de acordo com a safe area e as constants são para alinhar melhor com o titulo
        // view.addSubview(dateLabel)
         NSLayoutConstraint.activate([
-            dateLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -5),
-            dateLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 17),
-            dateLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -17)
+            dateLabel.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: -5),
+            dateLabel.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 17),
+            dateLabel.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -17)
             
         ])
     }
@@ -267,8 +268,8 @@ class ReflectionDetailViewController: UIViewController {
         bodyLabel.isScrollEnabled = false
         NSLayoutConstraint.activate([
             bodyLabel.topAnchor.constraint(equalTo: tagCollectionView.bottomAnchor), // constant: 35
-            bodyLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 12),
-            bodyLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -12)
+            bodyLabel.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 12),
+            bodyLabel.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -12)
             
         ])
         

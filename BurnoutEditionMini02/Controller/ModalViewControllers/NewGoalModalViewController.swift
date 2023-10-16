@@ -171,6 +171,7 @@ class NewGoalModalViewController: ViewController, UITextFieldDelegate, BigButton
     
     //MARK: -- Funcionalidades
     func bigButtonTouched() {
+        Vibration.shared.vibrate(for: .success)
         addTask()
     }
     

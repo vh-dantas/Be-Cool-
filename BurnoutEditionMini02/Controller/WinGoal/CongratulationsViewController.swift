@@ -6,14 +6,14 @@ class CongratulationsViewController: UIViewController {
     private let topContentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: "BackgroundColor")
         return view
     }()
     
     private let bottomContentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemRed
+        view.backgroundColor = UIColor(named: "BackgroundColor")
         return view
     }()
     // Elementos
@@ -91,7 +91,7 @@ class CongratulationsViewController: UIViewController {
     // MARK: ViewDid Load -
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: "BackgroundColor")
         // Adicionando elementos na View
         addToView()
         // Adicionando os layout

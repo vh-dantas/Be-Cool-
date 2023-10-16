@@ -40,7 +40,7 @@ class CreatingNewReflection3ViewController: UIViewController, UITextFieldDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "BackgroundColor")
         
         // BarButtonItens
         backButton = UIBarButtonItem(title: "", image: UIImage(systemName: "chevron.left"), target: self, action: #selector(backButtonFunc))
@@ -72,7 +72,7 @@ class CreatingNewReflection3ViewController: UIViewController, UITextFieldDelegat
         // Configurações do botão
         saveButton.setTitle("save-reflection".localized, for: .normal)
         saveButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        saveButton.titleLabel?.textColor = .white
+        saveButton.titleLabel?.textColor = UIColor(named: "LabelColor")
         saveButton.backgroundColor = UIColor(named: "AccentColor")
         saveButton.layer.cornerRadius = 25
         
@@ -129,7 +129,7 @@ class CreatingNewReflection3ViewController: UIViewController, UITextFieldDelegat
     private func setupTextField() {
         textField.placeholder = "My Reflection"
         textField.borderStyle = .none
-        textField.textColor = .black
+        textField.textColor = UIColor(named: "LabelColor")
         textField.autocapitalizationType = .sentences
         textField.contentVerticalAlignment = .top
         textField.delegate = self

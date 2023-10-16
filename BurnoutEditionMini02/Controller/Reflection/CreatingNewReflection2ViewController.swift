@@ -64,7 +64,7 @@ class CreatingNewReflection2ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "BackgroundColor")
         
         // BarButtonItens
         backButton = UIBarButtonItem(title: "", image: UIImage(systemName: "chevron.left"), target: self, action: #selector(backButtonFunc))
@@ -173,7 +173,7 @@ class CreatingNewReflection2ViewController: UIViewController {
         view.addSubview(label)
         
         // Configurações da segunda label
-        label2.text = "How are you feeling after this reflection?"
+        label2.text = "moodtracker-question".localized
         label2.numberOfLines = 2
         label2.font = UIFont.systemFont(ofSize: 22, weight: .bold)
         

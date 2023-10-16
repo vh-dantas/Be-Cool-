@@ -48,7 +48,7 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "BackgroundColor")
         
         // BarButtonItem
         cancelButton = UIBarButtonItem(title: "", image: UIImage(systemName: "xmark"), target: self, action: #selector(cancelButtonFunc))
@@ -237,7 +237,7 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
         textField.placeholder = "textplacereflect".localized
         textField.borderStyle = .roundedRect
         textField.enablesReturnKeyAutomatically = true
-        textField.textColor = .black
+        textField.textColor = UIColor(named: "LabelColor")
         textField.autocapitalizationType = .sentences
         textField.contentVerticalAlignment = .top
         textField.delegate = self

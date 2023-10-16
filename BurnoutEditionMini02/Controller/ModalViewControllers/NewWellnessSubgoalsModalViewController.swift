@@ -227,6 +227,7 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
             
     
     @objc func createGoal() {
+        Vibration.shared.vibrate(for: .success)
         //core data desembrulhando variaveis
         guard let goal = CreateGoalVCStore.shared.newGoalModalViewController?.goal, let subGoals = CreateGoalVCStore.shared.newSubGoalModalViewController?.subGoals, var subGoalsWellness = CreateGoalVCStore.shared.newWellnessSubgoalsModalViewController?.subGoals else {
             return
@@ -240,7 +241,7 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
             }.joined()
         
         if time != "0000" {
-            let alertController = UIAlertController(title: "warning".localized, message: "O valor do tempo deve ser 00:00 antes de continuar.", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "warning".localized, message: "warning-message", preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "OK", style: .destructive, handler: nil))
             present(alertController, animated: true, completion: nil)
     } else if subGoalsWellness.contains(where: { !$0.title.isEmpty }) { // se o time for "0000" e não tiver title vazio
@@ -292,6 +293,7 @@ class NewWellnessSubgoalsModalViewController: UIViewController, AddSubGoalButton
     
     ///função que adiciona subgoal ao array static
     func addSubGoalButtonTouched() {
+        Vibration.shared.vibrate(for: .success)
         let calendar = Calendar.current
         var components = calendar.dateComponents([.year, .month, .day], from: Date())
         

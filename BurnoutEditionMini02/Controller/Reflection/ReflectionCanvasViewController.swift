@@ -29,7 +29,7 @@ class ReflectionCanvasViewController: UIViewController, PKCanvasViewDelegate {
         let backButton = UIBarButtonItem(title: "", image: UIImage(systemName: "chevron.left"), target: self, action: #selector(backButtonFunc))
         navigationItem.leftBarButtonItem = backButton
         
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "BackgroundColor")
         self.title = "draw-feels".localized
         setupCanvas()
         setupToolpicker()

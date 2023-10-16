@@ -41,6 +41,7 @@
 "wellness-checklist" = "Wellness Activities:";
 //aviso
 "warning" = "Warning";
+"warning-message" = "The time value must be 00:00.";
 "remember" = "Remember to break your goal in subgoals";
 "yes" = "Yes";
 "no" = "No";

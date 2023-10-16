@@ -36,7 +36,7 @@ class BreathAnimationViewController: UIViewController, CAAnimationDelegate {
         super.viewDidLoad()
         
         // Cor de fundo da View
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "BackgroundColor")
         
         // Botão de skip
         skipBt = UIBarButtonItem(title: "Onboarding-skip".localized, style: .plain, target: self, action: #selector(skipAnimation))

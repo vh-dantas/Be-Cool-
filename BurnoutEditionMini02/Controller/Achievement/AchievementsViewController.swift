@@ -84,7 +84,7 @@ class AchievementsViewController: UIViewController {
         super.viewDidLoad()
         navigationItem.title = "achievements".localized
         navigationController?.navigationBar.prefersLargeTitles = true
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: "BackgroundColor")
         // Codigo relacionado as variáveis populadas
         achievementArray = DataAcessObject.shared.fetchGoal()
         // Funções de SetUp

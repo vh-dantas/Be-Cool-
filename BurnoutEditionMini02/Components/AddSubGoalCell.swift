@@ -33,6 +33,7 @@ class AddSubGoalCell: UITableViewCell {
         button.backgroundColor = UIColor(red: 0.95, green: 0.43, blue: 0.26, alpha: 1)
         button.tintColor = .white
         button.setImage(UIImage(systemName: "plus"), for: .normal)
+        button.accessibilityLabel = "add-subgoal-hint".localized
         button.layer.cornerRadius = buttonSize / 2
         
         label.font = UIFont(name: "SFPro-Regular", size: 17)

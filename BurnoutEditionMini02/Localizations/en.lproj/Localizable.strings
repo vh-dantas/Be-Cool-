@@ -179,7 +179,7 @@ In the 'Achievements' tab, dive into details of how you achieved your goals.";
 "work-button-hint" = "You tapped a work task";
 "personal-button-hint" = "You tapped a personal task";
 "big-button-hint" = "Go to the next screen";
-"new-goal-hint" = "Tap to create a new goal";
-"add-subgoal-hint" = "Tap to create a new subgoal";
+"new-goal-hint" = "Tap to create a new goal"; //
+"add-subgoal-hint" = "Tap to create a new subgoal"; //
 "comecar-button-hint" = "Tap to start your breathing exercise";
 "open-pencil-hint" = "Draw button";

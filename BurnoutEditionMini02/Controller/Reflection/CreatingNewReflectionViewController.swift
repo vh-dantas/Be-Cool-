@@ -189,6 +189,7 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
         drawButton.backgroundColor = .systemGray5
         drawButton.layer.cornerRadius = 20
         drawButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
+        drawButton.accessibilityLabel = "open-pencil-hint".localized
         
         view.addSubview(drawButton)
         drawButton.addTarget(self, action: #selector(goToCanvas), for: .touchUpInside)

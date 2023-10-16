@@ -98,6 +98,7 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
         
         // MARK: -- Botões de navegação
         let openModalBtn = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(createNewGoal))
+        openModalBtn.accessibilityLabel = "new-goal-hint".localized
         navigationItem.rightBarButtonItem = openModalBtn
     }
     

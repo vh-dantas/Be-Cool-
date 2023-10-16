@@ -179,3 +179,7 @@ Na aba 'Conquistas' mergulhe em detalhes de como você alcançou suas metas. ";
 "work-button-hint" = "Você tocou uma tarefa de trabalho";
 "personal-button-hint" = "Você tocou uma tarefa pessoal";
 "big-button-hint" = "Ir para a próxima tela";
+"new-goal-hint" = "Toque para criar uma nova meta"; //
+"add-subgoal-hint" = "Toque para criar uma nova submeta"; //
+"comecar-button-hint" = "Toque para começar seu exercício de respiração";
+"open-pencil-hint" = "Botão de desenhar";

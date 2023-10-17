@@ -20,7 +20,7 @@ class BreathAnimationViewController: UIViewController, CAAnimationDelegate {
     
     // Botão para iniciar a animação
     let startButton = UIButton()
-    startButton.accessibilityLabel = "comecar-button-hint".localized
+    
     
     // Grupo que contém as animacões
     var animationGroup: CAAnimationGroup?
@@ -56,7 +56,7 @@ class BreathAnimationViewController: UIViewController, CAAnimationDelegate {
     
     // MARK: - Botão para iniciar a animação
     private func setupButton() {
-        
+        startButton.accessibilityLabel = "comecar-button-hint".localized
         startButton.backgroundColor = .clear
         view.addSubview(startButton)
         

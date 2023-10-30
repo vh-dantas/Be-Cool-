@@ -7,6 +7,8 @@
 
 import UIKit
 import CoreData
+import TipKit
+
 
 // Implementa o protocolo NewGoalModalDelegate
 class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModalDelegate, NewSubGoalModalDelegate {
@@ -67,6 +69,8 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
         label.textAlignment = .center
         return label
     }()
+    
+    private let addTip = CreateGoalTip(id: "addTip")
 
 
     //CoreData and TableView
@@ -82,7 +86,7 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
         navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = UIColor(named: "BackgroundColor")
-      
+        
         
         constraints() // Carrega as constraints da view
         fetchSubGoalsArray() // Recarregar a array e o titulo
@@ -100,6 +104,19 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
         let openModalBtn = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(createNewGoal))
         openModalBtn.accessibilityLabel = "new-goal-hint".localized
         navigationItem.rightBarButtonItem = openModalBtn
+        
+        if #available(iOS 17.0, *) {
+            Task { @MainActor in
+                for await shouldDisplay in addTip.shouldDisplayUpdates {
+                    if shouldDisplay {
+                        let controller = TipUIPopoverViewController(addTip, sourceItem: openModalBtn)
+                        present(controller, animated: true)
+                    } else if presentedViewController is TipUIPopoverViewController {
+                        dismiss(animated: true)
+                    }
+                }
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -109,7 +126,14 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
         navigationItem.title = DataAcessObject.shared.fetchGoal().first?.title
         noCurrentGoal()
         
+  
+        
         //if first.iscompleted = true zera a tela
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+
+        
     }
     
     // Função para verificar a pessoa precisa criar uma nova meta
@@ -395,3 +419,14 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
     }
 }
 
+// MARK: Tips -
+
+struct CreateGoalTip: Tip {
+    var id: String
+    var title: Text {
+        Text("Cria uma nova meta")
+    }
+    var message: Text?{
+        Text("Criar uma nova meta e comecar sua jornada")
+    }
+}

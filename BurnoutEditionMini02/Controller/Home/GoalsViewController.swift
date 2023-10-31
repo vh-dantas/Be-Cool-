@@ -70,11 +70,19 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
         return label
     }()
     
+    // Tips
     private let addTip = CreateGoalTip(id: "addTip")
 
 
     //CoreData and TableView
     private var subItems:[SubGoal] = []
+    
+    private let openModalBtn: UIBarButtonItem = {
+       let button = UIBarButtonItem()
+        button.image = UIImage(systemName: "plus")
+        button.style = .plain
+        return button
+    }()
     
     
     // MARK: -- Carrega a view
@@ -101,22 +109,15 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
         noCurrentGoal()
         
         // MARK: -- Botões de navegação
-        let openModalBtn = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(createNewGoal))
+//        let openModalBtn = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(createNewGoal))
+        openModalBtn.target = self
+        openModalBtn.action = #selector(createNewGoal)
         openModalBtn.accessibilityLabel = "new-goal-hint".localized
         navigationItem.rightBarButtonItem = openModalBtn
-        
-        if #available(iOS 17.0, *) {
-            Task { @MainActor in
-                for await shouldDisplay in addTip.shouldDisplayUpdates {
-                    if shouldDisplay {
-                        let controller = TipUIPopoverViewController(addTip, sourceItem: openModalBtn)
-                        present(controller, animated: true)
-                    } else if presentedViewController is TipUIPopoverViewController {
-                        dismiss(animated: true)
-                    }
-                }
-            }
-        }
+
+   
+
+ 
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -126,14 +127,26 @@ class GoalsViewController: UIViewController, UITableViewDataSource, NewGoalModal
         navigationItem.title = DataAcessObject.shared.fetchGoal().first?.title
         noCurrentGoal()
         
-  
+
         
         //if first.iscompleted = true zera a tela
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-
-        
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if #available(iOS 17.0, *) {
+           Task { @MainActor in
+            for await shouldDisplay in addTip.shouldDisplayUpdates {
+               if shouldDisplay {
+                        let controller = TipUIPopoverViewController(addTip, sourceItem: openModalBtn)
+                        present(controller, animated: true)
+                    } else if presentedViewController is TipUIPopoverViewController {
+                        dismiss(animated: true)
+                        
+                    }
+                }
+            }
+        }
+ 
     }
     
     // Função para verificar a pessoa precisa criar uma nova meta

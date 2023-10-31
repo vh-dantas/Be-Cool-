@@ -26,6 +26,7 @@
 		BA2FEF462AD73C05006A472E /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2FEF442AD73C05006A472E /* CustomTableViewCell.swift */; };
 		BA2FEF472AD73C05006A472E /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2FEF452AD73C05006A472E /* GradientView.swift */; };
 		BA317DAE2ADCA80F000897B9 /* Vibration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA317DAD2ADCA80F000897B9 /* Vibration.swift */; };
+		BA6BF8AF2AF050C10046D10E /* TipsComp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6BF8AE2AF050C10046D10E /* TipsComp.swift */; };
 		BA7E71652AC35A8D0036028B /* Goal+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7E71632AC35A8D0036028B /* Goal+CoreDataClass.swift */; };
 		BA7E71662AC35A8D0036028B /* Goal+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7E71642AC35A8D0036028B /* Goal+CoreDataProperties.swift */; };
 		BA7E71692AC3609D0036028B /* DAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7E71682AC3609D0036028B /* DAO.swift */; };
@@ -85,6 +86,7 @@
 		BA2FEF442AD73C05006A472E /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		BA2FEF452AD73C05006A472E /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		BA317DAD2ADCA80F000897B9 /* Vibration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vibration.swift; sourceTree = "<group>"; };
+		BA6BF8AE2AF050C10046D10E /* TipsComp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipsComp.swift; sourceTree = "<group>"; };
 		BA7E71632AC35A8D0036028B /* Goal+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataClass.swift"; sourceTree = "<group>"; };
 		BA7E71642AC35A8D0036028B /* Goal+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		BA7E71682AC3609D0036028B /* DAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DAO.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				C5DF0BA42AC70F160012C1F4 /* SubGoalCellText.swift */,
 				C5AFA7972ACF3484000BFE0C /* BigButton.swift */,
 				BA317DAD2ADCA80F000897B9 /* Vibration.swift */,
+				BA6BF8AE2AF050C10046D10E /* TipsComp.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -463,6 +466,7 @@
 				F15BE50F2ABCDE40005A1C39 /* AchievementsViewController.swift in Sources */,
 				BA7E71D62AC763C60036028B /* ReflectionDetailViewController.swift in Sources */,
 				F1D15BC72AC45E2E00528743 /* ReflectionCanvasViewController.swift in Sources */,
+				BA6BF8AF2AF050C10046D10E /* TipsComp.swift in Sources */,
 				F15BE5072ABCD965005A1C39 /* NewSubgoalsModalViewController.swift in Sources */,
 				2F0A5C9A2ACB4C0E003BA21C /* PrivacyViewController.swift in Sources */,
 				BA2FEF0B2AD0F65F006A472E /* AchievementComponents.swift in Sources */,
@@ -630,6 +634,7 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -665,6 +670,7 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -7,6 +7,7 @@
 
 import UIKit
 import PhotosUI
+import TipKit
 
 class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate, ReflectionCanvasDelegate {
     
@@ -72,6 +73,28 @@ class CreatingNewReflectionViewController: UIViewController, UITextFieldDelegate
         // Constraints
         constraints()
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if #available(iOS 17.0, *) {
+            var pencilTip = TextTip(titleText: "Faça um desenho", body: "Expresse seus sentimentos do momento através de desenhos")
+            
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                pencilTip.body = "Utilize a Apple Pencil para expressar seus sentimentos do momento através de desenhos"
+            }
+            Task { @MainActor in
+                for await shouldDisplay in pencilTip.shouldDisplayUpdates {
+                    if shouldDisplay {
+                        let controller = TipUIPopoverViewController(pencilTip, sourceItem: drawButton)
+                        present(controller, animated: true)
+                    } else if presentedViewController is TipUIPopoverViewController {
+                        dismiss(animated: true)
+                    }
+                }
+            }
+        }
     }
     
     // MARK: - Delegate do desenho
@@ -431,3 +454,6 @@ extension CreatingNewReflectionViewController: PHPickerViewControllerDelegate {
         }
     }
 }
+
+
+

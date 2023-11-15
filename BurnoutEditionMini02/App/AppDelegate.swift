@@ -8,6 +8,7 @@
 import UIKit
 import CoreData
 import UserNotifications
+import TipKit
 
 
 let screenWidth = UIScreen.main.bounds.width
@@ -28,7 +29,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
             // Adiciona o Delegate do Notification Center
             UNUserNotificationCenter.current().delegate = self
-
+        // Configurando as dicas do TipKit
+        if #available(iOS 17.0, *) {
+            Task {
+                try? Tips.configure()
+            }
+        }
             return true
         }
 
